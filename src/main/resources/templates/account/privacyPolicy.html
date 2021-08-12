@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport"
+          content="user-scalable=yes, initial-scale=1.0, width=device-width,target-densitydpi=medium-dpi"/>
+    <title>Flexer Server</title>
+    <style>
+    </style>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            position: relative;
+        }
+
+        div {
+            position: relative;
+        }
+
+        .gii-scaleX {
+            transform-origin: 0% 0%;
+            -ms-transform-origin: 0% 0%;
+            -webkit-transform-origin: 0% 0%;
+        }
+
+        @media screen and (max-width: 636px) {
+            .gii-scaleX {
+                transform: scaleX(0.8);
+                -ms-transform: scaleX(0.8);
+                -webkit-transform: scaleX(0.8);
+            }
+        }
+
+        @media screen and (max-width: 557px) {
+            .gii-scaleX {
+                transform: scaleX(0.7);
+                -ms-transform: scaleX(0.7);
+                -webkit-transform: scaleX(0.7);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .gii-scaleX {
+                transform: scaleX(0.6);
+                -ms-transform: scaleX(0.6);
+                -webkit-transform: scaleX(0.6);
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .gii-scaleX {
+                transform: scaleX(0.5);
+                -ms-transform: scaleX(0.5);
+                -webkit-transform: scaleX(0.5);
+            }
+        }
+
+        @media screen and (max-width: 320px) {
+            .gii-scaleX {
+                transform: scaleX(0.4);
+                -ms-transform: scaleX(0.4);
+                -webkit-transform: scaleX(0.4);
+            }
+        }
+
+        @media screen and (max-width: 239px) {
+            .gii-scaleX {
+                transform: scaleX(0.3);
+                -ms-transform: scaleX(0.3);
+                -webkit-transform: scaleX(0.3);
+            }
+        }
+
+        .gii-scale {
+            transform-origin: 0% 0%;
+            -webkit-transform-origin: 0% 0%;
+            -webkit-transform-origin: 0% 0%;
+        }
+
+        @media screen and (max-width: 636px) {
+            .gii-scale {
+                transform: scale(0.8);
+                -ms-transform: scale(0.8);
+                -webkit-transform: scale(0.8);
+            }
+        }
+
+        @media screen and (max-width: 557px) {
+            .gii-scale {
+                transform: scale(0.7);
+                -ms-transform: scale(0.7);
+                -webkit-transform: scale(0.7);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .gii-scale {
+                transform: scale(0.6);
+                -ms-transform: scale(0.6);
+                -webkit-transform: scale(0.6);
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .gii-scale {
+                transform: scale(0.5);
+                -ms-transform: scale(0.5);
+                -webkit-transform: scale(0.5);
+            }
+        }
+
+        @media screen and (max-width: 320px) {
+            .gii-scale {
+                transform: scale(0.4);
+                -ms-transform: scale(0.4);
+                -webkit-transform: scale(0.4);
+            }
+        }
+
+        @media screen and (max-width: 239px) {
+            .gii-scale {
+                transform: scale(0.3);
+                -ms-transform: scale(0.3);
+                -webkit-transform: scale(0.3);
+            }
+        }
+
+        .ps0 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps1 {
+            line-height: 160.00%;
+            text-align: center;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps2 {
+            line-height: 130.00%;
+            text-align: left;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps3 {
+            line-height: 130.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps4 {
+            line-height: 150.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps5 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps6 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps7 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps8 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps9 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps10 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps11 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps12 {
+            line-height: 160.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps13 {
+            line-height: 160.00%;
+            text-align: left;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps14 {
+            line-height: 160.00%;
+            text-align: left;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps15 {
+            line-height: 160.00%;
+            text-align: left;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps16 {
+            line-height: 160.00%;
+            text-align: left;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps17 {
+            line-height: 180.00%;
+            text-align: center;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps18 {
+            line-height: 100.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps19 {
+            line-height: 170.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps20 {
+            line-height: 150.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps21 {
+            line-height: 100.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps22 {
+            line-height: 100.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps23 {
+            line-height: 100.00%;
+            text-align: center;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps24 {
+            line-height: 100.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps25 {
+            line-height: 100.00%;
+            text-align: justify;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .ps26 {
+            line-height: 200.00%;
+            text-align: right;
+            text-indent: 0;
+            margin: 0;
+        }
+
+        .cs0 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: bold;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs1 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs2 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.10em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs3 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.06em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs4 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.09em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs5 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 7.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs6 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 28.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-decoration: underLine;
+            text-shadow: none;
+        }
+
+        .cs7 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 15.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs8 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 15.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: bold;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs9 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 10.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs10 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 14.00pt;
+            letter-spacing: -0.08em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs11 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 14.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs12 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 17.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: bold;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs13 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 20.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: bold;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs14 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.08em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs15 {
+            /* '굴림' */
+            font-family: 'HWPsansserif';
+            font-size: 12.00pt;
+            letter-spacing: -0.14em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs16 {
+            /* '함초롬바탕' */
+            font-family: 'HWPserif';
+            font-size: 10.00pt;
+            letter-spacing: 0.00em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs17 {
+            /* '함초롬돋움' */
+            font-family: 'HWPsansserif';
+            font-size: 10.00pt;
+            letter-spacing: 0.00em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs18 {
+            /* '함초롬돋움' */
+            font-family: 'HWPsansserif';
+            font-size: 9.00pt;
+            letter-spacing: 0.00em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs19 {
+            /* '함초롬바탕' */
+            font-family: 'HWPserif';
+            font-size: 9.00pt;
+            letter-spacing: 0.00em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs20 {
+            /* '함초롬돋움' */
+            font-family: 'HWPsansserif';
+            font-size: 9.00pt;
+            letter-spacing: -0.05em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .cs21 {
+            /* '함초롬돋움' */
+            font-family: 'HWPsansserif';
+            font-size: 16.00pt;
+            letter-spacing: 0.00em;
+            font-style: normal;
+            font-weight: normal;
+            color: #2E74B5;
+            text-shadow: none;
+        }
+
+        .cs22 {
+            /* '함초롬돋움' */
+            font-family: 'HWPsansserif';
+            font-size: 11.00pt;
+            letter-spacing: 0.00em;
+            font-style: normal;
+            font-weight: normal;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        div, p {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=);
+        }
+    </style>
+    <style>
+        v\:image {
+            behavior: url(#default#VML);
+            display: inline-block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        v\:imagedata {
+            behavior: url(#default#VML);
+        }
+
+        v\:stroke {
+            behavior: url(#default#VML);
+        }
+
+        v\:fill {
+            behavior: url(#default#VML);
+        }
+
+        v\:rect {
+            behavior: url(#default#VML);
+            display: inline-block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        v\:oval {
+            behavior: url(#default#VML);
+            display: inline-block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        v\:group {
+            behavior: url(#default#VML);
+            display: inline-block;
+        }
+
+        v\:polyline {
+            behavior: url(#default#VML);
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        v\:shape {
+            behavior: url(#default#VML);
+            display: inline-block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background: transparent;
+            width: 100%;
+            height: 100%;
+        }
+
+        v\:path {
+            behavior: url(#default#VML);
+            display: inline-block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        o\: * {
+            behavior: url(#default#VML);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body style=" padding:0; margin:auto; word-break:break-all; -webkit-text-size-adjust:none;">
+<div style="position:relative; max-width:481.90pt; margin:0 auto 0 auto; padding:0 4pt 0 4pt;">
+    <div style="position:relative; margin-top:56.69pt; margin-left:0pt; margin-bottom:42.51pt; width:100%; min-height:742.68pt; ">
+        <div name="header" style="width:100%; min-height:42.51pt; ">
+        </div>
+        <div name="FlexerServerView" style="position:relative; padding:0; margin:0; width:100%; min-height:657.66pt; ">
+            <p class="ps1 cs6" style="">개인정보 수집 및 활용 동의서</p>
+            <p class="ps18 cs7" style=""><br/></p>
+            <div class="ps18 cs7" style="">
+                <table style="width:99.33%;vertical-align:text-bottom; display:inline-block; margin-top:2.84pt; margin-right:0.00pt; margin-bottom:2.84pt; margin-left:0.00pt; z-index:0;">
+                    <colgroup>
+                        <col style="width:147.37pt;"/>
+                        <col style="width:331.32pt;"/>
+                    </colgroup>
+                    <tr>
+                        <td style=" border-top:solid #000000 1.51px; border-left:solid #000000 1.51px; border-right:double #000000 1.89px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt;z-index:-1; background-color:white; height:26.74pt;">
+                            <p class="ps17 cs0" style=" line-height:100%;">수집하는 개인정보</p>
+                        </td>
+                        <td style=" border-top:solid #000000 1.51px; border-left:double #000000 1.89px; border-right:solid #000000 1.51px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt; height:26.74pt;">
+                            <p class="ps19 cs1" style=" line-height:100%; margin:0.00pt 0.00% 0.00pt 1.63%;">
+                                - 가입자 이름, 연락처, 주소 등 인적사항</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style=" border-top:solid #000000 1.00px; border-left:solid #000000 1.51px; border-right:double #000000 1.89px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt;z-index:-1; background-color:white; height:78.01pt;">
+                            <p class="ps1 cs0" style="">개인정보의 </p>
+                            <p class="ps1 cs0" style="">수집 및 이용목적</p>
+                        </td>
+                        <td style=" border-top:solid #000000 1.00px; border-left:double #000000 1.89px; border-right:solid #000000 1.51px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt; height:78.01pt;">
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt 1.63%;"> - 주소지 조회 및 배달 주문을 위한 개인정보
+                                활용</p>
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt 1.63%;">- 배달 주문을 활용 하기 위한 개인정보 활용</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style=" border-top:solid #000000 1.00px; border-left:solid #000000 1.51px; border-right:double #000000 1.89px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt;z-index:-1; background-color:white; height:80.84pt;">
+                            <p class="ps1 cs0" style="">개인정보의 </p>
+                            <p class="ps1 cs0" style="">제3자 제공</p>
+                        </td>
+                        <td style=" border-top:solid #000000 1.00px; border-left:double #000000 1.89px; border-right:solid #000000 1.51px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt; height:80.84pt;">
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt 1.63%;">￭ 개인정보를 제공할 기관 </p>
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt 4.90%;">&#45;  배달업체</p>
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt 4.90%;">&#45;  본 사업과 관련된 기관 및 법인</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style=" border-top:solid #000000 1.00px; border-left:solid #000000 1.51px; border-right:double #000000 1.89px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt;z-index:-1; background-color:white; height:66.77pt;">
+                            <p class="ps1 cs0" style="">개인정보의 </p>
+                            <p class="ps1 cs0" style="">보유 및 이용기간</p>
+                        </td>
+                        <td style=" border-top:solid #000000 1.00px; border-left:double #000000 1.89px; border-right:solid #000000 1.51px; border-bottom:solid #000000 1.00px; padding:1.41pt 5.10pt; height:66.77pt;">
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt;">
+                                - 동의서 제출 후 1년까지 개인정보를 보유하고 이용합니다. </p>
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt;">- 개인정보는 소소한 부엌 배달 주문 서비스에 한하여
+                                사용됩니다.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style=" border-top:solid #000000 1.00px; border-left:solid #000000 1.51px; border-right:double #000000 1.89px; border-bottom:solid #000000 1.51px; padding:1.41pt 5.10pt;z-index:-1; background-color:white; height:108.00pt;">
+                            <p class="ps1 cs0" style="">개인정보 </p>
+                            <p class="ps1 cs0" style="">제공 동의 거부 및 </p>
+                            <p class="ps1 cs0" style="">제한사항</p>
+                        </td>
+                        <td style=" border-top:solid #000000 1.00px; border-left:double #000000 1.89px; border-right:solid #000000 1.51px; border-bottom:solid #000000 1.51px; padding:1.41pt 5.10pt; height:108.00pt;">
+                            <p class="ps20 cs1" style=" margin:0.00pt 0.00% 0.00pt">
+                                개인정보 제공 동의를 거부할 권리가 있습니다. 단, 개인정보 제공 동의 거부 시 사실확인 
+                                조회 어려움 발생 등으로 원할한 서비스가 불가능할 수 있습니다.</p>
+                            <p class="ps20 cs4" style=" margin:0.00pt 0.00% 0.00pt">
+                                ※ 제공된 개인정보의 이용을 거부하고자 할 경우에는 정정·삭제·파기를 요구할 수 있습니다.</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

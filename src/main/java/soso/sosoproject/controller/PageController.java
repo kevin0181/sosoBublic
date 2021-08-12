@@ -11,8 +11,4 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/signupPage")
-    public String signupPage() {
-        return "signupPage";
-    }
 }

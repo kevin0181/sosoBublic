@@ -2,3 +2,8 @@
     font-family: 'Nanum Pen Script', cursive;
     font-size: 50px;
 }
+
+.simple_btn{
+    text-decoration: none;
+    color: black;
+}

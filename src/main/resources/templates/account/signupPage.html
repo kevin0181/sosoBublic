@@ -26,9 +26,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 
     <!-- id and password form css		 -->
-    <link href="signin.css" th:href="@{/css/signin.css}" rel="stylesheet"/>
-    <link href="style.css" th:href="@{/css/main.css}" rel="stylesheet"/>
-    <link href="total.css" th:href="@{/css/total.css}" rel="stylesheet"/>
+    <link href="/css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet"/>
+    <link href="/css/style.css" th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link href="/css/total.css" th:href="@{/css/total.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -88,11 +88,20 @@
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
                     <label>
-                        <a href="#" th:href="@{/index}" class="login_btn">login</a>
+                        <a href="#" th:href="@{/account/login}" class="login_btn">login</a>
                     </label>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-                <p class="mt-5 mb-3 text-muted">0.0.1_version</p>
+                <div class="checkbox mt-5 mb-3">
+                    <div>
+                        <label>
+                            <input type="checkbox" value="remember-me"/> <a href="#"
+                                                                            th:href="@{/account/privacyPolicy}"
+                                                                            class="simple_btn" target="_blank">개인정보 활용
+                            동의</a>
+                        </label>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
