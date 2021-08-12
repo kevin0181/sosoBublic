@@ -33,7 +33,7 @@
 </head>
 <body>
 <div class="main_container text-center">
-    <div class="login_form">
+    <div class="sign_form">
         <div class="form-signin">
             <form class="">
                 <h1 class="h3 mb-5 fw-normal soso_font">소소한 부엌</h1>
@@ -41,33 +41,57 @@
                     <input
                             type="email"
                             class="form-control"
-                            id="floatingInput"
+                            id="email"
                             placeholder="name@example.com"
                     />
-                    <label for="floatingInput">Email</label>
+                    <label for="email">Email</label>
                 </div>
                 <div class="form-floating">
                     <input
                             type="password"
                             class="form-control"
-                            id="floatingPassword"
+                            id="password"
+                            name="password"
                             placeholder="Password"
-                            style="margin-bottom: 10px;"
                     />
-                    <label for="floatingPassword">Password</label>
+                    <label for="password">Password</label>
                 </div>
-
-                <div class="checkbox" style="height: 35px;">
-                    <div>
-                        <label>
-                            <input type="checkbox" value="remember-me"/> Remember me
-                        </label>
-                    </div>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="phoneNumber"
+                            placeholder="Name"
+                    />
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="address"
+                            name="address"
+                            placeholder="Address"
+                    />
+                    <label for="address">Address</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="tel"
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="Phone Number"
+                    />
+                    <label for="phoneNumber">Phone Number</label>
+                </div>
+                <div class="mb-4" style="margin-top: 3px;">
                     <label>
-                        <a href="#" th:href="@{/signupPage}" class="sign_btn">sign up</a>
+                        <a href="#" th:href="@{/index}" class="login_btn">login</a>
                     </label>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
                 <p class="mt-5 mb-3 text-muted">0.0.1_version</p>
             </form>
         </div>

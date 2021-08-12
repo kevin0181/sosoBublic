@@ -34,13 +34,17 @@ body {
     border-bottom-left-radius: 0;
 }
 
-.form-signin input[type='password'] {
-    margin-bottom: 10px;
+.form-signin input[type='password'], [type='text'] {
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+
+.form-signin input[type='tel'] {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-.remember-me{
+.remember-me {
     /*position:*/
 }
 
@@ -52,9 +56,20 @@ body {
     text-decoration: none;
     color: black;
     position: relative;
-    top: -30px;
+    top: -33px;
     left: 170px;
 }
+
+.login_btn {
+    text-decoration: none;
+    color: black;
+    margin-left: 350px;
+}
+
+.sign_form {
+    margin-top: 80px;
+}
+
 
 
 
