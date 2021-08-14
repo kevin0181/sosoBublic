@@ -1,9 +1,9 @@
-.soso_font {
-    font-family: 'Nanum Pen Script', cursive;
-    font-size: 50px;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.simple_btn{
+.simple_btn {
     text-decoration: none;
     color: black;
 }

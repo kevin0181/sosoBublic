@@ -1,0 +1,151 @@
+html,
+body {
+    height: 100%;
+}
+
+/*body {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    padding-top: 40px;*/
+/*    padding-bottom: 40px;*/
+/*    background-color: #f5f5f5;*/
+/*}*/
+
+.form-signin {
+    width: 100%;
+    max-width: 500px;
+    padding: 50px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type='email'] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type='password'], [type='text'] {
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+
+.form-signin input[type='tel'] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.remember-me {
+    /*position:*/
+}
+
+.login_form {
+    position: relative;
+    top: 14%;
+}
+
+.sign_btn {
+    position: relative;
+    top: -33px;
+    left: 43%;
+}
+
+.sign_btn > a {
+    text-decoration: none;
+    color: black;
+}
+
+.login_btn {
+    text-decoration: none;
+    color: black;
+    margin-left: 88%;
+}
+
+.soso_font {
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 50px;
+    margin-bottom: 48px;
+}
+
+
+/* 로그인 반응형*/
+
+
+@media (max-width: 535px) {
+
+    .form-signin {
+        width: 80%;
+        padding: 40px;
+    }
+
+    .soso_font {
+        font-size: 45px;
+        margin-bottom: 16px;
+    }
+
+    .sign_btn {
+        font-size: 13px;
+    }
+
+    .remember_btn {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 350px) {
+    .sign_btn {
+        font-size: 12px;
+    }
+
+    .remember_btn {
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
+    .sign_btn {
+        position: relative;
+        top: -42px;
+        left: 38%;
+    }
+}
+
+
+/*회원가입*/
+.sign_form {
+    position: relative;
+    top: 7%;
+}
+
+
+/*회원가입 반응형*/
+@media (max-width: 350px) {
+    .policy_btn {
+        font-size: 13px;
+    }
+
+    .login_btn {
+        font-size: 13px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

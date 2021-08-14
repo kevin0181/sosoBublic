@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--반응형-->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- bootstrap -->
     <link
@@ -26,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 
     <!-- id and password form css		 -->
-    <link href="/css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet"/>
+    <link href="/static/css/sign.css" th:href="@{/css/sign.css}" rel="stylesheet"/>
     <link href="/css/style.css" th:href="@{/css/main.css}" rel="stylesheet"/>
     <link href="/css/total.css" th:href="@{/css/total.css}" rel="stylesheet"/>
 
@@ -36,7 +39,7 @@
     <div class="sign_form">
         <div class="form-signin">
             <form class="">
-                <h1 class="h3 mb-5 fw-normal soso_font">소소한 부엌</h1>
+                <h1 class="h3 fw-normal soso_font">소소한 부엌</h1>
                 <div class="form-floating">
                     <input
                             type="email"
@@ -87,8 +90,8 @@
                     <label for="phoneNumber">Phone Number</label>
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
-                    <label>
-                        <a href="#" th:href="@{/account/login}" class="login_btn">login</a>
+                    <label class="login_btn">
+                        <a href="#" th:href="@{/account/login}" class="simple_btn">login</a>
                     </label>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
@@ -97,7 +100,8 @@
                         <label>
                             <input type="checkbox" value="remember-me"/> <a href="#"
                                                                             th:href="@{/account/privacyPolicy}"
-                                                                            class="simple_btn" target="_blank">개인정보 활용
+                                                                            class="simple_btn policy_btn"
+                                                                            target="_blank">개인정보 활용
                             동의</a>
                         </label>
                     </div>

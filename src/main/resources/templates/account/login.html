@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--반응형-->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- bootstrap -->
     <link
@@ -26,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 
     <!-- id and password form css		 -->
-    <link href="signin.css" th:href="@{/css/signin.css}" rel="stylesheet"/>
+    <link href="signin.css" th:href="@{/css/sign.css}" rel="stylesheet"/>
     <link href="style.css" th:href="@{/css/main.css}" rel="stylesheet"/>
     <link href="total.css" th:href="@{/css/total.css}" rel="stylesheet"/>
 
@@ -36,7 +39,7 @@
     <div class="login_form">
         <div class="form-signin">
             <form class="">
-                <h1 class="h3 mb-5 fw-normal soso_font">소소한 부엌</h1>
+                <h1 class="h3 fw-normal soso_font">소소한 부엌</h1>
                 <div class="form-floating">
                     <input
                             type="email"
@@ -52,19 +55,19 @@
                             class="form-control"
                             id="floatingPassword"
                             placeholder="Password"
-                            style="margin-bottom: 10px;"
+                            style="margin-bottom: 10px; border-radius: .25rem;"
                     />
                     <label for="floatingPassword">Password</label>
                 </div>
 
                 <div class="checkbox" style="height: 35px;">
                     <div>
-                        <label>
+                        <label class="remember_btn">
                             <input type="checkbox" value="remember-me"/> Remember me
                         </label>
                     </div>
-                    <label>
-                        <a href="#" th:href="@{/account/signupPage}" class="sign_btn">sign up</a>
+                    <label class="sign_btn">
+                        <a href="#" th:href="@{/account/signupPage}" class="simple_btn">sign up</a>
                     </label>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
