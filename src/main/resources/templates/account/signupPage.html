@@ -1,45 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!--반응형-->
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!-- bootstrap -->
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-            crossorigin="anonymous"
-    />
-    <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
-            integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
-            crossorigin="anonymous"
-    ></script>
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
-            integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
-            crossorigin="anonymous"
-    ></script>
-
-    <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-
-    <!-- id and password form css		 -->
-    <link href="/static/css/sign.css" th:href="@{/css/sign.css}" rel="stylesheet"/>
-    <link href="/css/style.css" th:href="@{/css/main.css}" rel="stylesheet"/>
-    <link href="/css/total.css" th:href="@{/css/total.css}" rel="stylesheet"/>
-
+<head th:replace="/account/fragment/all_tag.html :: all">
+    <title>soso_signup</title>
 </head>
 <body>
 <div class="main_container text-center">
     <div class="sign_form">
         <div class="form-signin">
             <form class="">
-                <h1 class="h3 fw-normal soso_font">소소한 부엌</h1>
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/index}">소소한 부엌</a></h1>
                 <div class="form-floating">
                     <input
                             type="email"
