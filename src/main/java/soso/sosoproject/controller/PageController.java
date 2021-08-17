@@ -26,6 +26,10 @@ public class PageController {
         return "about";
     }
 
+    @GetMapping("/blog-single")
+    public String blogSingle() {
+        return "blog-single";
+    }
 
     //그냥 만들어둠 나중에 쓸꺼같아서
     @GetMapping("/elements")

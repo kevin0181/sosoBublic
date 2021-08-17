@@ -1982,7 +1982,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #header.header-scrolled {
     transition: all 0.5s;
-    background-color: rgba(34, 34, 34, 0.9)
+    background-color: #597b59;
 }
 
 #header.header-scrolled .header-top {
@@ -2065,7 +2065,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-menu li:hover > a {
-    color: #f42f2c
+    color: #c2f6d0;
 }
 
 .nav-menu > li {
@@ -2475,7 +2475,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .menu-area .filters li.active {
     color: #fff;
-    background: #f42f2c
+    background: #597b59;
 }
 
 .menu-area .filters-content {
@@ -2534,15 +2534,16 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .single-menu .price {
-    color: #f42f2c
+    color: #597b59;
 }
 
 .reservation-area {
-    background: url(../img/reservation-bg.jpg) no-repeat center/cover
+    /*background: url(../img/reservation-bg.jpg) no-repeat center/cover;*/
 }
 
 .reservation-area .overlay-bg {
-    background: rgba(17, 22, 24, 0.75)
+    background-color: #597b59;
+    opacity: 0.9;
 }
 
 .reservation-area .reservation-right, .reservation-area .reservation-left {
@@ -2860,7 +2861,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .single-blog .date {
-    background-color: #000;
+    background-color: #597b59;
     color: #fff;
     font-weight: 100;
     padding: 2px 15px;
@@ -3884,7 +3885,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .footer-area .genric-btn {
-    background: #f42f2c;
+    background: #3ea99d;
     border: none;
     border-radius: 57px;
     height: 36px;
@@ -3914,8 +3915,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .footer-widget-wrap {
-    background: #f42f2c;
-    color: #fff
+    background-color: #597b59;
+    opacity: 0.9;
+    color: white;
 }
 
 @media (max-width: 991px) {

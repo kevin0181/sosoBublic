@@ -11,7 +11,11 @@ body {
 
 .main_font {
     color: white;
-    font-size: 80px;
+    font-size: 70px;
+}
+
+.main_font:hover {
+    color: white;
 }
 
 .a_top_btn {
@@ -24,3 +28,31 @@ body {
     text-transform: uppercase;
     outline: none;
 }
+
+.head {
+    background-color: #597b59;
+    opacity: 0.9;
+}
+
+.green_btn {
+    background-color: #597b59;
+    border-color: #597b59;
+    color: white;
+}
+
+.green_btn:hover {
+    color: white;
+}
+
+.custom-fa {
+    border-radius: 10px;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: #3ea99d;
+    color: #fff;
+}
+
+

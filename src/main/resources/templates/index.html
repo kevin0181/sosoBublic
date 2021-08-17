@@ -9,349 +9,44 @@
     ============================================= -->
     <div th:replace="/fragment/css_link.html :: css_link"></div>
 
-    <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 </head>
 <body>
-<header id="header" th:replace="/fragment/header.html :: main_header">
+<header id="header" th:replace="/fragment/main_fragment.html :: main_header">
 
 
 </header><!-- #header -->
 
 <!-- start banner Area -->
-<section class="banner-area">
-    <div class="container">
-        <div class="row fullscreen align-items-center justify-content-between">
-            <div class="col-lg-12 banner-content">
-                <h6 class="text-white">헤헤헤헿</h6>
-                <h1 class="fw-normal soso_font"><a class="simple_btn main_font" th:href="@{/index}">소소한 부엌</a></h1>
-                <p class="text-white">
-                    집가고싶다 집가고싶다고 제발 집보내주세요 짜증나 죽을꺼같으니깐 하
-                </p>
-                <a href="#" class="btn btn-light text-uppercase">Order</a>
-            </div>
-        </div>
-    </div>
+<section class="banner-area" th:replace="/fragment/main_fragment.html :: banner_section">
 </section>
 <!-- End banner Area -->
 
 <!-- Start home-about Area -->
-<section class="home-about-area section-gap">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 home-about-left">
-                <h1>today menu</h1>
-                <p>
-                    연어초밥, 돈까스, 햄버거 먹고싶다 짜장면.. 하 배고파; 새우먹고싶다;
-                </p>
-                <a href="#" class="primary-btn">view this menu</a>
-            </div>
-            <div class="col-lg-6 home-about-right">
-                <img class="img-fluid" src="img/about-img.jpg" alt="">
-            </div>
-        </div>
-    </div>
+<section class="home-about-area section-gap" th:replace="/fragment/main_fragment.html :: home_section">
 </section>
 <!-- End home-about Area -->
 
 <!-- Start menu-area Area -->
-<section class="menu-area section-gap" id="menu">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">Order Menu</h1>
-                    <p>자자 싸게팝니다~ 빠르게 하나씩 고르세용~><</p>
-                </div>
-            </div>
-        </div>
-
-        <ul class="filter-wrap filters col-lg-12 no-padding">
-            <li class="active" data-filter="*">All Menu</li>
-            <li data-filter=".breakfast">Breakfast</li>
-            <li data-filter=".lunch">Lunch</li>
-            <li data-filter=".dinner">Dinner</li>
-            <li data-filter=".budget-meal">Budget Meal</li>
-            <li data-filter=".buffet">Buffet</li>
-        </ul>
-
-        <div class="filters-content">
-            <div class="row grid">
-                <div class="col-md-6 all breakfast">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Cappuccion</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all dinner">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Americano</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all budget-meal">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Macchiato</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all breakfast">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Mocha</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all lunch">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Piccolo Latte</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all buffet">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Ristretto</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+<section class="menu-area section-gap" id="menu" th:replace="/fragment/main_fragment.html :: menu_section">
 </section>
 <!-- End menu-area Area -->
 
-<!-- Start reservation Area -->
-<section class="reservation-area section-gap relative">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-6 reservation-left">
-                <h1 class="text-white">Order Page</h1>
-                <p class="text-white pt-20">
-                    주문할꺼면 하나씩해라 화나게하지말고
-                </p>
-            </div>
-            <div class="col-lg-5 reservation-right">
-                <form class="form-wrap text-center" action="#">
-                    <input type="text" class="form-control" name="name" placeholder="Your Name"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email Address"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
-                    <input type="text" class="form-control" name="phone" placeholder="Phone Number"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-                    <input type="text" class="form-control date-picker" name="date" placeholder="Select Date & time"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Select Date & time'">
-                    <div class="form-select" id="service-select">
-                        <select>
-                            <option data-display="">Select Event</option>
-                            <option value="1">Event One</option>
-                            <option value="2">Event Two</option>
-                            <option value="3">Event Three</option>
-                            <option value="4">Event Four</option>
-                        </select>
-                    </div>
-                    <button class="primary-btn text-uppercase mt-20">Order</button>
-                </form>
-            </div>
-        </div>
-    </div>
+<!-- Start order Area -->
+<section class="reservation-area section-gap relative" th:replace="/fragment/main_fragment.html :: order_section">
 </section>
 <!-- End reservation Area -->
 
 
-<!-- Start blog Area -->
-<section class="blog-area section-gap" id="blog">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                    <h1 class="mb-10">soso Blog</h1>
-                    <p>인생이 서글프다 ㅋ</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/b1.jpg" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>Cooking Perfect Fried Rice
-                    in minutes</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/b2.jpg" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>Secret of making Heart
-                    Shaped eggs</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/b3.jpg" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>How to check steak if
-                    it is tender or not</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" src="img/b4.jpg" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>Seaseme and black seed
-                    Flavored Bun Rocks</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Start menuReview Area -->
+<section class="blog-area section-gap" id="blog" th:replace="/fragment/main_fragment.html :: menuReview_section">
 </section>
 <!-- End blog Area -->
 
 <!-- start footer Area -->
-<footer class="footer-area">
-    <div class="footer-widget-wrap">
-        <div class="container">
-            <div class="row section-gap">
-                <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h4>Opening Hours</h4>
-                        <ul class="hr-list">
-                            <li class="d-flex justify-content-between">
-                                <span>Monday - Friday</span> <span>08.00 am - 10.00 pm</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <span>Saturday</span> <span>08.00 am - 10.00 pm</span>
-                            </li>
-                            <li class="d-flex justify-content-between">
-                                <span>Sunday</span> <span>08.00 am - 10.00 pm</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h4>Contact Us</h4>
-                        <p>
-                            56/8, los angeles, rochy beach, Santa monica, United states of america - 1205
-                        </p>
-                        <p class="number">
-                            012-6532-568-9746 <br>
-                            012-6532-569-9748
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h4>Newsletter</h4>
-                        <p>You can trust us. we only send promo offers, not a single spam.</p>
-                        <div class="d-flex flex-row" id="mc_embed_signup">
-
-
-                            <form class="navbar-form"
-                                  action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                  method="get">
-                                <div class="input-group add-on align-items-center d-flex">
-                                    <input class="form-control" name="EMAIL" placeholder="Your Email address"
-                                           onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = 'Your Email address'" required="" type="email">
-                                    <div style="position: absolute; left: -5000px;">
-                                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
-                                               type="text">
-                                    </div>
-                                    <div class="input-group-btn">
-                                        <button class="genric-btn"><span class="lnr lnr-arrow-right"></span></button>
-                                    </div>
-                                </div>
-                                <div class="info mt-20"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom-wrap">
-        <div class="container">
-            <div class="row footer-bottom d-flex justify-content-between align-items-center">
-                <p class="col-lg-8 col-mdcol-sm-6 -6 footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                    All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                        href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a
-                        href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                <ul class="col-lg-4 col-mdcol-sm-6 -6 social-icons text-right">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<footer class="footer-area" th:replace="/fragment/main_fragment.html :: footer">
 </footer>
 <!-- End footer Area -->
+
 <div th:replace="/fragment/script_src.html :: script"></div>
 </body>
 </html>
