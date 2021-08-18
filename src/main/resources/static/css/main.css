@@ -4,7 +4,7 @@
 }
 
 ::selection {
-    background-color: #f42f2c;
+    background-color: #439861;
     color: #fff
 }
 
@@ -2326,7 +2326,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .banner-area {
-    background: url(../img/hero-bg.jpg) center center/cover;
+    background: center center/cover;
     background-size: cover
 }
 
@@ -2882,7 +2882,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .about-banner {
-    background: url(../img/top-banner.jpg) no-repeat bottom right/cover;
+    background: no-repeat bottom right/cover;
     background-size: cover
 }
 

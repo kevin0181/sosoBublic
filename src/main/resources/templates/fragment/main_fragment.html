@@ -25,7 +25,7 @@
                 <ul class="nav-menu">
                     <li><a href="index.html" th:href="@{/index}">Home</a></li>
                     <li><a href="menu.html" th:href="@{/menu}">Menu & Order</a></li>
-                    <li class="menu-has-children"><a href="blog-home.html" th:href="@{/blog}">Blog</a>
+                    <li class="menu-has-children"><a href="#">Blog</a>
                     </li>
                     <!-- <li><a href="elements.html">Elements</a></li> -->
                     </li>
@@ -40,6 +40,7 @@
 
 <!-- start banner Area -->
 <section class="banner-area" th:fragment="banner_section">
+    <img th:src="@{/img/salf_img/main_img2.jpg}" class="main_img">
     <div class="container">
         <div class="row fullscreen align-items-center justify-content-between">
             <div class="col-lg-12 banner-content">

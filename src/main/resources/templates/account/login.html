@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/account/fragment/all_tag.html :: all">
-<title>soso_login</title>
+    <title>soso_login</title>
 </head>
 <body>
 <div class="main_container text-center">
@@ -24,7 +24,7 @@
                             class="form-control"
                             id="floatingPassword"
                             placeholder="Password"
-                            style="margin-bottom: 10px; border-radius: .25rem;"
+                            style="margin-bottom: 10px; border-radius: 0 0 .25rem .25rem;"
                     />
                     <label for="floatingPassword">Password</label>
                 </div>
@@ -39,7 +39,8 @@
                         <a href="#" th:href="@{/account/signupPage}" class="simple_btn">sign up</a>
                     </label>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;" type="submit">Sign in
+                </button>
                 <p class="mt-5 mb-3 text-muted">0.0.1_version</p>
             </form>
         </div>
