@@ -12,8 +12,7 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/account/**", "/about", "/menu", "/css2/**", "/css/**",
-                        "/fonts/**", "/img/**", "/js/**", "/Marco - Doc/**", "/scss/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -22,8 +21,9 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-//
-//        "/", "/index", "/account/**", "/css2/**", "/css/**",
+
+
+//        "/", "/index", "/account/**", "/about", "/menu", "/css2/**", "/css/**",
 //                "/fonts/**", "/img/**", "/js/**", "/Marco - Doc/**", "/scss/**"
 
 

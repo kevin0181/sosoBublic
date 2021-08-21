@@ -203,7 +203,7 @@ $(document).ready(function() {
 
         // Account for home page with empty path
         if (path == '') {
-            path = 'index.html';
+            path = 'admin_index.html';
         }
 
         var target = $('nav a[href="' + path + '"]');
