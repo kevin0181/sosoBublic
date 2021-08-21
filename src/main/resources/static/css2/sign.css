@@ -117,6 +117,18 @@ body {
         top: -42px;
         left: 38%;
     }
+
+    .form-signin {
+        width: 80%;
+        padding: 40px;
+        margin-top: 0px;
+        font-size: 13px;
+    }
+
+    .label-email {
+        left: -7px;
+    }
+
 }
 
 

@@ -7,5 +7,5 @@ function emailCheck() {
 }
 
 function same_check() {
-    alert("인증좀 하세용!!")
+    alert("인증좀 하세용!!");
 }

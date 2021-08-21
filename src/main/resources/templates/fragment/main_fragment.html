@@ -40,16 +40,18 @@
 
 <!-- start banner Area -->
 <section class="banner-area" th:fragment="banner_section">
-    <img th:src="@{/img/salf_img/main_img2.jpg}" class="main_img">
-    <div class="container">
-        <div class="row fullscreen align-items-center justify-content-between">
-            <div class="col-lg-12 banner-content">
-                <h6 class="text-white">헤헤헤헿</h6>
-                <h1 class="fw-normal soso_font"><a class="simple_btn main_font" th:href="@{/index}">소소한 부엌</a></h1>
-                <p class="text-white">
-                    집가고싶다 집가고싶다고 제발 집보내주세요 짜증나 죽을꺼같으니깐 하
-                </p>
-                <a href="#" th:href="@{/menu}" class="btn green_btn text-uppercase ">Order</a>
+    <div style="background-color: #4d6957;">
+        <img th:src="@{/img/salf_img/main_img2.jpg}" class="main_img" style="z-index: -1">
+        <div class="container">
+            <div class="row fullscreen align-items-center justify-content-between">
+                <div class="col-lg-12 banner-content">
+                    <!--                <h6 class="text-white">헤헤헤헿</h6>-->
+                    <h1 class="fw-normal soso_font"><a class="simple_btn main_font" th:href="@{/index}">소소한 부엌</a></h1>
+                    <p class="text-white">
+                        집가고싶다 집가고싶다고 제발 집보내주세요 짜증나 죽을꺼같으니깐 하
+                    </p>
+                    <a href="#" th:href="@{/menu}" class="btn green_btn text-uppercase ">Order</a>
+                </div>
             </div>
         </div>
     </div>
@@ -101,14 +103,12 @@
         <div class="filters-content">
             <div class="row grid">
                 <div class="col-md-6 all breakfast">
-                    <div class="single-menu">
+                    <div class="single-menu" style="text-align: center;">
                         <div class="title-wrap d-flex justify-content-between">
                             <h4>Cappuccion</h4>
                             <h4 class="price">$49</h4>
                         </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
+                        <img th:src="@{/img/b1.jpg}" style="border-radius: 20px;">
                     </div>
                 </div>
                 <div class="col-md-6 all dinner">
