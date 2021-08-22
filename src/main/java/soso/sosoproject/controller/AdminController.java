@@ -110,4 +110,20 @@ public class AdminController {
         return "admin/ui-file-uploader";
     }
 
+
+    //auth
+    @GetMapping("/auth/login")
+    public String authLogin() {
+        return "admin/auth-login";
+    }
+
+    @GetMapping("/auth/register")
+    public String authRegister() {
+        return "admin/auth-register";
+    }
+
+    @GetMapping("/auth/password")
+    public String authPassword() {
+        return "admin/auth-forgot-password";
+    }
 }

@@ -3,38 +3,42 @@
 <head th:replace="/account/fragment/all_tag.html :: all">
     <title>soso_signup</title>
 </head>
-<body class="main_container" style="height: 110%">
+<body class="main_container">
 <div class="text-center" style="margin-top: 5%">
     <div class="">
         <div class="form-signin">
-            <form class="">
+            <form class="" th:action="@{/account/signup/member}" method="post" th:object="${signupDTO}">
                 <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/index}">소소한 부엌</a></h1>
                 <div class="form-floating">
                     <input
                             type="email"
                             class="form-control sign_up_input"
                             id="email"
+                            name="member_email"
                             placeholder="name@example.com"
                             style="border-radius: .25rem"
                     />
                     <label for="email">Email</label>
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_email')}"
+                         th:errors="*{member_email}" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 </div>
-                <div class="form-floating" id="email_check" style="display: none;">
-                    <input
-                            type="text"
-                            class="form-control sign_up_input"
-                            id=""
-                            placeholder="name@example.com"
-                            style="border-radius: 0 0 .25rem .25rem"
-                    />
-                    <label for="email_check" class="label-email">Check Email Number</label>
-                </div>
+                <!--                <div class="form-floating" id="email_check" style="display: none;">-->
+                <!--                    <input-->
+                <!--                            type="text"-->
+                <!--                            class="form-control sign_up_input"-->
+                <!--                            id=""-->
+                <!--                            placeholder="name@example.com"-->
+                <!--                            style="border-radius: 0 0 .25rem .25rem"-->
+                <!--                    />-->
+                <!--                    <label for="email_check" class="label-email">Check Email Number</label>-->
+                <!--                </div>-->
                 <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
                     <label class="btn btn-outline-primary"
                            style="background-color: #5c9b73; border-color: #5c9b73; color:white;" onclick="same_check()"
                            for="btnradio1">중복 검사</label>
-
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
                            onclick="emailCheck()">
                     <label class="btn btn-outline-primary" for="btnradio3"
@@ -45,41 +49,57 @@
                             type="password"
                             class="form-control"
                             id="password"
-                            name="password"
+                            name="member_password"
                             placeholder="Password"
                             style="border-radius: .25rem .25rem 0 0;"
                     />
                     <label for="password">Password</label>
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_password')}"
+                         th:errors="*{member_password}" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
                             type="text"
                             class="form-control"
                             id="name"
-                            name="name"
+                            name="member_name"
                             placeholder="Name"
                     />
                     <label for="name">Name</label>
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_name')}"
+                         th:errors="*{member_name}" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
                             type="text"
                             class="form-control"
                             id="address"
-                            name="address"
+                            name="member_address"
                             placeholder="Address"
                     />
                     <label for="address">Address</label>
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_address')}"
+                         th:errors="*{member_address}" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
                             type="tel"
                             class="form-control"
                             id="phoneNumber"
-                            name="phoneNumber"
+                            name="member_phonenumber"
                             placeholder="Phone Number"
                     />
                     <label for="phoneNumber">Phone Number</label>
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_phonenumber')}"
+                         th:errors="*{member_phonenumber}" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
                     <label class="login_btn">

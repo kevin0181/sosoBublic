@@ -138,6 +138,10 @@ body {
     top: 7%;
 }
 
+.main_container{
+    height: 130%;
+}
+
 
 /*회원가입 반응형*/
 @media (max-width: 350px) {
@@ -147,6 +151,12 @@ body {
 
     .login_btn {
         font-size: 13px;
+    }
+}
+
+@media (max-height: 700px) {
+    .main_container {
+        height: 150%;
     }
 }
 
