@@ -1,12 +1,12 @@
 package soso.sosoproject.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import soso.sosoproject.dto.SignupDTO;
+import soso.sosoproject.dto.MemberDTO;
 
-import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<SignupDTO, Long> {
-    Optional<SignupDTO> findByMember_email(String member_email);
+public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
+//    MemberDTO findByEmail(String member_email);
 }

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/account/fragment/all_tag.html :: all">
+<head th:replace="/user/account/fragment/all_tag.html :: all">
     <title>soso_login</title>
 </head>
 <body>
 <div class="main_container text-center">
     <div class="login_form">
         <div class="form-signin">
-            <form class="">
-                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/index}">소소한 부엌</a></h1>
+            <form class="" th:action="@{/user/account/login}" method="post">
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
+                </h1>
                 <div class="form-floating">
                     <input
                             type="email"
                             class="form-control"
                             id="email"
-                            name="member_email"
+                            name="username"
                             placeholder="name@example.com"
                     />
                     <label for="email">Email</label>
@@ -38,7 +39,7 @@
                         </label>
                     </div>
                     <label class="sign_btn">
-                        <a href="#" th:href="@{/account/signupPage}" class="simple_btn">sign up</a>
+                        <a href="#" th:href="@{/user/account/signupPage}" class="simple_btn">sign up</a>
                     </label>
                 </div>
                 <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;" type="submit">Sign in

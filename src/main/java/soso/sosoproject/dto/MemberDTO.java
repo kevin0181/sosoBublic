@@ -6,18 +6,19 @@ import soso.sosoproject.dto.pk.MemberTablePk;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
 @Entity(name = "member")
-@IdClass(MemberTablePk.class)
-public class SignupDTO {
+//@IdClass(MemberTablePk.class)
+public class MemberDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_sq;
 
-    @Id
     @Column(nullable = false, length = 80)
     @NotEmpty(message = "이메일을 입력해주세요.")
     @Size(min = 5, max = 80, message = "5 ~ 80자 아래로 적어주세요.")
@@ -42,7 +43,13 @@ public class SignupDTO {
     @Size(min = 5, max = 12, message = "형식에 맞는 번호를 적어주세요.")
     private String member_phonenumber;
 
-    @Column
-    private Long member_role_sq;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "member_role",
+            joinColumns = @JoinColumn(name = "member_sq"),
+            inverseJoinColumns = @JoinColumn(name = "role_sq")
+    )
+    private Set<RoleDTO> role = new HashSet<>();
+
 
 }

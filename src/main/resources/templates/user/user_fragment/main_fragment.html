@@ -7,14 +7,14 @@
 
 <header th:fragment="main_header" id="header" class="head">
     <div style="text-align: right;">
-        <a class="a_top_btn" style="color:white;" th:href="@{/account/login}">login</a>
-        <a class="a_top_btn" style="color:white;" th:href="@{/account/signupPage}">sign up</a>
+        <a class="a_top_btn" style="color:white;" th:href="@{/user/account/login}">login</a>
+        <a class="a_top_btn" style="color:white;" th:href="@{/user/account/signupPage}">sign up</a>
     </div>
     <div class="header-top">
         <div class="container">
             <div class="row justify-content-center">
                 <div id="logo">
-                    <a href="index.html"><img src="img/logo.png" alt="" title=""/></a>
+                    <a href="index.html"><img src="../../../static/img/logo.png" alt="" title=""/></a>
                 </div>
             </div>
         </div>
@@ -23,13 +23,13 @@
         <div class="row align-items-center justify-content-center d-flex">
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li><a href="index.html" th:href="@{/index}">Home</a></li>
-                    <li><a href="menu.html" th:href="@{/menu}">Menu & Order</a></li>
+                    <li><a href="index.html" th:href="@{/user/index}">Home</a></li>
+                    <li><a href="menu.html" th:href="@{/user/menu}">Menu & Order</a></li>
                     <li class="menu-has-children"><a href="#">Blog</a>
                     </li>
                     <!-- <li><a href="elements.html">Elements</a></li> -->
                     </li>
-                    <li><a href="contact.html" th:href="@{/about}">About</a></li>
+                    <li><a href="contact.html" th:href="@{/user/about}">About</a></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
 
@@ -46,11 +46,11 @@
             <div class="row fullscreen align-items-center justify-content-between">
                 <div class="col-lg-12 banner-content">
                     <!--                <h6 class="text-white">헤헤헤헿</h6>-->
-                    <h1 class="fw-normal soso_font"><a class="simple_btn main_font" th:href="@{/index}">소소한 부엌</a></h1>
+                    <h1 class="fw-normal soso_font"><a class="simple_btn main_font" th:href="@{/user/index}">소소한 부엌</a></h1>
                     <p class="text-white">
                         집가고싶다 집가고싶다고 제발 집보내주세요 짜증나 죽을꺼같으니깐 하
                     </p>
-                    <a href="#" th:href="@{/menu}" class="btn green_btn text-uppercase ">Order</a>
+                    <a href="#" th:href="@{/user/menu}" class="btn green_btn text-uppercase ">Order</a>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
                 <a href="#" class="green_btn primary-btn">view this menu</a>
             </div>
             <div class="col-lg-6 home-about-right">
-                <img class="img-fluid" src="img/about-img.jpg" alt="">
+                <img class="img-fluid" src="../../../static/img/about-img.jpg" th:src="@{/img/about-img.jpg}" alt="">
             </div>
         </div>
     </div>
@@ -227,10 +227,10 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
                 <div class="thumb">
-                    <img class="img-fluid" src="img/b1.jpg" alt="">
+                    <img class="img-fluid" src="../../../static/img/b1.jpg" alt="">
                 </div>
                 <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html" th:href="@{/blog-single}"><h4>Cooking Perfect Fried Rice
+                <a href="blog-single.html" th:href="@{/user/blog-single}"><h4>Cooking Perfect Fried Rice
                     in minutes</h4></a>
                 <p>
                     inappropriate behavior ipsum dolor sit amet, consectetur.
@@ -242,7 +242,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
                 <div class="thumb">
-                    <img class="img-fluid" src="img/b2.jpg" alt="">
+                    <img class="img-fluid" src="../../../static/img/b2.jpg" alt="">
                 </div>
                 <p class="date">10 Jan 2018</p>
                 <a href="blog-single.html"><h4>Secret of making Heart
@@ -257,7 +257,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
                 <div class="thumb">
-                    <img class="img-fluid" src="img/b3.jpg" alt="">
+                    <img class="img-fluid" src="../../../static/img/b3.jpg" alt="">
                 </div>
                 <p class="date">10 Jan 2018</p>
                 <a href="blog-single.html"><h4>How to check steak if
@@ -272,7 +272,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
                 <div class="thumb">
-                    <img class="img-fluid" src="img/b4.jpg" alt="">
+                    <img class="img-fluid" src="../../../static/img/b4.jpg" alt="">
                 </div>
                 <p class="date">10 Jan 2018</p>
                 <a href="blog-single.html"><h4>Seaseme and black seed

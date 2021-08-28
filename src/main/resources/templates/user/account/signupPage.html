@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/account/fragment/all_tag.html :: all">
+<head th:replace="/user/account/fragment/all_tag.html :: all">
     <title>soso_signup</title>
 </head>
 <body class="main_container">
 <div class="text-center" style="margin-top: 5%">
     <div class="">
         <div class="form-signin">
-            <form class="" th:action="@{/account/signup/member}" method="post" th:object="${signupDTO}">
-                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/index}">소소한 부엌</a></h1>
+            <form class="" th:action="@{/user/account/signup}" method="post" th:object="${memberDTO}">
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a></h1>
                 <div class="form-floating">
                     <input
                             type="email"
@@ -103,7 +103,7 @@
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
                     <label class="login_btn">
-                        <a href="#" th:href="@{/account/login}" class="simple_btn">login</a>
+                        <a href="#" th:href="@{/user/account/login}" class="simple_btn">login</a>
                     </label>
                 </div>
                 <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;" type="submit">Sign up
@@ -112,7 +112,7 @@
                     <div>
                         <label>
                             <input type="checkbox" value="remember-me"/> <a href="#"
-                                                                            th:href="@{/account/privacyPolicy}"
+                                                                            th:href="@{/user/account/privacyPolicy}"
                                                                             class="simple_btn policy_btn"
                                                                             target="_blank">개인정보 활용
                             동의</a>
@@ -123,6 +123,6 @@
         </div>
     </div>
 </div>
-<script src="js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
+<script src="../../../static/js/main.js" th:src="@{/static/js/mine/signup_script.js}"></script>
 </body>
 </html>
