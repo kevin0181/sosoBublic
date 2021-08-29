@@ -7,7 +7,7 @@
 <div class="text-center" style="margin-top: 5%">
     <div class="">
         <div class="form-signin">
-            <form class="" th:action="@{/user/account/signup}" method="post" th:object="${memberDTO}">
+            <form id="signup-form" th:action="@{/user/account/signup}" method="post" th:object="${memberDTO}">
                 <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
                 </h1>
                 <div class="form-floating">
@@ -19,7 +19,7 @@
                             placeholder="name@example.com"
                             style="border-radius: .25rem"
                     />
-                    <label for="email">Email</label>
+                    <label for="email">이메일</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberEmail')}"
                          th:errors="*{memberEmail}" role="alert">
                         A simple danger alert—check it out!
@@ -54,11 +54,21 @@
                             placeholder="Password"
                             style="border-radius: .25rem .25rem 0 0;"
                     />
-                    <label for="password">Password</label>
+                    <label for="password">비밀번호</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('password')}"
                          th:errors="*{password}" role="alert">
                         A simple danger alert—check it out!
                     </div>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="password"
+                            class="form-control"
+                            id="RtPassword"
+                            name="RtPassword"
+                            placeholder="Name"
+                    />
+                    <label for="RtPassword">비밀번호 확인</label>
                 </div>
                 <div class="form-floating">
                     <input
@@ -68,7 +78,7 @@
                             name="memberName"
                             placeholder="Name"
                     />
-                    <label for="name">Name</label>
+                    <label for="name">이름</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberName')}"
                          th:errors="*{memberName}" role="alert">
                         A simple danger alert—check it out!
@@ -82,7 +92,7 @@
                             name="memberAddress"
                             placeholder="Address"
                     />
-                    <label for="address">Address</label>
+                    <label for="address">주소</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberAddress')}"
                          th:errors="*{memberAddress}" role="alert">
                         A simple danger alert—check it out!
@@ -96,7 +106,7 @@
                             name="memberPhonenumber"
                             placeholder="Phone Number"
                     />
-                    <label for="phoneNumber">Phone Number</label>
+                    <label for="phoneNumber">전화번호</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberPhonenumber')}"
                          th:errors="*{memberPhonenumber}" role="alert">
                         A simple danger alert—check it out!
@@ -107,15 +117,16 @@
                         <a href="#" th:href="@{/user/account/login}" class="simple_btn">login</a>
                     </label>
                 </div>
-                <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;" type="submit">Sign up
+                <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;"
+                        onclick="signUp()" type="button">Sign up
                 </button>
                 <div class="checkbox mt-5 mb-3">
                     <div>
                         <label>
-                            <input type="checkbox" value="remember-me"/> <a href="#"
-                                                                            th:href="@{/user/account/privacyPolicy}"
-                                                                            class="simple_btn policy_btn"
-                                                                            target="_blank">개인정보 활용
+                            <input type="checkbox" id="policy"/> <a href="#"
+                                                                    th:href="@{/user/account/privacyPolicy}"
+                                                                    class="simple_btn policy_btn"
+                                                                    target="_blank">개인정보 활용 동의
                             동의</a>
                         </label>
                     </div>
@@ -125,5 +136,37 @@
     </div>
 </div>
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
+<script>
+    function signUp() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var rtpassword = document.getElementById("RtPassword").value;
+        var name = document.getElementById("name").value;
+        var address = document.getElementById("address").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var policy = document.getElementById("policy").checked;
+
+        var form = document.getElementById("signup-form");
+
+        // if (email == null || password == null || rtpassword == null || name == null || address == null || phoneNumber == null) {
+        //     alert("빈칸이 있습니다.");
+        //     return false;
+        // }
+
+        if (policy != true) {
+            alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
+            policy.focus();
+            return false;
+        }
+
+        if (password != rtpassword) {
+            alert("비밀번호가 일치하지 않습니다.");
+            rtpassword.focus();
+            return false;
+        } else {
+            form.submit();
+        }
+    }
+</script>
 </body>
 </html>

@@ -25,10 +25,11 @@ public class UserPageController {
             return "/user/index";
         }
 
-        //회원정보 객체 가져옴
+        //회원정보 객체 가져옴 (eamil,name session에 저장)
         memberDTO = userDetail.getMemberDTO();
         session.setAttribute("memberName", memberDTO.getMemberName());
         session.setAttribute("memberEMail", memberDTO.getMemberEmail());
+
         return "/user/index";
     }
 
