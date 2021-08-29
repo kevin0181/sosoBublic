@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.message.AccountMessage;
 import soso.sosoproject.service.Account.MemberService;
@@ -56,6 +54,15 @@ public class AccountController {
 
 
         return "/message/account-message";
+    }
+
+
+    //이메일 중복 체크
+    @PostMapping("/sameEmail/check")
+    @ResponseBody
+    public boolean memberEmailSameCheck(@RequestParam(value = "email") String email) {
+        boolean result = memberService.emailCheck(email);
+        return result;
     }
 
 }

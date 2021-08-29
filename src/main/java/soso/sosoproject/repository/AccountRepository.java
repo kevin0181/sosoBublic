@@ -10,4 +10,6 @@ public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
 
     MemberDTO findByMemberEmail(String email);
 
+    boolean existsByMemberEmail(String email);
+
 }

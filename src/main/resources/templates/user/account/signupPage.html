@@ -36,10 +36,10 @@
                 <!--                    <label for="email_check" class="label-email">Check Email Number</label>-->
                 <!--                </div>-->
                 <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <input type="radio" class="btn-check" name="btnradio" id="sameEmailBtn" autocomplete="off" checked>
                     <label class="btn btn-outline-primary"
                            style="background-color: #5c9b73; border-color: #5c9b73; color:white;" onclick="same_check()"
-                           for="btnradio1">중복 검사</label>
+                           for="sameEmailBtn">중복 검사</label>
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
                            onclick="emailCheck()">
                     <label class="btn btn-outline-primary" for="btnradio3"
@@ -136,37 +136,6 @@
     </div>
 </div>
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
-<script>
-    function signUp() {
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        var rtpassword = document.getElementById("RtPassword").value;
-        var name = document.getElementById("name").value;
-        var address = document.getElementById("address").value;
-        var phoneNumber = document.getElementById("phoneNumber").value;
-        var policy = document.getElementById("policy").checked;
-
-        var form = document.getElementById("signup-form");
-
-        // if (email == null || password == null || rtpassword == null || name == null || address == null || phoneNumber == null) {
-        //     alert("빈칸이 있습니다.");
-        //     return false;
-        // }
-
-        if (policy != true) {
-            alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
-            policy.focus();
-            return false;
-        }
-
-        if (password != rtpassword) {
-            alert("비밀번호가 일치하지 않습니다.");
-            rtpassword.focus();
-            return false;
-        } else {
-            form.submit();
-        }
-    }
-</script>
+<script th:replace="/user/user_fragment/script_src :: script"></script>
 </body>
 </html>

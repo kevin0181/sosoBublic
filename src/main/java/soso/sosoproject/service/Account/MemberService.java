@@ -59,4 +59,11 @@ public class MemberService implements UserDetailsService {
 
         return new UserDetail(memberDTO);
     }
+
+
+    public boolean emailCheck(String email) {
+
+        return accountRepository.existsByMemberEmail(email);
+    }
+
 }
