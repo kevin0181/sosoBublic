@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.dto.detail.UserDetail;
+import soso.sosoproject.message.AccountMessage;
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -13,24 +16,19 @@ public class UserPageController {
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model) {
-        if (userDetail == null) {
-            return "/user/index";
-        }
-
-        MemberDTO memberDTO = userDetail.getMemberDTO();
-        model.addAttribute("memberDTO", memberDTO);
-
         return "/user/index";
     }
 
     @GetMapping("/user/index")
-    public String index(@AuthenticationPrincipal UserDetail userDetail, Model model) {
+    public String index(@AuthenticationPrincipal UserDetail userDetail, Model model, HttpSession session, MemberDTO memberDTO) {
         if (userDetail == null) {
             return "/user/index";
         }
-        MemberDTO memberDTO = new MemberDTO();
+
+        //회원정보 객체 가져옴
         memberDTO = userDetail.getMemberDTO();
-        model.addAttribute("memberDTO", memberDTO);
+        session.setAttribute("memberName", memberDTO.getMemberName());
+        session.setAttribute("memberEMail", memberDTO.getMemberEmail());
         return "/user/index";
     }
 

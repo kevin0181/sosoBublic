@@ -5,14 +5,26 @@
     <title>soso_header</title>
 </head>
 <header th:fragment="main_header" id="header" class="head">
-    <th:div sec:authorize="isAuthenticated()" style="color:red;">
-        Logged email: <span sec:authentication="principal.username">Bob</span>
-        Logged role: <span sec:authentication="principal.authorities">Bob</span>
-        Logged password: <span sec:authentication="principal.password">Bob</span>
-    </th:div>
+    <!--    <th:div sec:authorize="isAuthenticated()" style="color:red;">-->
+    <!--        Logged email: <span sec:authentication="principal.username">Bob</span>-->
+    <!--        Logged role: <span sec:authentication="principal.authorities">Bob</span>-->
+    <!--        Logged password: <span sec:authentication="principal.password">Bob</span>-->
+    <!--    </th:div>-->
     <div style="text-align: right;">
-        <a class="a_top_btn" style="color:white;" th:href="@{/user/account/login}">login</a>
-        <a class="a_top_btn" style="color:white;" th:href="@{/user/account/signupPage}">sign up</a>
+        <div th:if="${session.memberEMail == null}">
+            <a class="a_top_btn" style="color:white;" th:href="@{/user/account/login}">login</a>
+            <a class="a_top_btn" style="color:white;" th:href="@{/user/account/signupPage}">sign up</a>
+        </div>
+        <div th:unless="${session.memberEMail == null}">
+            <span class="a_top_btn" style="color:white; padding: 5px 0px 0px 0px"
+                  th:text="${session.memberName}">회원이름</span>
+            <span class="a_top_btn" style="color:white; padding: 5px 13px 0px 0px;">님</span>
+            <form name="logoutForm" style="display: none" th:action="@{/user/logout}" method="post">
+
+            </form>
+            <a class="a_top_btn" style="color:white;" href="#"
+               onclick="javascript:document.logoutForm.submit()">logout</a>
+        </div>
     </div>
     <div class="header-top">
         <div class="container">

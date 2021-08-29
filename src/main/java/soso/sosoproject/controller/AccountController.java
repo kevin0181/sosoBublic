@@ -55,7 +55,7 @@ public class AccountController {
         model.addAttribute("data", new AccountMessage("회원가입이 완료 되었습니다.", "/user/account/login"));
 
 
-        return "message/account-message";
+        return "/message/account-message";
     }
 
 }

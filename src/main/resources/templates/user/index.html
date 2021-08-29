@@ -3,53 +3,50 @@
 <head>
     <title>soso</title>
 
-    <!--    <div th:replace="/user/user_fragment/link.html :: link"></div>-->
-    <!--    &lt;!&ndash;-->
-    <!--    CSS-->
-    <!--    ============================================= &ndash;&gt;-->
-    <!--    <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>-->
+    <div th:replace="/user/user_fragment/link.html :: link"></div>
+    <!--
+    CSS
+    ============================================= -->
+    <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
 
 </head>
 <body>
-홈
-<p th:text="${memberDTO.getMemberName()}"></p>
+<header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
+</header><!-- #header -->
 
-<!--<header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">-->
-<!--</header>&lt;!&ndash; #header &ndash;&gt;-->
+<!-- start banner Area -->
+<section class="banner-area" th:replace="/user/user_fragment/main_fragment.html :: banner_section">
+</section>
+<!-- End banner Area -->
 
-<!--&lt;!&ndash; start banner Area &ndash;&gt;-->
-<!--<section class="banner-area" th:replace="/user/user_fragment/main_fragment.html :: banner_section">-->
-<!--</section>-->
-<!--&lt;!&ndash; End banner Area &ndash;&gt;-->
+<!-- Start home-about Area -->
+<section class="home-about-area section-gap" th:replace="/user/user_fragment/main_fragment.html :: home_section">
+</section>
+<!-- End home-about Area -->
 
-<!--&lt;!&ndash; Start home-about Area &ndash;&gt;-->
-<!--<section class="home-about-area section-gap" th:replace="/user/user_fragment/main_fragment.html :: home_section">-->
-<!--</section>-->
-<!--&lt;!&ndash; End home-about Area &ndash;&gt;-->
+<!-- Start menu-area Area -->
+<section class="menu-area section-gap" id="menu" th:replace="/user/user_fragment/main_fragment.html :: menu_section">
+</section>
+<!-- End menu-area Area -->
 
-<!--&lt;!&ndash; Start menu-area Area &ndash;&gt;-->
-<!--<section class="menu-area section-gap" id="menu" th:replace="/user/user_fragment/main_fragment.html :: menu_section">-->
-<!--</section>-->
-<!--&lt;!&ndash; End menu-area Area &ndash;&gt;-->
-
-<!--&lt;!&ndash; Start order Area &ndash;&gt;-->
-<!--<section class="reservation-area section-gap relative"-->
-<!--         th:replace="/user/user_fragment/main_fragment.html :: order_section">-->
-<!--</section>-->
-<!--&lt;!&ndash; End reservation Area &ndash;&gt;-->
+<!-- Start order Area -->
+<section class="reservation-area section-gap relative"
+         th:replace="/user/user_fragment/main_fragment.html :: order_section">
+</section>
+<!-- End reservation Area -->
 
 
-<!--&lt;!&ndash; Start menuReview Area &ndash;&gt;-->
-<!--<section class="blog-area section-gap" id="blog"-->
-<!--         th:replace="/user/user_fragment/main_fragment.html :: menuReview_section">-->
-<!--</section>-->
-<!--&lt;!&ndash; End blog Area &ndash;&gt;-->
+<!-- Start menuReview Area -->
+<section class="blog-area section-gap" id="blog"
+         th:replace="/user/user_fragment/main_fragment.html :: menuReview_section">
+</section>
+<!-- End blog Area -->
 
-<!--&lt;!&ndash; start footer Area &ndash;&gt;-->
-<!--<footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">-->
-<!--</footer>-->
-<!--&lt;!&ndash; End footer Area &ndash;&gt;-->
+<!-- start footer Area -->
+<footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">
+</footer>
+<!-- End footer Area -->
 
-<!--<div th:replace="/user/user_fragment/script_src.html :: script"></div>-->
+<div th:replace="/user/user_fragment/script_src.html :: script"></div>
 </body>
 </html>

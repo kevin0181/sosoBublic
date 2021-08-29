@@ -50,13 +50,13 @@
                             type="password"
                             class="form-control"
                             id="password"
-                            name="memberPassword"
+                            name="password"
                             placeholder="Password"
                             style="border-radius: .25rem .25rem 0 0;"
                     />
                     <label for="password">Password</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberPassword')}"
-                         th:errors="*{memberPassword}" role="alert">
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}" role="alert">
                         A simple danger alert—check it out!
                     </div>
                 </div>
