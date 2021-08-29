@@ -20,7 +20,7 @@ public class RoleDTO {
     @Column
     private String role_name;
 
-    @ManyToMany(mappedBy = "role")
-    private Set<MemberDTO> userModel = new HashSet<>();
+//    @ManyToMany(mappedBy = "role")
+//    private Set<MemberDTO> userModel = new HashSet<>();
 
 }

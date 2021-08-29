@@ -14,7 +14,6 @@ import java.util.Set;
 public class UserDetail implements UserDetails {
 
     //userDetails인터페이스를 상속받아 로그인할때 사용함.
-
     private MemberDTO memberDTO;
 
     public UserDetail(MemberDTO memberDTO) {
@@ -25,7 +24,7 @@ public class UserDetail implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         Set<RoleDTO> roles = memberDTO.getRole();
-        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> list = new ArrayList<>();
         for (RoleDTO role : roles) {
             list.add(new SimpleGrantedAuthority(role.getRole_name()));
         }
@@ -34,12 +33,12 @@ public class UserDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return memberDTO.getMember_password();
+        return memberDTO.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return memberDTO.getMember_email();
+        return memberDTO.getMemberEmail();
     }
 
     @Override
@@ -60,5 +59,9 @@ public class UserDetail implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public MemberDTO getMemberDTO() {
+        return memberDTO;
     }
 }

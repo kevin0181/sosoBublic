@@ -30,10 +30,10 @@ public class MemberService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     //회원가입
-    public void save(MemberDTO signupDTO) {
+    public void save(MemberDTO memberDTO) {
         //user 권한으로 회원가입
-        String encodedPassword = passwordEncoder.encode(signupDTO.getMember_password());
-        signupDTO.setMember_password(encodedPassword);
+        String encodedPassword = passwordEncoder.encode((memberDTO.getPassword()));
+        memberDTO.setPassword(encodedPassword);
 
         //권한 가져옴
         List<RoleDTO> role_id = roleRepository.findAll();
@@ -43,21 +43,20 @@ public class MemberService implements UserDetailsService {
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setRole_sq(role_id_l.getRole_sq());
 
-        signupDTO.getRole().add(roleDTO);
+        memberDTO.getRole().add(roleDTO);
 
-        accountRepository.save(signupDTO);
+        accountRepository.save(memberDTO);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-//        MemberDTO memberDTO = accountRepository.findByEmail(username);
-//
-//        if (memberDTO == null) {
-//            throw new UsernameNotFoundException(username);
-//        }
-//
-//        return new UserDetail(memberDTO);
-        return null;
+        MemberDTO memberDTO = accountRepository.findByMemberEmail(username);
+
+        if (memberDTO == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new UserDetail(memberDTO);
     }
 }

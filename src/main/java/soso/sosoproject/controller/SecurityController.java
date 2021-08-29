@@ -34,12 +34,14 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/user/account/login")
-                .loginProcessingUrl("/user/account/login")
-                .defaultSuccessUrl("/") // 로그인 성공 시 redirect 이동
+                .loginProcessingUrl("/user/login")
+                .defaultSuccessUrl("/user/index") // 로그인 성공 시 redirect 이동
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .logoutUrl("/user/logout")
+                .logoutSuccessUrl("/user/index")
+                .invalidateHttpSession(true);
 
 
     }

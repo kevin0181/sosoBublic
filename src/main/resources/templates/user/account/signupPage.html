@@ -8,19 +8,20 @@
     <div class="">
         <div class="form-signin">
             <form class="" th:action="@{/user/account/signup}" method="post" th:object="${memberDTO}">
-                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a></h1>
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
+                </h1>
                 <div class="form-floating">
                     <input
                             type="email"
                             class="form-control sign_up_input"
                             id="email"
-                            name="member_email"
+                            name="memberEmail"
                             placeholder="name@example.com"
                             style="border-radius: .25rem"
                     />
                     <label for="email">Email</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_email')}"
-                         th:errors="*{member_email}" role="alert">
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberEmail')}"
+                         th:errors="*{memberEmail}" role="alert">
                         A simple danger alert—check it out!
                     </div>
                 </div>
@@ -49,13 +50,13 @@
                             type="password"
                             class="form-control"
                             id="password"
-                            name="member_password"
+                            name="memberPassword"
                             placeholder="Password"
                             style="border-radius: .25rem .25rem 0 0;"
                     />
                     <label for="password">Password</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_password')}"
-                         th:errors="*{member_password}" role="alert">
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberPassword')}"
+                         th:errors="*{memberPassword}" role="alert">
                         A simple danger alert—check it out!
                     </div>
                 </div>
@@ -64,12 +65,12 @@
                             type="text"
                             class="form-control"
                             id="name"
-                            name="member_name"
+                            name="memberName"
                             placeholder="Name"
                     />
                     <label for="name">Name</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_name')}"
-                         th:errors="*{member_name}" role="alert">
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberName')}"
+                         th:errors="*{memberName}" role="alert">
                         A simple danger alert—check it out!
                     </div>
                 </div>
@@ -78,12 +79,12 @@
                             type="text"
                             class="form-control"
                             id="address"
-                            name="member_address"
+                            name="memberAddress"
                             placeholder="Address"
                     />
                     <label for="address">Address</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_address')}"
-                         th:errors="*{member_address}" role="alert">
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberAddress')}"
+                         th:errors="*{memberAddress}" role="alert">
                         A simple danger alert—check it out!
                     </div>
                 </div>
@@ -92,12 +93,12 @@
                             type="tel"
                             class="form-control"
                             id="phoneNumber"
-                            name="member_phonenumber"
+                            name="memberPhonenumber"
                             placeholder="Phone Number"
                     />
                     <label for="phoneNumber">Phone Number</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('member_phonenumber')}"
-                         th:errors="*{member_phonenumber}" role="alert">
+                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberPhonenumber')}"
+                         th:errors="*{memberPhonenumber}" role="alert">
                         A simple danger alert—check it out!
                     </div>
                 </div>
@@ -123,6 +124,6 @@
         </div>
     </div>
 </div>
-<script src="../../../static/js/main.js" th:src="@{/static/js/mine/signup_script.js}"></script>
+<script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
 </body>
 </html>
