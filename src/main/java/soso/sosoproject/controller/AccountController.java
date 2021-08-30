@@ -7,8 +7,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.message.AccountMessage;
+import soso.sosoproject.service.Account.EmailSendService;
 import soso.sosoproject.service.Account.MemberService;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @Controller
@@ -17,6 +19,10 @@ public class AccountController {
 
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private EmailSendService emailSendService;
+
+    String certNumber;
 
     //로그인 페이지
     @GetMapping("/login")
@@ -63,6 +69,14 @@ public class AccountController {
     public boolean memberEmailSameCheck(@RequestParam(value = "email") String email) {
         boolean result = memberService.emailCheck(email);
         return result;
+    }
+
+    //이메일 인증
+    @PostMapping("/certificationEmail/check")
+    @ResponseBody
+    public String certificationCheck(@RequestParam(value = "email") String email) throws MessagingException {
+        certNumber = emailSendService.sendService(email);
+        return certNumber;
     }
 
 }

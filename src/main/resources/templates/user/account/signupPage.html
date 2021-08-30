@@ -25,24 +25,47 @@
                         A simple danger alert—check it out!
                     </div>
                 </div>
-                <!--                <div class="form-floating" id="email_check" style="display: none;">-->
-                <!--                    <input-->
-                <!--                            type="text"-->
-                <!--                            class="form-control sign_up_input"-->
-                <!--                            id=""-->
-                <!--                            placeholder="name@example.com"-->
-                <!--                            style="border-radius: 0 0 .25rem .25rem"-->
-                <!--                    />-->
-                <!--                    <label for="email_check" class="label-email">Check Email Number</label>-->
-                <!--                </div>-->
+
+                <!--                이메일 인증-->
+                <div class="modal fade" id="emailCheckModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">이메일 인증</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!--                                <form>-->
+                                <div class="mb-3" style="text-align: left;">
+                                    <label for="certification-emailNumber" class="col-form-label">인증 번호
+                                        입력</label>
+                                    <input type="text" class="form-control" id="certification-emailNumber">
+                                </div>
+                                <!--                                </form>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="emailCheckCloseBtn"
+                                        data-bs-dismiss="modal">닫기
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="checkCertificationEmailBtn()">
+                                    인증
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="btnradio" id="sameEmailBtn" autocomplete="off" checked>
                     <label class="btn btn-outline-primary"
                            style="background-color: #5c9b73; border-color: #5c9b73; color:white;" onclick="same_check()"
                            for="sameEmailBtn">중복 검사</label>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
-                           onclick="emailCheck()">
-                    <label class="btn btn-outline-primary" for="btnradio3"
+                    <input type="radio" class="btn-check" data-bs-toggle="modal" data-bs-target="#emailCheckModal"
+                           name="btnradio" id="emailCheckBtn"
+                           autocomplete="off"
+                           onclick="certificationEmailSendBtn()">
+                    <label class="btn btn-outline-primary" for="emailCheckBtn"
                            style="background-color: #5c9b73; border-color: #5c9b73; color:white;">이메일 인증</label>
                 </div>
                 <div class="form-floating mt-3">

@@ -27,7 +27,7 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/user/account/sameEmail/check");
+                .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check");
 
         http
                 .antMatcher("/user/**")

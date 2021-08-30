@@ -1,15 +1,57 @@
 var email_check_result = false;
+var cer_random_number = "";
+var check_email_disable_num = 0;
 
-function emailCheck() {
-    var email_check_form = document.getElementById("email_check");
-    var email = document.getElementById("email");
+//이메일 인증 버튼 누를때
+function certificationEmailSendBtn() {
+    var email = document.getElementById("email").value;
 
-    email.style.borderRadius = ".25rem .25rem 0 0";
-    email_check_form.style.display = "block";
+    if (!email) {
+        alert("이메일을 입력해주세요.");
+        return false;
+    } else {
+        alert("인증메일을 성공적으로 전송하였습니다.");
+
+        $.ajax({
+            url: "/user/account/certificationEmail/check",
+            type: "post",
+            dataType: "text",
+            data: {"email": email},
+            success: function (data) {
+                cer_random_number = data;
+            }
+        });
+    }
 }
 
+//인증이긴하지만 여긴 보여주는곳 나머지는 백단에서 실질적인 인증을하자!
+function checkCertificationEmailBtn() {
+    var certification_emailNumber = document.getElementById("certification-emailNumber").value;
+    var emailCheckCloseBtn = document.getElementById("emailCheckCloseBtn");
+    var emailCheckBtn = document.getElementById("emailCheckBtn");
+    var email = document.getElementById("email");
+    if (!certification_emailNumber) {
+        alert("인증 번호를 입력 해주세요.");
+        return false;
+    } else {
+        if (cer_random_number == certification_emailNumber) {
+            alert("인증되었습니다.");
+            emailCheckCloseBtn.click();
+            emailCheckBtn.disabled = true;
+            check_email_disable_num++;
+            if (check_email_disable_num == 2) {
+                email.disabled = true;
+            }
+        } else {
+            alert("인증에 실패하였습니다.");
+        }
+    }
+}
+
+//이메일 중복 체크
 function same_check() {
     var email = document.getElementById("email").value;
+    var sameEmailBtn = document.getElementById("sameEmailBtn");
     email_check_result = true;
     if (!email) {
         alert("이메일을 입력 해주세요.");
@@ -25,6 +67,11 @@ function same_check() {
 
                 if (data == false) {
                     alert("사용 가능한 이메일 입니다.");
+                    sameEmailBtn.disabled = true;
+                    check_email_disable_num++;
+                    if (check_email_disable_num == 2) {
+                        email.disabled = true;
+                    }
                 } else if (data == true) {
                     alert("사용 불가능한 이메일 입니다.")
                 } else {
