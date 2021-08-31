@@ -1,6 +1,20 @@
 var email_check_result = false;
+var email_certification_result = false;
 var cer_random_number = "";
 var check_email_disable_num = 0;
+
+
+//email input 태그 누를때
+function emailInput() {
+    var emailCheckBtn = document.getElementById("emailCheckBtn");
+    var sameEmailBtn = document.getElementById("sameEmailBtn");
+
+    emailCheckBtn.disabled = false;
+    sameEmailBtn.disabled = false;
+
+    check_email_disable_num = 0;
+
+}
 
 //이메일 인증 버튼 누를때
 function certificationEmailSendBtn() {
@@ -39,9 +53,7 @@ function checkCertificationEmailBtn() {
             emailCheckCloseBtn.click();
             emailCheckBtn.disabled = true;
             check_email_disable_num++;
-            if (check_email_disable_num == 2) {
-                email.disabled = true;
-            }
+            email_certification_result = true;
         } else {
             alert("인증에 실패하였습니다.");
         }
@@ -69,9 +81,6 @@ function same_check() {
                     alert("사용 가능한 이메일 입니다.");
                     sameEmailBtn.disabled = true;
                     check_email_disable_num++;
-                    if (check_email_disable_num == 2) {
-                        email.disabled = true;
-                    }
                 } else if (data == true) {
                     alert("사용 불가능한 이메일 입니다.")
                 } else {
@@ -89,25 +98,34 @@ function same_check() {
 
 //회원가입 버튼 클릭 시
 function signUp() {
-    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var rtpassword = document.getElementById("RtPassword").value;
-    var name = document.getElementById("name").value;
-    var address = document.getElementById("address").value;
-    var phoneNumber = document.getElementById("phoneNumber").value;
     var policy = document.getElementById("policy").checked;
-    var email_check_btn = document.getElementById("sameEmailBtn");
+    var same_email_check_btn = document.getElementById("sameEmailBtn");
+    var emailCheckBtn = document.getElementById("emailCheckBtn");
 
     var form = document.getElementById("signup-form");
 
     if (email_check_result == false) {
         alert("이메일 중복체크가 되어 있지 않습니다.");
-        email_check_btn.focus();
+        same_email_check_btn.focus();
         return false;
     }
+
     if (policy != true) {
         alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
         policy.focus();
+        return false;
+    }
+
+    if (email_certification_result == false) {
+        alert("이메일 인증이 되어있지 않습니다.");
+        emailCheckBtn.focus();
+        return false;
+    }
+
+    if (check_email_disable_num == 0) {
+        alert("인증이 완료되지않은 부분이 있습니다.");
         return false;
     }
 
@@ -118,4 +136,6 @@ function signUp() {
     } else {
         form.submit();
     }
+
+
 }

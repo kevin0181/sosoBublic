@@ -18,7 +18,10 @@ import java.util.Optional;
 
 @Service
 public class MemberService implements UserDetailsService {
-//    implements UserDetailsService
+
+
+    @Autowired
+    private EmailSendService emailSendService;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -30,22 +33,30 @@ public class MemberService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     //회원가입
-    public void save(MemberDTO memberDTO) {
-        //user 권한으로 회원가입
-        String encodedPassword = passwordEncoder.encode((memberDTO.getPassword()));
-        memberDTO.setPassword(encodedPassword);
+    public boolean save(MemberDTO memberDTO, String certificationKey) {
 
-        //권한 가져옴
-        List<RoleDTO> role_id = roleRepository.findAll();
-        RoleDTO role_id_l = role_id.get(1);
+        //이메일 인증 맞는지 확인
+        if (certificationKey.equals(memberDTO.getCertiNumber())) {
+            //user 권한으로 회원가입
+            String encodedPassword = passwordEncoder.encode((memberDTO.getPassword()));
+            memberDTO.setPassword(encodedPassword);
 
-        //권한 부여
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setRole_sq(role_id_l.getRole_sq());
+            //권한 가져옴
+            List<RoleDTO> role_id = roleRepository.findAll();
+            RoleDTO role_id_l = role_id.get(1);
 
-        memberDTO.getRole().add(roleDTO);
+            //권한 부여
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setRole_sq(role_id_l.getRole_sq());
 
-        accountRepository.save(memberDTO);
+            memberDTO.getRole().add(roleDTO);
+
+            accountRepository.save(memberDTO);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

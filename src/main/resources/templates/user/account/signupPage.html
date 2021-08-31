@@ -18,6 +18,7 @@
                             name="memberEmail"
                             placeholder="name@example.com"
                             style="border-radius: .25rem"
+                            onclick="emailInput()"
                     />
                     <label for="email">이메일</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberEmail')}"
@@ -41,7 +42,8 @@
                                 <div class="mb-3" style="text-align: left;">
                                     <label for="certification-emailNumber" class="col-form-label">인증 번호
                                         입력</label>
-                                    <input type="text" class="form-control" id="certification-emailNumber">
+                                    <input type="text" class="form-control" id="certification-emailNumber"
+                                           name="certiNumber">
                                 </div>
                                 <!--                                </form>-->
                             </div>
@@ -146,10 +148,10 @@
                 <div class="checkbox mt-5 mb-3">
                     <div>
                         <label>
-                            <input type="checkbox" id="policy"/> <a href="#"
-                                                                    th:href="@{/user/account/privacyPolicy}"
-                                                                    class="simple_btn policy_btn"
-                                                                    target="_blank">개인정보 활용 동의
+                            <input type="checkbox" id="policy" name="policy"/> <a href="#"
+                                                                                 th:href="@{/user/account/privacyPolicy}"
+                                                                                 class="simple_btn policy_btn"
+                                                                                 target="_blank">개인정보 활용 동의
                             동의</a>
                         </label>
                     </div>

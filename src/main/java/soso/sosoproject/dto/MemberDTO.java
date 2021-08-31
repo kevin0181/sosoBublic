@@ -45,6 +45,9 @@ public class MemberDTO {
     @Column(nullable = false, length = 10, name = "certification_number", updatable = false)
     private String certiNumber;
 
+    @Column(nullable = false, name = "policy", updatable = false)
+    private boolean policy;
+
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(

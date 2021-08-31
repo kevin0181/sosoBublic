@@ -12,8 +12,6 @@ import java.util.Random;
 
 @Service
 public class EmailSendService {
-    @Autowired
-    private AccountRepository accountRepository;
 
     private JavaMailSender javaMailSender;
 
@@ -22,9 +20,8 @@ public class EmailSendService {
     }
 
 
-    public String sendService(String email) throws MessagingException {
+    public String sendService(String email, String certificationKey) throws MessagingException {
 //        sendMail(email, "soso 인증메일 입니다.", "인증메일입니다.");
-        String key = certified_key();
         StringBuffer emailcontent = new StringBuffer();
         emailcontent.append("<!DOCTYPE html>");
         emailcontent.append("<html>");
@@ -42,7 +39,7 @@ public class EmailSendService {
                         email +
                         "		님 안녕하세요.<br />" +
                         "		soso에 가입해 주셔서 진심으로 감사드립니다.<br />" +
-                        "	</p>" + "<p>" + key + "</p>" +
+                        "	</p>" + "<p>" + certificationKey + "</p>" +
                         " </div>"
         );
         emailcontent.append("</body>");
@@ -50,7 +47,7 @@ public class EmailSendService {
 
         sendMail(email, "soso 인증메일 입니다.", emailcontent.toString());
 
-        return key;
+        return certificationKey;
     }
 
     public void sendMail(String toEmail, String subject, String message) throws MessagingException {
@@ -66,7 +63,7 @@ public class EmailSendService {
     }
 
 
-    private String certified_key() {
+    public String certified_key() {
         Random random = new Random();
         StringBuffer sb = new StringBuffer();
         int num = 0;
@@ -82,4 +79,5 @@ public class EmailSendService {
         } while (sb.length() < 10);
         return sb.toString();
     }
+
 }

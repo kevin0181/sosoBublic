@@ -22,7 +22,7 @@ public class AccountController {
     @Autowired
     private EmailSendService emailSendService;
 
-    String certNumber;
+    String certificationKey;
 
     //로그인 페이지
     @GetMapping("/login")
@@ -53,15 +53,19 @@ public class AccountController {
 
 
         //회원가입
-        memberService.save(memberDTO);
+        boolean result = memberService.save(memberDTO, certificationKey);
 
-        //alert
-        model.addAttribute("data", new AccountMessage("회원가입이 완료 되었습니다.", "/user/account/login"));
+        if (result) {
+            //alert(success)
+            model.addAttribute("data", new AccountMessage("회원가입이 완료 되었습니다.", "/user/account/login"));
+        } else {
+            //alert(fail)
+            model.addAttribute("data", new AccountMessage("회원가입에 실패하였습니다.", "/user/account/signupPage"));
+        }
 
 
         return "/message/account-message";
     }
-
 
     //이메일 중복 체크
     @PostMapping("/sameEmail/check")
@@ -75,8 +79,9 @@ public class AccountController {
     @PostMapping("/certificationEmail/check")
     @ResponseBody
     public String certificationCheck(@RequestParam(value = "email") String email) throws MessagingException {
-        certNumber = emailSendService.sendService(email);
-        return certNumber;
+        certificationKey = emailSendService.certified_key();
+        emailSendService.sendService(email, certificationKey);
+        return certificationKey;
     }
 
 }
