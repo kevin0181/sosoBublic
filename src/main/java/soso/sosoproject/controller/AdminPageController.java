@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("admin")
-public class AdminController {
+public class AdminPageController {
 
     @GetMapping("index")
     public String index() {
@@ -112,9 +112,9 @@ public class AdminController {
 
 
     //auth
-    @GetMapping("/auth/login")
+    @GetMapping("/login")
     public String authLogin() {
-        return "admin/auth-login";
+        return "admin/admin-login";
     }
 
     @GetMapping("/auth/register")

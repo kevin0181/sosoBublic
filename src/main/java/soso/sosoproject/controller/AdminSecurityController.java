@@ -2,6 +2,7 @@ package soso.sosoproject.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,10 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import soso.sosoproject.service.Account.MemberService;
 
+@Order(2)
 @Configuration
 @EnableWebSecurity
-public class SecurityController extends WebSecurityConfigurerAdapter {
-
+public class AdminSecurityController extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -27,23 +28,20 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check");
-
-        http
-                .antMatcher("/user/**")
+                .antMatcher("/admin/**")
                 .authorizeRequests()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/user/account/login")
-                .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/user/index") // 로그인 성공 시 redirect 이동
+                .loginPage("/admin/login")
+                .loginProcessingUrl("/admin/login")
+                .defaultSuccessUrl("/admin/index") // 로그인 성공 시 redirect 이동
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/user/logout")
-                .logoutSuccessUrl("/user/index")
+                .logoutUrl("/admin/logout")
+                .logoutSuccessUrl("/admin/index")
                 .invalidateHttpSession(true);
 
 
