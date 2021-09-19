@@ -1,5 +1,6 @@
 package soso.sosoproject.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -14,11 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import soso.sosoproject.service.Account.MemberService;
 
+import javax.sql.DataSource;
+
 @Order(1)
 @Configuration
 @EnableWebSecurity
 public class UserSecurityController extends WebSecurityConfigurerAdapter {
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -46,10 +48,11 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/user/index")
-                .invalidateHttpSession(true);
-
+                .invalidateHttpSession(true)
+                .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000);
 
     }
+
 
     @Bean
     public UserDetailsService userDetailsService() {

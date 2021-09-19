@@ -32,6 +32,10 @@ public class MemberService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public AccountRepository getAccountRepository() {
+        return accountRepository;
+    }
+
     //회원가입
     public boolean save(MemberDTO memberDTO, String certificationKey) {
 

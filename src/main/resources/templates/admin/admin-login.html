@@ -4,13 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Mazer Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/bootstrap.css" th:href="@{/assets/css/bootstrap.css}">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css"
-          th:href="@{/assets/vendors/bootstrap-icons/bootstrap-icons.css}">
-    <link rel="stylesheet" href="assets/css/app.css" th:href="@{/assets/css/app.css}">
+    <title>소소한 부엌 관리자 페이지</title>
     <link rel="stylesheet" href="assets/css/pages/auth.css" th:href="@{/assets/css/pages/auth.css}">
+    <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
 </head>
 
 <body>
@@ -20,12 +16,11 @@
         <div class="col-lg-5 col-12">
             <div id="auth-left">
                 <div class="auth-logo">
-                    <a href="admin_index.html"><img src="" alt="소소한 부엌 로고"></a>
                 </div>
-                <h1 class="auth-title"style="color: #4d6957;">Admin Log in</h1>
-                <p class="auth-subtitle mb-5">소소한 부엌 <br>관리자 페이지입니다.</p>
+                <h1 class="auth-title">Log in.</h1>
+                <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
 
-                <form method="post" th:action="@{/admin/login}">
+                <form method="post" th:action="@{/admin/login}" id="adminForm">
                     <div class="form-group position-relative has-icon-left mb-4">
                         <input type="text" class="form-control form-control-xl" name="username" placeholder="Username">
                         <div class="form-control-icon">
@@ -39,16 +34,11 @@
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
-                    <div class="form-check form-check-lg d-flex align-items-end">
-                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label text-gray-600" for="flexCheckDefault">
-                            로그인 유지
-                        </label>
-                    </div>
-                    <input class="btn btn-primary btn-block btn-lg shadow-lg mt-5" style="background-color: #4d6957;" type="submit" value="Log in"/>
+                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" onclick="admin_login()">Log in
+                    </button>
                 </form>
                 <div class="text-center mt-5 text-lg fs-4">
-                    <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a></p>
+                    <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a>.</p>
                 </div>
             </div>
         </div>
@@ -60,6 +50,13 @@
     </div>
 
 </div>
+<script>
+    function admin_login() {
+        var vv = document.getElementById("adminForm");
+        vv.submit;
+    }
+
+</script>
 </body>
 
 </html>

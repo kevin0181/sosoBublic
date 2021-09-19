@@ -10,7 +10,7 @@ public class AdminPageController {
 
     @GetMapping("index")
     public String index() {
-        return "admin/admin_index";
+        return "admin/admin-index";
     }
 
     //component
