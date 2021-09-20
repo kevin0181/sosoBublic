@@ -1,17 +1,29 @@
-package soso.sosoproject.controller;
+package soso.sosoproject.controller.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import soso.sosoproject.dto.CategoryDTO;
+import soso.sosoproject.service.admin.menu.MenuService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("admin")
 public class AdminPageController {
 
+    @Autowired
+    private MenuService menuService;
+
     @GetMapping("index")
     public String index(@RequestParam(value = "className", required = false) String className, Model model) {
+
+
+        //페이지 active 구분
         if (className == null) {
             className = "index";
         }
@@ -78,8 +90,35 @@ public class AdminPageController {
         return "admin/form-element-textarea";
     }
 
-    @GetMapping("/form/layout")
-    public String layout(@RequestParam(value = "className", required = false) String className, Model model) {
+    @GetMapping("/add-menu")
+    public String layout(@RequestParam(value = "className", required = false) String className,
+                         @RequestParam(value = "condition", required = false) String condition,
+                         @RequestParam(value = "id", required = false) Long id,
+                         @RequestParam(value = "category_name", required = false) String categoryName,
+                         Model model) {
+
+        //바뀐 카테고리 이름을 새로운 dto에 주입
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setCategory_sq(id);
+        categoryDTO.setCategory_name(categoryName);
+
+        if (condition != null) {
+            if (condition.equals("change")) {
+                menuService.changeCategory(categoryDTO);
+            } else if (condition.equals("delete")) {
+                menuService.deleteCategory(id);
+            }
+        }
+
+        //카테고리 리스트 가져오는 부분
+        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        model.addAttribute("categoryList", categoryList);
+
+
+        //페이지 active 구분
+        if (className == null) {
+            className = "add-menu";
+        }
         model.addAttribute("className", className);
         return "admin/add-menu";
     }

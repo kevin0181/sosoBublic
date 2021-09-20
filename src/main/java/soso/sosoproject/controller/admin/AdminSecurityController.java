@@ -1,4 +1,4 @@
-package soso.sosoproject.controller;
+package soso.sosoproject.controller.admin;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
