@@ -1,15 +1,21 @@
 package soso.sosoproject.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("admin")
 public class AdminPageController {
 
     @GetMapping("index")
-    public String index() {
+    public String index(@RequestParam(value = "className", required = false) String className, Model model) {
+        if (className == null) {
+            className = "index";
+        }
+        model.addAttribute("className", className);
         return "admin/admin-index";
     }
 
@@ -73,8 +79,9 @@ public class AdminPageController {
     }
 
     @GetMapping("/form/layout")
-    public String layout() {
-        return "admin/form-layout";
+    public String layout(@RequestParam(value = "className", required = false) String className, Model model) {
+        model.addAttribute("className", className);
+        return "admin/add-menu";
     }
 
     @GetMapping("/form/editor")

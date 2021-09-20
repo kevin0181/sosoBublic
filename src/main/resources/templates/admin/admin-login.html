@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>소소한 부엌 관리자 페이지</title>
+    <title>소소한 부엌 관리자 로그인 페이지</title>
     <link rel="stylesheet" href="assets/css/pages/auth.css" th:href="@{/assets/css/pages/auth.css}">
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
 </head>
@@ -17,8 +17,8 @@
             <div id="auth-left">
                 <div class="auth-logo">
                 </div>
-                <h1 class="auth-title">Log in.</h1>
-                <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                <h1 class="auth-title">Login</h1>
+                <p class="auth-subtitle mb-5">소소한부엌 <br>관리자 페이지입니다.</p>
 
                 <form method="post" th:action="@{/admin/login}" id="adminForm">
                     <div class="form-group position-relative has-icon-left mb-4">
@@ -34,7 +34,7 @@
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" onclick="admin_login()">Log in
+                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" onclick="admin_login()">Login
                     </button>
                 </form>
                 <div class="text-center mt-5 text-lg fs-4">
