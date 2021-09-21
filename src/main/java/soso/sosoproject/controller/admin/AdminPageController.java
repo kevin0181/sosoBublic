@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import soso.sosoproject.dto.CategoryDTO;
+import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 
 import java.util.ArrayList;
@@ -114,6 +115,10 @@ public class AdminPageController {
         List<CategoryDTO> categoryList = menuService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
 
+
+        //메뉴 리스트 가져오는 부분
+        List<MenuDTO> menuList = menuService.getMenuList();
+        model.addAttribute("menuList", menuList);
 
         //페이지 active 구분
         if (className == null) {

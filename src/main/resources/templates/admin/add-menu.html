@@ -7,6 +7,18 @@
     <title>소소한부엌</title>
     <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+
+    <!--    메뉴추가-->
+    <link rel="stylesheet" href="assets/vendors/quill/quill.bubble.css"
+          th:href="@{/assets/vendors/quill/quill.bubble.css}">
+    <link rel="stylesheet" href="assets/vendors/quill/quill.snow.css" th:href="@{/assets/vendors/quill/quill.snow.css}">
+    <!--    리스트-->
+    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css"
+          th:href="@{/assets/vendors/simple-datatables/style.css}">
+
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css"
+          th:href="@{/assets/vendors/choices.js/choices.min.css}"/>
 </head>
 
 <body>
@@ -165,11 +177,10 @@
                                                                 삭제하시겠습니까?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <a type="button" class="btn btn-danger"
-                                                                   th:href="@{/admin/add-menu(className = 'add-menu',
-                                                                    condition = 'delete',id=${categortlist.category_sq})}">
+                                                                <button type="button" class="btn btn-danger"
+                                                                        th:onclick="deleteCategory([[${categortlist.category_sq}]])">
                                                                     네
-                                                                </a>
+                                                                </button>
                                                                 <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">아니오
                                                                 </button>
@@ -190,236 +201,139 @@
             <!--            카테고리 끝-->
             <!-- // Basic Horizontal form layout section end -->
 
-
-            <!-- Basic Vertical form layout section start -->
-            <section id="basic-vertical-layouts">
-                <div class="row match-height">
-                    <div class="col-md-6 col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Vertical Form</h4>
-                            </div>
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <form class="form form-vertical">
-                                        <div class="form-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="first-name-vertical">First Name</label>
-                                                        <input type="text" id="first-name-vertical"
-                                                               class="form-control" name="fname"
-                                                               placeholder="First Name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="email-id-vertical">Email</label>
-                                                        <input type="email" id="email-id-vertical"
-                                                               class="form-control" name="email-id"
-                                                               placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="contact-info-vertical">Mobile</label>
-                                                        <input type="number" id="contact-info-vertical"
-                                                               class="form-control" name="contact"
-                                                               placeholder="Mobile">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="password-vertical">Password</label>
-                                                        <input type="password" id="password-vertical"
-                                                               class="form-control" name="contact"
-                                                               placeholder="Password">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class='form-check'>
-                                                        <div class="checkbox">
-                                                            <input type="checkbox" id="checkbox3"
-                                                                   class='form-check-input' checked>
-                                                            <label for="checkbox3">Remember Me</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                            class="btn btn-primary me-1 mb-1">Submit
-                                                    </button>
-                                                    <button type="reset"
-                                                            class="btn btn-light-secondary me-1 mb-1">Reset
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Vertical Form with Icons</h4>
-                            </div>
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <form class="form form-vertical">
-                                        <div class="form-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">First Name</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Input with icon left"
-                                                                   id="first-name-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="bi bi-person"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="email-id-icon">Email</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Email" id="email-id-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="bi bi-envelope"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="mobile-id-icon">Mobile</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Mobile" id="mobile-id-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="bi bi-phone"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="password-id-icon">Password</label>
-                                                        <div class="position-relative">
-                                                            <input type="password" class="form-control"
-                                                                   placeholder="Password" id="password-id-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="bi bi-lock"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class='form-check'>
-                                                        <div class="checkbox mt-2">
-                                                            <input type="checkbox" id="remember-me-v"
-                                                                   class='form-check-input' checked>
-                                                            <label for="remember-me-v">Remember Me</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                            class="btn btn-primary me-1 mb-1">Submit
-                                                    </button>
-                                                    <button type="reset"
-                                                            class="btn btn-light-secondary me-1 mb-1">Reset
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- // Basic Vertical form layout section end -->
-
-
             <!-- // Basic multiple Column Form section start -->
             <section id="multiple-column-form">
                 <div class="row match-height">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Multiple Column</h4>
+                                <h4 class="card-title">메뉴 추가</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
-                                    <form class="form">
+                                    <form class="form" id="menu_id_form" method="post" th:action="@{/menu/add-menu}">
                                         <div class="row">
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-6 col-12" style="width: 100%">
                                                 <div class="form-group">
-                                                    <label for="first-name-column">First Name</label>
-                                                    <input type="text" id="first-name-column" class="form-control"
-                                                           placeholder="First Name" name="fname-column">
+                                                    <label for="menu_name">메뉴 이름</label>
+                                                    <input type="text" id="menu_name" class="form-control"
+                                                           placeholder="menu name" name="menu_name">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="last-name-column">Last Name</label>
-                                                    <input type="text" id="last-name-column" class="form-control"
-                                                           placeholder="Last Name" name="lname-column">
+                                                <fieldset class="form-group">
+                                                    <label for="basicSelect">카테고리 설정</label>
+                                                    <select class="form-select" id="basicSelect"
+                                                            name="menu_category_sq">
+                                                        <option th:each="categortlist : ${categoryList}"
+                                                                th:value="${categortlist.category_sq}"
+                                                                th:text="${categortlist.category_name}"
+                                                        ></option>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                            <!--                                            <div class="col-md-6 col-12">-->
+                                            <!--                                                <div class="form-group">-->
+                                            <!--                                                    <label for="formFileMultiple">메뉴 이미지</label>-->
+                                            <!--                                                    <input class="form-control" type="file" id="formFileMultiple"-->
+                                            <!--                                                           name=""-->
+                                            <!--                                                           multiple="">-->
+                                            <!--                                                </div>-->
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label for="menu_price">가격</label>
+                                                <input type="number" id="menu_price" class="form-control"
+                                                       name="menu_price" placeholder="price">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12" style="height: 50%; margin-top: 30px;">
+                                            <div class="form-group">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" name="menu_enable"
+                                                           id="flexSwitchCheckChecked" checked="">
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">메뉴
+                                                        활성화(비활성화를 하면 메뉴가 유저에게 보이지 않습니다.)</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="city-column">City</label>
-                                                    <input type="text" id="city-column" class="form-control"
-                                                           placeholder="City" name="city-column">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="country-floating">Country</label>
-                                                    <input type="text" id="country-floating" class="form-control"
-                                                           name="country-floating" placeholder="Country">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="company-column">Company</label>
-                                                    <input type="text" id="company-column" class="form-control"
-                                                           name="company-column" placeholder="Company">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="email-id-column">Email</label>
-                                                    <input type="email" id="email-id-column" class="form-control"
-                                                           name="email-id-column" placeholder="Email">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-12">
-                                                <div class='form-check'>
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" id="checkbox5"
-                                                               class='form-check-input' checked>
-                                                        <label for="checkbox5">Remember Me</label>
+                                        </div>
+
+                                        <!--         글쓰는 부분-->
+                                        <div class="col-md-6 col-12" style="width: 100%">
+                                            <div class="form-group">
+                                                <label for="bubble">메뉴 내용</label>
+                                                <div id="bubble" class="ql-container ql-bubble">
+
+                                                    <div class="ql-editor"
+                                                         data-gramm="false"
+                                                         contenteditable="true">
+                                                        <p>메뉴 내용을 입력해주세요.(내용을 지우고 올려도 됩니다.)</p>
+                                                    </div>
+                                                    <div class="ql-clipboard" contenteditable="true"
+                                                         tabindex="-1"></div>
+                                                    <div class="ql-tooltip ql-hidden"><span
+                                                            class="ql-tooltip-arrow"></span>
+                                                        <div class="ql-tooltip-editor"><input type="text"
+                                                                                              data-formula="e=mc^2"
+                                                                                              data-link="https://quilljs.com"
+                                                                                              data-video="Embed URL"><a
+                                                                class="ql-close"></a></div>
+                                                        <div class="ql-toolbar"><span class="ql-formats"><button
+                                                                type="button" class="ql-bold"><svg
+                                                                viewBox="0 0 18 18"> <path
+                                                                class="ql-stroke"
+                                                                d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path
+                                                                class="ql-stroke"
+                                                                d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button><button
+                                                                type="button" class="ql-italic"><svg
+                                                                viewBox="0 0 18 18"> <line
+                                                                class="ql-stroke" x1="7" x2="13" y1="4"
+                                                                y2="4"></line> <line
+                                                                class="ql-stroke" x1="5" x2="11" y1="14"
+                                                                y2="14"></line> <line
+                                                                class="ql-stroke" x1="8" x2="10" y1="14"
+                                                                y2="4"></line> </svg></button><button type="button"
+                                                                                                      class="ql-link"><svg
+                                                                viewBox="0 0 18 18"> <line class="ql-stroke" x1="7"
+                                                                                           x2="11"
+                                                                                           y1="7" y2="11"></line> <path
+                                                                class="ql-even ql-stroke"
+                                                                d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path> <path
+                                                                class="ql-even ql-stroke"
+                                                                d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path> </svg></button></span><span
+                                                                class="ql-formats"><button type="button"
+                                                                                           class="ql-header"
+                                                                                           value="1"><svg
+                                                                viewBox="0 0 18 18"> <path class="ql-fill"
+                                                                                           d="M10,4V14a1,1,0,0,1-2,0V10H3v4a1,1,0,0,1-2,0V4A1,1,0,0,1,3,4V8H8V4a1,1,0,0,1,2,0Zm6.06787,9.209H14.98975V7.59863a.54085.54085,0,0,0-.605-.60547h-.62744a1.01119,1.01119,0,0,0-.748.29688L11.645,8.56641a.5435.5435,0,0,0-.022.8584l.28613.30762a.53861.53861,0,0,0,.84717.0332l.09912-.08789a1.2137,1.2137,0,0,0,.2417-.35254h.02246s-.01123.30859-.01123.60547V13.209H12.041a.54085.54085,0,0,0-.605.60547v.43945a.54085.54085,0,0,0,.605.60547h4.02686a.54085.54085,0,0,0,.605-.60547v-.43945A.54085.54085,0,0,0,16.06787,13.209Z"></path> </svg></button><button
+                                                                type="button" class="ql-header" value="2"><svg
+                                                                viewBox="0 0 18 18"> <path class="ql-fill"
+                                                                                           d="M16.73975,13.81445v.43945a.54085.54085,0,0,1-.605.60547H11.855a.58392.58392,0,0,1-.64893-.60547V14.0127c0-2.90527,3.39941-3.42187,3.39941-4.55469a.77675.77675,0,0,0-.84717-.78125,1.17684,1.17684,0,0,0-.83594.38477c-.2749.26367-.561.374-.85791.13184l-.4292-.34082c-.30811-.24219-.38525-.51758-.1543-.81445a2.97155,2.97155,0,0,1,2.45361-1.17676,2.45393,2.45393,0,0,1,2.68408,2.40918c0,2.45312-3.1792,2.92676-3.27832,3.93848h2.79443A.54085.54085,0,0,1,16.73975,13.81445ZM9,3A.99974.99974,0,0,0,8,4V8H3V4A1,1,0,0,0,1,4V14a1,1,0,0,0,2,0V10H8v4a1,1,0,0,0,2,0V4A.99974.99974,0,0,0,9,3Z"></path> </svg></button><button
+                                                                type="button" class="ql-blockquote"><svg
+                                                                viewBox="0 0 18 18"> <rect class="ql-fill ql-stroke"
+                                                                                           height="3" width="3"
+                                                                                           x="4"
+                                                                                           y="5"></rect> <rect
+                                                                class="ql-fill ql-stroke" height="3" width="3"
+                                                                x="11"
+                                                                y="5"></rect> <path
+                                                                class="ql-even ql-fill ql-stroke"
+                                                                d="M7,8c0,4.031-3,5-3,5"></path> <path
+                                                                class="ql-even ql-fill ql-stroke"
+                                                                d="M14,8c0,4.031-3,5-3,5"></path> </svg></button></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 d-flex justify-content-end">
-                                                <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1">Submit
-                                                </button>
-                                                <button type="reset"
-                                                        class="btn btn-light-secondary me-1 mb-1">Reset
-                                                </button>
-                                            </div>
+                                        </div>
+                                        <!--     글쓰는 부분-->
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="button" onclick="addMenu()"
+                                                    class="btn btn-primary me-1 mb-1">Submit
+                                            </button>
+                                            <button type="reset"
+                                                    class="btn btn-light-secondary me-1 mb-1">Reset
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -429,16 +343,136 @@
                 </div>
             </section>
             <!-- // Basic multiple Column Form section end -->
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        메뉴 목록
+                    </div>
+                    <div class="card-body">
+                        <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                            <div class="dataTable-top">
+                                <div class="dataTable-dropdown"><select class="dataTable-selector form-select">
+                                    <option value="5">5</option>
+                                    <option value="10" selected="">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select><label>entries per page</label></div>
+                                <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..."
+                                                                     type="text"></div>
+                            </div>
+                            <div class="dataTable-container">
+                                <table class="table table-striped dataTable-table" id="table1">
+                                    <thead>
+                                    <tr>
+                                        <th data-sortable="" style="width: 12.1983%;"><a href="#"
+                                                                                         class="dataTable-sorter">Category</a>
+                                        </th>
+                                        <th data-sortable="" style="width: 43.6642%;"><a href="#"
+                                                                                         class="dataTable-sorter">Name</a>
+                                        </th>
+                                        <th data-sortable="" style="width: 16.3568%;"><a href="#"
+                                                                                         class="dataTable-sorter">Price</a>
+                                        </th>
+                                        <th data-sortable="" style="width: 12.0596%;"><a href="#"
+                                                                                         class="dataTable-sorter">Status</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="menulist : ${menuList}">
+                                        <td th:text="${menulist.getCategoryDTO().category_name}">카테고리이름</td>
+                                        <td>
+                                            <p th:text="${menulist.menu_name}" data-bs-toggle="modal"
+                                               th:attr="data-bs-target='#menuName'+${menulist.menu_sq}"
+                                               style="margin-bottom: 0px; display: inline-block;">메뉴이름</p>
+                                            <div class="modal fade text-left" th:id="menuName+${menulist.menu_sq}"
+                                                 tabindex="-1"
+                                                 role="dialog" aria-labelledby="myModalLabel110"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                     role="document">
+                                                    <div class="modal-content">
+                                                        <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
+                                                            <h5 class="modal-title white" id="myModalLabel110"
+                                                                th:if="${menulist.menu_enable}">
+                                                                활성화 된 메뉴
+                                                            </h5>
+                                                            <h5 class="modal-title white" id="myModalLabel110"
+                                                                th:unless="${menulist.menu_enable}">
+                                                                비활성화 된 메뉴
+                                                            </h5>
+                                                            <button type="button" class="close"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                                <i data-feather="x"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Tart lemon drops macaroon oat cake chocolate toffee
+                                                            chocolate
+                                                            bar icing. Pudding jelly beans
+                                                            carrot cake pastry gummies cheesecake lollipop. I
+                                                            love cookie
+                                                            lollipop cake I love sweet
+                                                            gummi
+                                                            bears cupcake dessert.
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-light-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Close</span>
+                                                            </button>
+
+                                                            <button type="button"
+                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}"
+                                                                    data-bs-dismiss="modal">
+                                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Accept</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td th:text="${menulist.menu_price}">가격</td>
+                                        <td>
+                                            <span th:if="${menulist.menu_enable}"
+                                                  th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">활성화</span>
+                                            <span th:unless="${menulist.menu_enable}"
+                                                  th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">비활성화</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="dataTable-bottom">
+                                <div class="dataTable-info">Showing 1 to 25 of 26 entries</div>
+                                <ul class="pagination pagination-primary float-end dataTable-pagination">
+                                    <li class="page-item pager"><a href="#" class="page-link" data-page="1">‹</a></li>
+                                    <li class="page-item active"><a href="#" class="page-link" data-page="1">1</a></li>
+                                    <li class="page-item"><a href="#" class="page-link" data-page="2">2</a></li>
+                                    <li class="page-item pager"><a href="#" class="page-link" data-page="2">›</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
         </div>
 
         <footer>
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
-                    <p>2021 &copy; Mazer</p>
+                    <p>2021 &copy; version 0.0.1</p>
                 </div>
                 <div class="float-end">
-                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                            href="http://ahmadsaugi.com">A. Saugi</a></p>
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> : <a
+                            href="http://ahmadsaugi.com">kevin0181@naver.com</a></p>
                 </div>
             </div>
         </footer>
@@ -447,4 +481,18 @@
 </body>
 <div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
 <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/addMenu.js}"></script>
+<!-- Include Choices JavaScript -->
+<script src="assets/vendors/choices.js/choices.min.js" th:src="@{/assets/vendors/choices.js/choices.min.js}"></script>
+
+<script src="assets/vendors/quill/quill.min.js" th:src="@{/assets/vendors/quill/quill.min.js}"></script>
+<script src="assets/js/pages/form-editor.js" th:src="@{/assets/js/pages/form-editor.js}"></script>
+<!--리스트-->
+<script src="assets/vendors/simple-datatables/simple-datatables.js"
+        th:src="@{/assets/vendors/simple-datatables/simple-datatables.js}"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
 </html>
