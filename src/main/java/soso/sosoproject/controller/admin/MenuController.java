@@ -18,13 +18,15 @@ public class MenuController {
 
     @Autowired
     private MenuService menuService;
+    private List<CategoryDTO> categoryList;
+    private List<MenuDTO> menuList;
 
     @GetMapping("add-category")
     public String addCategory(CategoryDTO categoryDTO, Model model) {
         menuService.save_category(categoryDTO);
 
         //카테고리 리스트 가져오는 부분
-        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        categoryList = menuService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
 
         //active 추가
@@ -38,7 +40,7 @@ public class MenuController {
         menuService.save_menu(menuDTO);
 
         //카테고리 리스트 가져오는 부분
-        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        categoryList = menuService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
 
         //active 추가

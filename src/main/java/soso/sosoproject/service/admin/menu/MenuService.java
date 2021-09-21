@@ -44,6 +44,7 @@ public class MenuService {
         menuRepository.save(menuDTO);
     }
 
+    //메뉴 리스트
     public List<MenuDTO> getMenuList() {
         List<MenuDTO> menuDTOList = menuRepository.findAll();
         return menuDTOList;

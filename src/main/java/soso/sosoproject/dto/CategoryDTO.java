@@ -20,7 +20,7 @@ public class CategoryDTO {
     private String category_name;
 
     @OneToMany
-    @JoinColumn(name = "category_sq")
+    @JoinColumn(name = "menu_category_sq")
     private List<MenuDTO> menuList = new ArrayList<>();
 
 }

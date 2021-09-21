@@ -61,7 +61,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
-                                    <form class="form form-horizontal" method="get"
+                                    <form class="form form-horizontal" method="get" id="category_form"
                                           th:action="@{/menu/add-category}">
                                         <div class="form-body">
                                             <div class="row">
@@ -73,7 +73,7 @@
                                                            name="category_name" placeholder="카테고리 이름">
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-end">
-                                                    <button type="submit"
+                                                    <button type="button" onclick="addCategory()"
                                                             class="btn btn-primary me-1 mb-1">add
                                                     </button>
                                                     <button type="reset"
@@ -259,77 +259,19 @@
                                         </div>
 
                                         <!--         글쓰는 부분-->
-                                        <div class="col-md-6 col-12" style="width: 100%">
-                                            <div class="form-group">
-                                                <label for="bubble">메뉴 내용</label>
-                                                <div id="bubble" class="ql-container ql-bubble">
-
-                                                    <div class="ql-editor"
-                                                         data-gramm="false"
-                                                         contenteditable="true">
-                                                        <p>메뉴 내용을 입력해주세요.(내용을 지우고 올려도 됩니다.)</p>
-                                                    </div>
-                                                    <div class="ql-clipboard" contenteditable="true"
-                                                         tabindex="-1"></div>
-                                                    <div class="ql-tooltip ql-hidden"><span
-                                                            class="ql-tooltip-arrow"></span>
-                                                        <div class="ql-tooltip-editor"><input type="text"
-                                                                                              data-formula="e=mc^2"
-                                                                                              data-link="https://quilljs.com"
-                                                                                              data-video="Embed URL"><a
-                                                                class="ql-close"></a></div>
-                                                        <div class="ql-toolbar"><span class="ql-formats"><button
-                                                                type="button" class="ql-bold"><svg
-                                                                viewBox="0 0 18 18"> <path
-                                                                class="ql-stroke"
-                                                                d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path
-                                                                class="ql-stroke"
-                                                                d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button><button
-                                                                type="button" class="ql-italic"><svg
-                                                                viewBox="0 0 18 18"> <line
-                                                                class="ql-stroke" x1="7" x2="13" y1="4"
-                                                                y2="4"></line> <line
-                                                                class="ql-stroke" x1="5" x2="11" y1="14"
-                                                                y2="14"></line> <line
-                                                                class="ql-stroke" x1="8" x2="10" y1="14"
-                                                                y2="4"></line> </svg></button><button type="button"
-                                                                                                      class="ql-link"><svg
-                                                                viewBox="0 0 18 18"> <line class="ql-stroke" x1="7"
-                                                                                           x2="11"
-                                                                                           y1="7" y2="11"></line> <path
-                                                                class="ql-even ql-stroke"
-                                                                d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path> <path
-                                                                class="ql-even ql-stroke"
-                                                                d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path> </svg></button></span><span
-                                                                class="ql-formats"><button type="button"
-                                                                                           class="ql-header"
-                                                                                           value="1"><svg
-                                                                viewBox="0 0 18 18"> <path class="ql-fill"
-                                                                                           d="M10,4V14a1,1,0,0,1-2,0V10H3v4a1,1,0,0,1-2,0V4A1,1,0,0,1,3,4V8H8V4a1,1,0,0,1,2,0Zm6.06787,9.209H14.98975V7.59863a.54085.54085,0,0,0-.605-.60547h-.62744a1.01119,1.01119,0,0,0-.748.29688L11.645,8.56641a.5435.5435,0,0,0-.022.8584l.28613.30762a.53861.53861,0,0,0,.84717.0332l.09912-.08789a1.2137,1.2137,0,0,0,.2417-.35254h.02246s-.01123.30859-.01123.60547V13.209H12.041a.54085.54085,0,0,0-.605.60547v.43945a.54085.54085,0,0,0,.605.60547h4.02686a.54085.54085,0,0,0,.605-.60547v-.43945A.54085.54085,0,0,0,16.06787,13.209Z"></path> </svg></button><button
-                                                                type="button" class="ql-header" value="2"><svg
-                                                                viewBox="0 0 18 18"> <path class="ql-fill"
-                                                                                           d="M16.73975,13.81445v.43945a.54085.54085,0,0,1-.605.60547H11.855a.58392.58392,0,0,1-.64893-.60547V14.0127c0-2.90527,3.39941-3.42187,3.39941-4.55469a.77675.77675,0,0,0-.84717-.78125,1.17684,1.17684,0,0,0-.83594.38477c-.2749.26367-.561.374-.85791.13184l-.4292-.34082c-.30811-.24219-.38525-.51758-.1543-.81445a2.97155,2.97155,0,0,1,2.45361-1.17676,2.45393,2.45393,0,0,1,2.68408,2.40918c0,2.45312-3.1792,2.92676-3.27832,3.93848h2.79443A.54085.54085,0,0,1,16.73975,13.81445ZM9,3A.99974.99974,0,0,0,8,4V8H3V4A1,1,0,0,0,1,4V14a1,1,0,0,0,2,0V10H8v4a1,1,0,0,0,2,0V4A.99974.99974,0,0,0,9,3Z"></path> </svg></button><button
-                                                                type="button" class="ql-blockquote"><svg
-                                                                viewBox="0 0 18 18"> <rect class="ql-fill ql-stroke"
-                                                                                           height="3" width="3"
-                                                                                           x="4"
-                                                                                           y="5"></rect> <rect
-                                                                class="ql-fill ql-stroke" height="3" width="3"
-                                                                x="11"
-                                                                y="5"></rect> <path
-                                                                class="ql-even ql-fill ql-stroke"
-                                                                d="M7,8c0,4.031-3,5-3,5"></path> <path
-                                                                class="ql-even ql-fill ql-stroke"
-                                                                d="M14,8c0,4.031-3,5-3,5"></path> </svg></button></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="card-body">
+                                            <div class="form-group mb-3">
+                                                <label for="exampleFormControlTextarea1" class="form-label">
+                                                    메뉴 내용</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                          name="menu_contant"
+                                                          rows="3"></textarea>
                                             </div>
                                         </div>
                                         <!--     글쓰는 부분-->
                                         <div class="col-12 d-flex justify-content-end">
-                                            <button type="button" onclick="addMenu()"
-                                                    class="btn btn-primary me-1 mb-1">Submit
+                                            <button type="button" onclick="addMenu()" class="btn btn-primary me-1 mb-1">
+                                                Submit
                                             </button>
                                             <button type="reset"
                                                     class="btn btn-light-secondary me-1 mb-1">Reset
@@ -381,7 +323,7 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="menulist : ${menuList}">
-                                        <td th:text="${menulist.getCategoryDTO().category_name}">카테고리이름</td>
+                                        <td th:text="${menulist.categoryDTO.category_name}">카테고리이름</td>
                                         <td>
                                             <p th:text="${menulist.menu_name}" data-bs-toggle="modal"
                                                th:attr="data-bs-target='#menuName'+${menulist.menu_sq}"
@@ -407,15 +349,8 @@
                                                                 <i data-feather="x"></i>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            Tart lemon drops macaroon oat cake chocolate toffee
-                                                            chocolate
-                                                            bar icing. Pudding jelly beans
-                                                            carrot cake pastry gummies cheesecake lollipop. I
-                                                            love cookie
-                                                            lollipop cake I love sweet
-                                                            gummi
-                                                            bears cupcake dessert.
+                                                        <div class="modal-body" th:text="${menulist.menu_contant}">
+                                                            내용
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button"

@@ -1,5 +1,20 @@
 var category_seq;
 
+
+function addCategory() {
+    var category_form = $("#category_form").serialize();
+    $.ajax({
+        type: "GET",
+        url: "/menu/add-category",
+        dataType: "json",
+        data: category_form
+    });
+    alert("카테고리가 추가되었습니다.");
+    location.href = "/admin/add-menu";
+}
+
+
+// 카테고리 변경
 function changeCategory(category_seq) {
     const name = $('#reCategory_name' + category_seq).val();
     if (!name) {
@@ -22,6 +37,7 @@ function changeCategory(category_seq) {
     }
 }
 
+// 카테고리 삭제
 function deleteCategory(category_seq) {
     $.ajax({
         type: "GET",
@@ -37,12 +53,9 @@ function deleteCategory(category_seq) {
     location.href = "/admin/add-menu";
 }
 
+// 메뉴 추가
 function addMenu() {
-    var menu_contant = $(".ql-editor");
-
     var menu_form = $("#menu_id_form").serialize();
-
-    menu_form += "&menu_contant=" + menu_contant;
 
     $.ajax({
         type: "POST",

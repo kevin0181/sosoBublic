@@ -98,13 +98,13 @@ public class AdminPageController {
                          @RequestParam(value = "category_name", required = false) String categoryName,
                          Model model) {
 
-        //바뀐 카테고리 이름을 새로운 dto에 주입
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setCategory_sq(id);
-        categoryDTO.setCategory_name(categoryName);
 
         if (condition != null) {
             if (condition.equals("change")) {
+                //바뀐 카테고리 이름을 새로운 dto에 주입
+                CategoryDTO categoryDTO = new CategoryDTO();
+                categoryDTO.setCategory_sq(id);
+                categoryDTO.setCategory_name(categoryName);
                 menuService.changeCategory(categoryDTO);
             } else if (condition.equals("delete")) {
                 menuService.deleteCategory(id);
