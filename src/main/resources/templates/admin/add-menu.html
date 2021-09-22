@@ -335,21 +335,22 @@
                                         </td>
                                         <td>
                                             <p th:text="${menulist.menu_name}" data-bs-toggle="modal"
-                                               th:attr="data-bs-target='#menuName'+${menulist.menu_sq}"
+                                               th:attr="data-bs-target='#f-menuName'+${menulist.menu_sq}"
                                                style="margin-bottom: 0px; display: inline-block;">메뉴이름</p>
-                                            <div class="modal fade text-left" th:id="menuName+${menulist.menu_sq}"
+                                            <!-- modal-->
+                                            <div class="modal fade text-left" th:id="f-menuName+${menulist.menu_sq}"
                                                  tabindex="-1"
-                                                 role="dialog" aria-labelledby="myModalLabel110"
+                                                 role="dialog" aria-labelledby="f-modal"
                                                  aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
                                                      role="document">
                                                     <div class="modal-content">
                                                         <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
-                                                            <h5 class="modal-title white" id="myModalLabel110"
+                                                            <h5 class="modal-title white" id="f-modal"
                                                                 th:if="${menulist.menu_enable}">
                                                                 활성화 된 메뉴
                                                             </h5>
-                                                            <h5 class="modal-title white" id="myModalLabel110"
+                                                            <h5 class="modal-title white" id="f-modal"
                                                                 th:unless="${menulist.menu_enable}">
                                                                 비활성화 된 메뉴
                                                             </h5>
@@ -363,22 +364,65 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button"
+                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}"
+                                                                    th:attr="data-bs-target='#s-menuName'+${menulist.menu_sq}"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-dismiss="modal">
+                                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">수정</span>
+                                                            </button>
+                                                            <button type="button"
                                                                     class="btn btn-light-secondary"
                                                                     data-bs-dismiss="modal">
                                                                 <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Close</span>
-                                                            </button>
-
-                                                            <button type="button"
-                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}"
-                                                                    data-bs-dismiss="modal">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">Accept</span>
+                                                                <span class="d-none d-sm-block">닫기</span>
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--  second modal-->
+                                            <div class="modal fade text-left" th:id="s-menuName+${menulist.menu_sq}"
+                                                 tabindex="-1"
+                                                 role="dialog" aria-labelledby="s-modal"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                     role="document">
+                                                    <div class="modal-content">
+                                                        <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
+                                                            <h5 class="modal-title white" id="s-modal"
+                                                                th:if="${menulist.menu_enable}">
+                                                                활성화 된 메뉴(수정 중)
+                                                            </h5>
+                                                            <h5 class="modal-title white" id="s-modal"
+                                                                th:unless="${menulist.menu_enable}">
+                                                                비활성화 된 메뉴(수정 중)
+                                                            </h5>
+                                                            <button type="button" class="close"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                                <i data-feather="x"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" th:text="${menulist.menu_contant}">
+                                                            내용
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
+                                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">수정 확인</span>
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-light-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">닫기</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </td>
                                         <td th:text="${menulist.menu_price}" th:if="${menuList}">가격</td>
                                         <td>
