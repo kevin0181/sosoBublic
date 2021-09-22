@@ -28,9 +28,11 @@ public class MenuApiController {
         return categoryDTO;
     }
 
-    //메뉴 추가
+    //메뉴 추가, 변경
     @PostMapping("add-menu")
-    public MenuDTO addMenu(MenuDTO menuDTO, Model model) {
+    public MenuDTO addMenu(MenuDTO menuDTO,
+//                           @RequestParam(value = "active", required = false) boolean active,
+                           Model model) {
         menuService.save_menu(menuDTO);
         //active 추가
         model.addAttribute("className", "add-menu");

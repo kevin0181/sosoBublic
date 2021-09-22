@@ -8,6 +8,7 @@ import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.MenuRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MenuService {
@@ -55,5 +56,12 @@ public class MenuService {
         for (int i = 0; i < menuCheck.size(); i++) {
             menuRepository.deleteById(menuCheck.get(i));
         }
+    }
+
+    public void changeActive(Long menu_sq, boolean active) {
+        Optional<MenuDTO> optionalMenuDTO = menuRepository.findById(menu_sq);
+        MenuDTO menuDTO = optionalMenuDTO.get();
+        menuDTO.setMenu_enable(active);
+        menuRepository.save(menuDTO);
     }
 }

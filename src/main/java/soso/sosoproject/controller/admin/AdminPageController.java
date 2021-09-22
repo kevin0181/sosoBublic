@@ -94,8 +94,10 @@ public class AdminPageController {
     @GetMapping("/add-menu")
     public String layout(@RequestParam(value = "className", required = false) String className,
                          @RequestParam(value = "condition", required = false) String condition,
-                         @RequestParam(value = "id", required = false) Long id,
+                         @RequestParam(value = "id", required = false) Long Categoryid,
                          @RequestParam(value = "category_name", required = false) String categoryName,
+                         @RequestParam(value = "menu_sq", required = false) Long menu_sq,
+                         @RequestParam(value = "active", required = false) boolean active,
                          Model model) {
 
 
@@ -103,11 +105,13 @@ public class AdminPageController {
             if (condition.equals("change")) {
                 //바뀐 카테고리 이름을 새로운 dto에 주입
                 CategoryDTO categoryDTO = new CategoryDTO();
-                categoryDTO.setCategory_sq(id);
+                categoryDTO.setCategory_sq(Categoryid);
                 categoryDTO.setCategory_name(categoryName);
                 menuService.changeCategory(categoryDTO);
             } else if (condition.equals("delete")) {
-                menuService.deleteCategory(id);
+                menuService.deleteCategory(Categoryid);
+            } else if (condition.equals("active")) {
+                menuService.changeActive(menu_sq, active);
             }
         }
 

@@ -380,12 +380,14 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td th:text="${menulist.menu_price}">가격</td>
+                                        <td th:text="${menulist.menu_price}" th:if="${menuList}">가격</td>
                                         <td>
-                                            <span th:if="${menulist.menu_enable}"
-                                                  th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">활성화</span>
-                                            <span th:unless="${menulist.menu_enable}"
-                                                  th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">비활성화</span>
+                                            <a th:if="${menulist.menu_enable}"
+                                               th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menu_sq},active='false')}"
+                                               th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">활성화</a>
+                                            <a th:unless="${menulist.menu_enable}"
+                                               th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menu_sq},active='true')}"
+                                               th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">비활성화</a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -437,10 +439,18 @@
 <!--리스트-->
 <script src="assets/vendors/simple-datatables/simple-datatables.js"
         th:src="@{/assets/vendors/simple-datatables/simple-datatables.js}"></script>
-<script>
+<script th:inline="javascript">
     // Simple Datatable
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
+
+    var kk;
+    var menu_active;
+
+    function changeActive(kk, menu_active) {
+        console.log(kk);
+        console.log(menu_active);
+    }
 </script>
 
 </html>
