@@ -49,4 +49,11 @@ public class MenuService {
         List<MenuDTO> menuDTOList = menuRepository.findAll();
         return menuDTOList;
     }
+
+    //메뉴 삭제
+    public void deleteMenu(List<Long> menuCheck) {
+        for (int i = 0; i < menuCheck.size(); i++) {
+            menuRepository.deleteById(menuCheck.get(i));
+        }
+    }
 }

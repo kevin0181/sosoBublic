@@ -3,49 +3,46 @@ package soso.sosoproject.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import soso.sosoproject.dto.CategoryDTO;
 import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("menu")
-public class MenuController {
+public class MenuApiController {
 
     @Autowired
     private MenuService menuService;
     private List<CategoryDTO> categoryList;
     private List<MenuDTO> menuList;
 
+    //카테고리 추가
     @GetMapping("add-category")
-    public String addCategory(CategoryDTO categoryDTO, Model model) {
+    public CategoryDTO addCategory(CategoryDTO categoryDTO, Model model) {
         menuService.save_category(categoryDTO);
-
-        //카테고리 리스트 가져오는 부분
-        categoryList = menuService.getCategoryList();
-        model.addAttribute("categoryList", categoryList);
-
         //active 추가
         model.addAttribute("className", "add-menu");
-
-        return "admin/add-menu";
+        return categoryDTO;
     }
 
+    //메뉴 추가
     @PostMapping("add-menu")
-    public String addMenu(MenuDTO menuDTO, Model model) {
+    public MenuDTO addMenu(MenuDTO menuDTO, Model model) {
         menuService.save_menu(menuDTO);
-
-        //카테고리 리스트 가져오는 부분
-        categoryList = menuService.getCategoryList();
-        model.addAttribute("categoryList", categoryList);
-
         //active 추가
         model.addAttribute("className", "add-menu");
-        return "admin/add-menu";
+        return menuDTO;
+    }
+
+    //메뉴 삭제
+    @PostMapping("delete-menu")
+    public List<Long> deleteMenu(@RequestParam(value = "condition", required = false) String condition,
+                                 @RequestParam(value = "menuCheck[]", required = false) List<Long> menuCheck) {
+        menuService.deleteMenu(menuCheck);
+        return menuCheck;
     }
 
 }

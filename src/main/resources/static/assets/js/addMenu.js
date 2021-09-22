@@ -66,3 +66,22 @@ function addMenu() {
     alert("메뉴가 추가되었습니다.");
     location.href = "/admin/add-menu";
 }
+
+//메뉴 삭제
+function deleteMenu() {
+    var menuCheck = [];
+    $("input:checkbox[name='menuCheck']:checked").each(function () {
+        menuCheck.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+    });
+    $.ajax({
+        type: "POST",
+        url: "/menu/delete-menu",
+        dataType: "json",
+        data: {
+            "menuCheck": menuCheck,
+            "condition": "delete"
+        }
+    });
+    alert("메뉴가 삭제되었습니다.");
+    location.href = "/admin/add-menu";
+}

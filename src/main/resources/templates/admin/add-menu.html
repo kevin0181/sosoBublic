@@ -307,6 +307,7 @@
                                 <table class="table table-striped dataTable-table" id="table1">
                                     <thead>
                                     <tr>
+                                        <th data-sortable="" style="width: 5.1983%;"></th>
                                         <th data-sortable="" style="width: 12.1983%;"><a href="#"
                                                                                          class="dataTable-sorter">Category</a>
                                         </th>
@@ -323,7 +324,15 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="menulist : ${menuList}">
-                                        <td th:text="${menulist.categoryDTO.category_name}">카테고리이름</td>
+                                        <td>
+                                            <input type="checkbox"
+                                                   class="form-check-input form-check-primary form-check-glow"
+                                                   name="menuCheck" id="customColorCheck1"
+                                                   th:value="${menulist.menu_sq}">
+                                        </td>
+                                        <td th:text="${menulist.categoryDTO != null} ? ${menulist.categoryDTO.category_name}:' '">
+                                            카테고리이름
+                                        </td>
                                         <td>
                                             <p th:text="${menulist.menu_name}" data-bs-toggle="modal"
                                                th:attr="data-bs-target='#menuName'+${menulist.menu_sq}"
@@ -383,7 +392,11 @@
                                 </table>
                             </div>
                             <div class="dataTable-bottom">
-                                <div class="dataTable-info">Showing 1 to 25 of 26 entries</div>
+                                <div class="dataTable-info">
+                                    <button onclick="deleteMenu()"
+                                            class="btn btn-outline-danger">삭제
+                                    </button>
+                                </div>
                                 <ul class="pagination pagination-primary float-end dataTable-pagination">
                                     <li class="page-item pager"><a href="#" class="page-link" data-page="1">‹</a></li>
                                     <li class="page-item active"><a href="#" class="page-link" data-page="1">1</a></li>
