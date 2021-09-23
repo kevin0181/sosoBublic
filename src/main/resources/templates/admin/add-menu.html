@@ -211,7 +211,8 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
-                                    <form class="form" id="menu_id_form" method="post" th:action="@{/menu/add-menu}">
+                                    <form class="form" id="menu_id_form" method="post" th:action="@{/menu/add-menu}"
+                                          enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6 col-12" style="width: 100%">
                                                 <div class="form-group">
@@ -232,51 +233,53 @@
                                                     </select>
                                                 </fieldset>
                                             </div>
-                                            <!--                                            <div class="col-md-6 col-12">-->
-                                            <!--                                                <div class="form-group">-->
-                                            <!--                                                    <label for="formFileMultiple">메뉴 이미지</label>-->
-                                            <!--                                                    <input class="form-control" type="file" id="formFileMultiple"-->
-                                            <!--                                                           name=""-->
-                                            <!--                                                           multiple="">-->
-                                            <!--                                                </div>-->
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label for="menu_price">가격</label>
-                                                <input type="number" id="menu_price" class="form-control"
-                                                       name="menu_price" placeholder="price">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12" style="height: 50%; margin-top: 30px;">
-                                            <div class="form-group">
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" name="menu_enable"
-                                                           id="flexSwitchCheckChecked" checked="">
-                                                    <label class="form-check-label" for="flexSwitchCheckChecked">메뉴
-                                                        활성화(비활성화를 하면 메뉴가 유저에게 보이지 않습니다.)</label>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="menu_img">메뉴 이미지</label>
+                                                    <input class="form-control" type="file" id="menu_img"
+                                                           name="menu_img" accept="image/png, image/jpeg"
+                                                           multiple="">
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <!--         글쓰는 부분-->
-                                        <div class="card-body">
-                                            <div class="form-group mb-3">
-                                                <label for="exampleFormControlTextarea1" class="form-label">
-                                                    메뉴 내용</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                          name="menu_contant"
-                                                          rows="3"></textarea>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="menu_price">가격</label>
+                                                    <input type="number" id="menu_price" class="form-control"
+                                                           name="menu_price" placeholder="price">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!--     글쓰는 부분-->
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="button" onclick="addMenu()" class="btn btn-primary me-1 mb-1">
-                                                Submit
-                                            </button>
-                                            <button type="reset"
-                                                    class="btn btn-light-secondary me-1 mb-1">Reset
-                                            </button>
-                                        </div>
+                                            <div class="col-md-6 col-12" style="height: 50%; margin-top: 30px;">
+                                                <div class="form-group">
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="menu_enable"
+                                                               id="flexSwitchCheckChecked" checked="">
+                                                        <label class="form-check-label" for="flexSwitchCheckChecked">메뉴
+                                                            활성화(비활성화를 하면 메뉴가 유저에게 보이지 않습니다.)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--         글쓰는 부분-->
+                                            <div class="card-body">
+                                                <div class="form-group mb-3">
+                                                    <label for="exampleFormControlTextarea1" class="form-label">
+                                                        메뉴 내용</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                              name="menu_contant"
+                                                              rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                            <!--     글쓰는 부분-->
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="button" onclick="addMenu()"
+                                                        class="btn btn-primary me-1 mb-1">
+                                                    Submit
+                                                </button>
+                                                <button type="reset"
+                                                        class="btn btn-light-secondary me-1 mb-1">Reset
+                                                </button>
+                                            </div>
                                     </form>
                                 </div>
                             </div>
@@ -328,17 +331,17 @@
                                             <input type="checkbox"
                                                    class="form-check-input form-check-primary form-check-glow"
                                                    name="menuCheck" id="customColorCheck1"
-                                                   th:value="${menulist.menu_sq}">
+                                                   th:value="${menulist.menuSq}">
                                         </td>
                                         <td th:text="${menulist.categoryDTO != null} ? ${menulist.categoryDTO.category_name}:' '">
                                             카테고리이름
                                         </td>
                                         <td>
-                                            <p th:text="${menulist.menu_name}" data-bs-toggle="modal"
-                                               th:attr="data-bs-target='#f-menuName'+${menulist.menu_sq}"
+                                            <p th:text="${menulist.menuName}" data-bs-toggle="modal"
+                                               th:attr="data-bs-target='#f-menuName'+${menulist.menuSq}"
                                                style="margin-bottom: 0px; display: inline-block;">메뉴이름</p>
                                             <!-- modal-->
-                                            <div class="modal fade text-left" th:id="f-menuName+${menulist.menu_sq}"
+                                            <div class="modal fade text-left" th:id="f-menuName+${menulist.menuSq}"
                                                  tabindex="-1"
                                                  role="dialog" aria-labelledby="f-modal"
                                                  aria-hidden="true">
@@ -365,7 +368,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button"
                                                                     th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}"
-                                                                    th:attr="data-bs-target='#s-menuName'+${menulist.menu_sq}"
+                                                                    th:attr="data-bs-target='#s-menuName'+${menulist.menuSq}"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-dismiss="modal">
                                                                 <i class="bx bx-check d-block d-sm-none"></i>
@@ -382,7 +385,7 @@
                                                 </div>
                                             </div>
                                             <!--  second modal-->
-                                            <div class="modal fade text-left" th:id="s-menuName+${menulist.menu_sq}"
+                                            <div class="modal fade text-left" th:id="s-menuName+${menulist.menuSq}"
                                                  tabindex="-1"
                                                  role="dialog" aria-labelledby="s-modal"
                                                  aria-hidden="true">
@@ -406,6 +409,49 @@
                                                         <div class="modal-body" th:text="${menulist.menu_contant}">
                                                             내용
                                                         </div>
+                                                        <div class="card-body">
+                                                            <div id="carouselExampleFade"
+                                                                 class="carousel slide carousel-fade"
+                                                                 data-bs-ride="carouselfade">
+                                                                <ol class="carousel-indicators">
+                                                                    <li data-bs-target="#carouselExampleFade"
+                                                                        data-bs-slide-to="0"
+                                                                        class="active"></li>
+                                                                    <li data-bs-target="#carouselExampleFade"
+                                                                        data-bs-slide-to="1"></li>
+                                                                    <li data-bs-target="#carouselExampleFade"
+                                                                        data-bs-slide-to="2"></li>
+                                                                </ol>
+                                                                <div class="carousel-inner">
+                                                                    <div class="carousel-item active">
+                                                                        <img th:src="@{/assets/images/samples/1.png}"
+                                                                             class="d-block w-100" alt="...">
+                                                                        <div class="carousel-caption d-none d-md-block">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="carousel-item">
+                                                                        <img th:src="@{/assets/images/samples/1.png}"
+                                                                             class="d-block w-100" alt="...">
+                                                                        <div class="carousel-caption d-none d-md-block">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <a class="carousel-control-prev"
+                                                                   href="#carouselExampleFade" role="button"
+                                                                   data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon"
+                                                                          aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                </a>
+                                                                <a class="carousel-control-next"
+                                                                   href="#carouselExampleFade" role="button"
+                                                                   data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon"
+                                                                          aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                         <div class="modal-footer">
                                                             <button type="button"
                                                                     th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
@@ -427,10 +473,10 @@
                                         <td th:text="${menulist.menu_price}" th:if="${menuList}">가격</td>
                                         <td>
                                             <a th:if="${menulist.menu_enable}"
-                                               th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menu_sq},active='false')}"
+                                               th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menuSq},active='false')}"
                                                th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">활성화</a>
                                             <a th:unless="${menulist.menu_enable}"
-                                               th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menu_sq},active='true')}"
+                                               th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menuSq},active='true')}"
                                                th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">비활성화</a>
                                         </td>
                                     </tr>

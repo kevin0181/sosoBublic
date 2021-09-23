@@ -55,14 +55,18 @@ function deleteCategory(category_seq) {
 
 // 메뉴 추가
 function addMenu() {
-    var menu_form = $("#menu_id_form").serialize();
+    var menu_form = $("#menu_id_form");
+    var formData = new FormData(menu_form[0]);
 
     $.ajax({
         type: "POST",
         url: "/menu/add-menu",
         dataType: "json",
-        data: menu_form
+        processData: false,
+        contentType: false,
+        data: formData
     });
+
     alert("메뉴가 추가되었습니다.");
     location.href = "/admin/add-menu";
 }

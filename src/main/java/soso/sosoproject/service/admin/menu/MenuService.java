@@ -2,11 +2,16 @@ package soso.sosoproject.service.admin.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import soso.sosoproject.dto.CategoryDTO;
+import soso.sosoproject.dto.ImgDTO;
 import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.repository.CategoryRepository;
+import soso.sosoproject.repository.ImgRepository;
 import soso.sosoproject.repository.MenuRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,9 @@ public class MenuService {
 
     @Autowired
     private MenuRepository menuRepository;
+
+    @Autowired
+    private ImgRepository imgRepository;
 
     //카테고리 생성
     public void save_category(CategoryDTO categoryDTO) {
@@ -41,8 +49,11 @@ public class MenuService {
     }
 
     //메뉴 생성
-    public void save_menu(MenuDTO menuDTO) {
+    public List<MenuDTO> save_menu(MenuDTO menuDTO) {
         menuRepository.save(menuDTO);
+
+        return menuRepository.findTopByMenuName(menuDTO.getMenuName());
+//        return null;
     }
 
     //메뉴 리스트
@@ -63,5 +74,22 @@ public class MenuService {
         MenuDTO menuDTO = optionalMenuDTO.get();
         menuDTO.setMenu_enable(active);
         menuRepository.save(menuDTO);
+    }
+
+    //이미지 저장
+    public void saveImg(String fileName, String fullPath, Long id) {
+        ImgDTO imgDTO = new ImgDTO();
+        imgDTO.setImg_name(fileName);
+        imgDTO.setImg_path(fullPath);
+        imgDTO.setMenuSq(id);
+
+        imgRepository.save(imgDTO);
+
+    }
+
+    //이미지 저장을 위한 시퀀스 가져옴
+    public List<ImgDTO> getImgId(List<MenuDTO> menuSq) {
+        List<ImgDTO> imgDTO = imgRepository.findTopByMenuSq(menuSq.get(0).getMenuSq());
+        return imgDTO;
     }
 }
