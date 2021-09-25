@@ -18,7 +18,7 @@ public class MenuDTO {
     @Column(name = "menu_sq")
     private Long menuSq;
 
-    @Column(name="menu_name")
+    @Column(name = "menu_name")
     private String menuName;
 
     @Column

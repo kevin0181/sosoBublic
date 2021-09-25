@@ -16,7 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -39,42 +40,56 @@ public class MenuApiController {
     @PostMapping("add-menu")
     public MenuImgDTO addMenu(MenuImgDTO menuImgDTO, Model model) throws IOException {
 
+        //동일 이미지 파일 체크 부분
+        if (!menuImgDTO.getMenu_img().isEmpty()) {
+            if (menuImgDTO.getMenu_img().size() != menuImgDTO.getMenu_img().stream().distinct().count()) {
+                throw new IOException("이미지 이름중복");
+            }
+        }
+
         List<MenuDTO> sqMenuDTO;
         String filePath;
-        int fileNumber = 1;
 
         //메뉴 가져와서 Entity클래스에 주입
         MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenu_sq(), menuImgDTO.getMenu_name(), menuImgDTO.getMenu_category_sq(), menuImgDTO.getMenu_contant(),
                 menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenu_enable(), menuImgDTO.isMenu_today());
         sqMenuDTO = menuService.save_menu(menuDTO);
-        List<ImgDTO> imgDTO = menuService.getImgId(sqMenuDTO);
+        List<ImgDTO> imgDTO = menuService.getImgList();
 
-        for (int i = 0; i < menuImgDTO.getMenu_img().size(); i++) {
-            String fileName = StringUtils.cleanPath(menuImgDTO.getMenu_img().get(i).getOriginalFilename());
-            if (imgDTO.isEmpty()) {
-                filePath = "/menu-img/" + menuDTO.getMenuName() + "/" + fileNumber;
-            } else {
-                fileNumber = imgDTO.get(i).getImg_sq().intValue();
-                fileNumber += menuImgDTO.getMenu_img().size();
-                filePath = "/menu-img/" + menuDTO.getMenuName() + fileNumber;
+        int lastMenuSq = sqMenuDTO.size() - 1;
+
+
+        //이미지 파일 주입 부분
+        if (!menuImgDTO.getMenu_img().isEmpty()) {
+            for (int i = 0; i < menuImgDTO.getMenu_img().size(); i++) {
+                String fileName = StringUtils.cleanPath(menuImgDTO.getMenu_img().get(i).getOriginalFilename());
+
+                // 현재 날짜 구하기
+                Date now = new Date();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+                String nowDate = format.format(now);
+                if (imgDTO.isEmpty()) {
+                    filePath = "./menu-img/" + nowDate + "/" + sqMenuDTO.get(lastMenuSq).getMenuSq();
+                } else {
+                    filePath = "./menu-img/" + nowDate + "/" + sqMenuDTO.get(lastMenuSq).getMenuSq();
+                }
+                Path path = Paths.get(filePath);
+
+                if (!Files.exists(path)) {
+                    Files.createDirectories(path);
+                }
+
+
+                try {
+                    InputStream inputStream = menuImgDTO.getMenu_img().get(i).getInputStream();
+                    Path pushFilePath = path.resolve(fileName);
+                    Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
+                    menuService.saveImg(fileName, pushFilePath.toString(), sqMenuDTO.get(lastMenuSq).getMenuSq(), sqMenuDTO.get(lastMenuSq).getMenuName(), nowDate);
+                } catch (IOException e) {
+                    throw new IOException("파일업로드 안됌");
+                }
+
             }
-            fileNumber++;
-            Path path = Paths.get(filePath);
-
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-            }
-
-            try {
-                InputStream inputStream = menuImgDTO.getMenu_img().get(i).getInputStream();
-                Path pushFilePath = path.resolve(fileName);
-                Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
-                menuService.saveImg(fileName, pushFilePath.toString(), sqMenuDTO.get(0).getMenuSq());
-            } catch (IOException e) {
-                throw new IOException("파일업로드 안됌");
-            }
-
-
         }
 
 

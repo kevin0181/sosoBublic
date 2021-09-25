@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import soso.sosoproject.dto.CategoryDTO;
+import soso.sosoproject.dto.ImgDTO;
 import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 
@@ -123,6 +124,9 @@ public class AdminPageController {
         //메뉴 리스트 가져오는 부분
         List<MenuDTO> menuList = menuService.getMenuList();
         model.addAttribute("menuList", menuList);
+
+        List<ImgDTO> imgDTO = menuService.getImgList();
+        model.addAttribute("imgList", imgDTO);
 
         //페이지 active 구분
         if (className == null) {

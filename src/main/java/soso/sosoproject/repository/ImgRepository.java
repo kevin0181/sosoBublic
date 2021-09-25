@@ -6,5 +6,4 @@ import soso.sosoproject.dto.ImgDTO;
 import java.util.List;
 
 public interface ImgRepository extends JpaRepository<ImgDTO, Long> {
-    List<ImgDTO> findTopByMenuSq(Long menu_sq);
 }

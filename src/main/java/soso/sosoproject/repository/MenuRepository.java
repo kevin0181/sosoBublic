@@ -6,5 +6,5 @@ import soso.sosoproject.dto.MenuDTO;
 import java.util.List;
 
 public interface MenuRepository extends JpaRepository<MenuDTO, Long> {
-    List<MenuDTO> findTopByMenuName(String menuname);
+    List<MenuDTO> findAllByMenuName(String menuname);
 }

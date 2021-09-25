@@ -52,7 +52,7 @@ public class MenuService {
     public List<MenuDTO> save_menu(MenuDTO menuDTO) {
         menuRepository.save(menuDTO);
 
-        return menuRepository.findTopByMenuName(menuDTO.getMenuName());
+        return menuRepository.findAllByMenuName(menuDTO.getMenuName());
 //        return null;
     }
 
@@ -77,19 +77,22 @@ public class MenuService {
     }
 
     //이미지 저장
-    public void saveImg(String fileName, String fullPath, Long id) {
+    public void saveImg(String fileName, String fullPath, Long id, String menuName, String nowDate) {
         ImgDTO imgDTO = new ImgDTO();
         imgDTO.setImg_name(fileName);
         imgDTO.setImg_path(fullPath);
         imgDTO.setMenuSq(id);
+        imgDTO.setMenuName(menuName);
+        imgDTO.setImg_date(nowDate);
 
         imgRepository.save(imgDTO);
 
     }
 
     //이미지 저장을 위한 시퀀스 가져옴
-    public List<ImgDTO> getImgId(List<MenuDTO> menuSq) {
-        List<ImgDTO> imgDTO = imgRepository.findTopByMenuSq(menuSq.get(0).getMenuSq());
+    public List<ImgDTO> getImgList() {
+        List<ImgDTO> imgDTO = imgRepository.findAll();
         return imgDTO;
     }
+
 }
