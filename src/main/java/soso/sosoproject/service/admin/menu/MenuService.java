@@ -2,8 +2,6 @@ package soso.sosoproject.service.admin.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import soso.sosoproject.dto.CategoryDTO;
 import soso.sosoproject.dto.ImgDTO;
 import soso.sosoproject.dto.MenuDTO;
@@ -11,7 +9,6 @@ import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.ImgRepository;
 import soso.sosoproject.repository.MenuRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +42,8 @@ public class MenuService {
 
     //카테고리 변경
     public void changeCategory(CategoryDTO categoryDTO) {
+        Optional<CategoryDTO> getCategoryDTO = categoryRepository.findById(categoryDTO.getCategory_sq());
+        categoryDTO.setMenuList(getCategoryDTO.get().getMenuList());
         categoryRepository.save(categoryDTO);
     }
 
@@ -53,7 +52,6 @@ public class MenuService {
         menuRepository.save(menuDTO);
 
         return menuRepository.findAllByMenuName(menuDTO.getMenuName());
-//        return null;
     }
 
     //메뉴 리스트
@@ -64,6 +62,12 @@ public class MenuService {
 
     //메뉴 삭제
     public void deleteMenu(List<Long> menuCheck) {
+
+        //이미지 삭제
+        for (int i = 0; i < menuCheck.size(); i++) {
+            imgRepository.deleteAllByMenuSq(menuCheck.get(i));
+        }
+        //메뉴 삭제
         for (int i = 0; i < menuCheck.size(); i++) {
             menuRepository.deleteById(menuCheck.get(i));
         }

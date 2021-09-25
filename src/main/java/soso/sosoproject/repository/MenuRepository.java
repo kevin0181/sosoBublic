@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MenuRepository extends JpaRepository<MenuDTO, Long> {
     List<MenuDTO> findAllByMenuName(String menuname);
+
+    List<MenuDTO> findByMenuCategorySq(Long categoryId);
 }

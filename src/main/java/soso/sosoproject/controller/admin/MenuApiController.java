@@ -51,16 +51,17 @@ public class MenuApiController {
         String filePath;
 
         //메뉴 가져와서 Entity클래스에 주입
-        MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenu_sq(), menuImgDTO.getMenu_name(), menuImgDTO.getMenu_category_sq(), menuImgDTO.getMenu_contant(),
+        MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenu_sq(), menuImgDTO.getMenu_name(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
                 menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenu_enable(), menuImgDTO.isMenu_today());
         sqMenuDTO = menuService.save_menu(menuDTO);
         List<ImgDTO> imgDTO = menuService.getImgList();
-
         int lastMenuSq = sqMenuDTO.size() - 1;
 
-
         //이미지 파일 주입 부분
-        if (!menuImgDTO.getMenu_img().isEmpty()) {
+        if (menuImgDTO.getMenu_img().get(0).getOriginalFilename().equals("")) {
+            model.addAttribute("className", "add-menu");
+            return menuImgDTO;
+        } else {
             for (int i = 0; i < menuImgDTO.getMenu_img().size(); i++) {
                 String fileName = StringUtils.cleanPath(menuImgDTO.getMenu_img().get(i).getOriginalFilename());
 
@@ -102,6 +103,7 @@ public class MenuApiController {
     @PostMapping("delete-menu")
     public List<Long> deleteMenu(@RequestParam(value = "condition", required = false) String condition,
                                  @RequestParam(value = "menuCheck[]", required = false) List<Long> menuCheck) {
+
         menuService.deleteMenu(menuCheck);
         return menuCheck;
     }

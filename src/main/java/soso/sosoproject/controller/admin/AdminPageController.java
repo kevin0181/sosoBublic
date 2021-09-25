@@ -95,7 +95,7 @@ public class AdminPageController {
     @GetMapping("/add-menu")
     public String layout(@RequestParam(value = "className", required = false) String className,
                          @RequestParam(value = "condition", required = false) String condition,
-                         @RequestParam(value = "id", required = false) Long Categoryid,
+                         @RequestParam(value = "category_id", required = false) Long categoryId,
                          @RequestParam(value = "category_name", required = false) String categoryName,
                          @RequestParam(value = "menu_sq", required = false) Long menu_sq,
                          @RequestParam(value = "active", required = false) boolean active,
@@ -106,11 +106,11 @@ public class AdminPageController {
             if (condition.equals("change")) {
                 //바뀐 카테고리 이름을 새로운 dto에 주입
                 CategoryDTO categoryDTO = new CategoryDTO();
-                categoryDTO.setCategory_sq(Categoryid);
+                categoryDTO.setCategory_sq(categoryId);
                 categoryDTO.setCategory_name(categoryName);
                 menuService.changeCategory(categoryDTO);
             } else if (condition.equals("delete")) {
-                menuService.deleteCategory(Categoryid);
+                menuService.deleteCategory(categoryId);
             } else if (condition.equals("active")) {
                 menuService.changeActive(menu_sq, active);
             }
@@ -125,6 +125,7 @@ public class AdminPageController {
         List<MenuDTO> menuList = menuService.getMenuList();
         model.addAttribute("menuList", menuList);
 
+        //이미지 리스트 가져옴
         List<ImgDTO> imgDTO = menuService.getImgList();
         model.addAttribute("imgList", imgDTO);
 

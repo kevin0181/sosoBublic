@@ -28,7 +28,7 @@ function changeCategory(category_seq) {
             data: {
                 "className": "add-menu",
                 "condition": "change",
-                "id": category_seq,
+                "category_id": category_seq,
                 "category_name": name
             }
         });
@@ -46,7 +46,7 @@ function deleteCategory(category_seq) {
         data: {
             "className": "add-menu",
             "condition": "delete",
-            "id": category_seq
+            "category_id": category_seq
         }
     });
     alert("삭제되었습니다.");

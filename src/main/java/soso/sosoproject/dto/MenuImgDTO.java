@@ -14,7 +14,7 @@ public class MenuImgDTO {
 
     private String menu_name;
 
-    private Long menu_category_sq;
+    private Long menuCategorySq;
 
     private String menu_contant;
 
