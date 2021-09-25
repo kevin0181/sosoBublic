@@ -69,12 +69,12 @@
                                                     <label>카테고리 이름</label>
                                                 </div>
                                                 <div class="col-md-8 form-group">
-                                                    <input type="text" id="first-name" class="form-control"
+                                                    <input type="text" id="category_name" class="form-control"
                                                            name="category_name" placeholder="카테고리 이름">
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-end">
                                                     <button type="button" onclick="addCategory()"
-                                                            class="btn btn-primary me-1 mb-1">add
+                                                            class="btn btn-primary me-1 mb-1">Add
                                                     </button>
                                                     <button type="reset"
                                                             class="btn btn-light-secondary me-1 mb-1">Reset
@@ -263,9 +263,9 @@
                                             <!--         글쓰는 부분-->
                                             <div class="card-body">
                                                 <div class="form-group mb-3">
-                                                    <label for="exampleFormControlTextarea1" class="form-label">
+                                                    <label for="insertContant" class="form-label">
                                                         메뉴 내용</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                    <textarea class="form-control" id="insertContant"
                                                               name="menu_contant"
                                                               rows="3"></textarea>
                                                 </div>
@@ -274,7 +274,7 @@
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="button" onclick="addMenu()"
                                                         class="btn btn-primary me-1 mb-1">
-                                                    Submit
+                                                    Add
                                                 </button>
                                                 <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset
@@ -362,6 +362,11 @@
                                                                 <i data-feather="x"></i>
                                                             </button>
                                                         </div>
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="contant-title"
+                                                                th:text="${menulist.menuName}">
+                                                            </h5>
+                                                        </div>
                                                         <div class="modal-body">
                                                             <p th:text="${menulist.menu_contant}">내용</p>
                                                             <div class="card-body">
@@ -417,11 +422,11 @@
                                                 </div>
                                             </div>
                                             <!--  second modal-->
-                                            <div class="modal fade text-left" th:id="s-menuName+${menulist.menuSq}"
+                                            <div class="modal fade text-left w-100" th:id="s-menuName+${menulist.menuSq}"
                                                  tabindex="-1"
                                                  role="dialog" aria-labelledby="s-modal"
                                                  aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full"
                                                      role="document">
                                                     <div class="modal-content">
                                                         <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
@@ -438,21 +443,58 @@
                                                                 <i data-feather="x"></i>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button"
-                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
-                                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">수정 확인</span>
-                                                            </button>
-                                                            <button type="button"
-                                                                    class="btn btn-light-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                                <span class="d-none d-sm-block">닫기</span>
-                                                            </button>
-                                                        </div>
+                                                        <form>
+                                                            <div style="padding: 1rem;border-bottom: 1px solid #dee2e6; display: flex;">
+                                                                <input type="hidden" th:value="${menulist.menuSq}">
+                                                                <div style="display: inline-block; margin: 0 auto;">
+                                                                    <label style="color: rgba(35,28,99,.7);font-weight: 600;">
+                                                                        메뉴 이름: </label>
+                                                                    <input type="text" placeholder="메뉴 이름"
+                                                                           th:value="${menulist.menuName}"
+                                                                           name="menuName"
+                                                                           class="form-control">
+                                                                </div>
+                                                                <div style="display: inline-block; margin: 0 auto;">
+                                                                    <label style="color: rgba(35,28,99,.7);font-weight: 600;"
+                                                                           for="changeCategorySelect">
+                                                                        카테고리: </label>
+                                                                    <select class="form-select"
+                                                                            id="changeCategorySelect"
+                                                                            name="menuCategorySq">
+                                                                        <option th:each="categortlist : ${categoryList}"
+                                                                                th:selected="${menulist.menuCategorySq} == ${categortlist.category_sq}"
+                                                                                th:value="${categortlist.category_sq}"
+                                                                                th:text="${categortlist.category_name}"
+                                                                        ></option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="changeContant"
+                                                                           class="form-label">수정 내용</label>
+                                                                    <textarea class="form-control"
+                                                                              th:text="${menulist.menu_contant}"
+                                                                              id="changeContant" name="menu_contant"
+                                                                              rows="3">
+                                                                    </textarea>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                        th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
+                                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                                    <span class="d-none d-sm-block">수정</span>
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="btn btn-light-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                                    <span class="d-none d-sm-block">닫기</span>
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
