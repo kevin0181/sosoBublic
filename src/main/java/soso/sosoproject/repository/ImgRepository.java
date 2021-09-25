@@ -9,4 +9,6 @@ import java.util.List;
 public interface ImgRepository extends JpaRepository<ImgDTO, Long> {
     @Transactional
     Long deleteAllByMenuSq(Long id);
+
+    List<ImgDTO> findAllByMenuSq(Long id);
 }

@@ -9,6 +9,10 @@ import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.ImgRepository;
 import soso.sosoproject.repository.MenuRepository;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,12 +65,36 @@ public class MenuService {
     }
 
     //메뉴 삭제
-    public void deleteMenu(List<Long> menuCheck) {
+    public void deleteMenu(List<Long> menuCheck) throws IOException {
+
+        String fileName;
+        String imgDate = null;
+        String filePath;
+        String dirPath;
+        List<ImgDTO> deleteImg;
 
         //이미지 삭제
         for (int i = 0; i < menuCheck.size(); i++) {
+            deleteImg = imgRepository.findAllByMenuSq(menuCheck.get(i));
+            for (int j = 0; j < deleteImg.size(); j++) {
+                fileName = deleteImg.get(j).getImg_name();
+                imgDate = deleteImg.get(j).getImg_date();
+                filePath = "./menu-img/" + menuCheck.get(i) + "/" + imgDate + "/" + fileName;
+                Path path = Paths.get(filePath);
+                if (Files.exists(path)) {
+                    Files.delete(path);
+                }
+            }
+
+            dirPath = "./menu-img/" + menuCheck.get(i) + "/" + imgDate;
+            Path deleteDirPath = Paths.get(dirPath);
+            if (Files.exists(deleteDirPath)) {
+                Files.delete(deleteDirPath);
+            }
+
             imgRepository.deleteAllByMenuSq(menuCheck.get(i));
         }
+
         //메뉴 삭제
         for (int i = 0; i < menuCheck.size(); i++) {
             menuRepository.deleteById(menuCheck.get(i));

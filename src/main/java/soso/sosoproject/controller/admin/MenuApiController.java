@@ -69,10 +69,11 @@ public class MenuApiController {
                 Date now = new Date();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
                 String nowDate = format.format(now);
+
                 if (imgDTO.isEmpty()) {
-                    filePath = "./menu-img/" + nowDate + "/" + sqMenuDTO.get(lastMenuSq).getMenuSq();
+                    filePath = "./menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 } else {
-                    filePath = "./menu-img/" + nowDate + "/" + sqMenuDTO.get(lastMenuSq).getMenuSq();
+                    filePath = "./menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 }
                 Path path = Paths.get(filePath);
 
@@ -102,7 +103,7 @@ public class MenuApiController {
     //메뉴 삭제
     @PostMapping("delete-menu")
     public List<Long> deleteMenu(@RequestParam(value = "condition", required = false) String condition,
-                                 @RequestParam(value = "menuCheck[]", required = false) List<Long> menuCheck) {
+                                 @RequestParam(value = "menuCheck[]", required = false) List<Long> menuCheck) throws IOException {
 
         menuService.deleteMenu(menuCheck);
         return menuCheck;
