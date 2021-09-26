@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import soso.sosoproject.dto.CategoryDTO;
-import soso.sosoproject.dto.ImgDTO;
-import soso.sosoproject.dto.MenuDTO;
-import soso.sosoproject.dto.MenuImgDTO;
+import soso.sosoproject.dto.*;
 import soso.sosoproject.service.admin.menu.MenuService;
 
 import java.io.IOException;
@@ -26,6 +23,9 @@ public class MenuApiController {
 
     @Autowired
     private MenuService menuService;
+
+    private List<MenuDTO> sqMenuDTO;
+    private List<ImgDTO> imgDTO;
 
     //카테고리 추가
     @GetMapping("add-category")
@@ -47,53 +47,17 @@ public class MenuApiController {
             }
         }
 
-        List<MenuDTO> sqMenuDTO;
-        String filePath;
 
         //메뉴 가져와서 Entity클래스에 주입
-        MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenu_sq(), menuImgDTO.getMenu_name(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
-                menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenu_enable(), menuImgDTO.isMenu_today());
-        sqMenuDTO = menuService.save_menu(menuDTO);
-        List<ImgDTO> imgDTO = menuService.getImgList();
+        sqMenuDTO = menuService.save_menu(menuImgDTO);
+        imgDTO = menuService.getImgList();
         int lastMenuSq = sqMenuDTO.size() - 1;
 
         //이미지 파일 주입 부분
-        if (menuImgDTO.getMenu_img().get(0).getOriginalFilename().equals("")) {
-            model.addAttribute("className", "add-menu");
+        boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqMenuDTO, lastMenuSq, model);
+        if (checkImgfile == false) {
             return menuImgDTO;
-        } else {
-            for (int i = 0; i < menuImgDTO.getMenu_img().size(); i++) {
-                String fileName = StringUtils.cleanPath(menuImgDTO.getMenu_img().get(i).getOriginalFilename());
-
-                // 현재 날짜 구하기
-                Date now = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-                String nowDate = format.format(now);
-
-                if (imgDTO.isEmpty()) {
-                    filePath = "./menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
-                } else {
-                    filePath = "./menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
-                }
-                Path path = Paths.get(filePath);
-
-                if (!Files.exists(path)) {
-                    Files.createDirectories(path);
-                }
-
-
-                try {
-                    InputStream inputStream = menuImgDTO.getMenu_img().get(i).getInputStream();
-                    Path pushFilePath = path.resolve(fileName);
-                    Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
-                    menuService.saveImg(fileName, pushFilePath.toString(), sqMenuDTO.get(lastMenuSq).getMenuSq(), sqMenuDTO.get(lastMenuSq).getMenuName(), nowDate);
-                } catch (IOException e) {
-                    throw new IOException("파일업로드 안됌");
-                }
-
-            }
         }
-
 
         //active 추가
         model.addAttribute("className", "add-menu");
@@ -107,6 +71,45 @@ public class MenuApiController {
 
         menuService.deleteMenu(menuCheck);
         return menuCheck;
+    }
+
+    //메뉴 변경
+    @PostMapping("change-menu")
+    public MenuImgDTO changeMenu(MenuImgDTO menuImgDTO, Model model) throws IOException {
+
+        //동일 이미지 파일 체크 부분
+        if (!menuImgDTO.getMenu_img().isEmpty()) {
+            if (menuImgDTO.getMenu_img().size() != menuImgDTO.getMenu_img().stream().distinct().count()) {
+                throw new IOException("이미지 이름중복");
+            }
+        }
+
+        //오늘의메뉴가 있으면 실행하지만 DB에 이미 있으면 실행을 하지 않음
+        if (menuImgDTO.isMenu_today()) {
+            boolean checkMenuToday = menuService.getTodayList(menuImgDTO.getMenuSq());
+            if (checkMenuToday == false)
+                return menuImgDTO;
+
+            //선택한 이미지 삭제
+            if (menuImgDTO.getDelete_img_sq() != null)
+                menuService.deleteImg(null, menuImgDTO.getDelete_img_sq());
+
+            //메뉴 가져와서 Entity클래스에 주입
+            sqMenuDTO = menuService.save_menu(menuImgDTO);
+            imgDTO = menuService.getImgList();
+            int lastMenuSq = sqMenuDTO.size() - 1;
+
+
+            //이미지 파일 주입 부분
+            boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqMenuDTO, lastMenuSq, model);
+            if (checkImgfile == false) {
+                return menuImgDTO;
+            }
+
+        }
+
+
+        return menuImgDTO;
     }
 
 }

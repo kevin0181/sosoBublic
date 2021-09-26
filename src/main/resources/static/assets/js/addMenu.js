@@ -111,3 +111,28 @@ function isEmptyArr(arr) {
     }
     return false;
 }
+
+
+var menuSq;
+
+//메뉴 변경
+function changeMenu(menuSq) {
+    var changeMenuform = $('#changeMenuModal' + menuSq);
+    var formData = new FormData(changeMenuform[0]);
+    if (!$('#changeMenuName' + menuSq).val() || !$('#changeMenuPrice' + menuSq).val()) {
+        alert("빈칸을 입력해주세요.");
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/menu/change-menu",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData
+    });
+
+    alert("메뉴가 수정되었습니다.");
+    location.href = "/admin/add-menu";
+}

@@ -10,9 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 public class MenuImgDTO {
-    private Long menu_sq;
+    private Long menuSq;
 
-    private String menu_name;
+    private String menuName;
 
     private Long menuCategorySq;
 
@@ -25,6 +25,8 @@ public class MenuImgDTO {
     private boolean menu_enable;
 
     private boolean menu_today;
+
+    private List<Long> delete_img_sq;
 
     private List<MultipartFile> menu_img = new ArrayList<>();
 }

@@ -36,8 +36,8 @@ public class MenuDTO {
     @Column
     private boolean menu_enable;
 
-    @Column
-    private boolean menu_today;
+    @Column(name = "menu_today")
+    private boolean menuToday;
 
     @ManyToOne
     @JoinColumn(name = "menu_category_sq", insertable = false, updatable = false)
@@ -56,7 +56,7 @@ public class MenuDTO {
         this.menu_price = menu_price;
         this.menu_sold_out = menu_sold_out;
         this.menu_enable = menu_enable;
-        this.menu_today = menu_today;
+        this.menuToday = menu_today;
     }
 
 }

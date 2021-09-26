@@ -218,7 +218,7 @@
                                                 <div class="form-group">
                                                     <label for="menu_name">메뉴 이름</label>
                                                     <input type="text" id="menu_name" class="form-control"
-                                                           placeholder="menu name" name="menu_name">
+                                                           placeholder="menu name" name="menuName">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
@@ -340,12 +340,15 @@
                                             <p th:text="${menulist.menuName}" data-bs-toggle="modal"
                                                th:attr="data-bs-target='#f-menuName'+${menulist.menuSq}"
                                                style="margin-bottom: 0px; display: inline-block;">메뉴이름</p>
+                                            <small th:if="${menulist.menuToday} == true" style="color: #0dcaf0;">(오늘의
+                                                메뉴)</small>
+                                            <small th:if="${menulist.menu_sold_out} == true" style="color: #ffc107;">(품절)</small>
                                             <!-- modal-->
                                             <div class="modal fade text-left" th:id="f-menuName+${menulist.menuSq}"
                                                  tabindex="-1"
                                                  role="dialog" aria-labelledby="f-modal"
                                                  aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                <div class="modal-dialog modal-dialog-centered"
                                                      role="document">
                                                     <div class="modal-content">
                                                         <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
@@ -422,11 +425,11 @@
                                                 </div>
                                             </div>
                                             <!--  second modal-->
-                                            <div class="modal fade text-left w-100" th:id="s-menuName+${menulist.menuSq}"
+                                            <div class="modal fade text-left" th:id="s-menuName+${menulist.menuSq}"
                                                  tabindex="-1"
                                                  role="dialog" aria-labelledby="s-modal"
                                                  aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full"
+                                                <div class="modal-dialog modal-dialog-scrollable modal-full"
                                                      role="document">
                                                     <div class="modal-content">
                                                         <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
@@ -443,34 +446,44 @@
                                                                 <i data-feather="x"></i>
                                                             </button>
                                                         </div>
-                                                        <form>
-                                                            <div style="padding: 1rem;border-bottom: 1px solid #dee2e6; display: flex;">
-                                                                <input type="hidden" th:value="${menulist.menuSq}">
-                                                                <div style="display: inline-block; margin: 0 auto;">
-                                                                    <label style="color: rgba(35,28,99,.7);font-weight: 600;">
-                                                                        메뉴 이름: </label>
-                                                                    <input type="text" placeholder="메뉴 이름"
-                                                                           th:value="${menulist.menuName}"
-                                                                           name="menuName"
-                                                                           class="form-control">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="second-modal-contant-title"
+                                                                th:text="${menulist.menuName}+' 수정 창'">
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form th:id="changeMenuModal+${menulist.menuSq}"
+                                                                  method="post">
+                                                                <div style="padding: 1rem;border-bottom: 1px solid #dee2e6; display: flex;">
+                                                                    <input type="hidden" name="menuSq"
+                                                                           th:value="${menulist.menuSq}">
+                                                                    <input type="hidden" name="menu_enable"
+                                                                           th:value="${menulist.menu_enable}">
+                                                                    <div style="display: inline-block; margin: 0 auto;">
+                                                                        <label style="color: rgba(35,28,99,.7);font-weight: 600;">
+                                                                            메뉴 이름: </label>
+                                                                        <input type="text" placeholder="메뉴 이름"
+                                                                               th:id="changeMenuName+${menulist.menuSq}"
+                                                                               th:value="${menulist.menuName}"
+                                                                               name="menuName"
+                                                                               class="form-control">
+                                                                    </div>
+                                                                    <div style="display: inline-block; margin: 0 auto;">
+                                                                        <label style="color: rgba(35,28,99,.7);font-weight: 600;"
+                                                                               for="changeCategorySelect">
+                                                                            카테고리: </label>
+                                                                        <select class="form-select"
+                                                                                id="changeCategorySelect"
+                                                                                name="menuCategorySq">
+                                                                            <option th:each="categortlist : ${categoryList}"
+                                                                                    th:selected="${menulist.menuCategorySq} == ${categortlist.category_sq}"
+                                                                                    th:value="${categortlist.category_sq}"
+                                                                                    th:text="${categortlist.category_name}"
+                                                                            ></option>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                                <div style="display: inline-block; margin: 0 auto;">
-                                                                    <label style="color: rgba(35,28,99,.7);font-weight: 600;"
-                                                                           for="changeCategorySelect">
-                                                                        카테고리: </label>
-                                                                    <select class="form-select"
-                                                                            id="changeCategorySelect"
-                                                                            name="menuCategorySq">
-                                                                        <option th:each="categortlist : ${categoryList}"
-                                                                                th:selected="${menulist.menuCategorySq} == ${categortlist.category_sq}"
-                                                                                th:value="${categortlist.category_sq}"
-                                                                                th:text="${categortlist.category_name}"
-                                                                        ></option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group mb-3">
+                                                                <div class="form-group mb-3 mt-3">
                                                                     <label for="changeContant"
                                                                            class="form-label">수정 내용</label>
                                                                     <textarea class="form-control"
@@ -479,22 +492,132 @@
                                                                               rows="3">
                                                                     </textarea>
                                                                 </div>
+                                                                <section id="groups"
+                                                                         th:if="${menulist.menu_img_sq.size()} != 0">
+                                                                    <div class="row match-height">
+                                                                        <div class="col-12 mt-3 mb-1">
+                                                                            <h4 class="section-title text-uppercase">
+                                                                                이미지 선택 삭제</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row match-height">
+                                                                        <div class="col-12">
+                                                                            <div class="card-group">
+                                                                                <div class="card"
+                                                                                     style="text-align: center;"
+                                                                                     th:each="imgMenuList,index : ${menulist.menu_img_sq}">
+                                                                                    <div class="card-content">
+                                                                                        <img th:class="'img-thumbnail'"
+                                                                                             style="height: 200px;"
+                                                                                             th:src="@{'/menu-img/'+${imgMenuList.menuSq}+'/'
+                                                                        +${imgMenuList.img_date}+'/'+${imgMenuList.img_name}}"
+                                                                                             alt="Card image cap">
+                                                                                        <div class="card-body">
+                                                                                            <p class="card-text"
+                                                                                               th:text="${imgMenuList.img_name}">
+                                                                                                이미지 이름</p>
+                                                                                            <li class="d-block me-2 mb-1">
+                                                                                                <div class="form-check">
+                                                                                                    <div class="custom-control custom-checkbox"
+                                                                                                         style="display: inline-block;">
+                                                                                                        <input type="checkbox"
+                                                                                                               class="form-check-input form-check-danger"
+                                                                                                               th:value="${imgMenuList.img_sq}"
+                                                                                                               name="delete_img_sq"
+                                                                                                               th:id="img_sq+${imgMenuList.img_sq}">
+                                                                                                        <label class="form-check-label"
+                                                                                                               style="font-size: 13px;"
+                                                                                                               th:for="img_sq+${imgMenuList.img_sq}">
+                                                                                                            삭제
+                                                                                                            체크
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <small class="text-muted"
+                                                                                                   th:text="${imgMenuList.img_date}">이미지
+                                                                                                날짜</small>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </section>
+                                                                <div class="mb-3">
+                                                                    <label for="formFile" class="form-label">이미지
+                                                                        추가</label>
+                                                                    <input class="form-control" type="file"
+                                                                           id="formFile"
+                                                                           name="menu_img"
+                                                                           accept="image/png, image/jpeg"
+                                                                           multiple="">
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="roundText">가격</label>
+                                                                                <input type="text" id="roundText"
+                                                                                       class="form-control round"
+                                                                                       th:value="${menulist.menu_price}"
+                                                                                       th:id="'changeMenuPrice'+${menulist.menuSq}"
+                                                                                       name="menu_price"
+                                                                                       placeholder="가격">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group"
+                                                                                 style="margin-top: 30px">
+                                                                                <div class="form-check">
+                                                                                    <div class="custom-control custom-checkbox">
+                                                                                        <input type="checkbox"
+                                                                                               class="form-check-input form-check-warning form-check-glow"
+                                                                                               name="menu_sold_out"
+                                                                                               th:checked="${menulist.menu_sold_out} == true"
+                                                                                               id="soldOutCheckBox">
+                                                                                        <label class="form-check-label"
+                                                                                               for="soldOutCheckBox">품절</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group"
+                                                                                 style="margin-top: 30px">
+                                                                                <div class="form-check">
+                                                                                    <div class="custom-control custom-checkbox">
+                                                                                        <input type="checkbox"
+                                                                                               class="form-check-input form-check-info form-check-glow"
+                                                                                               name="menu_today"
+                                                                                               th:checked="${menulist.menuToday} == true"
+                                                                                               id="todayCheckBox">
+                                                                                        <label class="form-check-label"
+                                                                                               for="todayCheckBox">오늘의
+                                                                                            메뉴</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button"
-                                                                        th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
-                                                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                                                    <span class="d-none d-sm-block">수정</span>
-                                                                </button>
-                                                                <button type="button"
-                                                                        class="btn btn-light-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                                    <span class="d-none d-sm-block">닫기</span>
-                                                                </button>
-                                                            </div>
-                                                        </form>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    th:onclick="changeMenu([[${menulist.menuSq}]])"
+                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
+                                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">수정</span>
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-light-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">닫기</span>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
