@@ -61,8 +61,10 @@ public class MenuService {
 
     //메뉴 생성
     public List<MenuDTO> save_menu(MenuImgDTO menuImgDTO) {
+        List<ImgDTO> imgDTOList = imgRepository.findAllByMenuSq(menuImgDTO.getMenuSq());
         MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenuSq(), menuImgDTO.getMenuName(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
-                menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenu_enable(), menuImgDTO.isMenu_today());
+                menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenu_enable(), menuImgDTO.isMenu_today(), imgDTOList);
+
         menuRepository.save(menuDTO);
         return menuRepository.findAllByMenuName(menuDTO.getMenuName());
     }
@@ -75,11 +77,18 @@ public class MenuService {
 
     //메뉴 삭제
     public void deleteMenu(List<Long> menuCheck) throws IOException {
+
+        String dirPath;
         //이미지 삭제 함수
         deleteImg(menuCheck, null);
         //메뉴 삭제
         for (int i = 0; i < menuCheck.size(); i++) {
             menuRepository.deleteById(menuCheck.get(i));
+            dirPath = "./menu-img/" + menuCheck.get(i);
+            Path deleteDirPath = Paths.get(dirPath);
+            if (Files.exists(deleteDirPath)) {
+                Files.delete(deleteDirPath);
+            }
         }
     }
 
@@ -125,15 +134,16 @@ public class MenuService {
                         Files.delete(path);
                     }
                 }
-                //디렉토리 삭제
-                if (i == imgsq.size() - 1) {
-                    dirPath = "./menu-img/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
-                    Path deleteDirPath = Paths.get(dirPath);
-                    if (Files.exists(deleteDirPath)) {
-                        Files.delete(deleteDirPath);
-                    }
-                }
                 imgRepository.deleteAllById(Collections.singleton(imgsq.get(i)));
+            }
+
+            List<ImgDTO> count = imgRepository.findAllByMenuSq(deleteImg.get(0).getMenuSq());
+            if (imgsq.size() == count.size() || count == null || count.isEmpty()) {
+                dirPath = "./menu-img/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
+                Path deleteDirPath = Paths.get(dirPath);
+                if (Files.exists(deleteDirPath)) {
+                    Files.delete(deleteDirPath);
+                }
             }
         }
     }
@@ -147,12 +157,11 @@ public class MenuService {
     }
 
     //이미지 저장
-    public void saveImg(String fileName, String fullPath, Long id, String menuName, String nowDate) {
+    public void saveImg(String fileName, String fullPath, Long id, String nowDate) {
         ImgDTO imgDTO = new ImgDTO();
         imgDTO.setImg_name(fileName);
         imgDTO.setImg_path(fullPath);
         imgDTO.setMenuSq(id);
-        imgDTO.setMenuName(menuName);
         imgDTO.setImg_date(nowDate);
 
         imgRepository.save(imgDTO);
@@ -191,7 +200,7 @@ public class MenuService {
                     InputStream inputStream = menuImgDTO.getMenu_img().get(i).getInputStream();
                     Path pushFilePath = path.resolve(fileName);
                     Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
-                    saveImg(fileName, pushFilePath.toString(), sqMenuDTO.get(lastMenuSq).getMenuSq(), sqMenuDTO.get(lastMenuSq).getMenuName(), nowDate);
+                    saveImg(fileName, pushFilePath.toString(), sqMenuDTO.get(lastMenuSq).getMenuSq(), nowDate);
                 } catch (IOException e) {
                     throw new IOException("파일업로드 안됌");
                 }

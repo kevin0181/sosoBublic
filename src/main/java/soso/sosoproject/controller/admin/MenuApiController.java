@@ -89,26 +89,25 @@ public class MenuApiController {
             boolean checkMenuToday = menuService.getTodayList(menuImgDTO.getMenuSq());
             if (checkMenuToday == false)
                 return menuImgDTO;
+        }
 
-            //선택한 이미지 삭제
-            if (menuImgDTO.getDelete_img_sq() != null)
-                menuService.deleteImg(null, menuImgDTO.getDelete_img_sq());
 
+        //선택한 이미지 삭제
+        if (menuImgDTO.getDelete_img_sq() != null)
+            menuService.deleteImg(null, menuImgDTO.getDelete_img_sq());
+
+        if (menuImgDTO != null) {
             //메뉴 가져와서 Entity클래스에 주입
             sqMenuDTO = menuService.save_menu(menuImgDTO);
             imgDTO = menuService.getImgList();
             int lastMenuSq = sqMenuDTO.size() - 1;
-
-
             //이미지 파일 주입 부분
             boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqMenuDTO, lastMenuSq, model);
             if (checkImgfile == false) {
                 return menuImgDTO;
             }
-
+            menuService.save_menu(menuImgDTO);
         }
-
-
         return menuImgDTO;
     }
 

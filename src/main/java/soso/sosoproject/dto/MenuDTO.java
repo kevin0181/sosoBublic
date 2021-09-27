@@ -44,7 +44,7 @@ public class MenuDTO {
     private CategoryDTO categoryDTO;
 
     @OneToMany
-    @JoinColumn(name = "menu_sq", insertable = false, updatable = false)
+    @JoinColumn(name = "menu_sq")
     private List<ImgDTO> menu_img_sq = new ArrayList<>();
 
     public MenuDTO(Long menu_sq, String menu_name, Long menu_category_sq, String menu_contant,
@@ -59,4 +59,17 @@ public class MenuDTO {
         this.menuToday = menu_today;
     }
 
+
+    public MenuDTO(Long menuSq, String menuName, Long menuCategorySq, String menu_contant,
+                   int menu_price, boolean menu_sold_out, boolean menu_enable, boolean menuToday, List<ImgDTO> menu_img_sq) {
+        this.menuSq = menuSq;
+        this.menuName = menuName;
+        this.menuCategorySq = menuCategorySq;
+        this.menu_contant = menu_contant;
+        this.menu_price = menu_price;
+        this.menu_sold_out = menu_sold_out;
+        this.menu_enable = menu_enable;
+        this.menuToday = menuToday;
+        this.menu_img_sq = menu_img_sq;
+    }
 }

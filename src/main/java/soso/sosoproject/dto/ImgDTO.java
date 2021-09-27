@@ -16,9 +16,6 @@ public class ImgDTO {
     @Column(name = "menu_sq")
     private Long menuSq;
 
-    @Column(name = "menu_name")
-    private String menuName;
-
     @Column
     private String img_path;
 
