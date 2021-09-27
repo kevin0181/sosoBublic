@@ -138,7 +138,7 @@ public class MenuService {
             }
 
             List<ImgDTO> count = imgRepository.findAllByMenuSq(deleteImg.get(0).getMenuSq());
-            if (imgsq.size() == count.size() || count == null || count.isEmpty()) {
+            if (count.size() == 0) {
                 dirPath = "./menu-img/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
                 Path deleteDirPath = Paths.get(dirPath);
                 if (Files.exists(deleteDirPath)) {
