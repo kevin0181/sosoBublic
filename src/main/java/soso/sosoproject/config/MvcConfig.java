@@ -1,5 +1,6 @@
 package soso.sosoproject.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -11,12 +12,20 @@ import java.nio.file.Paths;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+    @Value("${resource.Location}")
+    private String resourceLocation;
+    @Value("${resource.uriPath}")
+    private String resourceUriPath;
+
     public void addViewControllers(ViewControllerRegistry registry) {
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        exposeDirectory("menu-img", registry);
+//        exposeDirectory("menu-img", registry);
+        registry.addResourceHandler(resourceUriPath + "/**")
+                .addResourceLocations("file://" + resourceLocation);
+
     }
 
     private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
@@ -26,6 +35,7 @@ public class MvcConfig implements WebMvcConfigurer {
         if (dirName.startsWith("../")) dirName = dirName.replace("../", "");
 
         registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/" + uploadPath + "/");
+        System.out.println(uploadPath);
     }
 
 }

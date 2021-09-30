@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import soso.sosoproject.dto.CategoryDTO;
 import soso.sosoproject.dto.ImgDTO;
 import soso.sosoproject.dto.MenuDTO;
@@ -84,7 +85,7 @@ public class MenuService {
         //메뉴 삭제
         for (int i = 0; i < menuCheck.size(); i++) {
             menuRepository.deleteById(menuCheck.get(i));
-            dirPath = "./menu-img/" + menuCheck.get(i);
+            dirPath = "/menu-img/" + menuCheck.get(i);
             Path deleteDirPath = Paths.get(dirPath);
             if (Files.exists(deleteDirPath)) {
                 Files.delete(deleteDirPath);
@@ -107,14 +108,14 @@ public class MenuService {
                 for (int j = 0; j < deleteImg.size(); j++) {
                     fileName = deleteImg.get(j).getImg_name();
                     imgDate = deleteImg.get(j).getImg_date();
-                    filePath = "./menu-img/" + menuCheck.get(i) + "/" + imgDate + "/" + fileName;
+                    filePath = "/menu-img/" + menuCheck.get(i) + "/" + imgDate + "/" + fileName;
                     Path path = Paths.get(filePath);
                     if (Files.exists(path)) {
                         Files.delete(path);
                     }
                 }
                 //디렉토리 삭제
-                dirPath = "./menu-img/" + menuCheck.get(i) + "/" + imgDate;
+                dirPath = "/menu-img/" + menuCheck.get(i) + "/" + imgDate;
                 Path deleteDirPath = Paths.get(dirPath);
                 if (Files.exists(deleteDirPath)) {
                     Files.delete(deleteDirPath);
@@ -128,7 +129,7 @@ public class MenuService {
                 for (int j = 0; j < deleteImg.size(); j++) {
                     fileName = deleteImg.get(j).getImg_name();
                     imgDate = deleteImg.get(j).getImg_date();
-                    filePath = "./menu-img/" + deleteImg.get(j).getMenuSq() + "/" + imgDate + "/" + fileName;
+                    filePath = "/menu-img/" + deleteImg.get(j).getMenuSq() + "/" + imgDate + "/" + fileName;
                     Path path = Paths.get(filePath);
                     if (Files.exists(path)) {
                         Files.delete(path);
@@ -139,7 +140,7 @@ public class MenuService {
 
             List<ImgDTO> count = imgRepository.findAllByMenuSq(deleteImg.get(0).getMenuSq());
             if (count.size() == 0) {
-                dirPath = "./menu-img/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
+                dirPath = "/menu-img/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
                 Path deleteDirPath = Paths.get(dirPath);
                 if (Files.exists(deleteDirPath)) {
                     Files.delete(deleteDirPath);
@@ -185,16 +186,15 @@ public class MenuService {
                 String nowDate = format.format(now);
 
                 if (imgDTO.isEmpty()) {
-                    filePath = "./menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
+                    filePath = "/menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 } else {
-                    filePath = "./menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
+                    filePath = "/menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 }
                 Path path = Paths.get(filePath);
 
                 if (!Files.exists(path)) {
                     Files.createDirectories(path);
                 }
-
 
                 try {
                     InputStream inputStream = menuImgDTO.getMenu_img().get(i).getInputStream();
