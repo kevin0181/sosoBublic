@@ -52,7 +52,7 @@
             </div>
 
             <!-- 카테고리 추가 -->
-            <section id="basic-horizontal-layouts">
+            <section class="section">
                 <div class="row match-height">
                     <div class="col-md-6 col-12">
                         <div class="card">
@@ -118,23 +118,24 @@
                                                 카테고리 이름
                                             </td>
                                             <td style="padding: 0px">
-                                                <button type="submit" data-bs-toggle="modal"
+                                                <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
                                                         th:attr="data-bs-target='#changeModal'+${categortlist.category_sq}"
                                                         class="btn btn-primary">변경
                                                 </button>
                                                 <!-- Modal -->
                                                 <div class="modal fade" th:id="changeModal+${categortlist.category_sq}"
-                                                     tabindex="-1"
-                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                     tabindex="-1" style="z-index: 100000;"
+                                                     aria-labelledby="newCategory" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered"
                                                          role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">새로운 카테고리
+                                                                <h5 class="modal-title" id="newCategory">새로운 카테고리
                                                                     이름</h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
@@ -158,19 +159,20 @@
                                                 </div>
                                             </td>
                                             <td class="text-bold-500" style="padding: 0px">
-                                                <button type="button" data-bs-toggle="modal"
+                                                <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
                                                         th:attr="data-bs-target='#deleteModal'+${categortlist.category_sq}"
                                                         class="btn btn-danger">삭제
                                                 </button>
                                                 <!-- Modal -->
                                                 <div class="modal fade" th:id="deleteModal+${categortlist.category_sq}"
-                                                     tabindex="-1"
-                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                     tabindex="-1" style="z-index: 100000;"
+                                                     aria-labelledby="deleteCategory" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered"
                                                          role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="">카테고리 삭제</h5>
+                                                                <h5 class="modal-title" id="deleteCategory">카테고리
+                                                                    삭제</h5>
                                                                 <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
@@ -204,7 +206,7 @@
             <!-- // Basic Horizontal form layout section end -->
 
             <!-- // Basic multiple Column Form section start -->
-            <section id="multiple-column-form">
+            <section class="section">
                 <div class="row match-height">
                     <div class="col-12">
                         <div class="card">
