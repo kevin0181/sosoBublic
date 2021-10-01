@@ -14,7 +14,7 @@ function addCategory() {
             data: category_form
         });
         alert("카테고리가 추가되었습니다.");
-        location.href = "/admin/add-menu";
+        location.href = "/admin/add-category";
     }
 }
 
@@ -28,17 +28,17 @@ function changeCategory(category_seq) {
     } else {
         $.ajax({
             type: "GET",
-            url: "/admin/add-menu",
+            url: "/admin/add-category",
             dataType: "json",
             data: {
-                "className": "add-menu",
+                "className": "add-category",
                 "condition": "change",
                 "category_id": category_seq,
                 "category_name": name
             }
         });
         alert("변경되었습니다.");
-        location.href = "/admin/add-menu";
+        location.href = "/admin/add-category";
     }
 }
 
@@ -46,16 +46,16 @@ function changeCategory(category_seq) {
 function deleteCategory(category_seq) {
     $.ajax({
         type: "GET",
-        url: "/admin/add-menu",
+        url: "/admin/add-category",
         dataType: "json",
         data: {
-            "className": "add-menu",
+            "className": "add-category",
             "condition": "delete",
             "category_id": category_seq
         }
     });
     alert("삭제되었습니다.");
-    location.href = "/admin/add-menu";
+    location.href = "/admin/add-category";
 }
 
 // 메뉴 추가

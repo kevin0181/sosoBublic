@@ -26,10 +26,18 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item  " th:classappend="${className} == 'add-category' ? 'active'">
+                    <a href="form-layout.html" th:href="@{/admin/add-category(className='add-category')}"
+                       class='sidebar-link'>
+                        <i class="bi bi-file-earmark-medical-fill"></i>
+                        <span>Category add & delete</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item  " th:classappend="${className} == 'add-menu' ? 'active'">
                     <a href="form-layout.html" th:href="@{/admin/add-menu(className='add-menu')}"
                        class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
+                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Menu add & delete</span>
                     </a>
                 </li>
