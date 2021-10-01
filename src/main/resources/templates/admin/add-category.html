@@ -87,124 +87,121 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <!--            카테고리 끝-->
-            <!-- // Basic Horizontal form layout section end -->
-
-            <section class="section">
-                <!--  카테고리 리스트-->
-                <div class="col-12 col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">카테고리 목록</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    설정한 메뉴 카테고리를 삭제하거나 변경할 수 있습니다.
-                                </p>
+                    <!--  카테고리 리스트-->
+                    <div class="col-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">카테고리 목록</h4>
                             </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        설정한 메뉴 카테고리를 삭제하거나 변경할 수 있습니다.
+                                    </p>
+                                </div>
 
-                            <!-- Table with no outer spacing -->
-                            <div class="table-responsive">
-                                <table class="table mb-0 table-lg">
-                                    <thead>
-                                    <tr>
-                                        <th>NAME</th>
-                                        <th></th>
-                                        <th><p>총 갯수:<span th:text="${#lists.size(categoryList)}"></span></p></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="categortlist : ${categoryList}">
-                                        <td class="text-bold-500" th:text="${categortlist.getCategory_name()}">
-                                            카테고리 이름
-                                        </td>
-                                        <td style="padding: 0px">
-                                            <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
-                                                    th:attr="data-bs-target='#changeModal'+${categortlist.category_sq}"
-                                                    class="btn btn-primary">변경
-                                            </button>
-                                            <!-- Modal -->
-                                            <div class="modal fade" th:id="changeModal+${categortlist.category_sq}"
-                                                 tabindex="-1"
-                                                 aria-labelledby="newCategory" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered"
-                                                     role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="newCategory">새로운 카테고리
-                                                                이름</h5>
-                                                            <button type="button" class="close"
-                                                                    data-bs-dismiss="modal" aria-label="Close">
-                                                                <i data-feather="x"></i>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label th:for="reCategory_name+${categortlist.category_sq}"
-                                                                       class="col-form-label">카테고리 이름</label>
-                                                                <input type="text" class="form-control"
-                                                                       th:id="reCategory_name+${categortlist.category_sq}">
+                                <!-- Table with no outer spacing -->
+                                <div class="table-responsive">
+                                    <table class="table mb-0 table-lg">
+                                        <thead>
+                                        <tr>
+                                            <th>NAME</th>
+                                            <th></th>
+                                            <th><p>총 갯수:<span th:text="${#lists.size(categoryList)}"></span></p></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="categortlist : ${categoryList}">
+                                            <td class="text-bold-500" th:text="${categortlist.getCategory_name()}">
+                                                카테고리 이름
+                                            </td>
+                                            <td style="padding: 0px">
+                                                <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
+                                                        th:attr="data-bs-target='#changeModal'+${categortlist.category_sq}"
+                                                        class="btn btn-primary">변경
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" th:id="changeModal+${categortlist.category_sq}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="newCategory" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered"
+                                                         role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="newCategory">새로운 카테고리
+                                                                    이름</h5>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label th:for="reCategory_name+${categortlist.category_sq}"
+                                                                           class="col-form-label">카테고리 이름</label>
+                                                                    <input type="text" class="form-control"
+                                                                           th:id="reCategory_name+${categortlist.category_sq}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary"
+                                                                        th:onclick="changeCategory([[${categortlist.category_sq}]])">
+                                                                    변경
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">닫기
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary"
-                                                                    th:onclick="changeCategory([[${categortlist.category_sq}]])">
-                                                                변경
-                                                            </button>
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">닫기
-                                                            </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-bold-500" style="padding: 0px">
+                                                <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
+                                                        th:attr="data-bs-target='#deleteModal'+${categortlist.category_sq}"
+                                                        class="btn btn-danger">삭제
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" th:id="deleteModal+${categortlist.category_sq}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="deleteCategory" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered"
+                                                         role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteCategory">카테고리
+                                                                    삭제</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                삭제하시겠습니까?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger"
+                                                                        th:onclick="deleteCategory([[${categortlist.category_sq}]])">
+                                                                    네
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">아니오
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-bold-500" style="padding: 0px">
-                                            <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
-                                                    th:attr="data-bs-target='#deleteModal'+${categortlist.category_sq}"
-                                                    class="btn btn-danger">삭제
-                                            </button>
-                                            <!-- Modal -->
-                                            <div class="modal fade" th:id="deleteModal+${categortlist.category_sq}"
-                                                 tabindex="-1"
-                                                 aria-labelledby="deleteCategory" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered"
-                                                     role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteCategory">카테고리
-                                                                삭제</h5>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            삭제하시겠습니까?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger"
-                                                                    th:onclick="deleteCategory([[${categortlist.category_sq}]])">
-                                                                네
-                                                            </button>
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">아니오
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            <!--            카테고리 끝-->
+            <!-- // Basic Horizontal form layout section end -->
         </div>
         <footer>
             <div class="footer clearfix mb-0 text-muted">
