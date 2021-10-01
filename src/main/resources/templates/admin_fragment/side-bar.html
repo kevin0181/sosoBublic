@@ -19,29 +19,42 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">소소한부엌</li>
-                <li class="sidebar-item " th:classappend="${className} == 'index' ? 'active'">
+                <li class="sidebar-item " th:classappend="${className} == 'index' ? 'top-active'">
                     <a href="index.html" th:href="@{/admin/index(className='index')}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Main</span>
                     </a>
                 </li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link' th:classappend="${(className == 'add-category' ? 'top-active':'')+
+                                                                        (className == 'add-menu' ? 'top-active':'')}">
+                        <i class="bi bi-stack"></i>
+                        <span>Menu</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="" th:classappend="${className} == 'add-category' ? 'btn-active'">
+                            <a href="form-layout.html" th:href="@{/admin/add-category(className='add-category')}" style="margin-top: 5px"
+                               class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>Category add & delete</span>
+                            </a>
+                        </li>
+                        <li class="" th:classappend="${className} == 'add-menu' ? 'btn-active'">
+                            <a href="form-layout.html" th:href="@{/admin/add-menu(className='add-menu')}" style="margin-top: 5px"
+                               class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>Menu add & delete</span>
+                            </a>
+                        </li>
+                    </ul>
 
-                <li class="sidebar-item  " th:classappend="${className} == 'add-category' ? 'active'">
-                    <a href="form-layout.html" th:href="@{/admin/add-category(className='add-category')}"
-                       class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Category add & delete</span>
+                <li class="sidebar-item " th:classappend="${className} == 'MemberList' ? 'top-active'">
+                    <a href="table-datatable.html" class='sidebar-link'
+                       th:href="@{/admin/MemberList(className='MemberList')}">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Member</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item  " th:classappend="${className} == 'add-menu' ? 'active'">
-                    <a href="form-layout.html" th:href="@{/admin/add-menu(className='add-menu')}"
-                       class='sidebar-link'>
-                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>Menu add & delete</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
