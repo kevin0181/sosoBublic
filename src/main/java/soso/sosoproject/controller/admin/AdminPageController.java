@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import soso.sosoproject.dto.CategoryDTO;
-import soso.sosoproject.dto.ImgDTO;
 import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,8 +23,6 @@ public class AdminPageController {
     //인덱스
     @GetMapping("index")
     public String index(@RequestParam(value = "className", required = false) String className, Model model) {
-
-
         //페이지 active 구분
         if (className == null) {
             className = "index";
@@ -43,11 +39,13 @@ public class AdminPageController {
 
     //메뉴추가
     @GetMapping("/add-menu")
-    public String addMenu(@RequestParam(value = "className", required = false) String className,
+    public String addMenu(@RequestParam(value = "className", defaultValue = "add-menu") String className,
                           @RequestParam(value = "condition", required = false) String condition,
-                          @RequestParam(value = "menu_sq", required = false) Long menu_sq,
-                          @RequestParam(value = "active", required = false) boolean active,
-                          @RequestParam(value = "pageId", defaultValue = "0") int pageId,
+                          @RequestParam(value = "menu_sq", required = false) Long menu_sq, //비활성화 버튼
+                          @RequestParam(value = "active", required = false) boolean active, //버튼 처리
+                          @RequestParam(value = "pageId", defaultValue = "0") int pageId, //페이징 처리
+                          @RequestParam(value = "searchText", required = false) String searchText, //검색 처리 (메뉴)
+                          @RequestParam(value = "searchCategory", required = false) String categoryName,
                           Model model) {
 
         if (condition != null) {
@@ -56,14 +54,43 @@ public class AdminPageController {
             }
         }
 
+        if (searchText != null) {
+            if (!searchText.equals("")) {
+                List<MenuDTO> menuDTOS = menuService.getSearch(searchText);
+                //검색해온 리스트
+                model.addAttribute("menuList", menuDTOS);
+                //카테고리 리스트 가져오는 부분
+                List<CategoryDTO> categoryList = menuService.getCategoryList();
+                model.addAttribute("categoryList", categoryList);
+
+                //페이지 active 구분
+                model.addAttribute("className", className);
+
+                return "admin/add-menu";
+            }
+        }
+
         //메뉴 리스트 가져오는 부분
         Page<MenuDTO> menuList = menuService.getMenuList(pageId);
-        model.addAttribute("menuList", menuList);
-        model.addAttribute("maxPage",5);
 
-        //이미지 리스트 가져옴
-        List<ImgDTO> imgDTO = menuService.getImgList();
-        model.addAttribute("imgList", imgDTO);
+        int startSize = 1;
+        int maxSize = 5;
+        //5,6,7,8,9     //10,11,12,13,14
+        if (pageId >= 5) {
+
+            startSize = pageId / maxSize;
+            maxSize = (startSize + 1) * maxSize;
+
+            startSize = maxSize - 4;
+        }
+        if (maxSize >= menuList.getTotalPages()) {
+            maxSize = menuList.getTotalPages();
+        }
+
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("startSzie", startSize);
+        model.addAttribute("maxSize", maxSize);
+
 
         //카테고리 리스트 가져오는 부분
         List<CategoryDTO> categoryList = menuService.getCategoryList();
@@ -71,12 +98,10 @@ public class AdminPageController {
 
 
         //페이지 active 구분
-        if (className == null) {
-            className = "add-menu";
-        }
         model.addAttribute("className", className);
         return "admin/add-menu";
     }
+
 
     //카테고리 추가
     @GetMapping("/add-category")

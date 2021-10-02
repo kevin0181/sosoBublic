@@ -76,7 +76,7 @@ public class MenuService {
     //메뉴 리스트
     public Page<MenuDTO> getMenuList(int pageId) {
         Pageable pageable = PageRequest.of(pageId, 10);
-        return menuRepository.findAll(pageable);
+        return menuRepository.findAllByOrderByMenuSqDesc(pageable);
     }
 
 
@@ -238,5 +238,12 @@ public class MenuService {
             }
             return true;
         }
+    }
+
+    public List<MenuDTO> getSearch(String searchText) {
+
+        List<MenuDTO> menuDTOS = menuRepository.findByMenuNameContains(searchText);
+
+        return menuDTOS;
     }
 }

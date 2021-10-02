@@ -30,8 +30,8 @@ public class MenuDTO {
     @Column
     private int menu_price;
 
-    @Column
-    private boolean menu_sold_out;
+    @Column(name = "menu_sold_out")
+    private boolean menuSoldOut;
 
     @Column
     private boolean menu_enable;
@@ -47,18 +47,6 @@ public class MenuDTO {
     @JoinColumn(name = "menu_sq")
     private List<ImgDTO> menu_img_sq = new ArrayList<>();
 
-    public MenuDTO(Long menu_sq, String menu_name, Long menu_category_sq, String menu_contant,
-                   int menu_price, boolean menu_sold_out, boolean menu_enable, boolean menu_today) {
-        this.menuSq = menu_sq;
-        this.menuName = menu_name;
-        this.menuCategorySq = menu_category_sq;
-        this.menu_contant = menu_contant;
-        this.menu_price = menu_price;
-        this.menu_sold_out = menu_sold_out;
-        this.menu_enable = menu_enable;
-        this.menuToday = menu_today;
-    }
-
 
     public MenuDTO(Long menuSq, String menuName, Long menuCategorySq, String menu_contant,
                    int menu_price, boolean menu_sold_out, boolean menu_enable, boolean menuToday, List<ImgDTO> menu_img_sq) {
@@ -67,7 +55,7 @@ public class MenuDTO {
         this.menuCategorySq = menuCategorySq;
         this.menu_contant = menu_contant;
         this.menu_price = menu_price;
-        this.menu_sold_out = menu_sold_out;
+        this.menuSoldOut = menu_sold_out;
         this.menu_enable = menu_enable;
         this.menuToday = menuToday;
         this.menu_img_sq = menu_img_sq;

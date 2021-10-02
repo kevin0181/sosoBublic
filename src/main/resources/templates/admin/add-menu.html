@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>소소한부엌</title>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
 
     <!--    메뉴추가-->
@@ -147,8 +148,51 @@
                     <div class="card-body">
                         <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                             <div class="dataTable-top">
-                                <div class="dataTable-search"><input class="dataTable-input" placeholder="Search..."
-                                                                     type="text"></div>
+                                <div class="row">
+                                    <form id="searchForm" method="get" th:action="@{/admin/add-menu}">
+                                        <div style="display: inline-block; margin-right: 10px;">
+                                            <div class="form-check" style="display: inline-block;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="form-check-input form-check-success"
+                                                           checked="" name="customCheck" id="searchAbleTrue"
+                                                           value="true"
+                                                           name="searchAbleTrue">
+                                                    <label class="form-check-label"
+                                                           for="searchAbleTrue">활성화</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: inline-block;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="form-check-input form-check-danger"
+                                                           checked="" name="customCheck" id="searchAbleFalse"
+                                                           value="false"
+                                                           name="searchAbleFalse">
+                                                    <label class="form-check-label"
+                                                           for="searchAbleFalse">비활성화</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <select class="form-select" id="searchCategory"
+                                                    name="searchCategory">
+                                                <option th:each="categortlist : ${categoryList}"
+                                                        th:value="${categortlist.category_name}"
+                                                        th:text="${categortlist.category_name}"
+                                                ></option>
+                                            </select>
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <input class="dataTable-input" id="searchMenu" name="searchText"
+                                                   placeholder="검색" type="text">
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <button type="submit"
+                                                    class="btn btn-light rounded-pill">
+                                                메뉴 검색
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="dataTable-container">
                                 <table class="table table-striped dataTable-table" id="table1">
@@ -186,7 +230,8 @@
                                                style="margin-bottom: 0px; display: inline-block;">메뉴이름</p>
                                             <small th:if="${menulist.menuToday} == true" style="color: #0dcaf0;">(오늘의
                                                 메뉴)</small>
-                                            <small th:if="${menulist.menu_sold_out} == true" style="color: #ffc107;">(품절)</small>
+                                            <small th:if="${menulist.menuSoldOut} == true"
+                                                   style="color: #ffc107;">(품절)</small>
                                             <!-- modal-->
                                             <div class="modal fade text-left" th:id="f-menuName+${menulist.menuSq}"
                                                  tabindex="-1"
@@ -417,8 +462,8 @@
                                                                                     <div class="custom-control custom-checkbox">
                                                                                         <input type="checkbox"
                                                                                                class="form-check-input form-check-warning form-check-glow"
-                                                                                               name="menu_sold_out"
-                                                                                               th:checked="${menulist.menu_sold_out} == true"
+                                                                                               name="menuSoldOut"
+                                                                                               th:checked="${menulist.menuSoldOut} == true"
                                                                                                id="soldOutCheckBox">
                                                                                         <label class="form-check-label"
                                                                                                for="soldOutCheckBox">품절</label>
@@ -486,7 +531,7 @@
                                             class="btn btn-outline-danger">삭제
                                     </button>
                                 </div>
-                                <div>
+                                <div th:if="${startSzie != null && maxSize != null}">
                                     <ul class="pagination pagination-primary float-end dataTable-pagination">
                                         <li class="page-item pager "
                                             th:classappend="${menuList.pageable.pageNumber}-1 == -1 ? 'btn-none'">
@@ -494,7 +539,7 @@
                                                class="page-link">‹</a>
                                         </li>
                                         <li class="page-item "
-                                            th:each="num : ${#numbers.sequence(1,menuList.totalPages)}"
+                                            th:each="num : ${#numbers.sequence(startSzie,maxSize)}"
                                             th:classappend="${num} - 1 == ${menuList.pageable.pageNumber} ? 'active'">
                                             <a th:text="${num}"
                                                th:href="@{/admin/add-menu(className='add-menu',pageId=${num}-1)}"
