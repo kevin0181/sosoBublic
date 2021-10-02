@@ -1,6 +1,7 @@
 package soso.sosoproject.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,7 @@ public class AdminPageController {
                           @RequestParam(value = "condition", required = false) String condition,
                           @RequestParam(value = "menu_sq", required = false) Long menu_sq,
                           @RequestParam(value = "active", required = false) boolean active,
+                          @RequestParam(value = "pageId", defaultValue = "0") int pageId,
                           Model model) {
 
         if (condition != null) {
@@ -55,8 +57,9 @@ public class AdminPageController {
         }
 
         //메뉴 리스트 가져오는 부분
-        List<MenuDTO> menuList = menuService.getMenuList();
+        Page<MenuDTO> menuList = menuService.getMenuList(pageId);
         model.addAttribute("menuList", menuList);
+        model.addAttribute("maxPage",5);
 
         //이미지 리스트 가져옴
         List<ImgDTO> imgDTO = menuService.getImgList();

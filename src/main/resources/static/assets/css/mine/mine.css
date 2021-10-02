@@ -1,9 +1,13 @@
-.btn-active{
+.btn-active {
     border-radius: .5rem;
     background-color: #86cddb;
 }
 
-.top-active{
+.top-active {
     background-color: #435ebe;
     border-radius: .5rem;
+}
+
+.btn-none {
+    display: none;
 }

@@ -1,6 +1,9 @@
 package soso.sosoproject.service.admin.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -71,10 +74,11 @@ public class MenuService {
     }
 
     //메뉴 리스트
-    public List<MenuDTO> getMenuList() {
-        List<MenuDTO> menuDTOList = menuRepository.findAll();
-        return menuDTOList;
+    public Page<MenuDTO> getMenuList(int pageId) {
+        Pageable pageable = PageRequest.of(pageId, 10);
+        return menuRepository.findAll(pageable);
     }
+
 
     //메뉴 삭제
     public void deleteMenu(List<Long> menuCheck) throws IOException {

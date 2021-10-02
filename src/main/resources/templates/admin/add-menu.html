@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>소소한부엌</title>
-    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
 
     <!--    메뉴추가-->
@@ -487,12 +486,27 @@
                                             class="btn btn-outline-danger">삭제
                                     </button>
                                 </div>
-                                <ul class="pagination pagination-primary float-end dataTable-pagination">
-                                    <li class="page-item pager"><a href="#" class="page-link">‹</a></li>
-                                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                    <li class="page-item pager"><a href="#" class="page-link">›</a></li>
-                                </ul>
+                                <div>
+                                    <ul class="pagination pagination-primary float-end dataTable-pagination">
+                                        <li class="page-item pager "
+                                            th:classappend="${menuList.pageable.pageNumber}-1 == -1 ? 'btn-none'">
+                                            <a th:href="@{/admin/add-menu(className='add-menu',pageId=${menuList.pageable.pageNumber}-1)}"
+                                               class="page-link">‹</a>
+                                        </li>
+                                        <li class="page-item "
+                                            th:each="num : ${#numbers.sequence(1,menuList.totalPages)}"
+                                            th:classappend="${num} - 1 == ${menuList.pageable.pageNumber} ? 'active'">
+                                            <a th:text="${num}"
+                                               th:href="@{/admin/add-menu(className='add-menu',pageId=${num}-1)}"
+                                               class="page-link">페이징 처리</a>
+                                        </li>
+                                        <li class="page-item pager "
+                                            th:classappend="${menuList.pageable.pageNumber}+1 == ${menuList.totalPages} ? 'btn-none'">
+                                            <a th:href="@{/admin/add-menu(className='add-menu',pageId=${menuList.pageable.pageNumber}+1)}"
+                                               class="page-link">›</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
