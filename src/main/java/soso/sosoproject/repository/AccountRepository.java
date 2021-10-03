@@ -1,6 +1,7 @@
 package soso.sosoproject.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import soso.sosoproject.dto.MemberDTO;
 
@@ -12,4 +13,6 @@ public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
 
     boolean existsByMemberEmail(String email);
 
+    @Query(value = "SELECT count(*) from member", nativeQuery = true)
+    int countTotalMember();
 }

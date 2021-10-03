@@ -28,6 +28,11 @@ public class AdminPageController {
     //인덱스
     @GetMapping("index")
     public String index(@RequestParam(value = "className", defaultValue = "index") String className, Model model) {
+
+        // total 회원 수 count
+        int totalCnt = adminMemberService.memberCount();
+
+        model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("className", className);
         return "admin/admin-index";
     }
