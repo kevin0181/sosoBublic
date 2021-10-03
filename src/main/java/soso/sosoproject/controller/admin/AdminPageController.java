@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import soso.sosoproject.dto.CategoryDTO;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.dto.MenuDTO;
-import soso.sosoproject.service.admin.member.MemberService;
+import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class AdminPageController {
     @Autowired
     private MenuService menuService;
     @Autowired
-    private MemberService memberService;
+    private AdminMemberService adminMemberService;
 
     //인덱스
     @GetMapping("index")
@@ -165,9 +165,12 @@ public class AdminPageController {
     @GetMapping("MemberList")
     public String memberList(@RequestParam(value = "className", defaultValue = "MemberList") String className, Model model) {
 
-        List<MemberDTO> memberDTOS = memberService.getMemberList();
-
+        //멤버 리스트
+        List<MemberDTO> memberDTOS = adminMemberService.getMemberList();
+        model.addAttribute("memberList", memberDTOS);
+        //active
         model.addAttribute("className", className);
+
         return "admin/MemberList";
     }
 

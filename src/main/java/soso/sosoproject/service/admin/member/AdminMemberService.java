@@ -8,7 +8,7 @@ import soso.sosoproject.repository.AccountRepository;
 import java.util.List;
 
 @Service
-public class MemberService {
+public class AdminMemberService {
 
     @Autowired
     private AccountRepository accountRepository;

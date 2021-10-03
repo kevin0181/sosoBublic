@@ -47,40 +47,26 @@
                         <table class="table table-striped" id="table1">
                             <thead>
                             <tr>
+                                <th>
+                                    <input type="checkbox" class="form-check-input form-check-primary form-check-glow"
+                                           name="listCheck" id="listCheck">
+                                </th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>City</th>
-                                <th>Status</th>
+                                <th>address</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Graiden</td>
-                                <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>Offenburg</td>
+                            <tr th:each="memberlist : ${memberList}">
                                 <td>
-                                    <span class="badge bg-success">Active</span>
+                                    <input type="checkbox" class="form-check-input form-check-primary form-check-glow"
+                                           name="memberSq" id="memberSq">
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Dale</td>
-                                <td>fringilla.euismod.enim@quam.ca</td>
-                                <td>0500 527693</td>
-                                <td>New Quay</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Nathaniel</td>
-                                <td>mi.Duis@diam.edu</td>
-                                <td>(012165) 76278</td>
-                                <td>Grumo Appula</td>
-                                <td>
-                                    <span class="badge bg-danger">Inactive</span>
-                                </td>
+                                <td th:text="${memberlist.memberName}">이름</td>
+                                <td th:text="${memberlist.memberEmail}">이메일</td>
+                                <td th:text="${memberlist.memberPhonenumber}">전화번호</td>
+                                <td th:text="${memberlist.memberAddress}">주소</td>
                             </tr>
                             </tbody>
                         </table>
@@ -93,11 +79,11 @@
         <footer>
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
-                    <p>2021 &copy; Mazer</p>
+                    <p>2021 &copy; version 0.0.1</p>
                 </div>
                 <div class="float-end">
-                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                            href="http://ahmadsaugi.com">A. Saugi</a></p>
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> : <a
+                            href="http://ahmadsaugi.com">kevin0181@naver.com</a></p>
                 </div>
             </div>
         </footer>
