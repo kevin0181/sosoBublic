@@ -15,4 +15,7 @@ public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
 
     @Query(value = "SELECT count(*) from member", nativeQuery = true)
     int countTotalMember();
+
+    MemberDTO findByMemberPhonenumberAndMemberName(String phone, String name);
+
 }

@@ -84,4 +84,56 @@ public class UserAccountController {
         return certificationKey;
     }
 
+    //아이디, 비번 찾는 페이지로 이동
+    @GetMapping("/find")
+    public String findAccount(@RequestParam(value = "kind") String kind) {
+
+        if (kind.equals("id")) {
+            return "/user/account/find/findId";
+        } else if (kind.equals("password")) {
+            return "/user/account/find/findPassword";
+        }
+
+        return "/user/account/login";
+    }
+
+    //아이디 찾기
+    @PostMapping("findId")
+    public String findId(MemberDTO memberDTO, Model model) {
+        MemberDTO resultMemberDTO = memberService.findMemberId(memberDTO);
+        int result;
+        String Email = resultMemberDTO.getMemberEmail();
+        int EmailIndex = Email.indexOf("@"); //@까지의 길이값
+        String id = Email.substring(0, EmailIndex);
+        char markingStart[];
+        if (id.length() <= 4) {
+            result = id.substring(1, 4).length();
+            markingStart = new char[result];
+            for (int i = 0; i > markingStart.length; i++) {
+                markingStart[i] = '*';
+            }
+            id = id.substring(1, 4);
+        } else {
+            result = id.substring(4, EmailIndex).length();
+            markingStart = new char[result];
+            for (int i = 0; i < markingStart.length; i++) {
+                markingStart[i] = '*';
+            }
+            id = id.substring(0, 4);
+        }
+        Email = new String(markingStart);
+        String hidingEmail = id + Email + resultMemberDTO.getMemberEmail().substring(EmailIndex, resultMemberDTO.getMemberEmail().length());
+
+        model.addAttribute("findMemberId", hidingEmail);
+
+        return "/user/account/find/findId";
+    }
+
+
+    //패스워드 찾기
+    @PostMapping("findPassword")
+    public String findPassword() {
+        return null;
+    }
+
 }

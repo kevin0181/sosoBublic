@@ -81,4 +81,8 @@ public class MemberService implements UserDetailsService {
         return accountRepository.existsByMemberEmail(email);
     }
 
+    public MemberDTO findMemberId(MemberDTO memberDTO) {
+
+        return accountRepository.findByMemberPhonenumberAndMemberName(memberDTO.getMemberPhonenumber(), memberDTO.getMemberName());
+    }
 }

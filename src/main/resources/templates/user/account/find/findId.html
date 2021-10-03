@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/user/account/fragment/all_tag.html :: all">
+    <title>soso_login</title>
+</head>
+<body>
+<div class="main_container text-center">
+    <div class="login_form">
+        <!--        아이디 찾고나서 -->
+        <div class="form-signin" th:if="${findMemberId} != null">
+            <form class="" th:action="@{/user/account/findId}" method="post">
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
+                </h1>
+                <div>
+                    <p th:text="${findMemberId}"></p>
+                </div>
+                <div class="checkbox" style="height: 35px;text-align: right">
+                    <label class="">
+                        <a href="#" th:href="@{/user/index}" class="simple_btn">home</a>
+                    </label>
+                </div>
+                <div class="mt-3">
+                    <a th:href="@{/user/account/login}" class="simple_btn" style="margin-right: 3px">
+                        <small>로그인</small>
+                    </a>
+                    <a th:href="@{/user/account/find(kind=password)}" class="simple_btn" style="margin-left: 3px">
+                        <small>비밀번호 찾기</small>
+                    </a>
+                </div>
+                <p class="mt-5 mb-3 text-muted">0.0.1_version</p>
+            </form>
+        </div>
+
+
+        <!--아이디 찾을때-->
+        <div class="form-signin" th:if="${findMemberId} == null">
+            <form class="" th:action="@{/user/account/findId}" method="post">
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
+                </h1>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="memberName"
+                            name="memberName"
+                            placeholder="이름을 입력해주세요."
+                            style="border-top-left-radius: .25rem; border-top-right-radius: .25rem" ;
+                    />
+                    <label for="memberName">이름</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="memberPhonenumber"
+                            name="memberPhonenumber"
+                            placeholder="전화번호"
+                            style="border-radius: 0 0 .25rem .25rem;"
+                    />
+                    <label for="memberPhonenumber">전화번호</label>
+                </div>
+
+                <div class="checkbox" style="height: 35px;text-align: right">
+                    <label class="">
+                        <a href="#" th:href="@{/user/index}" class="simple_btn">home</a>
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;" type="submit">아이디 찾기
+                </button>
+                <div class="mt-3">
+                    <a th:href="@{/user/account/login}" class="simple_btn" style="margin-right: 3px">
+                        <small>로그인</small>
+                    </a>
+                    <a th:href="@{/user/account/find(kind=password)}" class="simple_btn">
+                        <small>비밀번호 찾기</small>
+                    </a>
+                </div>
+                <p class="mt-5 mb-3 text-muted">0.0.1_version</p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
