@@ -22,11 +22,7 @@ public class AdminPageController {
 
     //인덱스
     @GetMapping("index")
-    public String index(@RequestParam(value = "className", required = false) String className, Model model) {
-        //페이지 active 구분
-        if (className == null) {
-            className = "index";
-        }
+    public String index(@RequestParam(value = "className", defaultValue = "index") String className, Model model) {
         model.addAttribute("className", className);
         return "admin/admin-index";
     }
