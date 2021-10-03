@@ -136,3 +136,8 @@ function changeMenu(menuSq) {
     alert("메뉴가 수정되었습니다.");
     location.href = "/admin/add-menu";
 }
+
+
+function searchCategoryJs() {
+    $('#searchCategoryForm').submit();
+}

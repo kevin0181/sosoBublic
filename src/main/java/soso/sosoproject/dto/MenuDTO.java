@@ -33,8 +33,8 @@ public class MenuDTO {
     @Column(name = "menu_sold_out")
     private boolean menuSoldOut;
 
-    @Column
-    private boolean menu_enable;
+    @Column(name = "menu_enable")
+    private boolean menuEnable;
 
     @Column(name = "menu_today")
     private boolean menuToday;
@@ -56,7 +56,7 @@ public class MenuDTO {
         this.menu_contant = menu_contant;
         this.menu_price = menu_price;
         this.menuSoldOut = menu_sold_out;
-        this.menu_enable = menu_enable;
+        this.menuEnable = menu_enable;
         this.menuToday = menuToday;
         this.menu_img_sq = menu_img_sq;
     }

@@ -157,7 +157,7 @@ public class MenuService {
     public void changeActive(Long menu_sq, boolean active) {
         Optional<MenuDTO> optionalMenuDTO = menuRepository.findById(menu_sq);
         MenuDTO menuDTO = optionalMenuDTO.get();
-        menuDTO.setMenu_enable(active);
+        menuDTO.setMenuEnable(active);
         menuRepository.save(menuDTO);
     }
 
@@ -240,10 +240,23 @@ public class MenuService {
         }
     }
 
+    //메뉴이름 검색
     public List<MenuDTO> getSearch(String searchText) {
 
         List<MenuDTO> menuDTOS = menuRepository.findByMenuNameContains(searchText);
 
         return menuDTOS;
+    }
+
+    //active 검색
+    public List<MenuDTO> getActiveSearch(boolean active) {
+
+        List<MenuDTO> menuDTOList = menuRepository.findAllByMenuEnable(active);
+        return menuDTOList;
+    }
+
+    public List<MenuDTO> searchCategory(Long searchCategory) {
+        List<MenuDTO> menuDTOList = menuRepository.findAllByMenuCategorySq(searchCategory);
+        return menuDTOList;
     }
 }

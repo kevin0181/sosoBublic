@@ -103,7 +103,7 @@
                                                 <div class="form-group">
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="menu_enable"
+                                                               name="menuEnable"
                                                                id="flexSwitchCheckChecked" checked="">
                                                         <label class="form-check-label" for="flexSwitchCheckChecked">메뉴
                                                             활성화(비활성화를 하면 메뉴가 유저에게 보이지 않습니다.)</label>
@@ -148,50 +148,45 @@
                     <div class="card-body">
                         <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                             <div class="dataTable-top">
-                                <div class="row">
-                                    <form id="searchForm" method="get" th:action="@{/admin/add-menu}">
-                                        <div style="display: inline-block; margin-right: 10px;">
-                                            <div class="form-check" style="display: inline-block;">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="form-check-input form-check-success"
-                                                           checked="" name="customCheck" id="searchAbleTrue"
-                                                           value="true"
-                                                           name="searchAbleTrue">
-                                                    <label class="form-check-label"
-                                                           for="searchAbleTrue">활성화</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: inline-block;">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="form-check-input form-check-danger"
-                                                           checked="" name="customCheck" id="searchAbleFalse"
-                                                           value="false"
-                                                           name="searchAbleFalse">
-                                                    <label class="form-check-label"
-                                                           for="searchAbleFalse">비활성화</label>
-                                                </div>
-                                            </div>
+                                <div class="">
+                                    <div style="display: inline-block; margin-right: 10px; ">
+                                        <div class="form-check" style="display: inline-block;">
+                                            <a class="badge bg-success"
+                                               th:href="@{/admin/add-menu(className='add-menu',active='true',searchText='activeYes')}">활성화</a>
                                         </div>
-                                        <div style="display: inline-block">
+                                        <div class="form-check" style="display: inline-block;padding-left: 0px;">
+                                            <a class="badge bg-danger"
+                                               th:href="@{/admin/add-menu(className='add-menu',active='false',searchText='activeNo')}">비활성화</a>
+                                        </div>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <form id="searchCategoryForm" method="get" th:action="@{/admin/add-menu}">
                                             <select class="form-select" id="searchCategory"
+                                                    onchange="searchCategoryJs()"
                                                     name="searchCategory">
+                                                <option selected>카테고리 선택</option>
                                                 <option th:each="categortlist : ${categoryList}"
-                                                        th:value="${categortlist.category_name}"
+                                                        th:value="${categortlist.category_sq}"
                                                         th:text="${categortlist.category_name}"
                                                 ></option>
                                             </select>
-                                        </div>
-                                        <div style="display: inline-block">
-                                            <input class="dataTable-input" id="searchMenu" name="searchText"
-                                                   placeholder="검색" type="text">
-                                        </div>
-                                        <div style="display: inline-block">
-                                            <button type="submit"
-                                                    class="btn btn-light rounded-pill">
-                                                메뉴 검색
-                                            </button>
-                                        </div>
-                                    </form>
+                                            <input id="hiddenCategoryBtn" type="hidden"/>
+                                        </form>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <form id="searchForm" method="get" th:action="@{/admin/add-menu}">
+                                            <div style="display:inline-block;">
+                                                <input class="dataTable-input" id="searchMenu" name="searchText"
+                                                       placeholder="검색" type="text">
+                                            </div>
+                                            <div style="display: inline-block">
+                                                <button type="submit"
+                                                        class="btn btn-light rounded-pill">
+                                                    메뉴 검색
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="dataTable-container">
@@ -240,13 +235,13 @@
                                                 <div class="modal-dialog modal-dialog-centered"
                                                      role="document">
                                                     <div class="modal-content">
-                                                        <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
+                                                        <div th:class="'modal-header '+${menulist.menuEnable ? 'bg-success' : 'bg-danger'}">
                                                             <h5 class="modal-title white" id="f-modal"
-                                                                th:if="${menulist.menu_enable}">
+                                                                th:if="${menulist.menuEnable}">
                                                                 활성화 된 메뉴
                                                             </h5>
                                                             <h5 class="modal-title white" id="f-modal"
-                                                                th:unless="${menulist.menu_enable}">
+                                                                th:unless="${menulist.menuEnable}">
                                                                 비활성화 된 메뉴
                                                             </h5>
                                                             <button type="button" class="close"
@@ -296,7 +291,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button"
-                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}"
+                                                                    th:class="'btn ml-1 '+${menulist.menuEnable ? 'btn-success':'btn-danger'}"
                                                                     th:attr="data-bs-target='#s-menuName'+${menulist.menuSq}"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-dismiss="modal">
@@ -321,13 +316,13 @@
                                                 <div class="modal-dialog modal-dialog-scrollable modal-full"
                                                      role="document">
                                                     <div class="modal-content">
-                                                        <div th:class="'modal-header '+${menulist.menu_enable ? 'bg-success' : 'bg-danger'}">
+                                                        <div th:class="'modal-header '+${menulist.menuEnable ? 'bg-success' : 'bg-danger'}">
                                                             <h5 class="modal-title white" id="s-modal"
-                                                                th:if="${menulist.menu_enable}">
+                                                                th:if="${menulist.menuEnable}">
                                                                 활성화 된 메뉴(수정 중)
                                                             </h5>
                                                             <h5 class="modal-title white" id="s-modal"
-                                                                th:unless="${menulist.menu_enable}">
+                                                                th:unless="${menulist.menuEnable}">
                                                                 비활성화 된 메뉴(수정 중)
                                                             </h5>
                                                             <button type="button" class="close"
@@ -346,8 +341,8 @@
                                                                 <div style="padding: 1rem;border-bottom: 1px solid #dee2e6; display: flex;">
                                                                     <input type="hidden" name="menuSq"
                                                                            th:value="${menulist.menuSq}">
-                                                                    <input type="hidden" name="menu_enable"
-                                                                           th:value="${menulist.menu_enable}">
+                                                                    <input type="hidden" name="menuEnable"
+                                                                           th:value="${menulist.menuEnable}">
                                                                     <div style="display: inline-block; margin: 0 auto;">
                                                                         <label style="color: rgba(35,28,99,.7);font-weight: 600;">
                                                                             메뉴 이름: </label>
@@ -496,7 +491,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button"
                                                                     th:onclick="changeMenu([[${menulist.menuSq}]])"
-                                                                    th:class="'btn ml-1 '+${menulist.menu_enable ? 'btn-success':'btn-danger'}">
+                                                                    th:class="'btn ml-1 '+${menulist.menuEnable ? 'btn-success':'btn-danger'}">
                                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                                 <span class="d-none d-sm-block">수정</span>
                                                             </button>
@@ -514,12 +509,12 @@
                                         </td>
                                         <td th:text="${menulist.menu_price}" th:if="${menuList}">가격</td>
                                         <td>
-                                            <a th:if="${menulist.menu_enable}"
+                                            <a th:if="${menulist.menuEnable}"
                                                th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menuSq},active='false')}"
-                                               th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">활성화</a>
-                                            <a th:unless="${menulist.menu_enable}"
+                                               th:class="'badge '+${menulist.menuEnable? 'bg-success':'bg-danger'}">활성화</a>
+                                            <a th:unless="${menulist.menuEnable}"
                                                th:href="@{/admin/add-menu(condition='active',menu_sq=${menulist.menuSq},active='true')}"
-                                               th:class="'badge '+${menulist.menu_enable? 'bg-success':'bg-danger'}">비활성화</a>
+                                               th:class="'badge '+${menulist.menuEnable? 'bg-success':'bg-danger'}">비활성화</a>
                                         </td>
                                     </tr>
                                     </tbody>

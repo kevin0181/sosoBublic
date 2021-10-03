@@ -16,5 +16,10 @@ public interface MenuRepository extends JpaRepository<MenuDTO, Long> {
 
     Page<MenuDTO> findAllByOrderByMenuSqDesc(Pageable pageable); //메뉴 리스트 반대로 가져옴
 
-    List<MenuDTO> findByMenuNameContains(String searchText); //검색
+    List<MenuDTO> findByMenuNameContains(String searchText); //메뉴 이름 검색
+
+    List<MenuDTO> findAllByMenuEnable(boolean active); //active 검색
+
+    List<MenuDTO> findAllByMenuCategorySq(Long categorySq);
+
 }

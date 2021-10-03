@@ -42,10 +42,10 @@ public class AdminPageController {
     public String addMenu(@RequestParam(value = "className", defaultValue = "add-menu") String className,
                           @RequestParam(value = "condition", required = false) String condition,
                           @RequestParam(value = "menu_sq", required = false) Long menu_sq, //비활성화 버튼
-                          @RequestParam(value = "active", required = false) boolean active, //버튼 처리
+                          @RequestParam(value = "active", required = false) boolean active, //버튼 처리&&검색처리(활성화,비활성화)
                           @RequestParam(value = "pageId", defaultValue = "0") int pageId, //페이징 처리
                           @RequestParam(value = "searchText", required = false) String searchText, //검색 처리 (메뉴)
-                          @RequestParam(value = "searchCategory", required = false) String categoryName,
+                          @RequestParam(value = "searchCategory", required = false) Long searchCategory,
                           Model model) {
 
         if (condition != null) {
@@ -54,8 +54,33 @@ public class AdminPageController {
             }
         }
 
+        if (searchCategory != null) {
+            List<MenuDTO> menuDTOList = menuService.searchCategory(searchCategory);
+            model.addAttribute("menuList", menuDTOList);
+
+            //카테고리 리스트 가져오는 부분
+            List<CategoryDTO> categoryList = menuService.getCategoryList();
+            model.addAttribute("categoryList", categoryList);
+
+            return "admin/add-menu";
+        }
+
         if (searchText != null) {
             if (!searchText.equals("")) {
+                //active 변경
+                if (searchText.equals("activeYes")) {
+                    if (active) {
+                        searchActive(active, model, className);
+                        return "admin/add-menu";
+                    }
+                } else if (searchText.equals("activeNo")) {
+                    if (!active) {
+                        searchActive(active, model, className);
+                        return "admin/add-menu";
+                    }
+                }
+
+
                 List<MenuDTO> menuDTOS = menuService.getSearch(searchText);
                 //검색해온 리스트
                 model.addAttribute("menuList", menuDTOS);
@@ -102,7 +127,6 @@ public class AdminPageController {
         return "admin/add-menu";
     }
 
-
     //카테고리 추가
     @GetMapping("/add-category")
     public String addCategory(@RequestParam(value = "className", required = false) String className,
@@ -148,4 +172,19 @@ public class AdminPageController {
         model.addAttribute("className", className);
         return "admin/MemberList";
     }
+
+
+    private void searchActive(boolean active, Model model, String className) {
+        List<MenuDTO> menuDTOList = menuService.getActiveSearch(active);
+        model.addAttribute("menuList", menuDTOList);
+
+        //카테고리 리스트 가져오는 부분
+        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        model.addAttribute("categoryList", categoryList);
+
+        //페이지 active 구분
+        model.addAttribute("className", className);
+
+    }
+
 }
