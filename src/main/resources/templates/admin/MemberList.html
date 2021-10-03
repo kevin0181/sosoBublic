@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataTable - Mazer Admin Dashboard</title>
-
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
     <!--    리스트-->
     <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css"
@@ -61,7 +61,7 @@
                             <tr th:each="memberlist : ${memberList}">
                                 <td>
                                     <input type="checkbox" class="form-check-input form-check-primary form-check-glow"
-                                           name="memberSq" id="memberSq">
+                                           name="memberSq" id="memberSq" th:value="${memberlist.member_sq}">
                                 </td>
                                 <td th:text="${memberlist.memberName}">이름</td>
                                 <td th:text="${memberlist.memberEmail}">이메일</td>
@@ -70,12 +70,14 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div>
+                            <button onclick="deleteMember()" class="btn btn-outline-danger">삭제
+                            </button>
+                        </div>
                     </div>
                 </div>
-
             </section>
         </div>
-
         <footer>
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
@@ -98,5 +100,45 @@
     // Simple Datatable
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
+
+    $('#listCheck').click(function () {
+        if ($("#listCheck").is(':checked')) {
+            $("input[name=memberSq]").prop("checked", true);
+        } else {
+            $("input[name=memberSq]").prop("checked", false);
+        }
+    });
+
+    function deleteMember() {
+        var MemberCheck = [];
+        $("input:checkbox[name='memberSq']:checked").each(function () {
+            MemberCheck.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+        });
+        if (isEmptyArr(MemberCheck)) {
+            alert("삭제할 회원을 체크해주세요.");
+            return false;
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/member/delete-MemberList",
+                dataType: "json",
+                data: {
+                    "memberCheck": MemberCheck,
+                    "condition": "delete"
+                }
+            });
+            alert("회원이 탈퇴되었습니다.");
+            location.href = "/admin/MemberList";
+        }
+    }
+
+    //배열 빈값 체크
+    function isEmptyArr(arr) {
+        if (Array.isArray(arr) && arr.length === 0) {
+            return true;
+        }
+        return false;
+    }
+
 </script>
 </html>

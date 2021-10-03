@@ -16,4 +16,8 @@ public class AdminMemberService {
     public List<MemberDTO> getMemberList() {
         return accountRepository.findAll();
     }
+
+    public void deleteMember(List<Long> memberSq) {
+        accountRepository.deleteAllById(memberSq);
+    }
 }
