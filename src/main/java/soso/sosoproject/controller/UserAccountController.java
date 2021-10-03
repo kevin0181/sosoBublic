@@ -86,8 +86,7 @@ public class UserAccountController {
 
     //아이디, 비번 찾는 페이지로 이동
     @GetMapping("/find")
-    public String findAccount(@RequestParam(value = "kind") String kind) {
-
+    public String findAccount(@RequestParam(value = "kind", required = false) String kind) {
         if (kind.equals("id")) {
             return "/user/account/find/findId";
         } else if (kind.equals("password")) {
@@ -102,10 +101,15 @@ public class UserAccountController {
     public String findId(MemberDTO memberDTO, Model model) {
         MemberDTO resultMemberDTO = memberService.findMemberId(memberDTO);
         int result;
-        String Email = resultMemberDTO.getMemberEmail();
-        int EmailIndex = Email.indexOf("@"); //@까지의 길이값
-        String id = Email.substring(0, EmailIndex);
+        if (resultMemberDTO == null) {
+            model.addAttribute("data", new AccountMessage("이름이나 전화번호가 맞지 않습니다.", "/user/account/find?kind=id"));
+            return "/message/account-message";
+        }
+        String email = resultMemberDTO.getMemberEmail();
+        int emailIndex = email.indexOf("@"); //@까지의 길이값
+        String id = email.substring(0, emailIndex);
         char markingStart[];
+
         if (id.length() <= 4) {
             result = id.substring(1, 4).length();
             markingStart = new char[result];
@@ -114,15 +118,16 @@ public class UserAccountController {
             }
             id = id.substring(1, 4);
         } else {
-            result = id.substring(4, EmailIndex).length();
+            result = id.substring(4, emailIndex).length();
             markingStart = new char[result];
             for (int i = 0; i < markingStart.length; i++) {
                 markingStart[i] = '*';
             }
             id = id.substring(0, 4);
         }
-        Email = new String(markingStart);
-        String hidingEmail = id + Email + resultMemberDTO.getMemberEmail().substring(EmailIndex, resultMemberDTO.getMemberEmail().length());
+
+        email = new String(markingStart);
+        String hidingEmail = id + email + resultMemberDTO.getMemberEmail().substring(emailIndex, resultMemberDTO.getMemberEmail().length());
 
         model.addAttribute("findMemberId", hidingEmail);
 
