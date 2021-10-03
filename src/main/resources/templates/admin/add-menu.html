@@ -148,6 +148,10 @@
                     <div class="card-body">
                         <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                             <div class="dataTable-top">
+                                <div class="left-check" style="margin-top: 10px;">
+                                    <input type="checkbox" class="form-check-input form-check-primary form-check-glow"
+                                           name="listCheck" id="listCheck">
+                                </div>
                                 <div class="">
                                     <div style="display: inline-block; margin-right: 10px; ">
                                         <div class="form-check" style="display: inline-block;">
@@ -583,12 +587,6 @@
     let dataTable = new simpleDatatables.DataTable(table1);
 
     var kk;
-    var menu_active;
-
-    function changeActive(kk, menu_active) {
-        console.log(kk);
-        console.log(menu_active);
-    }
 </script>
 
 </html>

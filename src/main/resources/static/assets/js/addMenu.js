@@ -137,7 +137,16 @@ function changeMenu(menuSq) {
     location.href = "/admin/add-menu";
 }
 
-
+//카테고리 검색
 function searchCategoryJs() {
     $('#searchCategoryForm').submit();
 }
+
+//전체선택 해제
+$('#listCheck').click(function () {
+    if ($("#listCheck").is(':checked')) {
+        $("input[name=menuCheck]").prop("checked", true);
+    } else {
+        $("input[name=menuCheck]").prop("checked", false);
+    }
+});
