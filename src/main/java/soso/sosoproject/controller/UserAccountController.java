@@ -80,7 +80,7 @@ public class UserAccountController {
     @ResponseBody
     public String certificationCheck(@RequestParam(value = "email") String email) throws MessagingException {
         certificationKey = emailSendService.certified_key();
-        emailSendService.sendService(email, certificationKey);
+        emailSendService.sendEmailCheck(email, certificationKey);
         return certificationKey;
     }
 
@@ -137,8 +137,39 @@ public class UserAccountController {
 
     //패스워드 찾기
     @PostMapping("findPassword")
-    public String findPassword() {
-        return null;
+    public String findPassword(MemberDTO memberDTO, Model model) throws MessagingException {
+        MemberDTO resultMemberDTO = memberService.findMemberPassword(memberDTO);
+        if (resultMemberDTO == null) {
+            model.addAttribute("data", new AccountMessage("이메일 또는 이름이 맞지 않습니다.", "/user/account/find?kind=password"));
+            return "/message/account-message";
+        } else {
+            emailSendService.sendPasswordCheck(resultMemberDTO.getMemberEmail(), resultMemberDTO.getCertiNumber());
+            model.addAttribute("data", new AccountMessage("이메일을 전송했습니다.", "/user/index"));
+            return "/message/account-message";
+        }
     }
 
+    @GetMapping("/change/password")
+    public String changePasswordPage(@RequestParam(value = "email") String email,
+                                     @RequestParam(value = "certi") String certi, Model model) {
+        if (email == null || certi == null) {
+            model.addAttribute("data", new AccountMessage("잘못된 접근입니다.", "/user/index"));
+            return "/message/account-message";
+        }
+
+        MemberDTO resultMemberDTO = memberService.findMember(email);
+        if (resultMemberDTO == null) {
+            model.addAttribute("data", new AccountMessage("잘못된 접근입니다.(다시 시도해주시길 바랍니다.)", "/user/index"));
+            return "/message/account-message";
+        } else {
+            if (resultMemberDTO.getCertiNumber().equals(certi)) {
+                model.addAttribute("memberDTO", resultMemberDTO);
+                return "/user/account/find/changePassword";
+            } else {
+                model.addAttribute("data", new AccountMessage("잘못된 접근입니다.(다시 시도해주시길 바랍니다.)", "/user/index"));
+                return "/message/account-message";
+            }
+        }
+
+    }
 }

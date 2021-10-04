@@ -14,8 +14,10 @@ public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
     boolean existsByMemberEmail(String email);
 
     @Query(value = "SELECT count(*) from member", nativeQuery = true)
-    int countTotalMember();
+    int countTotalMember(); //전체 멤버 수 가져옴
 
-    MemberDTO findByMemberPhonenumberAndMemberName(String phone, String name);
+    MemberDTO findByMemberPhonenumberAndMemberName(String phone, String name); //아아디 찾기
+
+    MemberDTO findByMemberEmailAndMemberName(String email, String name); //비번 찾기
 
 }

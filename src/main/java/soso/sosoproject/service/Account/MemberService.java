@@ -81,8 +81,20 @@ public class MemberService implements UserDetailsService {
         return accountRepository.existsByMemberEmail(email);
     }
 
+
+    //아이디 찾기
     public MemberDTO findMemberId(MemberDTO memberDTO) {
 
         return accountRepository.findByMemberPhonenumberAndMemberName(memberDTO.getMemberPhonenumber(), memberDTO.getMemberName());
+    }
+
+    //비밀번호 찾기
+    public MemberDTO findMemberPassword(MemberDTO memberDTO) {
+
+        return accountRepository.findByMemberEmailAndMemberName(memberDTO.getMemberEmail(), memberDTO.getMemberName());
+    }
+
+    public MemberDTO findMember(String email) {
+        return accountRepository.findByMemberEmail(email);
     }
 }
