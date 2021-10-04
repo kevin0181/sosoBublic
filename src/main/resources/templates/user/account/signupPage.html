@@ -74,12 +74,12 @@
                     <input
                             type="password"
                             class="form-control"
-                            id="password"
+                            id="f-password"
                             name="password"
                             placeholder="Password"
                             style="border-radius: .25rem .25rem 0 0;"
                     />
-                    <label for="password">비밀번호</label>
+                    <label for="f-password">비밀번호</label>
                     <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('password')}"
                          th:errors="*{password}" role="alert">
                         A simple danger alert—check it out!
@@ -89,11 +89,11 @@
                     <input
                             type="password"
                             class="form-control"
-                            id="RtPassword"
+                            id="s-password"
                             name="RtPassword"
                             placeholder="Name"
                     />
-                    <label for="RtPassword">비밀번호 확인</label>
+                    <label for="s-password">비밀번호 확인</label>
                 </div>
                 <div class="form-floating">
                     <input
@@ -160,6 +160,18 @@
         </div>
     </div>
 </div>
+<script>
+    $('#s-password').keyup(function () {
+        if ($('#s-password').val() != $('#f-password').val()) {
+            $('#s-password').removeClass("is-valid");
+            $('#s-password').addClass("is-invalid");
+        } else if ($('#s-password').val() == $('#f-password').val()) {
+            $('#s-password').removeClass("is-invalid");
+            $('#s-password').addClass("is-valid");
+        }
+    });
+
+</script>
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
 <script th:replace="/user/user_fragment/script_src :: script"></script>
 </body>

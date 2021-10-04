@@ -62,12 +62,20 @@ function checkCertificationEmailBtn() {
 
 //이메일 중복 체크
 function same_check() {
-    var email = document.getElementById("email").value;
+    var emailInput = document.getElementById("email");
+    var email = emailInput.value;
     var sameEmailBtn = document.getElementById("sameEmailBtn");
+    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     email_check_result = true;
     if (!email) {
         alert("이메일을 입력 해주세요.");
         email.focus();
+        return false;
+    } else if (email.match(regExp) == null) {
+        alert("이메일 형식에 맞춰서 작성해주세요.");
+        setTimeout(function () {
+            emailInput.focus();
+        }, 1);
         return false;
     } else {
         $.ajax({
