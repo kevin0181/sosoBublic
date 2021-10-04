@@ -34,12 +34,12 @@ public class MemberDTO {
 
     @Column(nullable = false, length = 300, name = "member_address")
     @NotEmpty(message = "주소를 입력해주세요.")
-    @Size(min = 10, max = 300, message = "주소 형식에 맞게 작성해주세요.")
+    @Size(min = 10, max = 300, message = "주소의 길이가 큽니다.")
     private String memberAddress;
 
     @Column(nullable = false, length = 12, name = "member_phonenumber")
     @NotEmpty(message = "번호를 입력해주세요.")
-    @Size(min = 5, max = 12, message = "형식에 맞는 번호를 적어주세요.")
+    @Size(min = 5, max = 12, message = "전화번호의 길이가 맞지 않습니다.")
     private String memberPhonenumber;
 
     @Column(nullable = false, length = 10, name = "certification_number")
