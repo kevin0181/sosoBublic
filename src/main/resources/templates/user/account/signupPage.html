@@ -7,7 +7,8 @@
 <div class="text-center" style="margin-top: 5%">
     <div class="">
         <div class="form-signin">
-            <form id="signup-form" th:action="@{/user/account/signup}" method="post" th:object="${memberDTO}">
+            <form id="signup-form" th:action="@{/user/account/signup}" method="post" th:object="${memberDTO}"
+                  novalidate="">
                 <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
                 </h1>
                 <div class="form-floating">
@@ -76,13 +77,14 @@
                             class="form-control"
                             id="f-password"
                             name="password"
-                            placeholder="Password"
+                            pattern="(?=.*\d{1,25})(?=.*[a-zA-Z]{1,25}).{8,25}$"
                             style="border-radius: .25rem .25rem 0 0;"
+                            placeholder="비밀번호"
                     />
                     <label for="f-password">비밀번호</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('password')}"
-                         th:errors="*{password}" role="alert">
-                        A simple danger alert—check it out!
+                    <div class="invalid-feedback">
+                        <i class="bx bx-radio-circle"></i>
+                        영문자+숫자 조합 8-25자 입력해주세요.
                     </div>
                 </div>
                 <div class="form-floating">
@@ -91,9 +93,12 @@
                             class="form-control"
                             id="s-password"
                             name="RtPassword"
-                            placeholder="Name"
+                            placeholder="비밀번호 확인"
                     />
                     <label for="s-password">비밀번호 확인</label>
+                    <div class="invalid-feedback" id="s-feedback">
+                        <i class="bx bx-radio-circle"></i>
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -101,13 +106,9 @@
                             class="form-control"
                             id="name"
                             name="memberName"
-                            placeholder="Name"
+                            placeholder="이름"
                     />
                     <label for="name">이름</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberName')}"
-                         th:errors="*{memberName}" role="alert">
-                        A simple danger alert—check it out!
-                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -115,13 +116,10 @@
                             class="form-control"
                             id="address"
                             name="memberAddress"
-                            placeholder="Address"
+                            pattern="^\s+|\s+$/g"
+                            placeholder="주소"
                     />
                     <label for="address">주소</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberAddress')}"
-                         th:errors="*{memberAddress}" role="alert">
-                        A simple danger alert—check it out!
-                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -129,12 +127,13 @@
                             class="form-control"
                             id="phoneNumber"
                             name="memberPhonenumber"
-                            placeholder="Phone Number"
+                            pattern="^[0-9]+$"
+                            placeholder="전화번호"
                     />
                     <label for="phoneNumber">전화번호</label>
-                    <div class="error_cls alert alert-danger" th:if="${#fields.hasErrors('memberPhonenumber')}"
-                         th:errors="*{memberPhonenumber}" role="alert">
-                        A simple danger alert—check it out!
+                    <div class="invalid-feedback">
+                        <i class="bx bx-radio-circle"></i>
+                        - 없이 숫자만 입력하세요.
                     </div>
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
@@ -149,9 +148,9 @@
                     <div>
                         <label>
                             <input type="checkbox" id="policy" name="policy"/> <a href="#"
-                                                                                 th:href="@{/user/account/privacyPolicy}"
-                                                                                 class="simple_btn policy_btn"
-                                                                                 target="_blank">개인정보 활용 동의
+                                                                                  th:href="@{/user/account/privacyPolicy}"
+                                                                                  class="simple_btn policy_btn"
+                                                                                  target="_blank">개인정보 활용 동의
                             동의</a>
                         </label>
                     </div>
@@ -160,6 +159,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $('#s-password').keyup(function () {
         if ($('#s-password').val() != $('#f-password').val()) {
@@ -170,9 +170,12 @@
             $('#s-password').addClass("is-valid");
         }
     });
-
 </script>
+
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
 <script th:replace="/user/user_fragment/script_src :: script"></script>
 </body>
 </html>
+
+
+
