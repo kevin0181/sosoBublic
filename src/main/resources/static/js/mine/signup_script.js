@@ -69,7 +69,7 @@ function same_check() {
     email_check_result = true;
     if (!email) {
         alert("이메일을 입력 해주세요.");
-        email.focus();
+        emailInput.focus();
         return false;
     } else if (email.match(regExp) == null) {
         alert("이메일 형식에 맞춰서 작성해주세요.");
@@ -106,11 +106,15 @@ function same_check() {
 
 //회원가입 버튼 클릭 시
 function signUp() {
-    var password = document.getElementById("password").value;
-    var rtpassword = document.getElementById("RtPassword").value;
+    var password = document.getElementById("f-password").value;
+    var rtpassword = document.getElementById("s-password").value;
+    var name = document.getElementById("name").value;
+    var address = document.getElementById("address").value;
+    var phone = document.getElementById("phoneNumber").value;
     var policy = document.getElementById("policy").checked;
     var same_email_check_btn = document.getElementById("sameEmailBtn");
     var emailCheckBtn = document.getElementById("emailCheckBtn");
+
 
     var form = document.getElementById("signup-form");
 
@@ -118,32 +122,38 @@ function signUp() {
         alert("이메일 중복체크가 되어 있지 않습니다.");
         same_email_check_btn.focus();
         return false;
-    }
-
-    if (policy != true) {
-        alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
-        policy.focus();
-        return false;
-    }
-
-    if (email_certification_result == false) {
+    } else if (email_certification_result == false) {
         alert("이메일 인증이 되어있지 않습니다.");
         emailCheckBtn.focus();
         return false;
-    }
-
-    if (check_email_disable_num == 0) {
-        alert("인증이 완료되지않은 부분이 있습니다.");
+    } else if(!password) {
+        alert("비밀번호가 입력되지 않았습니다.");
+        document.getElementById("f-password").focus();
         return false;
-    }
-
-    if (password != rtpassword) {
+    } else if(!rtpassword) {
+        alert("비밀번호 확인이 입력되지 않았습니다.");
+        document.getElementById("s-password").focus();
+        return false;
+    } else if (password != rtpassword) {
         alert("비밀번호가 일치하지 않습니다.");
-        rtpassword.focus();
+        document.getElementById("s-password").focus();
+        return false;
+    } else if (!name) {
+        alert("이름이 입력되지 않았습니다.");
+        document.getElementById("name").focus();
+        return false;
+    } else if (!address) {
+        alert("주소가 입력되지 않았습니다.");
+        document.getElementById("address").focus();
+        return false;
+    } else if (!phone) {
+        alert("핸드폰 번호가 입력되지 않습니다.");
+        document.getElementById("phoneNumber").focus();
+        return false;
+    }else if (policy != true) {
+        alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
         return false;
     } else {
         form.submit();
     }
-
-
 }
