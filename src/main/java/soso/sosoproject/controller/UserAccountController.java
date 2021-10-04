@@ -137,18 +137,23 @@ public class UserAccountController {
 
     //패스워드 찾기
     @PostMapping("findPassword")
-    public String findPassword(MemberDTO memberDTO, Model model) throws MessagingException {
-        MemberDTO resultMemberDTO = memberService.findMemberPassword(memberDTO);
+    public String findPassword(@RequestParam(value = "memberEmail") String email,
+                               @RequestParam(value = "memberName") String name, Model model) throws MessagingException {
+        MemberDTO resultMemberDTO = memberService.findMemberPassword(email, name);
         if (resultMemberDTO == null) {
             model.addAttribute("data", new AccountMessage("이메일 또는 이름이 맞지 않습니다.", "/user/account/find?kind=password"));
             return "/message/account-message";
         } else {
-            emailSendService.sendPasswordCheck(resultMemberDTO.getMemberEmail(), resultMemberDTO.getCertiNumber());
+            certificationKey = emailSendService.certified_key();
+            resultMemberDTO.setCertiNumber(certificationKey);
+            memberService.reSave(resultMemberDTO);
+            emailSendService.sendPasswordCheck(resultMemberDTO.getMemberEmail(), certificationKey);
             model.addAttribute("data", new AccountMessage("이메일을 전송했습니다.", "/user/index"));
             return "/message/account-message";
         }
     }
 
+    //비밀번호 변경 이메일 -> 우리 페이지로
     @GetMapping("/change/password")
     public String changePasswordPage(@RequestParam(value = "email") String email,
                                      @RequestParam(value = "certi") String certi, Model model) {
@@ -170,6 +175,22 @@ public class UserAccountController {
                 return "/message/account-message";
             }
         }
-
     }
+
+    //비밀번호 변경 부분
+    @PostMapping("/change/password")
+    public String changePassword(MemberDTO memberDTO, Model model) {
+        certificationKey = emailSendService.certified_key();
+        memberDTO.setCertiNumber(certificationKey);
+        boolean result = memberService.reSave(memberDTO);
+        if (result) {
+            model.addAttribute("data", new AccountMessage("비밀번호가 변경되었습니다.", "/user/index"));
+            return "/message/account-message";
+        } else {
+            model.addAttribute("data", new AccountMessage("비밀번호 변경 오류입니다.", "/user/index"));
+            return "/message/account-message";
+        }
+    }
+
+
 }

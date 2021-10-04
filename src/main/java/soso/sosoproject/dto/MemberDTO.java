@@ -42,7 +42,7 @@ public class MemberDTO {
     @Size(min = 5, max = 12, message = "형식에 맞는 번호를 적어주세요.")
     private String memberPhonenumber;
 
-    @Column(nullable = false, length = 10, name = "certification_number", updatable = false)
+    @Column(nullable = false, length = 10, name = "certification_number")
     private String certiNumber;
 
     @Column(nullable = false, name = "policy", updatable = false)

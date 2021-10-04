@@ -63,6 +63,7 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -89,12 +90,23 @@ public class MemberService implements UserDetailsService {
     }
 
     //비밀번호 찾기
-    public MemberDTO findMemberPassword(MemberDTO memberDTO) {
+    public MemberDTO findMemberPassword(String email, String name) {
 
-        return accountRepository.findByMemberEmailAndMemberName(memberDTO.getMemberEmail(), memberDTO.getMemberName());
+        return accountRepository.findByMemberEmailAndMemberName(email, name);
     }
 
     public MemberDTO findMember(String email) {
         return accountRepository.findByMemberEmail(email);
+    }
+
+    //비밀번호 변경후 저장하기
+    public boolean reSave(MemberDTO memberDTO) {
+
+        String encodedPassword = passwordEncoder.encode((memberDTO.getPassword()));
+        memberDTO.setPassword(encodedPassword);
+
+        accountRepository.save(memberDTO);
+
+        return true;
     }
 }
