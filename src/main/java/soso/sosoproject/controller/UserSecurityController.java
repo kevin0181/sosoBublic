@@ -13,14 +13,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import soso.sosoproject.dto.detail.CustomOauth2Detail;
 import soso.sosoproject.service.Account.MemberService;
-
-import javax.sql.DataSource;
 
 @Order(1)
 @Configuration
 @EnableWebSecurity
 public class UserSecurityController extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private CustomOauth2Detail customOauth2Detail;
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -33,23 +36,27 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
         http
                 .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check");
 
+
         http
                 .antMatcher("/user/**")
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/user/account/login")
-                .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/user/index") // 로그인 성공 시 redirect 이동
-                .permitAll()
-                .and()
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/user/index")
                 .invalidateHttpSession(true)
-                .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000);
+                .and()
+                .formLogin()
+                .loginPage("/user/account/login")
+//                .loginProcessingUrl("/user/login")
+                .defaultSuccessUrl("/user/index") // 로그인 성공 시 redirect 이동
+                .permitAll();
+
+        http
+                .antMatcher("/oauth2/authorization/**").authorizeRequests()
+                .and().oauth2Login().userInfoEndpoint().userService(customOauth2Detail);
 
     }
 
@@ -59,6 +66,7 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
         return new MemberService();
     }
 
+    //
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -67,11 +75,13 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 
+    //
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    //
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
