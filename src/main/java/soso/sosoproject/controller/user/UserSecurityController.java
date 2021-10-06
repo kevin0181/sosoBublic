@@ -1,4 +1,4 @@
-package soso.sosoproject.controller;
+package soso.sosoproject.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +50,6 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/user/index")
                 .invalidateHttpSession(true)
                 .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000);
-
     }
 
 

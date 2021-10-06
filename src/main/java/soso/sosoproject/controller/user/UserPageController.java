@@ -1,4 +1,4 @@
-package soso.sosoproject.controller;
+package soso.sosoproject.controller.user;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
