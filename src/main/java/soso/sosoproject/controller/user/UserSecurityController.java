@@ -14,13 +14,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import soso.sosoproject.service.Account.MemberService;
-
-import javax.sql.DataSource;
+import soso.sosoproject.service.oauth2.Oauth2UserService;
 
 @Order(1)
 @Configuration
 @EnableWebSecurity
 public class UserSecurityController extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private Oauth2UserService oauth2UserService;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -34,9 +36,10 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check");
 
         http
-                .antMatcher("/user/**")
+                .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/user/**", "/").permitAll()
+                .antMatchers("/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -49,7 +52,9 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/user/index")
                 .invalidateHttpSession(true)
-                .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000);
+                .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000)
+                .and().oauth2Login().defaultSuccessUrl("/user/account/signupPage")
+                .userInfoEndpoint().userService(oauth2UserService);
     }
 
 

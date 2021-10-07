@@ -26,6 +26,8 @@
                          th:errors="*{memberEmail}" role="alert">
                         A simple danger alert—check it out!
                     </div>
+                    <p th:if="${#request.userPrincipal} != null"
+                       th:text="${#request.userPrincipal.principal.fullName}"></p>
                 </div>
 
                 <!--                이메일 인증-->
