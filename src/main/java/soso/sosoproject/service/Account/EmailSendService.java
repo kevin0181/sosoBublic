@@ -19,6 +19,10 @@ public class EmailSendService {
         this.javaMailSender = javaMailSender;
     }
 
+    public EmailSendService() {
+
+    }
+
     //이메일 인증
     public String sendEmailCheck(String email, String certificationKey) throws MessagingException {
 //        sendMail(email, "soso 인증메일 입니다.", "인증메일입니다.");

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import soso.sosoproject.service.Account.MemberService;
+import soso.sosoproject.service.oauth2.Oauth2LoginSuccessHandler;
 import soso.sosoproject.service.oauth2.Oauth2UserService;
 
 @Order(1)
@@ -23,6 +24,9 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Oauth2UserService oauth2UserService;
+
+    @Autowired
+    private Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -53,8 +57,9 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/user/index")
                 .invalidateHttpSession(true)
                 .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000)
-                .and().oauth2Login().defaultSuccessUrl("/user/account/signupPage")
-                .userInfoEndpoint().userService(oauth2UserService);
+                .and().oauth2Login()
+//                .defaultSuccessUrl("/user/account/signupPage")
+                .userInfoEndpoint().userService(oauth2UserService).and().successHandler(oauth2LoginSuccessHandler);
     }
 
 

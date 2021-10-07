@@ -26,8 +26,6 @@
                          th:errors="*{memberEmail}" role="alert">
                         A simple danger alert—check it out!
                     </div>
-                    <p th:if="${#request.userPrincipal} != null"
-                       th:text="${#request.userPrincipal.principal.fullName}"></p>
                 </div>
 
                 <!--                이메일 인증-->
@@ -118,7 +116,6 @@
                             class="form-control"
                             id="address"
                             name="memberAddress"
-                            pattern="^\s+|\s+$/g"
                             placeholder="주소"
                     />
                     <label for="address">주소</label>

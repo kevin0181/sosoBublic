@@ -4,7 +4,6 @@ var cer_random_number = "";
 var check_email_disable_num = 0;
 
 
-
 //email input 태그 누를때
 function emailInput() {
     var emailCheckBtn = document.getElementById("emailCheckBtn");
@@ -138,7 +137,7 @@ function signUp() {
         alert("비밀번호가 일치하지 않습니다.");
         rtpassword.focus();
         return false;
-    }  else if (!name.value) {
+    } else if (!name.value) {
         alert("이름이 입력되지 않았습니다.");
         name.focus();
         return false;
@@ -159,5 +158,27 @@ function signUp() {
         } else {
             form.submit();
         }
+    }
+}
+
+// oauth2 회원가입
+function signUpOauth2() {
+    if (!$('#name-oauth2').val()) {
+        alert("이름을 입력해주세요.");
+        $('#name-oauth2').focus();
+        return false;
+    } else if (!$('#address-oauth2')) {
+        alert("주소를 입력해주세요.");
+        $('#address-oauth2').focus();
+        return false;
+    } else if (!$('#phoneNumber-oauth2')) {
+        alert("전화번호를 입력해주세요.");
+        $('#phoneNumber-oauth2').focus();
+        return false;
+    } else if ($('#policy-oauth2').checked != true) {
+        alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
+        return false;
+    } else {
+        $('#oauth2-form').submit();
     }
 }

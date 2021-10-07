@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/user/account/fragment/all_tag.html :: all">
+    <title>soso_signup</title>
+</head>
+<body class="main_container">
+<div class="text-center" style="margin-top: 5%">
+    <div class="">
+        <div class="form-signin">
+            <form id="oauth2-form" th:action="@{/user/account/signupOauth2}" method="post"
+                  novalidate="">
+                <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
+                </h1>
+                <small>나머지 정보를 입력해주세요.</small>
+                <div class="form-floating">
+                    <input
+                            type="hidden"
+                            class="form-control sign_up_input"
+                            id="email"
+                            name="memberEmail"
+                            placeholder="name@example.com"
+                            style="border-radius: .25rem"
+                            th:value="${#session.getAttribute('email')}"
+                    />
+                    <label for="email">이메일</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="name-oauth2"
+                            name="memberName"
+                            style="border-top-right-radius: .25rem;border-top-left-radius: .25rem;"
+                            placeholder="이름"
+                            th:value="${#session.getAttribute('name')}"
+                    />
+                    <label for="name-oauth2">이름</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="address-oauth2"
+                            name="memberAddress"
+                            placeholder="주소"
+                    />
+                    <label for="address-oauth2">주소</label>
+                </div>
+                <div class="form-floating">
+                    <input
+                            type="tel"
+                            class="form-control"
+                            id="phoneNumber-oauth2"
+                            name="memberPhonenumber"
+                            pattern="^[0-9]+$"
+                            placeholder="전화번호"
+                    />
+                    <label for="phoneNumber-oauth2">전화번호</label>
+                    <div class="invalid-feedback">
+                        <i class="bx bx-radio-circle"></i>
+                        - 없이 숫자만 입력하세요.
+                    </div>
+                </div>
+                <div class="mb-4" style="margin-top: 3px;">
+                    <label class="login_btn">
+                        <a href="#" th:href="@{/user/index}" class="simple_btn">home</a>
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg" style="background-color: #5c9b73; color:white;"
+                        onclick="signUpOauth2()" type="button">Sign up
+                </button>
+                <div class="checkbox mt-5 mb-3">
+                    <div>
+                        <label>
+                            <input type="checkbox" id="policy-oauth2" name="policy"/> <a href="#"
+                                                                                  th:href="@{/user/account/privacyPolicy}"
+                                                                                  class="simple_btn policy_btn"
+                                                                                  target="_blank">개인정보 활용 동의
+                            동의</a>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
+<script th:replace="/user/user_fragment/script_src :: script"></script>
+</body>
+</html>
+
+
+

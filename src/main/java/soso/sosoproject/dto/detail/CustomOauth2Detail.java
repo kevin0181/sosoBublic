@@ -16,7 +16,7 @@ public class CustomOauth2Detail implements OAuth2User {
 
     @Override
     public <A> A getAttribute(String name) {
-        return null;
+        return oAuth2User.getAttribute(name);
     }
 
     @Override
@@ -36,5 +36,9 @@ public class CustomOauth2Detail implements OAuth2User {
 
     public String getFullName() {
         return oAuth2User.getAttribute("name");
+    }
+
+    public String getEmail() {
+        return oAuth2User.getAttribute("email");
     }
 }
