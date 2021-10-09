@@ -59,7 +59,8 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000)
                 .and().oauth2Login()
 //                .defaultSuccessUrl("/user/account/signupPage")
-                .userInfoEndpoint().userService(oauth2UserService).and().successHandler(oauth2LoginSuccessHandler);
+                .userInfoEndpoint().userService(oauth2UserService)
+                .and().successHandler(oauth2LoginSuccessHandler);
     }
 
 

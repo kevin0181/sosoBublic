@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 @Component
 public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -24,6 +25,8 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
+
+        System.out.println(authentication.getPrincipal());
 
 
         CustomOauth2Detail oauth2Detail = (CustomOauth2Detail) authentication.getPrincipal();

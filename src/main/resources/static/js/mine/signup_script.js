@@ -167,15 +167,15 @@ function signUpOauth2() {
         alert("이름을 입력해주세요.");
         $('#name-oauth2').focus();
         return false;
-    } else if (!$('#address-oauth2')) {
+    } else if (!$('#address-oauth2').val()) {
         alert("주소를 입력해주세요.");
         $('#address-oauth2').focus();
         return false;
-    } else if (!$('#phoneNumber-oauth2')) {
+    } else if (!$('#phoneNumber-oauth2').val()) {
         alert("전화번호를 입력해주세요.");
         $('#phoneNumber-oauth2').focus();
         return false;
-    } else if ($('#policy-oauth2').checked != true) {
+    } else if ($('#policy-oauth2').is(':checked') != true) {
         alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
         return false;
     } else {
