@@ -77,14 +77,11 @@
                             class="form-control"
                             id="f-password"
                             name="password"
-                            pattern="(?=.*\d{1,25})(?=.*[a-zA-Z]{1,25}).{8,25}$"
                             style="border-radius: .25rem .25rem 0 0;"
                             placeholder="비밀번호"
                     />
                     <label for="f-password">비밀번호</label>
-                    <div class="invalid-feedback">
-                        <i class="bx bx-radio-circle"></i>
-                        영문자+숫자 조합 8-25자 입력해주세요.
+                    <div class="invalid-feedback" id="f-feedback">
                     </div>
                 </div>
                 <div class="form-floating">
@@ -98,6 +95,7 @@
                     <label for="s-password">비밀번호 확인</label>
                     <div class="invalid-feedback" id="s-feedback">
                         <i class="bx bx-radio-circle"></i>
+                        비밀번호가 일치하지 않습니다.
                     </div>
                 </div>
                 <div class="form-floating">
@@ -160,6 +158,18 @@
 </div>
 
 <script>
+    $('#f-password').on('keyup' ,function(event) {
+        if (!/^[a-zA-Z0-9]{8,25}$/g.test($('#f-password').val())) {
+            $('#f-password').removeClass("is-valid");
+            $('#f-password').addClass("is-invalid");
+            $('#f-feedback').html("<i class='bx bx-radio-circle'></i> 비밀번호는 숫자와 영문자 조합으로 8~25자리를 사용해야 합니다.");
+            $('#f-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#f-password').removeClass("is-invalid");
+            $('#f-password').addClass("is-valid");
+            $('#f-feedback').empty();
+        }
+    });
     $('#s-password').keyup(function () {
         if ($('#s-password').val() != $('#f-password').val()) {
             $('#s-password').removeClass("is-valid");
@@ -169,8 +179,8 @@
             $('#s-password').addClass("is-valid");
         }
     });
-</script>
 
+</script>
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
 <script th:replace="/user/user_fragment/script_src :: script"></script>
 </body>

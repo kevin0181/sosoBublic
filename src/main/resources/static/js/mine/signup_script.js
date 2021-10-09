@@ -153,11 +153,7 @@ function signUp() {
         alert("개인정보 활용 동의가 체크 되어 있지 않습니다.");
         return false;
     } else {
-        if (form.checkValidity() == false) {
-            form.classList.add("was-validated")
-        } else {
-            form.submit();
-        }
+        form.submit();
     }
 }
 
