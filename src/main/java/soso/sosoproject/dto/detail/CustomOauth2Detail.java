@@ -1,7 +1,6 @@
 package soso.sosoproject.dto.detail;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
@@ -10,7 +9,6 @@ import java.util.Map;
 public class CustomOauth2Detail implements OAuth2User {
 
     private OAuth2User oAuth2User;
-    private OAuth2UserRequest oAuth2UserRequest;
 
     public CustomOauth2Detail(OAuth2User oAuth2User) {
         this.oAuth2User = oAuth2User;
@@ -33,10 +31,10 @@ public class CustomOauth2Detail implements OAuth2User {
 
     @Override
     public String getName() {
-//        return oAuth2User.getAttribute("name");
-        Map<String, Object> response = oAuth2User.getAttributes();
-        Map<String, Object> name = (Map<String, Object>) response.get("properties");
-        return (String) name.get("name");
+        return oAuth2User.getAttribute("name");
+//        Map<String, Object> response = oAuth2User.getAttributes();
+//        Map<String, Object> name = (Map<String, Object>) response.get("properties");
+//        return (String) name.get("name");
     }
 
 
