@@ -30,6 +30,7 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/admin/**")
                 .authorizeRequests()
+                .antMatchers("/admin/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
