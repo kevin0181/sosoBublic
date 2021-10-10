@@ -39,6 +39,7 @@ public class Oauth2DataService {
         memberDTO.setMemberAddress(oauth2DTO.getMemberAddress());
         memberDTO.setPassword(passwordEncoder.encode(randomPassword));
         memberDTO.setCertiNumber(randomPassword);
+        memberDTO.setPolicy(oauth2DTO.isPolicy());
 
         //권한 가져옴
         List<RoleDTO> role_id = roleRepository.findAll();

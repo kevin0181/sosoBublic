@@ -42,9 +42,6 @@ public class Oauth2UserService extends SimpleUrlAuthenticationSuccessHandler imp
         Map<String, Object> response = oAuth2User.getAttributes();
         httpSession.setAttribute("client", client);
         if (client.equals("kakao")) {
-//            Map<String, Object> kakaoEmail = (Map<String, Object>) response.get("kakao_account");
-//            Map<String, Object> kakaoName = (Map<String, Object>) response.get("properties");
-
             return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
         } else if (client.equals("google")) {
             return new CustomOauth2Detail(oAuth2User);
