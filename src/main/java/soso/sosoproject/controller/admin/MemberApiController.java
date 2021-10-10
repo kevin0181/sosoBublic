@@ -7,7 +7,7 @@ import soso.sosoproject.service.admin.member.AdminMemberService;
 import java.util.List;
 
 @RestController
-@RequestMapping("member")
+@RequestMapping("admin/member")
 public class MemberApiController {
 
     @Autowired

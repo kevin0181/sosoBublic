@@ -7,11 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-import soso.sosoproject.dto.CategoryDTO;
-import soso.sosoproject.dto.ImgDTO;
-import soso.sosoproject.dto.MenuDTO;
-import soso.sosoproject.dto.MenuImgDTO;
+import soso.sosoproject.dto.*;
 import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.ImgRepository;
 import soso.sosoproject.repository.MenuRepository;
@@ -67,7 +63,7 @@ public class MenuService {
     public List<MenuDTO> save_menu(MenuImgDTO menuImgDTO) {
         List<ImgDTO> imgDTOList = imgRepository.findAllByMenuSq(menuImgDTO.getMenuSq());
         MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenuSq(), menuImgDTO.getMenuName(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
-                menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenu_enable(), menuImgDTO.isMenu_today(), imgDTOList);
+                menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenuEnable(), menuImgDTO.isMenu_today(), imgDTOList);
 
         menuRepository.save(menuDTO);
         return menuRepository.findAllByMenuName(menuDTO.getMenuName());
@@ -258,5 +254,10 @@ public class MenuService {
     public List<MenuDTO> searchCategory(Long searchCategory) {
         List<MenuDTO> menuDTOList = menuRepository.findAllByMenuCategorySq(searchCategory);
         return menuDTOList;
+    }
+    //오늘의 메뉴 가져옴
+    public MenuDTO getTodayMenu() {
+        boolean id = true;
+        return menuRepository.findByMenuToday(id);
     }
 }

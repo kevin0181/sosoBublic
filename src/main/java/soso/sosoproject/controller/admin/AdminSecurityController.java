@@ -27,10 +27,11 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+
         http
                 .antMatcher("/admin/**")
                 .authorizeRequests()
-                .antMatchers("/admin/login").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()

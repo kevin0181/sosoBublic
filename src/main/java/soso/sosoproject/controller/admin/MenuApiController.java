@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("menu")
+@ResponseBody
 public class MenuApiController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class MenuApiController {
         return categoryDTO;
     }
 
-    //메뉴 추가, 변경
+    //메뉴 추가
     @PostMapping("add-menu")
     public MenuImgDTO addMenu(MenuImgDTO menuImgDTO, Model model) throws IOException {
 
@@ -57,9 +58,8 @@ public class MenuApiController {
     }
 
     //메뉴 삭제
-    @PostMapping("delete-menu")
-    public List<Long> deleteMenu(@RequestParam(value = "condition", required = false) String condition,
-                                 @RequestParam(value = "menuCheck[]", required = false) List<Long> menuCheck) throws IOException {
+    @GetMapping("delete-menu")
+    public List<Long> deleteMenu(@RequestParam(value = "menuCheck[]") List<Long> menuCheck) throws IOException {
 
         menuService.deleteMenu(menuCheck);
         return menuCheck;

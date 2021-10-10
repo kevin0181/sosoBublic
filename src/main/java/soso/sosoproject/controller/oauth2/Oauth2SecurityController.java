@@ -22,6 +22,10 @@ public class Oauth2SecurityController extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http
+                .csrf().ignoringAntMatchers("/menu/change-menu");
+
         http
                 .oauth2Login().userInfoEndpoint().userService(oauth2UserService)
                 .and().successHandler(oauth2LoginSuccessHandler);

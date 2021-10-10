@@ -1,5 +1,6 @@
 package soso.sosoproject.controller.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import soso.sosoproject.dto.MemberDTO;
+import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.message.AccountMessage;
+import soso.sosoproject.service.admin.menu.MenuService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -17,8 +20,15 @@ import java.security.Principal;
 @Controller
 public class UserPageController {
 
+    @Autowired
+    private MenuService menuService;
+
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
+        //오늘의 메뉴 가져옴
+        MenuDTO menuDTO = todayMenu();
+        model.addAttribute("todayMenu", menuDTO);
+
         return "/user/index";
     }
 
@@ -32,6 +42,10 @@ public class UserPageController {
         memberDTO = userDetail.getMemberDTO();
         session.setAttribute("memberName", memberDTO.getMemberName());
         session.setAttribute("memberEMail", memberDTO.getMemberEmail());
+
+        //오늘의 메뉴 가져옴
+        MenuDTO menuDTO = todayMenu();
+        model.addAttribute("todayMenu", menuDTO);
 
         return "/user/index";
     }
@@ -63,4 +77,11 @@ public class UserPageController {
     }
 
 
+    //함수
+
+    //index 페이지 오늘의 메뉴 가지고 오는 함수
+    public MenuDTO todayMenu() {
+        MenuDTO menuDTO = menuService.getTodayMenu();
+        return menuDTO;
+    }
 }

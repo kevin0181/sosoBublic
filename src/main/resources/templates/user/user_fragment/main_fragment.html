@@ -67,7 +67,7 @@
                     <h1 class="fw-normal soso_font"><a class="simple_btn main_font" th:href="@{/user/index}">소소한 부엌</a>
                     </h1>
                     <p class="text-white">
-                        집가고싶다 집가고싶다고 제발 집보내주세요 짜증나 죽을꺼같으니깐 하
+                        소소한 부엌 입니다.
                     </p>
                     <a href="#" th:href="@{/user/menu}" class="btn green_btn text-uppercase ">Order</a>
                 </div>
@@ -80,18 +80,24 @@
 
 <!-- Start home-about Area -->
 <section class="home-about-area section-gap" th:fragment="home_section">
-    <div class="container">
+    <div class="container" th:if="${todayMenu} != null">
         <div class="row align-items-center">
             <div class="col-lg-6 home-about-left">
-                <h1>today menu</h1>
-                <p>
-                    연어초밥, 돈까스, 햄버거 먹고싶다 짜장면.. 하 배고파; 새우먹고싶다;
+                <h1 th:text="${todayMenu.menuName}">오늘의 메뉴 title</h1>
+                <p th:text="${todayMenu.menu_contant}">
+                    오늘의 메뉴 contant
                 </p>
-                <a href="#" class="green_btn primary-btn">view this menu</a>
+                <a href="#" class="green_btn primary-btn">Today Menu</a>
             </div>
-            <div class="col-lg-6 home-about-right">
-                <img class="img-fluid" src="../../../static/img/about-img.jpg" th:src="@{/img/about-img.jpg}" alt="">
+            <div class="col-lg-6 home-about-right" th:each="todayImg : ${todayMenu.menu_img_sq}">
+                <img class="img-fluid"
+                     th:src="@{'/menu-img/'+${todayImg.menuSq}+'/' +${todayImg.img_date}+'/'+${todayImg.img_name}}"
+                     alt="">
             </div>
+        </div>
+    </div>
+    <div class="container" th:if="${todayMenu} == null">
+        <div class="row align-items-center">
         </div>
     </div>
 </section>

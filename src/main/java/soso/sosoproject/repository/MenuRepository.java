@@ -22,4 +22,6 @@ public interface MenuRepository extends JpaRepository<MenuDTO, Long> {
 
     List<MenuDTO> findAllByMenuCategorySq(Long categorySq);
 
+    MenuDTO findByMenuToday(boolean todayId);   //오늘의 메뉴 하나가져옴
+
 }

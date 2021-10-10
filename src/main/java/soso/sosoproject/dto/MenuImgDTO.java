@@ -22,7 +22,7 @@ public class MenuImgDTO {
 
     private boolean menu_sold_out;
 
-    private boolean menu_enable;
+    private boolean menuEnable;
 
     private boolean menu_today;
 
