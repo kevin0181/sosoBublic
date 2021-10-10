@@ -47,6 +47,9 @@ public class Oauth2UserService extends SimpleUrlAuthenticationSuccessHandler imp
             return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
         } else if (client.equals("google")) {
             return new CustomOauth2Detail(oAuth2User);
+        } else if (client.equals("facebook")) {
+//            return new CustomOauth2Detail(oAuth2User);
+//            https로 변경후 사용가능
         }
         return null;
     }

@@ -37,6 +37,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             String email = (String) getEmail.get("email");
             String name = (String) getName.get("nickname");
             String id = Integer.toString((Integer) getId.get("id"));
+            String img = (String) getName.get("profile_image");
 
             MemberDTO memberDTO = oauth2DataService.findOauth2Member(email + id);
 
@@ -50,6 +51,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 //카카오 회원
                 session.setAttribute("memberEMail", email);
                 session.setAttribute("memberName", name);
+                session.setAttribute("img", img);
 
                 response.sendRedirect("/user/index");
             }
@@ -72,7 +74,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 //네이버 신규
                 session.setAttribute("email", email + id);
                 session.setAttribute("name", name);
-                session.setAttribute("mobile", mobile);
+//                session.setAttribute("mobile", mobile); 핸드폰 번호 가져오는 부분
                 //회원가입 페이지로 보냄
                 response.sendRedirect("/user/account/OAuth2form");
             } else if (memberDTO != null) {
@@ -102,6 +104,8 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
                 response.sendRedirect("/user/index");
             }
+        }else if(client.equals("facebook")){
+            System.out.println("성공");
         }
 
 
