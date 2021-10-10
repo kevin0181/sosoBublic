@@ -260,4 +260,8 @@ public class MenuService {
         boolean id = true;
         return menuRepository.findByMenuToday(id);
     }
+
+    public List<MenuDTO> AllMenu() {
+        return menuRepository.findAll();
+    }
 }

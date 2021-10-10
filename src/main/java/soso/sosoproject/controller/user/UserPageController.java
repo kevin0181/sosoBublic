@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import soso.sosoproject.dto.CategoryDTO;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.dto.detail.UserDetail;
@@ -15,6 +16,7 @@ import soso.sosoproject.service.admin.menu.MenuService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -25,12 +27,22 @@ public class UserPageController {
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
+
         //오늘의 메뉴 가져옴
-        MenuDTO menuDTO = todayMenu();
-        model.addAttribute("todayMenu", menuDTO);
+        MenuDTO todayMenu = todayMenu();
+        model.addAttribute("todayMenu", todayMenu);
+
+        //카테고리 가져옴
+        List<CategoryDTO> categoryDTO = getCategory();
+        model.addAttribute("category", categoryDTO);
+
+        //메뉴 리스트
+        List<MenuDTO> menuDTOList = getMenuList();
+        model.addAttribute("menu", menuDTOList);
 
         return "/user/index";
     }
+
 
     @GetMapping("/user/index")
     public String index(@AuthenticationPrincipal UserDetail userDetail, Model model, HttpSession session, MemberDTO memberDTO) {
@@ -46,6 +58,10 @@ public class UserPageController {
         //오늘의 메뉴 가져옴
         MenuDTO menuDTO = todayMenu();
         model.addAttribute("todayMenu", menuDTO);
+
+        //카테고리 가져옴
+        List<CategoryDTO> categoryDTO = getCategory();
+        model.addAttribute("category", categoryDTO);
 
         return "/user/index";
     }
@@ -83,5 +99,15 @@ public class UserPageController {
     public MenuDTO todayMenu() {
         MenuDTO menuDTO = menuService.getTodayMenu();
         return menuDTO;
+    }
+
+    private List<CategoryDTO> getCategory() {
+        //카테고리 리스트 가져오는 부분
+        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        return categoryList;
+    }
+
+    private List<MenuDTO> getMenuList() {
+        return menuService.AllMenu();
     }
 }

@@ -118,79 +118,35 @@
             </div>
         </div>
 
+
         <ul class="filter-wrap filters col-lg-12 no-padding">
             <li class="active" data-filter="*">All Menu</li>
-            <li data-filter=".breakfast">Breakfast</li>
-            <li data-filter=".lunch">Lunch</li>
-            <li data-filter=".dinner">Dinner</li>
-            <li data-filter=".budget-meal">Budget Meal</li>
-            <li data-filter=".buffet">Buffet</li>
+            <li th:each="categoryList : ${category}" th:text="${categoryList.category_name}"
+                th:attr="data-filter='.'+${categoryList.category_sq}"></li>
         </ul>
+
+        <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+        <!--        <ul class="filter-wrap filters col-lg-12 no-padding">-->
+        <!--            <li class="active" data-filter="*">All Menu</li>-->
+        <!--            <li data-filter=".breakfast">Breakfast</li>-->
+        <!--            <li data-filter=".lunch">Lunch</li>-->
+        <!--            <li data-filter=".dinner">Dinner</li>-->
+        <!--            <li data-filter=".budget-meal">Budget Meal</li>-->
+        <!--            <li data-filter=".buffet">Buffet</li>-->
+        <!--        </ul>-->
 
         <div class="filters-content">
             <div class="row grid">
-                <div class="col-md-6 all breakfast">
+                <div class="col-md-6 all " th:each="menulist : ${menu}" th:classappend="${menulist.menuCategorySq}">
                     <div class="single-menu" style="text-align: center;">
                         <div class="title-wrap d-flex justify-content-between">
-                            <h4>Cappuccion</h4>
-                            <h4 class="price">$49</h4>
+                            <h4 th:text="${menulist.menuName}">음식이름</h4>
+                            <h4 class="price" th:text="${menulist.menu_price}">음식 가격</h4>
                         </div>
+                        <p th:text="${menulist.menu_contant}">
+                            음식 contant
+                        </p>
                         <img th:src="@{/img/b1.jpg}" style="border-radius: 20px;">
-                    </div>
-                </div>
-                <div class="col-md-6 all dinner">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Americano</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all budget-meal">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Macchiato</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all breakfast">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Mocha</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all lunch">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Piccolo Latte</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6 all buffet">
-                    <div class="single-menu">
-                        <div class="title-wrap d-flex justify-content-between">
-                            <h4>Ristretto</h4>
-                            <h4 class="price">$49</h4>
-                        </div>
-                        <p>
-                            Usage of the Internet is becoming more common due to rapid advance.
-                        </p>
                     </div>
                 </div>
             </div>
