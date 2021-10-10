@@ -185,10 +185,10 @@
     });
 
     $('#name').on('keyup' ,function(event) {
-        if (!/^[가-힣]{2,6}$/g.test($('#name').val())) {
+        if (!/^[a-zA-Z가-힣\s]+$/g.test($('#name').val())) {
             $('#name').removeClass("is-valid");
             $('#name').addClass("is-invalid");
-            $('#name-feedback').html("<i class='bx bx-radio-circle'></i> 2~6글자의 한글만 입력하세요.");
+            $('#name-feedback').html("<i class='bx bx-radio-circle'></i> 영문자와 한글만 입력하세요.");
             $('#name-feedback').show(); // show() 메소드 추가
         } else {
             $('#name').removeClass("is-invalid");

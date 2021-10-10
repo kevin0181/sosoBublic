@@ -35,6 +35,9 @@
                             th:value="${#session.getAttribute('name')}"
                     />
                     <label for="name-oauth2">이름</label>
+                    <div class="invalid-feedback" id="name-feedback">
+                        <i class='bx bx-radio-circle'></i>
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -45,6 +48,8 @@
                             placeholder="주소"
                     />
                     <label for="address-oauth2">주소</label>
+                    <div class="invalid-feedback" id="address-feedback">
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -52,13 +57,10 @@
                             class="form-control"
                             id="phoneNumber-oauth2"
                             name="memberPhonenumber"
-                            pattern="^[0-9]+$"
                             placeholder="전화번호"
                     />
                     <label for="phoneNumber-oauth2">전화번호</label>
-                    <div class="invalid-feedback">
-                        <i class="bx bx-radio-circle"></i>
-                        - 없이 숫자만 입력하세요.
+                    <div class="invalid-feedback" id="phone-feedback">
                     </div>
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
@@ -84,6 +86,47 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#name-oauth2').on('keyup' ,function(event) {
+        if (!/^[a-zA-Z가-힣\s]+$/g.test($('#name-oauth2').val())) {
+            $('#name-oauth2').removeClass("is-valid");
+            $('#name-oauth2').addClass("is-invalid");
+            $('#name-feedback').html("<i class='bx bx-radio-circle'></i> 영문자와 한글만 입력하세요.");
+            $('#name-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#name').removeClass("is-invalid");
+            $('#name').addClass("is-valid");
+            $('#name-feedback').empty();
+        }
+    });
+
+    $('#address-oauth2').on('keyup' ,function(event) {
+        if (!/^[a-zA-Z가-힣0-9\s]+$/g.test($('#address-oauth2').val())) {
+            $('#address-oauth2').removeClass("is-valid");
+            $('#address-oauth2').addClass("is-invalid");
+            $('#address-feedback').html("<i class='bx bx-radio-circle'></i> 주소형식에 맞춰서 입력하세요.");
+            $('#address-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#address-oauth2').removeClass("is-invalid");
+            $('#address-oauth2').addClass("is-valid");
+            $('#address-feedback').empty();
+        }
+    });
+
+    $('#phoneNumber-oauth2').on('keyup' ,function(event) {
+        if (!/^01[0179][0-9]{7,8}$/g.test($('#phoneNumber-oauth2').val())) {
+            $('#phoneNumber-oauth2').removeClass("is-valid");
+            $('#phoneNumber-oauth2').addClass("is-invalid");
+            $('#phone-feedback').html("<i class='bx bx-radio-circle'></i> - 없이 번호를 입력하세요. 예.010012341234");
+            $('#phone-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#phoneNumber-oauth2').removeClass("is-invalid");
+            $('#phoneNumber-oauth2').addClass("is-valid");
+            $('#phone-feedback').empty();
+        }
+    });
+</script>
 
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
 <script th:replace="/user/user_fragment/script_src :: script"></script>
