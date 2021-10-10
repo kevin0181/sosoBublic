@@ -96,8 +96,6 @@ function deleteMenu() {
             dataType: "json",
             data: {
                 "menuCheck": menuCheck,
-            },error:function () {
-                alert("실패!");
             }
         });
         alert("메뉴가 삭제되었습니다.");
@@ -131,10 +129,7 @@ function changeMenu(menuSq) {
         dataType: "json",
         processData: false,
         contentType: false,
-        data: formData,
-        error:function () {
-            alert("실패!");
-        }
+        data: formData
     });
 
     alert("메뉴가 수정되었습니다.");

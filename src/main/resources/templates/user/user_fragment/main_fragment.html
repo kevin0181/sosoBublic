@@ -79,25 +79,27 @@
 
 
 <!-- Start home-about Area -->
-<section class="home-about-area section-gap" th:fragment="home_section">
-    <div class="container" th:if="${todayMenu} != null">
+<section class="home-about-area section-gap" th:fragment="home_section" th:if="${todayMenu} != null">
+    <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 home-about-left">
-                <h1 th:text="${todayMenu.menuName}">오늘의 메뉴 title</h1>
-                <p th:text="${todayMenu.menu_contant}">
+                <h2 th:text="${todayMenu.menuName}" class="mb-5">오늘의 메뉴 title</h2>
+                <p th:text="${todayMenu.menu_contant}" class="mb-1">
                     오늘의 메뉴 contant
                 </p>
-                <a href="#" class="green_btn primary-btn">Today Menu</a>
+                <a href="#" class="green_btn primary-btn my-5">Today Menu</a>
             </div>
-            <div class="col-lg-6 home-about-right" th:each="todayImg : ${todayMenu.menu_img_sq}">
-                <img class="img-fluid"
-                     th:src="@{'/menu-img/'+${todayImg.menuSq}+'/' +${todayImg.img_date}+'/'+${todayImg.img_name}}"
-                     alt="">
+            <div class="card-body">
+                <div th:id="carouselExampleControls+${todayMenu.menuSq}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item " th:each="imgMenuList,index : ${todayMenu.menu_img_sq}"
+                             th:classappend="${index.index} == 0 ?'active'">
+                            <img th:src="@{'/menu-img/'+${imgMenuList.menuSq}+'/' +${imgMenuList.img_date}+'/'+${imgMenuList.img_name}}"
+                                 class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="container" th:if="${todayMenu} == null">
-        <div class="row align-items-center">
         </div>
     </div>
 </section>
@@ -111,7 +113,7 @@
             <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
                     <h1 class="mb-10">Order Menu</h1>
-                    <p>자자 싸게팝니다~ 빠르게 하나씩 고르세용~><</p>
+                    <p></p>
                 </div>
             </div>
         </div>
