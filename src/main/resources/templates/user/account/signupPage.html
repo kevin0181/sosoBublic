@@ -94,8 +94,6 @@
                     />
                     <label for="s-password">비밀번호 확인</label>
                     <div class="invalid-feedback" id="s-feedback">
-                        <i class="bx bx-radio-circle"></i>
-                        비밀번호가 일치하지 않습니다.
                     </div>
                 </div>
                 <div class="form-floating">
@@ -107,6 +105,8 @@
                             placeholder="이름"
                     />
                     <label for="name">이름</label>
+                    <div class="invalid-feedback" id="name-feedback">
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -117,6 +117,8 @@
                             placeholder="주소"
                     />
                     <label for="address">주소</label>
+                    <div class="invalid-feedback" id="address-feedback">
+                    </div>
                 </div>
                 <div class="form-floating">
                     <input
@@ -128,9 +130,7 @@
                             placeholder="전화번호"
                     />
                     <label for="phoneNumber">전화번호</label>
-                    <div class="invalid-feedback">
-                        <i class="bx bx-radio-circle"></i>
-                        - 없이 숫자만 입력하세요.
+                    <div class="invalid-feedback" id="phone-feedback">
                     </div>
                 </div>
                 <div class="mb-4" style="margin-top: 3px;">
@@ -162,7 +162,7 @@
         if (!/^[a-zA-Z0-9]{8,25}$/g.test($('#f-password').val())) {
             $('#f-password').removeClass("is-valid");
             $('#f-password').addClass("is-invalid");
-            $('#f-feedback').html("<i class='bx bx-radio-circle'></i> 비밀번호는 숫자와 영문자 조합으로 8~25자리를 사용해야 합니다.");
+            $('#f-feedback').html("<i class='bx bx-radio-circle'></i> 숫자와 영문자 조합 8~25자리로 입력하세요.");
             $('#f-feedback').show(); // show() 메소드 추가
         } else {
             $('#f-password').removeClass("is-invalid");
@@ -170,16 +170,58 @@
             $('#f-feedback').empty();
         }
     });
-    $('#s-password').keyup(function () {
+
+    $('#s-password').on('keyup' ,function(event) {
         if ($('#s-password').val() != $('#f-password').val()) {
             $('#s-password').removeClass("is-valid");
             $('#s-password').addClass("is-invalid");
-        } else if ($('#s-password').val() == $('#f-password').val()) {
+            $('#s-feedback').html("<i class='bx bx-radio-circle'></i> 비밀번호가 일치하지 않습니다.");
+            $('#s-feedback').show(); // show() 메소드 추가
+        } else {
             $('#s-password').removeClass("is-invalid");
             $('#s-password').addClass("is-valid");
+            $('#s-feedback').empty();
         }
     });
 
+    $('#name').on('keyup' ,function(event) {
+        if (!/^[가-힣]{2,6}$/g.test($('#name').val())) {
+            $('#name').removeClass("is-valid");
+            $('#name').addClass("is-invalid");
+            $('#name-feedback').html("<i class='bx bx-radio-circle'></i> 2~6글자의 한글만 입력하세요.");
+            $('#name-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#name').removeClass("is-invalid");
+            $('#name').addClass("is-valid");
+            $('#name-feedback').empty();
+        }
+    });
+
+    $('#address').on('keyup' ,function(event) {
+        if (!/^[a-zA-Z가-힣0-9\s]+$/g.test($('#address').val())) {
+            $('#address').removeClass("is-valid");
+            $('#address').addClass("is-invalid");
+            $('#address-feedback').html("<i class='bx bx-radio-circle'></i> 주소형식에 맞춰서 입력하세요.");
+            $('#address-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#address').removeClass("is-invalid");
+            $('#address').addClass("is-valid");
+            $('#address-feedback').empty();
+        }
+    });
+
+    $('#phoneNumber').on('keyup' ,function(event) {
+        if (!/^01[0179][0-9]{7,8}$/g.test($('#phoneNumber').val())) {
+            $('#phoneNumber').removeClass("is-valid");
+            $('#phoneNumber').addClass("is-invalid");
+            $('#phone-feedback').html("<i class='bx bx-radio-circle'></i> - 없이 번호를 입력하세요. 예.010012341234");
+            $('#phone-feedback').show(); // show() 메소드 추가
+        } else {
+            $('#phoneNumber').removeClass("is-invalid");
+            $('#phoneNumber').addClass("is-valid");
+            $('#phone-feedback').empty();
+        }
+    });
 </script>
 <script src="../../../static/js/main.js" th:src="@{/js/mine/signup_script.js}"></script>
 <script th:replace="/user/user_fragment/script_src :: script"></script>
