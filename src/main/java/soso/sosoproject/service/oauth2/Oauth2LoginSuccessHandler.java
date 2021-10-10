@@ -29,7 +29,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String client = (String) session.getAttribute("client");
 
         if (client.equals("kakao")) {
-
+            //카카오
             DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
             Map<String, Object> getId = defaultOAuth2User.getAttributes();
             Map<String, Object> getEmail = (Map<String, Object>) getId.get("kakao_account");
@@ -54,7 +54,38 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 response.sendRedirect("/user/index");
             }
 
+        } else if (client.equals("naver")) {
+            //네이버
+            DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
+            Map<String, Object> naverMap = defaultOAuth2User.getAttributes();
+            Map<String, Object> naverResponse = (Map<String, Object>) naverMap.get("response");
+
+            String email = (String) naverResponse.get("email");
+            String id = (String) naverResponse.get("id");
+            String name = (String) naverResponse.get("name");
+            String img = (String) naverResponse.get("profile_image");
+            String mobile = (String) naverResponse.get("mobile");
+
+            MemberDTO memberDTO = oauth2DataService.findOauth2Member(email + id);
+
+            if (memberDTO == null) {
+                //네이버 신규
+                session.setAttribute("email", email + id);
+                session.setAttribute("name", name);
+                session.setAttribute("mobile", mobile);
+                //회원가입 페이지로 보냄
+                response.sendRedirect("/user/account/OAuth2form");
+            } else if (memberDTO != null) {
+                //네이버 회원
+                session.setAttribute("memberEMail", email);
+                session.setAttribute("memberName", name);
+                session.setAttribute("img", img);
+
+                response.sendRedirect("/user/index");
+            }
+
         } else if (client.equals("google")) {
+            //구글
             CustomOauth2Detail oauth2Detail = (CustomOauth2Detail) authentication.getPrincipal();
             String email = oauth2Detail.getEmail();
             MemberDTO memberDTO = oauth2DataService.findOauth2Member(email + oauth2Detail.getAttribute("sub"));

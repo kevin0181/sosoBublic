@@ -43,6 +43,8 @@ public class Oauth2UserService extends SimpleUrlAuthenticationSuccessHandler imp
         httpSession.setAttribute("client", client);
         if (client.equals("kakao")) {
             return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
+        } else if (client.equals("naver")) {
+            return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
         } else if (client.equals("google")) {
             return new CustomOauth2Detail(oAuth2User);
         }
