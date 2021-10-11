@@ -137,8 +137,10 @@
 
         <div class="filters-content">
             <div class="row grid">
-                <div class="col-md-6 all " th:each="menulist : ${menu}" th:classappend="${menulist.menuCategorySq}">
-                    <div class="single-menu" style="text-align: center;">
+                <div class="col-md-4 all " th:each="menulist : ${menu}" th:classappend="${menulist.menuCategorySq}">
+                    <div class="single-menu click_white" th:id="menu+${menulist.menuSq}" style="text-align: center;padding: 15px"
+                         th:onclick="menuClick([[${menulist.menuSq}]],[[${menulist.menuName}]])"
+                         th:if="${menulist.menuEnable} == true">
                         <div class="title-wrap d-flex justify-content-between">
                             <h4 th:text="${menulist.menuName}">음식이름</h4>
                             <h4 class="price" th:text="${menulist.menu_price}">음식 가격</h4>
@@ -146,12 +148,22 @@
                         <p th:text="${menulist.menu_contant}">
                             음식 contant
                         </p>
-                        <img th:src="@{/img/b1.jpg}" style="border-radius: 20px;">
+                        <div class="card-body">
+                            <div id="menuImg" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item " th:each="img,index : ${menulist.menu_img_sq}"
+                                         th:classappend="${index.index} == 0 ?'active'">
+                                        <img th:src="@{'/menu-img/'+${img.menuSq}+'/' +${img.img_date}+'/'+${img.img_name}}"
+                                             class="d-block w-100" alt="..."
+                                             style="border-radius: 20px; width: 100%;height: 150px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 <!-- End menu-area Area -->
@@ -170,22 +182,16 @@
             </div>
             <div class="col-lg-5 reservation-right">
                 <form class="form-wrap text-center" action="#">
-                    <input type="text" class="form-control" name="name" placeholder="Your Name"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email Address"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'">
-                    <input type="text" class="form-control" name="phone" placeholder="Phone Number"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-                    <input type="text" class="form-control date-picker" name="date" placeholder="Select Date & time"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Select Date & time'">
-                    <div class="form-select" id="service-select">
-                        <select>
-                            <option data-display="">Select Event</option>
-                            <option value="1">Event One</option>
-                            <option value="2">Event Two</option>
-                            <option value="3">Event Three</option>
-                            <option value="4">Event Four</option>
-                        </select>
+                    <input type="text" class="form-control" name="name" placeholder="이름"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                    <input type="email" class="form-control" name="email" placeholder="주소"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = '주소'">
+                    <input type="text" class="form-control" name="phone" placeholder="번호"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
+                    <input type="text" class="form-control date-picker" name="date" placeholder="날짜"
+                           onfocus="this.placeholder = ''" onblur="this.placeholder = '날짜'">
+                    <div class="form-menu" id="menuForm" style="">
+                        <small id="smallOrderText">위 메뉴를 클릭하여 메류를 추가해주세요.</small>
                     </div>
                     <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;">Order</button>
                 </form>
