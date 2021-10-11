@@ -112,7 +112,7 @@
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">Order Menu</h1>
+                    <h1 class="mb-10">주문 메뉴</h1>
                     <p></p>
                 </div>
             </div>
@@ -120,25 +120,15 @@
 
 
         <ul class="filter-wrap filters col-lg-12 no-padding">
-            <li class="active" data-filter="*">All Menu</li>
+            <li class="active" data-filter="*">모든 메뉴</li>
             <li th:each="categoryList : ${category}" th:text="${categoryList.category_name}"
                 th:attr="data-filter='.'+${categoryList.category_sq}"></li>
         </ul>
-
-        <!-- -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-        <!--        <ul class="filter-wrap filters col-lg-12 no-padding">-->
-        <!--            <li class="active" data-filter="*">All Menu</li>-->
-        <!--            <li data-filter=".breakfast">Breakfast</li>-->
-        <!--            <li data-filter=".lunch">Lunch</li>-->
-        <!--            <li data-filter=".dinner">Dinner</li>-->
-        <!--            <li data-filter=".budget-meal">Budget Meal</li>-->
-        <!--            <li data-filter=".buffet">Buffet</li>-->
-        <!--        </ul>-->
-
         <div class="filters-content">
             <div class="row grid">
                 <div class="col-md-4 all " th:each="menulist : ${menu}" th:classappend="${menulist.menuCategorySq}">
-                    <div class="single-menu click_white" th:id="menu+${menulist.menuSq}" style="text-align: center;padding: 15px"
+                    <div class="single-menu click_white" th:id="menu+${menulist.menuSq}"
+                         style="text-align: center;padding: 15px"
                          th:onclick="menuClick([[${menulist.menuSq}]],[[${menulist.menuName}]])"
                          th:if="${menulist.menuEnable} == true">
                         <div class="title-wrap d-flex justify-content-between">
@@ -175,10 +165,7 @@
     <div class="container">
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-6 reservation-left">
-                <h1 class="text-white">Order Page</h1>
-                <p class="text-white pt-20">
-                    주문할꺼면 하나씩해라 화나게하지말고
-                </p>
+                <h1 class="text-white">주문 페이지</h1>
             </div>
             <div class="col-lg-5 reservation-right">
                 <form class="form-wrap text-center" action="#">
@@ -188,12 +175,12 @@
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '주소'">
                     <input type="text" class="form-control" name="phone" placeholder="번호"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
-                    <input type="text" class="form-control date-picker" name="date" placeholder="날짜"
+                    <input type="datetime-local" class="form-control" placeholder="날짜"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '날짜'">
                     <div class="form-menu" id="menuForm" style="">
                         <small id="smallOrderText">위 메뉴를 클릭하여 메류를 추가해주세요.</small>
                     </div>
-                    <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;">Order</button>
+                    <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;">주문</button>
                 </form>
             </div>
         </div>
@@ -209,7 +196,6 @@
             <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
                     <h1 class="mb-10">soso Blog</h1>
-                    <p>인생이 서글프다 ㅋ</p>
                 </div>
             </div>
         </div>
