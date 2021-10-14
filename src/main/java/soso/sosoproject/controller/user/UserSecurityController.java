@@ -33,7 +33,7 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/user/**")
                 .authorizeRequests()
-                .antMatchers("/user/**", "/").permitAll()
+                .antMatchers("/user/**").permitAll()
                 .antMatchers("/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
