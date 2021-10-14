@@ -1,4 +1,4 @@
-package soso.sosoproject.controller.message;
+package soso.sosoproject.controller.messageExample;
 
 public class Chat {
     private String name;

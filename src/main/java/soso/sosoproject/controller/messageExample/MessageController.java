@@ -1,4 +1,4 @@
-package soso.sosoproject.controller.message;
+package soso.sosoproject.controller.messageExample;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

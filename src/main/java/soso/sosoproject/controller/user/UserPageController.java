@@ -28,17 +28,7 @@ public class UserPageController {
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
 
-        //오늘의 메뉴 가져옴
-        MenuDTO todayMenu = todayMenu();
-        model.addAttribute("todayMenu", todayMenu);
-
-        //카테고리 가져옴
-        List<CategoryDTO> categoryDTO = getCategory();
-        model.addAttribute("category", categoryDTO);
-
-        //메뉴 리스트
-        List<MenuDTO> menuDTOList = getMenuList();
-        model.addAttribute("menu", menuDTOList);
+        getSection(model);
 
         return "/user/index";
     }
@@ -47,6 +37,8 @@ public class UserPageController {
     @GetMapping("/user/index")
     public String index(@AuthenticationPrincipal UserDetail userDetail, Model model, HttpSession session, MemberDTO memberDTO) {
         if (userDetail == null) {
+            getSection(model);
+
             return "/user/index";
         }
 
@@ -55,19 +47,14 @@ public class UserPageController {
         session.setAttribute("memberName", memberDTO.getMemberName());
         session.setAttribute("memberEMail", memberDTO.getMemberEmail());
 
-        //오늘의 메뉴 가져옴
-        MenuDTO menuDTO = todayMenu();
-        model.addAttribute("todayMenu", menuDTO);
-
-        //카테고리 가져옴
-        List<CategoryDTO> categoryDTO = getCategory();
-        model.addAttribute("category", categoryDTO);
+        getSection(model);
 
         return "/user/index";
     }
 
     @GetMapping("/user/menu")
-    public String menu() {
+    public String menu(Model model) {
+        getSection(model);
         return "/user/menu";
     }
 
@@ -76,15 +63,16 @@ public class UserPageController {
         return "/user/blog-home";
     }
 
+    @GetMapping("/user/blog-single")
+    public String blogSingle() {
+        return "/user/blog-single";
+    }
+
     @GetMapping("/user/about")
     public String about() {
         return "/user/about";
     }
 
-    @GetMapping("/user/blog-single")
-    public String blogSingle() {
-        return "/user/blog-single";
-    }
 
     //그냥 만들어둠 나중에 쓸꺼같아서
     @GetMapping("/user/elements")
@@ -93,7 +81,7 @@ public class UserPageController {
     }
 
 
-    //함수
+    //함수--------------------------------------------------------------------------
 
     //index 페이지 오늘의 메뉴 가지고 오는 함수
     public MenuDTO todayMenu() {
@@ -110,4 +98,20 @@ public class UserPageController {
     private List<MenuDTO> getMenuList() {
         return menuService.AllMenu();
     }
+
+    private void getSection(Model model) {
+        //오늘의 메뉴 가져옴
+        MenuDTO todayMenu = todayMenu();
+        model.addAttribute("todayMenu", todayMenu);
+
+        //카테고리 가져옴
+        List<CategoryDTO> categoryDTO = getCategory();
+        model.addAttribute("category", categoryDTO);
+
+        //메뉴 리스트
+        List<MenuDTO> menuDTOList = getMenuList();
+        model.addAttribute("menu", menuDTOList);
+    }
+
+
 }
