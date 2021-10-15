@@ -60,12 +60,12 @@ public class UserPageController {
 
     @GetMapping("/user/blog")
     public String blog() {
-        return "/user/blog-home";
+        return "/user/blog/blog-home";
     }
 
     @GetMapping("/user/blog-single")
     public String blogSingle() {
-        return "/user/blog-single";
+        return "/user/blog/blog-single";
     }
 
     @GetMapping("/user/about")

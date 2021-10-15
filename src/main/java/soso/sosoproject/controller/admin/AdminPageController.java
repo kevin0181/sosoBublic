@@ -180,9 +180,17 @@ public class AdminPageController {
         return "admin/MemberList";
     }
 
-    @PostMapping("")
+    //블로그로 이동
+    @GetMapping("Blog")
+    public String Blog(@RequestParam(value = "className", defaultValue = "Blog") String className, Model model) {
+
+        //active
+        model.addAttribute("className", className);
+        return "admin/Blog/AdminBlog";
+    }
 
 
+    //함수-------------------------------------------------------------------------------
     private void searchActive(boolean active, Model model, String className) {
         List<MenuDTO> menuDTOList = menuService.getActiveSearch(active);
         model.addAttribute("menuList", menuDTOList);

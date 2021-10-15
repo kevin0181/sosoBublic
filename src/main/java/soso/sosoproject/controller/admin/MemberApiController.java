@@ -13,7 +13,8 @@ public class MemberApiController {
     @Autowired
     AdminMemberService adminMemberService;
 
-    @PostMapping("delete-MemberList")
+
+    @GetMapping("delete-MemberList")
     public void deleteMember(@RequestParam(value = "condition", defaultValue = "delete") String condition,
                              @RequestParam(value = "memberCheck[]", required = false) List<Long> memberSq) {
 

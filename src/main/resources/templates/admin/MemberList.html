@@ -119,8 +119,8 @@
             return false;
         } else {
             $.ajax({
-                type: "POST",
-                url: "/member/delete-MemberList",
+                type: "GET",
+                url: "/admin/member/delete-MemberList",
                 dataType: "json",
                 data: {
                     "memberCheck": MemberCheck,

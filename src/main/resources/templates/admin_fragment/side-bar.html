@@ -9,7 +9,7 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                    <a href="index.html"><img th:src="@{/assets/images/logo/logo.png}" alt="Logo" srcset=""></a>
                 </div>
                 <div class="toggler">
                     <a class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -33,26 +33,34 @@
                     </a>
                     <ul class="submenu ">
                         <li class="" th:classappend="${className} == 'add-category' ? 'btn-active'">
-                            <a href="form-layout.html" th:href="@{/admin/add-category(className='add-category')}" style="margin-top: 5px"
+                            <a href="form-layout.html" th:href="@{/admin/add-category(className='add-category')}"
+                               style="margin-top: 5px"
                                class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>Category add & delete</span>
                             </a>
                         </li>
                         <li class="" th:classappend="${className} == 'add-menu' ? 'btn-active'">
-                            <a href="form-layout.html" th:href="@{/admin/add-menu(className='add-menu')}" style="margin-top: 5px"
+                            <a href="form-layout.html" th:href="@{/admin/add-menu(className='add-menu')}"
+                               style="margin-top: 5px"
                                class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>Menu add & delete</span>
                             </a>
                         </li>
                     </ul>
-
                 <li class="sidebar-item " th:classappend="${className} == 'MemberList' ? 'top-active'">
                     <a href="table-datatable.html" class='sidebar-link'
                        th:href="@{/admin/MemberList(className='MemberList')}">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Member</span>
+                    </a>
+                </li>
+                <li class="sidebar-item " th:classappend="${className} == 'Blog' ? 'top-active'">
+                    <a href="table-datatable.html" class='sidebar-link'
+                       th:href="@{/admin/Blog(className='Blog')}">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Blog</span>
                     </a>
                 </li>
             </ul>
