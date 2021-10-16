@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import soso.sosoproject.controller.admin.handler.AdminLoginSuccessHandler;
 import soso.sosoproject.service.Account.MemberService;
 
 @Order(2)
@@ -28,6 +29,9 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http
+                .csrf().ignoringAntMatchers("/admin/blog/image");
+
 
         http
                 .antMatcher("/admin/**")
@@ -38,7 +42,7 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/admin/login")
                 .loginProcessingUrl("/admin/login")
-                .defaultSuccessUrl("/admin/index") // 로그인 성공 시 redirect 이동
+                .successHandler(new AdminLoginSuccessHandler())
                 .permitAll()
                 .and()
                 .logout()

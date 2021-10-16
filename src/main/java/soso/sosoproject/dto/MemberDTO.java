@@ -6,7 +6,9 @@ import soso.sosoproject.dto.pk.MemberTablePk;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -49,5 +51,9 @@ public class MemberDTO {
     )
     private Set<RoleDTO> role = new HashSet<>();
 
+
+    @OneToMany
+    @JoinColumn(name = "member_email")
+    private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
 }

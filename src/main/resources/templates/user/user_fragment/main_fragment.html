@@ -94,7 +94,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item " th:each="imgMenuList,index : ${todayMenu.menu_img_sq}"
                              th:classappend="${index.index} == 0 ?'active'">
-                            <img th:src="@{'/menu-img/'+${imgMenuList.menuSq}+'/' +${imgMenuList.img_date}+'/'+${imgMenuList.img_name}}"
+                            <img th:src="@{'/img/menu/'+${imgMenuList.menuSq}+'/' +${imgMenuList.img_date}+'/'+${imgMenuList.img_name}}"
                                  class="d-block w-100" alt="...">
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item " th:each="img,index : ${menulist.menu_img_sq}"
                                          th:classappend="${index.index} == 0 ?'active'">
-                                        <img th:src="@{'/menu-img/'+${img.menuSq}+'/' +${img.img_date}+'/'+${img.img_name}}"
+                                        <img th:src="@{'/img/menu/'+${img.menuSq}+'/' +${img.img_date}+'/'+${img.img_name}}"
                                              class="d-block w-100" alt="..."
                                              style="border-radius: 20px; width: 100%;height: 150px">
                                     </div>

@@ -37,14 +37,14 @@ public class MenuService {
     private ImgRepository imgRepository;
 
     //카테고리 생성
-    public void save_category(CategoryDTO categoryDTO) {
-        categoryRepository.save(categoryDTO);
+    public void save_category(MenuCategoryDTO menuCategoryDTO) {
+        categoryRepository.save(menuCategoryDTO);
     }
 
     //카테고리 리스트
-    public List<CategoryDTO> getCategoryList() {
-        List<CategoryDTO> categoryDTOList = categoryRepository.findAll();
-        return categoryDTOList;
+    public List<MenuCategoryDTO> getCategoryList() {
+        List<MenuCategoryDTO> menuCategoryDTOList = categoryRepository.findAll();
+        return menuCategoryDTOList;
     }
 
     //카테고리 삭제
@@ -53,10 +53,10 @@ public class MenuService {
     }
 
     //카테고리 변경
-    public void changeCategory(CategoryDTO categoryDTO) {
-        Optional<CategoryDTO> getCategoryDTO = categoryRepository.findById(categoryDTO.getCategory_sq());
-        categoryDTO.setMenuList(getCategoryDTO.get().getMenuList());
-        categoryRepository.save(categoryDTO);
+    public void changeCategory(MenuCategoryDTO menuCategoryDTO) {
+        Optional<MenuCategoryDTO> getCategoryDTO = categoryRepository.findById(menuCategoryDTO.getCategory_sq());
+        menuCategoryDTO.setMenuList(getCategoryDTO.get().getMenuList());
+        categoryRepository.save(menuCategoryDTO);
     }
 
     //메뉴 생성
@@ -186,9 +186,9 @@ public class MenuService {
                 String nowDate = format.format(now);
 
                 if (imgDTO.isEmpty()) {
-                    filePath = "/menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
+                    filePath = "/img/menu/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 } else {
-                    filePath = "/menu-img/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
+                    filePath = "/img/menu/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 }
                 Path path = Paths.get(filePath);
 
@@ -255,6 +255,7 @@ public class MenuService {
         List<MenuDTO> menuDTOList = menuRepository.findAllByMenuCategorySq(searchCategory);
         return menuDTOList;
     }
+
     //오늘의 메뉴 가져옴
     public MenuDTO getTodayMenu() {
         boolean id = true;

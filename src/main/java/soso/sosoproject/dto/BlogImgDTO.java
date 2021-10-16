@@ -18,13 +18,19 @@ public class BlogImgDTO {
     private Long blogSq;
 
     @Column(name = "blog_img_path")
-    private Long blogImgPath;
+    private String blogImgPath;
 
     @Column(name = "blog_img_name")
-    private Long blogImgName;
+    private String blogImgName;
 
     @Column(name = "blog_img_date")
-    private Long blogImgDate;
+    private String blogImgDate;
 
+    @Column(name = "blog_img_keyname")
+    private String blogImgKeyName;
+
+    @ManyToOne
+    @JoinColumn(name = "blog_sq", insertable = false, updatable = false)
+    private BlogDTO blogDTO;
 
 }

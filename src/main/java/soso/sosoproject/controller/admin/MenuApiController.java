@@ -22,11 +22,11 @@ public class MenuApiController {
 
     //카테고리 추가
     @GetMapping("add-category")
-    public CategoryDTO addCategory(CategoryDTO categoryDTO, Model model) {
-        menuService.save_category(categoryDTO);
+    public MenuCategoryDTO addCategory(MenuCategoryDTO menuCategoryDTO, Model model) {
+        menuService.save_category(menuCategoryDTO);
         //active 추가
         model.addAttribute("className", "add-menu");
-        return categoryDTO;
+        return menuCategoryDTO;
     }
 
     //메뉴 추가

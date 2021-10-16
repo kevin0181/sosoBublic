@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -12,7 +14,6 @@ import java.sql.Date;
 public class BlogDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long blogSq;
 
     @Column(name = "blog_category_sq")
@@ -22,7 +23,7 @@ public class BlogDTO {
     private Long memberSq;
 
     @Column(name = "blog_title", length = 200)
-    private Long blogTitle;
+    private String blogTitle;
 
     @Column(name = "blog_date")
     private Date blogDate;
@@ -32,4 +33,17 @@ public class BlogDTO {
 
     @Column(name = "blog_view_size")
     private String blogViewSize;
+
+    @ManyToOne
+    @JoinColumn(name = "blog_category_sq", insertable = false, updatable = false)
+    private BlogCategoryDTO blogCategoryDTO;
+
+    @OneToMany
+    @JoinColumn(name = "blog_sq")
+    private List<BlogImgDTO> blogImg_sq = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "blog_sq")
+    private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
+
 }

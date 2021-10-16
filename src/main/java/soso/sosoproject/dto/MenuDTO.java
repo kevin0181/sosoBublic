@@ -41,7 +41,7 @@ public class MenuDTO {
 
     @ManyToOne
     @JoinColumn(name = "menu_category_sq", insertable = false, updatable = false)
-    private CategoryDTO categoryDTO;
+    private MenuCategoryDTO menuCategoryDTO;
 
     @OneToMany
     @JoinColumn(name = "menu_sq")

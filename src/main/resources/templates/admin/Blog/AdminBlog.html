@@ -44,7 +44,160 @@
                     </div>
                 </div>
             </div>
+            <!-- 카테고리 추가 -->
+            <section class="section" id="basic-horizontal-layouts">
+                <div class="row match-height">
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">카테고리 추가</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <form class="form form-horizontal" method="get" id="blog_category_form"
+                                          th:action="@{/menu/add-category}">
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>카테고리 이름</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" id="blog_category_name" class="form-control"
+                                                           name="blogCategoryName" placeholder="카테고리 이름">
+                                                </div>
+                                                <div class="col-sm-12 d-flex justify-content-end">
+                                                    <button type="button" onclick="addBlogCategory()"
+                                                            class="btn btn-primary me-1 mb-1">Add
+                                                    </button>
+                                                    <button type="reset"
+                                                            class="btn btn-light-secondary me-1 mb-1">Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!--  카테고리 리스트-->
+                    <div class="col-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">카테고리 목록</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        설정한 메뉴 카테고리를 삭제하거나 변경할 수 있습니다.
+                                    </p>
+                                </div>
+
+                                <!-- Table with no outer spacing -->
+                                <div class="table-responsive">
+                                    <table class="table mb-0 table-lg">
+                                        <thead>
+                                        <tr>
+                                            <th>NAME</th>
+                                            <th></th>
+                                            <th><p>총 갯수:<span th:text="${#lists.size(blogCategoryList)}"></span></p>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="blogCategory : ${blogCategoryList}">
+                                            <td class="text-bold-500" th:text="${blogCategory.blogCategoryName}">
+                                                카테고리 이름
+                                            </td>
+                                            <td style="padding: 0px">
+                                                <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
+                                                        th:attr="data-bs-target='#changeModal'+${blogCategory.category_sq}"
+                                                        class="btn btn-primary">변경
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade"
+                                                     th:id="changeModal+${blogCategory.category_sq}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="newCategory" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered"
+                                                         role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="newCategory">새로운 카테고리
+                                                                    이름</h5>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label th:for="reCategory_name+${blogCategory.category_sq}"
+                                                                           class="col-form-label">카테고리 이름</label>
+                                                                    <input type="text" class="form-control"
+                                                                           th:id="reBlogCategory_name+${blogCategory.category_sq}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary"
+                                                                        th:onclick="changeBlogCategory([[${blogCategory.category_sq}]])">
+                                                                    변경
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">닫기
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-bold-500" style="padding: 0px">
+                                                <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
+                                                        th:attr="data-bs-target='#deleteModal'+${blogCategory.category_sq}"
+                                                        class="btn btn-danger">삭제
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade"
+                                                     th:id="deleteModal+${blogCategory.category_sq}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="deleteCategory" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered"
+                                                         role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteCategory">카테고리
+                                                                    삭제</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                삭제하시겠습니까?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger"
+                                                                        th:onclick="deleteBlogCategory([[${blogCategory.category_sq}]])">
+                                                                    네
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">아니오
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--            카테고리 끝-->
             <section class="section">
                 <div class="row">
                     <div class="col-12">
@@ -52,10 +205,24 @@
                             <div class="card-header">
                                 <h4 class="card-title">글쓰기</h4>
                             </div>
-                            <div class="col-sm-4" style="padding: 0 1.5rem;">
-                                <input class="form-control" type="text" placeholder="제목">
+                            <input type="hidden" id="hiddenMemberSq" th:value="${session.memberSq}">
+                            <input type="hidden" id="hiddenBlogId" th:value="${blogIndex}">
+                            <div class="col-md-6" style="padding: 0 1.5rem;">
+                                <input class="form-control" type="text" placeholder="제목" id="blogTitle"
+                                       name="blogTitle">
                             </div>
-                            <div class="col-md-6 mb-1" style="padding: 1.5rem;">
+                            <div class="col-md-6 col-12" style="padding: 0 1.5rem; margin-top: 8px">
+                                <fieldset class="form-group">
+                                    <label for="blogCategorySelect">카테고리 설정</label>
+                                    <select class="form-select" id="blogCategorySelect" name="blogCategorySq">
+                                        <option th:each="blogCategorySelect : ${blogCategoryList}"
+                                                th:value="${blogCategorySelect.category_sq}"
+                                                th:text="${blogCategorySelect.blogCategoryName}"
+                                        ></option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 mb-1" style="padding: 0 1.5rem; margin-top: 8px">
                                 <fieldset>
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="inputView"
@@ -67,11 +234,16 @@
                                     </div>
                                 </fieldset>
                             </div>
-                            <div class="card-body">
+                            <div class="mb-3" style="text-align: right; margin-right: 30px;">
+                                <button class="btn btn-info rounded-pill" id="startBlogButton" onclick="startBlog()">글쓰기 시작</button>
+                            </div>
+                            <div class="card-body" id="blogContant">
                                 <div id="summernote"></div>
                             </div>
                             <div class="mb-3" style="text-align: right; margin-right: 30px;">
-                                <button class="btn btn-info rounded-pill" onclick="insertBlog()">등록</button>
+                                <button class="btn btn-info rounded-pill" id="insertBlogButton" onclick="insertBlog()">
+                                    등록
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -103,6 +275,59 @@
 <script th:src="@{/assets/vendors/jquery/jquery.min.js}"></script>
 <script th:src="@{/assets/vendors/summernote/summernote-lite.min.js}"></script>
 <script>
+
+    $(document).ready(function () {
+        $('#blogContant').hide();
+        $('#insertBlogButton').hide();
+    });
+
+    $('#blogContant').on("click", function () {
+        if (!$('#blogTitle').val()) {
+            alert("재목을 입력해주세요.");
+            $('#blogContant').hide();
+            return false;
+        }
+    });
+
+    function startBlog() {
+        if (!$('#blogTitle').val()) {
+            alert("재목을 입력해주세요.");
+            $('#blogContant').hide();
+            return false;
+        }
+        $('#blogContant').show();
+        $('#insertBlogButton').show();
+        $('#startBlogButton').hide();
+
+        var form_data = new FormData();
+        var BlogId = $('#hiddenBlogId').val();
+        var nameSq = $('#hiddenMemberSq').val();
+        var title = $('#blogTitle').val();
+        var category = $('#blogCategorySelect').val();
+
+        form_data.append('BlogId', BlogId);
+        form_data.append('MemberSq', nameSq);
+        form_data.append('BlogTitle', title);
+        form_data.append('BlogCategory', category);
+        form_data.append('condition', 'makeBlogStart');
+
+        $.ajax({
+
+            type: "POST",
+            url: '/admin/blog/image',
+            dataType: "json",
+            data: {
+                "BlogId": BlogId,
+                "MemberSq": nameSq,
+                "BlogTitle": title,
+                "BlogCategory": category,
+                "condition": "makeBlogStart"
+            }
+        });
+
+    }
+
+
     $('#summernote').summernote({
         tabsize: 1,
         height: 300,
@@ -116,13 +341,18 @@
         }
     });
 
+
     /**
      * 이미지 파일 업로드
      */
 
     function sendFile(file, el) {
+
+        var BlogId = $('#hiddenBlogId').val();
         var form_data = new FormData();
         form_data.append('file', file);
+        form_data.append('BlogId', BlogId);
+        form_data.append('condition', 'addImg');
         $.ajax({
             data: form_data,
             type: "POST",

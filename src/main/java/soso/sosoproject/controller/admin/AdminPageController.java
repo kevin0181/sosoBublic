@@ -2,18 +2,19 @@ package soso.sosoproject.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import soso.sosoproject.dto.CategoryDTO;
-import soso.sosoproject.dto.MemberDTO;
-import soso.sosoproject.dto.MenuDTO;
+import soso.sosoproject.dto.*;
+import soso.sosoproject.dto.detail.UserDetail;
+import soso.sosoproject.service.admin.blog.AdminBlogService;
 import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,10 +25,19 @@ public class AdminPageController {
     private MenuService menuService;
     @Autowired
     private AdminMemberService adminMemberService;
+    @Autowired
+    private AdminBlogService adminBlogService;
 
     //인덱스
     @GetMapping("index")
-    public String index(@RequestParam(value = "className", defaultValue = "index") String className, Model model) {
+    public String index(@AuthenticationPrincipal UserDetail userDetail,
+                        @RequestParam(value = "className", defaultValue = "index") String className,
+                        Model model, HttpSession session) {
+
+        //회원정보 객체 가져옴 (eamil,name session에 저장)
+        MemberDTO memberDTO = userDetail.getMemberDTO();
+        session.setAttribute("memberName", memberDTO.getMemberName());
+        session.setAttribute("memberEMail", memberDTO.getMemberEmail());
 
         // total 회원 수 count
         int totalCnt = adminMemberService.memberCount();
@@ -65,7 +75,7 @@ public class AdminPageController {
             model.addAttribute("menuList", menuDTOList);
 
             //카테고리 리스트 가져오는 부분
-            List<CategoryDTO> categoryList = menuService.getCategoryList();
+            List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
             model.addAttribute("categoryList", categoryList);
 
             return "admin/add-menu";
@@ -91,7 +101,7 @@ public class AdminPageController {
                 //검색해온 리스트
                 model.addAttribute("menuList", menuDTOS);
                 //카테고리 리스트 가져오는 부분
-                List<CategoryDTO> categoryList = menuService.getCategoryList();
+                List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
                 model.addAttribute("categoryList", categoryList);
 
                 //페이지 active 구분
@@ -124,7 +134,7 @@ public class AdminPageController {
 
 
         //카테고리 리스트 가져오는 부분
-        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
 
 
@@ -145,17 +155,17 @@ public class AdminPageController {
         if (condition != null) {
             if (condition.equals("change")) {
                 //바뀐 카테고리 이름을 새로운 dto에 주입
-                CategoryDTO categoryDTO = new CategoryDTO();
-                categoryDTO.setCategory_sq(categoryId);
-                categoryDTO.setCategory_name(categoryName);
-                menuService.changeCategory(categoryDTO);
+                MenuCategoryDTO menuCategoryDTO = new MenuCategoryDTO();
+                menuCategoryDTO.setCategory_sq(categoryId);
+                menuCategoryDTO.setCategory_name(categoryName);
+                menuService.changeCategory(menuCategoryDTO);
             } else if (condition.equals("delete")) {
                 menuService.deleteCategory(categoryId);
             }
         }
 
         //카테고리 리스트 가져오는 부분
-        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
 
 
@@ -184,6 +194,14 @@ public class AdminPageController {
     @GetMapping("Blog")
     public String Blog(@RequestParam(value = "className", defaultValue = "Blog") String className, Model model) {
 
+        List<BlogCategoryDTO> blogCategoryDTOS = adminBlogService.getCategoryList();
+        List<BlogDTO> blogDTOS = adminBlogService.getBlogList();
+        //블로그 순서
+        model.addAttribute("blogIndex", blogDTOS.size() + 1);
+
+        //블로그 카테고리 리스트
+        model.addAttribute("blogCategoryList", blogCategoryDTOS);
+
         //active
         model.addAttribute("className", className);
         return "admin/Blog/AdminBlog";
@@ -196,7 +214,7 @@ public class AdminPageController {
         model.addAttribute("menuList", menuDTOList);
 
         //카테고리 리스트 가져오는 부분
-        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
 
         //페이지 active 구분

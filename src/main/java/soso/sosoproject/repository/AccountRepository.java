@@ -20,4 +20,6 @@ public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
 
     MemberDTO findByMemberEmailAndMemberName(String email, String name); //비번 찾기
 
+    MemberDTO findAllByMemberName(String name);
+
 }

@@ -5,13 +5,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import soso.sosoproject.dto.CategoryDTO;
+import soso.sosoproject.dto.MenuCategoryDTO;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.dto.MenuDTO;
 import soso.sosoproject.dto.detail.UserDetail;
-import soso.sosoproject.message.AccountMessage;
 import soso.sosoproject.service.admin.menu.MenuService;
 
 import javax.servlet.http.HttpSession;
@@ -89,9 +86,9 @@ public class UserPageController {
         return menuDTO;
     }
 
-    private List<CategoryDTO> getCategory() {
+    private List<MenuCategoryDTO> getCategory() {
         //카테고리 리스트 가져오는 부분
-        List<CategoryDTO> categoryList = menuService.getCategoryList();
+        List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
         return categoryList;
     }
 
@@ -105,8 +102,8 @@ public class UserPageController {
         model.addAttribute("todayMenu", todayMenu);
 
         //카테고리 가져옴
-        List<CategoryDTO> categoryDTO = getCategory();
-        model.addAttribute("category", categoryDTO);
+        List<MenuCategoryDTO> menuCategoryDTO = getCategory();
+        model.addAttribute("category", menuCategoryDTO);
 
         //메뉴 리스트
         List<MenuDTO> menuDTOList = getMenuList();

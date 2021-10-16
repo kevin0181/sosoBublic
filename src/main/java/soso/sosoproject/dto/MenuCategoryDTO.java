@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity(name = "menu_category")
-public class CategoryDTO {
+public class MenuCategoryDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
