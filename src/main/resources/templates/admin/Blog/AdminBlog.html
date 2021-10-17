@@ -275,7 +275,8 @@
                             <tr th:each="blog,index : ${blogList}">
                                 <td><input type="checkbox" th:value="${blog.blogSq}" name="blogSqCheck"></td>
                                 <td th:text="${blog.getMemberDTO().memberName}">작성자</td>
-                                <td><a th:text="${blog.blogTitle}" href="#">제목</a></td>
+                                <td><a th:text="${blog.blogTitle}"
+                                       th:href="@{/admin/BlogCn/changeBlog(blogSq=${blog.blogSq})}">제목</a></td>
                                 <td th:if="${blog.blogDate} != null" th:text="${blog.blogDate}">날짜</td>
                                 <td th:if="${blog.blogDate} == null">생성되지않은 블로그</td>
                                 <td th:text="${blog.blogViewSize}">조회수</td>

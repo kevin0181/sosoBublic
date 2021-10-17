@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소소한부엌</title>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+    <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css"
+          th:href="@{/assets/vendors/choices.js/choices.min.css}"/>
+
+    <link rel="stylesheet" th:href="@{/assets/vendors/summernote/summernote-lite.min.css}">
+</head>
+
+<body>
+<div id="app">
+    <div id="sidebar" class="active">
+        <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>블로그 수정</h3>
+                        <p class="text-subtitle text-muted">블로그 글을 수정하는 페이지 입니다.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html" th:href="@{/admin/index}">Main</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">BlogChangePage</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">글쓰기</h4>
+                                <div style="position: absolute; left: 60%;">
+                                    <p>현재 대표 이미지</p>
+                                    <img th:src="@{${blogDTO.blogTopImgPath+'/'+blogDTO.blogTopImgName}}"
+                                         style="height: 150px;border-radius: 10px;">
+                                </div>
+                            </div>
+                            <input type="hidden" id="hiddenMemberSq" th:value="${session.memberSq}">
+                            <input type="hidden" id="hiddenBlogId" th:value="${blogDTO.blogSq}">
+                            <div class="col-md-6" style="padding: 0 1.5rem;">
+                                <input class="form-control" type="text" th:value="${blogDTO.blogTitle}" placeholder="제목"
+                                       id="blogTitle"
+                                       name="blogTitle">
+                            </div>
+                            <div class="col-md-6 col-12" style="padding: 0 1.5rem; margin-top: 8px">
+                                <fieldset class="form-group">
+                                    <label for="blogCategorySelect">카테고리 설정</label>
+                                    <select class="form-select" id="blogCategorySelect" name="blogCategorySq">
+                                        <option th:each="blogCategorySelect : ${blogCategoryDTO}"
+                                                th:value="${blogCategorySelect.category_sq}"
+                                                th:text="${blogCategorySelect.blogCategoryName}"
+                                                th:selected="${blogDTO.blogCategorySq} == ${blogCategorySelect.category_sq}"
+                                        ></option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 mb-1" style="padding: 0 1.5rem; margin-top: 8px">
+                                <fieldset>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="blogTopImg"
+                                               aria-describedby="viewImg"
+                                               aria-label="Upload">
+                                    </div>
+                                    <div>
+                                        <small>블로그를 대표할 이미지입니다.</small>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="card-body" id="blogContant">
+                                <div id="summernote"></div>
+                            </div>
+                            <div class="mb-3" style="text-align: right; margin-right: 30px;">
+                                <button class="btn btn-info rounded-pill" id="insertBlogButton" onclick="insertBlog()">
+                                    등록
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2021 &copy; version 0.0.1</p>
+                </div>
+                <div class="float-end">
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> : <a
+                            href="http://ahmadsaugi.com">kevin0181@naver.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
+<script src="assets/vendors/quill/quill.min.js" th:src="@{/assets/vendors/quill/quill.min.js}"></script>
+
+<script th:src="@{/assets/vendors/jquery/jquery.min.js}"></script>
+<script th:src="@{/assets/vendors/summernote/summernote-lite.min.js}"></script>
+<script th:inline="javascript">
+
+    $(document).ready(function () {
+
+        /*<![CDATA[*/
+        var result = /*[[ ${blogDTO.blogContant} ]]*/;
+        /*]]*/
+        $('.note-editable').remove("p");
+        $('.note-editable').append(result);
+    })
+
+    $('#blogContant').on("click", function () {
+        if (!$('#blogTitle').val()) {
+            alert("재목을 입력해주세요.");
+            $('#blogContant').hide();
+            return false;
+        }
+    });
+
+    $('#blogTitle').keyup(function () {
+        if ($('#blogTitle').val()) {
+            $('#blogContant').show();
+        }
+    });
+
+
+    $('#summernote').summernote({
+        tabsize: 1,
+        height: 300,
+        callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+            onImageUpload: function (files, editor, welEditable) {
+                for (var i = 0; i < files.length; i++) {
+                    sendFile(files[i], this);
+                }
+            }
+        }
+    });
+
+
+    /**
+     * 이미지 파일 업로드
+     */
+    function sendFile(file, el) {
+
+        var BlogId = $('#hiddenBlogId').val();
+        var form_data = new FormData();
+        form_data.append('file', file);
+        form_data.append('BlogId', BlogId);
+        form_data.append('condition', 'addImg');
+        $.ajax({
+            data: form_data,
+            type: "POST",
+            url: '/admin/blog/image',
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (url) {
+                $(el).summernote('insertImage', url, function ($image) {
+                    $image.css('width', "25%");
+                });
+            }
+        });
+    }
+
+    function insertBlog() {
+
+        if (!$('#blogTitle').val()) {
+            alert("재목을 입력해주세요.");
+            $('#blogContant').hide();
+            return false;
+        }
+
+        var form_data = new FormData();
+        var BlogId = $('#hiddenBlogId').val();
+        var nameSq = $('#hiddenMemberSq').val();
+        var title = $('#blogTitle').val();
+        var category = $('#blogCategorySelect').val();
+        var blogTopImg = $('#blogTopImg')[0].files[0];
+        var blogContant = $('.note-editable').html();
+
+        form_data.append('BlogId', BlogId);
+        form_data.append('MemberSq', nameSq);
+        form_data.append('BlogTitle', title);
+        form_data.append('BlogCategory', category);
+        form_data.append('file', blogTopImg);
+        form_data.append('blogContant', blogContant);
+
+        $.ajax({
+            type: "POST",
+            url: '/admin/blog/saveBlog',
+            dataType: "json",
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            data: form_data
+        });
+
+        alert("저장되었습니다. 블로그를 활성화 시 소소에 보여지게 됩니다.(기본값 : 비활성화)");
+        location.href = "/admin/Blog";
+
+    }
+</script>
+</html>

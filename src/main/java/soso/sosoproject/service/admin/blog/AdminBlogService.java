@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import soso.sosoproject.dto.BlogCategoryDTO;
 import soso.sosoproject.dto.BlogDTO;
 import soso.sosoproject.dto.BlogImgDTO;
-import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.repository.AccountRepository;
 import soso.sosoproject.repository.BlogCategoryRepository;
 import soso.sosoproject.repository.BlogImgRepository;
@@ -277,5 +276,9 @@ public class AdminBlogService {
 
 
         }
+    }
+
+    public Optional<BlogDTO> getChangeBlog(Long blogSq) {
+        return blogRepository.findById(blogSq);
     }
 }
