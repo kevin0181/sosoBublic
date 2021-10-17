@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import soso.sosoproject.controller.user.handler.UserLoginSuccessHandler;
 import soso.sosoproject.service.Account.MemberService;
 
 @Order(1)
@@ -40,7 +41,7 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/user/account/login")
                 .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/user/index") // 로그인 성공 시 redirect 이동
+                .successHandler(new UserLoginSuccessHandler())
                 .permitAll()
                 .and()
                 .logout()

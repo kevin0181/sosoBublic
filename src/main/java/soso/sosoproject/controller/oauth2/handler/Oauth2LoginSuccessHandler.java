@@ -1,4 +1,4 @@
-package soso.sosoproject.service.oauth2;
+package soso.sosoproject.controller.oauth2.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -7,6 +7,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import soso.sosoproject.dto.MemberDTO;
 import soso.sosoproject.dto.detail.CustomOauth2Detail;
+import soso.sosoproject.service.oauth2.Oauth2DataService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

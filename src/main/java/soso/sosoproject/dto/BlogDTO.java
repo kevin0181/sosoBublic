@@ -58,4 +58,8 @@ public class BlogDTO {
     @JoinColumn(name = "blog_sq")
     private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "member_sq", insertable = false, updatable = false)
+    private MemberDTO memberDTO;
+
 }

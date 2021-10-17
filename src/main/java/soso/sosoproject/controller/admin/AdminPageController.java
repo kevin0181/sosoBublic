@@ -198,7 +198,7 @@ public class AdminPageController {
         List<BlogDTO> blogDTOS = adminBlogService.getBlogList();
         //블로그 순서
         model.addAttribute("blogIndex", blogDTOS.size() + 1);
-
+        model.addAttribute("blogList", blogDTOS);
         //블로그 카테고리 리스트
         model.addAttribute("blogCategoryList", blogCategoryDTOS);
 

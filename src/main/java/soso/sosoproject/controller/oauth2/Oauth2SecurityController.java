@@ -6,7 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import soso.sosoproject.service.oauth2.Oauth2LoginSuccessHandler;
+import soso.sosoproject.controller.oauth2.handler.Oauth2LoginSuccessHandler;
 import soso.sosoproject.service.oauth2.Oauth2UserService;
 
 @Order(3)

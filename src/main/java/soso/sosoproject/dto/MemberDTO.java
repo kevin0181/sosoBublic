@@ -56,4 +56,8 @@ public class MemberDTO {
     @JoinColumn(name = "member_email")
     private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "member_sq")
+    private List<BlogDTO> blogDTOList = new ArrayList<>();
+
 }
