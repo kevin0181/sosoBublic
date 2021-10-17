@@ -213,6 +213,15 @@ public class AdminBlogService {
         deleteImg(blogSq);
         deleteTopImg(blogSq);
 
+
+        for (int i = 0; i < blogSq.size(); i++) {
+            filePath = "/img/blog/" + blogSq.get(i);
+            deleteFilePath = Paths.get(filePath);
+            if (Files.exists(deleteFilePath)) {
+                Files.delete(deleteFilePath);
+            }
+        }
+
         for (int i = 0; i < blogSq.size(); i++) {
             List<BlogImgDTO> blogImgDTOList = blogImgRepository.findAllByBlogSq(blogSq.get(i));
             for (int j = 0; j < blogImgDTOList.size(); j++) {
