@@ -89,8 +89,10 @@ function deleteBlog() {
                 "blogCheck": blogCheck,
             }
         });
-        alert("블로그가 삭제되었습니다.");
-        location.href = "/admin/Blog";
+        setTimeout(function () {
+            alert("블로그가 삭제되었습니다.");
+            location.href = "/admin/Blog";
+        }, 1000);
     }
 }
 

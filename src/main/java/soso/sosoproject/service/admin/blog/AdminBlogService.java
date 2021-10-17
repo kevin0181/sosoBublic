@@ -79,8 +79,44 @@ public class AdminBlogService {
 
     public void insertBlog(Long blogSq, Long memberSq, String blogTitle, Long blogCategorySq, MultipartFile multipartFile) throws IOException {
 
-        String lastRnKey;
-        String filePath;
+//        String lastRnKey;
+//        String filePath;
+//
+//        if (multipartFile != null) {
+//            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//            EmailSendService random = new EmailSendService();
+//            while (true) {
+//                lastRnKey = random.certified_key();
+//                List<String> getDBRandomKey = adminBlogService.getBlogImgKeyName(lastRnKey);
+//                if (getDBRandomKey.isEmpty()) {
+//                    filePath = "/img/blog/" + blogSq + "/" + lastRnKey;
+//                    break;
+//                }
+//            }
+//
+//            Path path = Paths.get(filePath);
+//
+//            if (!Files.exists(path)) {
+//                Files.createDirectories(path);
+//            }
+//
+//
+//            try {
+//                InputStream inputStream = multipartFile.getInputStream();
+//                Path pushFilePath = path.resolve(fileName);
+//                Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
+//
+//
+//                blogDTO.setBlogTopImgName(fileName);
+//                blogDTO.setBlogTopImgPath(filePath);
+//                blogDTO.setBlogImgKeyname(lastRnKey);
+//
+//            } catch (IOException e) {
+//                throw new IOException("파일업로드 안됌");
+//            }
+//        }
+
+        List<BlogImgDTO> blogImgDTOList = blogImgRepository.findAllByBlogSq(blogSq);
 
         //블로그 넣음
         blogDTO.setBlogSq(blogSq);
@@ -89,6 +125,7 @@ public class AdminBlogService {
         blogDTO.setBlogCategorySq(blogCategorySq);
         blogDTO.setBlogViewActive(false);
         blogDTO.setBlogViewSize(0);
+        blogDTO.setBlogImg_sq(blogImgDTOList);
         blogRepository.save(blogDTO);
     }
 
@@ -177,14 +214,6 @@ public class AdminBlogService {
         deleteTopImg(blogSq);
 
         for (int i = 0; i < blogSq.size(); i++) {
-            filePath = "/img/blog/" + blogSq.get(i);
-            deleteFilePath = Paths.get(filePath);
-            if (Files.exists(deleteFilePath)) {
-                Files.delete(deleteFilePath);
-            }
-        }
-        Thread.sleep(1000);
-        for (int i = 0; i < blogSq.size(); i++) {
             List<BlogImgDTO> blogImgDTOList = blogImgRepository.findAllByBlogSq(blogSq.get(i));
             for (int j = 0; j < blogImgDTOList.size(); j++) {
                 Long imgId = blogImgDTOList.get(j).getBlogImgSq();
@@ -199,6 +228,7 @@ public class AdminBlogService {
     private void deleteImg(List<Long> blogSq) throws IOException, InterruptedException {
         String filePath;
         Path deleteFilePath;
+
         for (int i = 0; i < blogSq.size(); i++) {
             List<BlogImgDTO> blogImgDTO = blogImgRepository.findAllByBlogSq(blogSq.get(i));
             for (int j = 0; j < blogImgDTO.size(); j++) {
@@ -207,8 +237,7 @@ public class AdminBlogService {
                 if (Files.exists(deleteFilePath)) {
                     Files.delete(deleteFilePath);
                 }
-                Thread.sleep(1000);
-                filePath = "/img/blog/" + blogImgDTO.get(j).getBlogSq() + "/" + blogImgDTO.get(i).getBlogImgKeyName();
+                filePath = "/img/blog/" + blogImgDTO.get(j).getBlogSq() + "/" + blogImgDTO.get(j).getBlogImgKeyName();
                 deleteFilePath = Paths.get(filePath);
                 if (Files.exists(deleteFilePath)) {
                     Files.delete(deleteFilePath);
@@ -216,6 +245,7 @@ public class AdminBlogService {
 
             }
         }
+
     }
 
     //이미지 파일 삭제

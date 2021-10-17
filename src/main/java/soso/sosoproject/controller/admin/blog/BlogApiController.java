@@ -129,8 +129,9 @@ public class BlogApiController {
     }
 
     @GetMapping("deleteBlog")
-    public void deleteBlog(@RequestParam(name = "blogCheck[]") List<Long> blogSq) throws IOException, InterruptedException {
+    public boolean deleteBlog(@RequestParam(name = "blogCheck[]") List<Long> blogSq) throws IOException, InterruptedException {
         adminBlogService.deleteBlog(blogSq);
+        return true;
     }
 
 }
