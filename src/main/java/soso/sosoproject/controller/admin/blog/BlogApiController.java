@@ -122,5 +122,15 @@ public class BlogApiController {
         return null;
     }
 
+    @GetMapping("/blogList/changeActive")
+    public void activeChange(@RequestParam(name = "active") boolean active,
+                             @RequestParam(name = "blogSq") Long blogSq) {
+        adminBlogService.changeActive(active, blogSq);
+    }
+
+    @GetMapping("deleteBlog")
+    public void deleteBlog(@RequestParam(name = "blogCheck[]") List<Long> blogSq) throws IOException, InterruptedException {
+        adminBlogService.deleteBlog(blogSq);
+    }
 
 }

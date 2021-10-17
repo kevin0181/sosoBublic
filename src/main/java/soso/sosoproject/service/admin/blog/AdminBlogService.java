@@ -82,46 +82,13 @@ public class AdminBlogService {
         String lastRnKey;
         String filePath;
 
-        if (multipartFile != null) {
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            EmailSendService random = new EmailSendService();
-            while (true) {
-                lastRnKey = random.certified_key();
-                List<String> getDBRandomKey = adminBlogService.getBlogImgKeyName(lastRnKey);
-                if (getDBRandomKey.isEmpty()) {
-                    filePath = "/img/blog/" + blogSq + "/" + lastRnKey;
-                    break;
-                }
-            }
-
-            Path path = Paths.get(filePath);
-
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-            }
-
-
-            try {
-                InputStream inputStream = multipartFile.getInputStream();
-                Path pushFilePath = path.resolve(fileName);
-                Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
-
-
-                blogDTO.setBlogTopImgName(fileName);
-                blogDTO.setBlogTopImgPath(filePath);
-                blogDTO.setBlogImgKeyname(lastRnKey);
-
-            } catch (IOException e) {
-                throw new IOException("파일업로드 안됌");
-            }
-        }
-
         //블로그 넣음
         blogDTO.setBlogSq(blogSq);
         blogDTO.setMemberSq(memberSq);
         blogDTO.setBlogTitle(blogTitle);
         blogDTO.setBlogCategorySq(blogCategorySq);
         blogDTO.setBlogViewActive(false);
+        blogDTO.setBlogViewSize(0);
         blogRepository.save(blogDTO);
     }
 
@@ -192,5 +159,84 @@ public class AdminBlogService {
         blogDTO.setBlogDate(nowDate);
         blogDTO.setBlogImg_sq(blogImgDTOList);
         blogRepository.save(blogDTO);
+    }
+
+    public void changeActive(boolean active, Long blogSq) {
+        Optional<BlogDTO> blogDTO = blogRepository.findById(blogSq);
+        BlogDTO blogDTO1 = blogDTO.get();
+        blogDTO1.setBlogViewActive(active);
+        blogRepository.save(blogDTO1);
+    }
+
+    //블로그 삭제
+    public void deleteBlog(List<Long> blogSq) throws IOException, InterruptedException {
+        String filePath;
+        Path deleteFilePath;
+
+        deleteImg(blogSq);
+        deleteTopImg(blogSq);
+
+        for (int i = 0; i < blogSq.size(); i++) {
+            filePath = "/img/blog/" + blogSq.get(i);
+            deleteFilePath = Paths.get(filePath);
+            if (Files.exists(deleteFilePath)) {
+                Files.delete(deleteFilePath);
+            }
+        }
+        Thread.sleep(1000);
+        for (int i = 0; i < blogSq.size(); i++) {
+            List<BlogImgDTO> blogImgDTOList = blogImgRepository.findAllByBlogSq(blogSq.get(i));
+            for (int j = 0; j < blogImgDTOList.size(); j++) {
+                Long imgId = blogImgDTOList.get(j).getBlogImgSq();
+                blogImgRepository.deleteById(imgId);
+            }
+        }
+
+        blogRepository.deleteAllById(blogSq);
+
+    }
+
+    private void deleteImg(List<Long> blogSq) throws IOException, InterruptedException {
+        String filePath;
+        Path deleteFilePath;
+        for (int i = 0; i < blogSq.size(); i++) {
+            List<BlogImgDTO> blogImgDTO = blogImgRepository.findAllByBlogSq(blogSq.get(i));
+            for (int j = 0; j < blogImgDTO.size(); j++) {
+                filePath = blogImgDTO.get(j).getBlogImgPath() + "/" + blogImgDTO.get(j).getBlogImgName();
+                deleteFilePath = Paths.get(filePath);
+                if (Files.exists(deleteFilePath)) {
+                    Files.delete(deleteFilePath);
+                }
+                Thread.sleep(1000);
+                filePath = "/img/blog/" + blogImgDTO.get(j).getBlogSq() + "/" + blogImgDTO.get(i).getBlogImgKeyName();
+                deleteFilePath = Paths.get(filePath);
+                if (Files.exists(deleteFilePath)) {
+                    Files.delete(deleteFilePath);
+                }
+
+            }
+        }
+    }
+
+    //이미지 파일 삭제
+    private void deleteTopImg(List<Long> blogSq) throws IOException {
+        String filePath;
+        Path deleteFilePath;
+        for (int i = 0; i < blogSq.size(); i++) {
+            Optional<BlogDTO> blogDTO = blogRepository.findById(blogSq.get(i));
+            filePath = blogDTO.get().getBlogTopImgPath() + "/" + blogDTO.get().getBlogTopImgName();
+            deleteFilePath = Paths.get(filePath);
+            if (Files.exists(deleteFilePath)) {
+                Files.delete(deleteFilePath);
+            }
+
+            filePath = "/img/blog/" + blogSq.get(i) + "/" + blogDTO.get().getBlogImgKeyname();
+            deleteFilePath = Paths.get(filePath);
+            if (Files.exists(deleteFilePath)) {
+                Files.delete(deleteFilePath);
+            }
+
+
+        }
     }
 }

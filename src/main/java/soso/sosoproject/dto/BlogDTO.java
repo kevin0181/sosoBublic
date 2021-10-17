@@ -32,7 +32,7 @@ public class BlogDTO {
     private String blogContant;
 
     @Column(name = "blog_view_size")
-    private String blogViewSize;
+    private int blogViewSize;
 
     @Column(name = "blog_top_img_name")
     private String blogTopImgName;

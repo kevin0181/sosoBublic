@@ -54,3 +54,51 @@ function deleteBlogCategory(blogCategorySq) {
     alert("카테고리가 삭제되었습니다.");
     location.href = "/admin/Blog";
 }
+
+
+function changeActiveView(blogSq, active) {
+    $.ajax({
+        type: "GET",
+        url: "/admin/blog/blogList/changeActive",
+        dataType: "json",
+        data: {
+            "active": active,
+            "blogSq": blogSq
+        }
+    });
+    setTimeout(function () {
+        location.href = "/admin/Blog";
+    }, 200);
+}
+
+//메뉴 삭제
+function deleteBlog() {
+    var blogCheck = [];
+    $("input:checkbox[name='blogSqCheck']:checked").each(function () {
+        blogCheck.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+    });
+    if (isEmptyArr(blogCheck)) {
+        alert("삭제할 메뉴를 체크해주세요.");
+        return false;
+    } else {
+        $.ajax({
+            type: "GET",
+            url: "/admin/blog/deleteBlog",
+            dataType: "json",
+            data: {
+                "blogCheck": blogCheck,
+            }
+        });
+        alert("블로그가 삭제되었습니다.");
+        location.href = "/admin/Blog";
+    }
+}
+
+//배열 빈값 체크
+function isEmptyArr(arr) {
+    if (Array.isArray(arr) && arr.length === 0) {
+        return true;
+    }
+    return false;
+}
+

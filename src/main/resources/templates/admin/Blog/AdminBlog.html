@@ -263,37 +263,36 @@
                         <table class="table table-striped" id="table1">
                             <thead>
                             <tr>
+                                <th><input type="checkbox" id="BlogAllCheckButton" name="BlogAllCheckButton"></th>
                                 <th>작성자</th>
                                 <th>제목</th>
-                                <th>날짜</th>
+                                <th>날짜 or 저장상태</th>
                                 <th>조회수</th>
                                 <th>상태</th>
                             </tr>
                             </thead>
-                            <tbody th:with="member = ${blogList.get(0).getMemberDTO()}">
+                            <tbody>
                             <tr th:each="blog,index : ${blogList}">
-                                <td th:text="${blog.getMemberDTO().memberName}">Graiden</td>
-                                <td th:text="${blog.blogTitle}">vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>Offenburg</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
+                                <td><input type="checkbox" th:value="${blog.blogSq}" name="blogSqCheck"></td>
+                                <td th:text="${blog.getMemberDTO().memberName}">작성자</td>
+                                <td><a th:text="${blog.blogTitle}" href="#">제목</a></td>
+                                <td th:if="${blog.blogDate} != null" th:text="${blog.blogDate}">날짜</td>
+                                <td th:if="${blog.blogDate} == null">생성되지않은 블로그</td>
+                                <td th:text="${blog.blogViewSize}">조회수</td>
+                                <td th:if="${blog.blogViewActive} == true">
+                                    <a class="badge bg-success"
+                                       th:onclick="changeActiveView([[${blog.blogSq}]],'false')">활성화</a>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Dale</td>
-                                <td>fringilla.euismod.enim@quam.ca</td>
-                                <td>0500 527693</td>
-                                <td>New Quay</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
+                                <td th:if="${blog.blogViewActive} == false">
+                                    <a class="badge bg-danger"
+                                       th:onclick="changeActiveView([[${blog.blogSq}]],'true')">비활성화</a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+                        <button class="btn btn-outline-danger" onclick="deleteBlog()">삭제</button>
                     </div>
                 </div>
-
             </section>
 
 
@@ -325,6 +324,16 @@
     $(document).ready(function () {
         $('#blogContant').hide();
         $('#insertBlogButton').hide();
+
+        //전체선택 해제
+        $('#BlogAllCheckButton').click(function () {
+            if ($("#BlogAllCheckButton").is(':checked')) {
+                $("input[name=blogSqCheck]").prop("checked", true);
+            } else {
+                $("input[name=blogSqCheck]").prop("checked", false);
+            }
+        });
+
     });
 
     $('#blogContant').on("click", function () {
