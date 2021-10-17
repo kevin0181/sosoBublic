@@ -7,5 +7,4 @@ import soso.sosoproject.dto.BlogDTO;
 
 @Repository
 public interface BlogRepository extends JpaRepository<BlogDTO, Long> {
-
 }

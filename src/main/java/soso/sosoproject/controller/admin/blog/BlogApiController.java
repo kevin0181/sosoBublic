@@ -67,7 +67,7 @@ public class BlogApiController {
         String lastRnKey;
 
         if (condition.equals("makeBlogStart")) {
-            adminBlogService.insertBlog(BlogSq, memberSq, blogTitle, blogCategorySq);
+            adminBlogService.insertBlog(BlogSq, memberSq, blogTitle, blogCategorySq, multipartFile);
         } else if (condition.equals("addImg")) {
 
             // 현재 날짜 구하기
@@ -107,6 +107,18 @@ public class BlogApiController {
 
             return filePath + "/" + fileName;
         }
+        return null;
+    }
+
+    @PostMapping("saveBlog")
+    public String saveBlog(@RequestParam(name = "file", required = false) MultipartFile multipartFile,
+                           @RequestParam(name = "BlogId", required = false) Long BlogSq,
+                           @RequestParam(name = "MemberSq", required = false) Long memberSq,
+                           @RequestParam(name = "BlogTitle", required = false) String blogTitle,
+                           @RequestParam(name = "BlogCategory", required = false) Long blogCategorySq,
+                           @RequestParam(name = "blogContant", required = false) String blogContant) throws IOException {
+
+        adminBlogService.saveBlog(multipartFile, BlogSq, memberSq, blogTitle, blogCategorySq, blogContant);
         return null;
     }
 

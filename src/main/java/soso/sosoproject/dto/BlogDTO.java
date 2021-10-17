@@ -26,13 +26,25 @@ public class BlogDTO {
     private String blogTitle;
 
     @Column(name = "blog_date")
-    private Date blogDate;
+    private String blogDate;
 
     @Column(name = "blog_contant")
     private String blogContant;
 
     @Column(name = "blog_view_size")
     private String blogViewSize;
+
+    @Column(name = "blog_top_img_name")
+    private String blogTopImgName;
+
+    @Column(name = "blog_top_img_path")
+    private String blogTopImgPath;
+
+    @Column(name = "blog_img_keyname")
+    private String blogImgKeyname;
+
+    @Column(name = "blog_view_active")
+    private boolean blogViewActive;
 
     @ManyToOne
     @JoinColumn(name = "blog_category_sq", insertable = false, updatable = false)

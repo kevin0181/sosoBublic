@@ -30,7 +30,7 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .csrf().ignoringAntMatchers("/admin/blog/image");
+                .csrf().ignoringAntMatchers("/admin/blog/image", "/admin/blog/saveBlog");
 
 
         http
