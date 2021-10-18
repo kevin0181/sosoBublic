@@ -67,7 +67,7 @@ public class BlogApiController {
         String lastRnKey;
 
         if (condition.equals("makeBlogStart")) {
-            adminBlogService.insertBlog(BlogSq, memberSq, blogTitle, blogCategorySq, multipartFile);
+            adminBlogService.insertBlog(BlogSq, memberSq, blogTitle, blogCategorySq);
         } else if (condition.equals("addImg")) {
 
             // 현재 날짜 구하기

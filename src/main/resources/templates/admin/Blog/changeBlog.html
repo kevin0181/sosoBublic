@@ -92,7 +92,7 @@
                                 <div id="summernote"></div>
                             </div>
                             <div class="mb-3" style="text-align: right; margin-right: 30px;">
-                                <button class="btn btn-info rounded-pill" id="insertBlogButton" onclick="insertBlog()">
+                                <button class="btn btn-info rounded-pill" id="insertBlogButton" onclick="insertChangeBlog()">
                                     등록
                                 </button>
                             </div>
@@ -128,7 +128,7 @@
         /*<![CDATA[*/
         var result = /*[[ ${blogDTO.blogContant} ]]*/;
         /*]]*/
-        $('.note-editable').remove("p");
+        $('.note-editable').empty();
         $('.note-editable').append(result);
     })
 
@@ -186,7 +186,7 @@
         });
     }
 
-    function insertBlog() {
+    function insertChangeBlog() {
 
         if (!$('#blogTitle').val()) {
             alert("재목을 입력해주세요.");
@@ -220,7 +220,7 @@
             data: form_data
         });
 
-        alert("저장되었습니다. 블로그를 활성화 시 소소에 보여지게 됩니다.(기본값 : 비활성화)");
+        alert("수정되었습니다. 블로그를 활성화 시 소소에 보여지게 됩니다.(기본값 : 비활성화)");
         location.href = "/admin/Blog";
 
     }

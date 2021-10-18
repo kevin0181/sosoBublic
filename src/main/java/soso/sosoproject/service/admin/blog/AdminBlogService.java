@@ -76,45 +76,7 @@ public class AdminBlogService {
     }
 
 
-    public void insertBlog(Long blogSq, Long memberSq, String blogTitle, Long blogCategorySq, MultipartFile multipartFile) throws IOException {
-
-//        String lastRnKey;
-//        String filePath;
-//
-//        if (multipartFile != null) {
-//            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//            EmailSendService random = new EmailSendService();
-//            while (true) {
-//                lastRnKey = random.certified_key();
-//                List<String> getDBRandomKey = adminBlogService.getBlogImgKeyName(lastRnKey);
-//                if (getDBRandomKey.isEmpty()) {
-//                    filePath = "/img/blog/" + blogSq + "/" + lastRnKey;
-//                    break;
-//                }
-//            }
-//
-//            Path path = Paths.get(filePath);
-//
-//            if (!Files.exists(path)) {
-//                Files.createDirectories(path);
-//            }
-//
-//
-//            try {
-//                InputStream inputStream = multipartFile.getInputStream();
-//                Path pushFilePath = path.resolve(fileName);
-//                Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
-//
-//
-//                blogDTO.setBlogTopImgName(fileName);
-//                blogDTO.setBlogTopImgPath(filePath);
-//                blogDTO.setBlogImgKeyname(lastRnKey);
-//
-//            } catch (IOException e) {
-//                throw new IOException("파일업로드 안됌");
-//            }
-//        }
-
+    public void insertBlog(Long blogSq, Long memberSq, String blogTitle, Long blogCategorySq) throws IOException {
         List<BlogImgDTO> blogImgDTOList = blogImgRepository.findAllByBlogSq(blogSq);
 
         //블로그 넣음
@@ -177,6 +139,11 @@ public class AdminBlogService {
             } catch (IOException e) {
                 throw new IOException("파일업로드 안됌");
             }
+        } else if (multipartFile == null) {
+            Optional<BlogDTO> blogDTOOptional = blogRepository.findById(blogSq);
+            blogDTO.setBlogImgKeyname(blogDTOOptional.get().getBlogImgKeyname());
+            blogDTO.setBlogTopImgName(blogDTOOptional.get().getBlogTopImgName());
+            blogDTO.setBlogTopImgPath(blogDTOOptional.get().getBlogTopImgPath());
         }
 
         List<BlogImgDTO> blogImgDTOList = blogImgRepository.findAllByBlogSq(blogSq);
