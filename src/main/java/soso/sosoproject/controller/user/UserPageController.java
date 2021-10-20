@@ -1,19 +1,22 @@
 package soso.sosoproject.controller.user;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import soso.sosoproject.dto.MenuCategoryDTO;
-import soso.sosoproject.dto.MemberDTO;
-import soso.sosoproject.dto.MenuDTO;
+import org.springframework.web.bind.annotation.RequestParam;
+import soso.sosoproject.dto.*;
 import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.admin.menu.MenuService;
+import soso.sosoproject.service.user.UserBlogService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -21,6 +24,8 @@ public class UserPageController {
 
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private UserBlogService userBlogService;
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
@@ -56,8 +61,48 @@ public class UserPageController {
     }
 
     @GetMapping("/user/blog")
-    public String blog() {
+    public String blog(@RequestParam(name = "blogSq", defaultValue = "0") int blogSq,
+                       Model model) {
+
+        Page<BlogDTO> blogDTOList = userBlogService.getBlogIdPage(blogSq);
+        List<BlogDTO> getViewBlogDTO = userBlogService.getBlogViewSize();
+        List<BlogCategoryDTO> blogCategoryDTOS = userBlogService.getCategoryList();
+        model.addAttribute("blogDTOList", blogDTOList);
+        model.addAttribute("blogViewSize", getViewBlogDTO);
+
+
+        List<CategorySizeBlogClass> getCategortSizeList = new ArrayList<>();
+        int resultSize = 0;
+
+        for (int i = 0; i < blogCategoryDTOS.size(); i++) {
+            CategorySizeBlogClass categorySizeBlogClass = new CategorySizeBlogClass();
+            for (int j = 0; j < getViewBlogDTO.size(); j++) {
+                if (blogCategoryDTOS.get(i).getCategory_sq() == getViewBlogDTO.get(j).getBlogCategorySq()) {
+                    resultSize++;
+                }
+            }
+            categorySizeBlogClass.setCategorySq(blogCategoryDTOS.get(i).getCategory_sq());
+            categorySizeBlogClass.setCategoryName(blogCategoryDTOS.get(i).getBlogCategoryName());
+            categorySizeBlogClass.setSize(resultSize);
+            getCategortSizeList.add(categorySizeBlogClass);
+            resultSize = 0;
+        }
+
+        model.addAttribute("blogCategoryList", getCategortSizeList);
+
         return "/user/blog/blog-home";
+    }
+
+
+    @GetMapping("/user/blog-search")
+    public String blogSearch(@RequestParam(name = "categoryname", required = false) String categoryName) {
+        if (categoryName == null) {
+            return "/user/blog/blog-home";
+        } else {
+            List<BlogDTO> blogDTOList = userBlogService.getFindCategoryBlogList(categoryName);
+
+            return "/user/blog/blog-search";
+        }
     }
 
     @GetMapping("/user/blog-single")
@@ -111,4 +156,12 @@ public class UserPageController {
     }
 
 
+}
+
+@Getter
+@Setter
+class CategorySizeBlogClass {
+    Long categorySq;
+    String categoryName;
+    int size;
 }

@@ -85,7 +85,7 @@ public class MenuService {
         //메뉴 삭제
         for (int i = 0; i < menuCheck.size(); i++) {
             menuRepository.deleteById(menuCheck.get(i));
-            dirPath = "/menu-img/" + menuCheck.get(i);
+            dirPath = "/img/blog/" + menuCheck.get(i);
             Path deleteDirPath = Paths.get(dirPath);
             if (Files.exists(deleteDirPath)) {
                 Files.delete(deleteDirPath);
@@ -108,14 +108,14 @@ public class MenuService {
                 for (int j = 0; j < deleteImg.size(); j++) {
                     fileName = deleteImg.get(j).getImg_name();
                     imgDate = deleteImg.get(j).getImg_date();
-                    filePath = "/menu-img/" + menuCheck.get(i) + "/" + imgDate + "/" + fileName;
+                    filePath = "/img/menu/" + menuCheck.get(i) + "/" + imgDate + "/" + fileName;
                     Path path = Paths.get(filePath);
                     if (Files.exists(path)) {
                         Files.delete(path);
                     }
                 }
                 //디렉토리 삭제
-                dirPath = "/menu-img/" + menuCheck.get(i) + "/" + imgDate;
+                dirPath = "/img/menu/" + menuCheck.get(i) + "/" + imgDate;
                 Path deleteDirPath = Paths.get(dirPath);
                 if (Files.exists(deleteDirPath)) {
                     Files.delete(deleteDirPath);
@@ -129,7 +129,7 @@ public class MenuService {
                 for (int j = 0; j < deleteImg.size(); j++) {
                     fileName = deleteImg.get(j).getImg_name();
                     imgDate = deleteImg.get(j).getImg_date();
-                    filePath = "/menu-img/" + deleteImg.get(j).getMenuSq() + "/" + imgDate + "/" + fileName;
+                    filePath = "/img/menu/" + deleteImg.get(j).getMenuSq() + "/" + imgDate + "/" + fileName;
                     Path path = Paths.get(filePath);
                     if (Files.exists(path)) {
                         Files.delete(path);
@@ -140,7 +140,7 @@ public class MenuService {
 
             List<ImgDTO> count = imgRepository.findAllByMenuSq(deleteImg.get(0).getMenuSq());
             if (count.size() == 0) {
-                dirPath = "/menu-img/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
+                dirPath = "/img/menu/" + deleteImg.get(0).getMenuSq() + "/" + imgDate;
                 Path deleteDirPath = Paths.get(dirPath);
                 if (Files.exists(deleteDirPath)) {
                     Files.delete(deleteDirPath);
