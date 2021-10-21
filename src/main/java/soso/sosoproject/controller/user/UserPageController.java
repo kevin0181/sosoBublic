@@ -61,13 +61,32 @@ public class UserPageController {
     }
 
     @GetMapping("/user/blog")
-    public String blog(@RequestParam(name = "blogSq", defaultValue = "0") int blogSq,
+    public String blog(@RequestParam(name = "blogPageSize", defaultValue = "0") int blogPageSize,
                        Model model) {
 
-        Page<BlogDTO> blogDTOList = userBlogService.getBlogIdPage(blogSq);
+
+        Page<BlogDTO> blogDTOList = userBlogService.getBlogIdPage(blogPageSize);
+
+        int startSize = 1;
+        int maxSize = 5;
+        //5,6,7,8,9     //10,11,12,13,14
+        if (blogPageSize >= 5) {
+
+            startSize = blogPageSize / maxSize;
+            maxSize = (startSize + 1) * maxSize;
+
+            startSize = maxSize - 4;
+        }
+        if (maxSize >= blogDTOList.getTotalPages()) {
+            maxSize = blogDTOList.getTotalPages();
+        }
+
+        model.addAttribute("blogDTOList", blogDTOList);
+        model.addAttribute("maxSize", maxSize);
+        model.addAttribute("startSize", startSize);
+
         List<BlogDTO> getViewBlogDTO = userBlogService.getBlogViewSize();
         List<BlogCategoryDTO> blogCategoryDTOS = userBlogService.getCategoryList();
-        model.addAttribute("blogDTOList", blogDTOList);
         model.addAttribute("blogViewSize", getViewBlogDTO);
 
 
@@ -95,18 +114,47 @@ public class UserPageController {
 
 
     @GetMapping("/user/blog-search")
-    public String blogSearch(@RequestParam(name = "categoryname", required = false) String categoryName) {
-        if (categoryName == null) {
+    public String blogSearch(@RequestParam(name = "categorySq", required = false) Long categorySq, Model model) {
+        if (categorySq == 0) {
             return "/user/blog/blog-home";
         } else {
-            List<BlogDTO> blogDTOList = userBlogService.getFindCategoryBlogList(categoryName);
+            List<BlogDTO> blogDTOList = userBlogService.getFindCategoryBlogList(categorySq);
+            model.addAttribute("blogDTOCategoryList", blogDTOList);
+
+            List<BlogDTO> getViewBlogDTO = userBlogService.getBlogViewSize();
+            List<BlogCategoryDTO> blogCategoryDTOS = userBlogService.getCategoryList();
+            model.addAttribute("blogViewSize", getViewBlogDTO);
+
+            List<CategorySizeBlogClass> getCategortSizeList = new ArrayList<>();
+            int resultSize = 0;
+
+            for (int i = 0; i < blogCategoryDTOS.size(); i++) {
+                CategorySizeBlogClass categorySizeBlogClass = new CategorySizeBlogClass();
+                for (int j = 0; j < getViewBlogDTO.size(); j++) {
+                    if (blogCategoryDTOS.get(i).getCategory_sq() == getViewBlogDTO.get(j).getBlogCategorySq()) {
+                        resultSize++;
+                    }
+                }
+                categorySizeBlogClass.setCategorySq(blogCategoryDTOS.get(i).getCategory_sq());
+                categorySizeBlogClass.setCategoryName(blogCategoryDTOS.get(i).getBlogCategoryName());
+                categorySizeBlogClass.setSize(resultSize);
+                getCategortSizeList.add(categorySizeBlogClass);
+                resultSize = 0;
+            }
+
+            model.addAttribute("blogCategoryList", getCategortSizeList);
 
             return "/user/blog/blog-search";
         }
     }
 
+
+    //각각의 블로그로 가는 맵핑
     @GetMapping("/user/blog-single")
-    public String blogSingle() {
+    public String blogSingle(@RequestParam(name = "blogSq", required = false) Long blogSq, Model model) {
+        Optional<BlogDTO> blogDTOOptional = userBlogService.findBlog(blogSq);
+        BlogDTO blogDTO = blogDTOOptional.get();
+        model.addAttribute("blogDTO", blogDTO);
         return "/user/blog/blog-single";
     }
 

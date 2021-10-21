@@ -16,4 +16,5 @@ public interface BlogRepository extends JpaRepository<BlogDTO, Long> {
 
     List<BlogDTO> findAllByOrderByBlogViewSizeDesc();
 
+    List<BlogDTO> findAllByBlogCategorySqOrderByBlogDateDesc(Long id);
 }

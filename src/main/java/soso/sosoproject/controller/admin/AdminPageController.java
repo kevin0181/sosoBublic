@@ -129,7 +129,7 @@ public class AdminPageController {
         }
 
         model.addAttribute("menuList", menuList);
-        model.addAttribute("startSzie", startSize);
+        model.addAttribute("startSize", startSize);
         model.addAttribute("maxSize", maxSize);
 
 

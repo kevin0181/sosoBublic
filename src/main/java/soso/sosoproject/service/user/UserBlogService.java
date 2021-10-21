@@ -11,6 +11,7 @@ import soso.sosoproject.repository.BlogCategoryRepository;
 import soso.sosoproject.repository.BlogRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserBlogService {
@@ -22,7 +23,7 @@ public class UserBlogService {
 
 
     public Page<BlogDTO> getBlogIdPage(int blogSq) {
-        Pageable pageable = PageRequest.of(blogSq, 10);
+        Pageable pageable = PageRequest.of(blogSq, 5);
 
         return blogRepository.findAllByOrderByBlogSqDesc(pageable);
     }
@@ -35,7 +36,11 @@ public class UserBlogService {
         return blogCategoryRepository.findAll();
     }
 
-    public List<BlogDTO> getFindCategoryBlogList(String categoryName) {
-        return null;
+    public List<BlogDTO> getFindCategoryBlogList(Long categoryName) {
+        return blogRepository.findAllByBlogCategorySqOrderByBlogDateDesc(categoryName);
+    }
+
+    public Optional<BlogDTO> findBlog(Long blogSq) {
+        return blogRepository.findById(blogSq);
     }
 }

@@ -538,7 +538,7 @@
                                                class="page-link">‹</a>
                                         </li>
                                         <li class="page-item "
-                                            th:each="num : ${#numbers.sequence(startSzie,maxSize)}"
+                                            th:each="num : ${#numbers.sequence(startSize,maxSize)}"
                                             th:classappend="${num} - 1 == ${menuList.pageable.pageNumber} ? 'active'">
                                             <a th:text="${num}"
                                                th:href="@{/admin/add-menu(className='add-menu',pageId=${num}-1)}"

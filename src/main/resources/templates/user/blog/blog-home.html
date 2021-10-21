@@ -66,31 +66,35 @@
                             <img class="img-fluid" th:src="@{${blog.blogTopImgPath+'/'+blog.blogTopImgName}}"
                                  alt="블로그 대표 사진입니다.">
                         </div>
-                        <a class="posts-title" href="blog-single.html"><h3 th:text="${blog.blogTitle}">제목</h3>
+                        <a class="posts-title" th:href="@{/user/blog-single(blogSq=${blog.blogSq})}"><h3
+                                th:text="${blog.blogTitle}">제목</h3>
                         </a>
                         <p class="excert">
                             Welcome to soso Blog, thank you!
                         </p>
-                        <a href="blog-single.html" class="primary-btn">블로그 더보기</a>
+                        <a class="primary-btn" th:href="@{/user/blog-single(blogSq=${blog.blogSq})}">블로그 더보기</a>
                     </div>
                 </div>
                 <!-- 요기끝-->
                 <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination">
-                        <li class="page-item">
-                            <a href="#" class="page-link" aria-label="Previous">
+                        <li class="page-item" th:classappend="${blogDTOList.pageable.pageNumber}-1 == -1 ? 'btn-none'">
+                            <a class="page-link" aria-label="Previous"
+                               th:href="@{/user/blog(blogPageSize=${blogDTOList.pageable.pageNumber}-1)}">
 		                                    <span aria-hidden="true">
 		                                        <span class="lnr lnr-chevron-left"></span>
 		                                    </span>
                             </a>
                         </li>
-                        <li class="page-item"><a href="#" class="page-link">01</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">02</a></li>
-                        <li class="page-item"><a href="#" class="page-link">03</a></li>
-                        <li class="page-item"><a href="#" class="page-link">04</a></li>
-                        <li class="page-item"><a href="#" class="page-link">09</a></li>
-                        <li class="page-item">
-                            <a href="#" class="page-link" aria-label="Next">
+                        <li class="page-item" th:each="num : ${#numbers.sequence(startSize,maxSize)}"
+                            th:classappend="${num} - 1 == ${blogDTOList.pageable.pageNumber} ? 'active'">
+                            <a class="page-link" th:text="${num}"
+                               th:href="@{/user/blog(blogPageSize=${num}-1)}">페이지 처리</a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${blogDTOList.pageable.pageNumber}+1 == ${blogDTOList.totalPages} ? 'btn-none'">
+                            <a class="page-link" aria-label="Next"
+                               th:href="@{/user/blog(blogPageSize=${blogDTOList.pageable.pageNumber}+1)}">
 		                                    <span aria-hidden="true">
 		                                        <span class="lnr lnr-chevron-right"></span>
 		                                    </span>
@@ -144,7 +148,7 @@
                         <h4 class="category-title">카테고리</h4>
                         <ul class="cat-list">
                             <li th:each="categorylist : ${blogCategoryList}">
-                                <a th:href="@{/user/blog-search(categoryname=${categorylist.categorySq})}"
+                                <a th:href="@{/user/blog-search(categorySq=${categorylist.categorySq})}"
                                    class="d-flex justify-content-between">
                                     <p th:text="${categorylist.categoryName}">카테고리 이름</p>
                                     <p th:text="${categorylist.size}">blog size</p>
