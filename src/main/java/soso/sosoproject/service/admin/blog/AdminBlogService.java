@@ -5,12 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import soso.sosoproject.dto.BlogCategoryDTO;
+import soso.sosoproject.dto.BlogCommentDTO;
 import soso.sosoproject.dto.BlogDTO;
 import soso.sosoproject.dto.BlogImgDTO;
-import soso.sosoproject.repository.AccountRepository;
-import soso.sosoproject.repository.BlogCategoryRepository;
-import soso.sosoproject.repository.BlogImgRepository;
-import soso.sosoproject.repository.BlogRepository;
+import soso.sosoproject.repository.*;
 import soso.sosoproject.service.Account.EmailSendService;
 
 import java.io.IOException;
@@ -20,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +33,9 @@ public class AdminBlogService {
     @Autowired
     private BlogRepository blogRepository;
     @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
     private AdminBlogService adminBlogService;
+    @Autowired
+    private BlogCommentRepository blogCommentRepository;
 
     BlogDTO blogDTO = new BlogDTO();
 
@@ -195,7 +194,13 @@ public class AdminBlogService {
                 blogImgRepository.deleteById(imgId);
             }
         }
-
+        for (int i = 0; i < blogSq.size(); i++) {
+            List<BlogCommentDTO> blogCommentDTOS = blogCommentRepository.findAllByBlogSq(blogSq.get(i));
+            if (blogCommentDTOS.size() == 0) {
+                break;
+            }
+            blogCommentRepository.deleteById(blogCommentDTOS.get(i).getBlogCommentSq());
+        }
         blogRepository.deleteAllById(blogSq);
 
     }
