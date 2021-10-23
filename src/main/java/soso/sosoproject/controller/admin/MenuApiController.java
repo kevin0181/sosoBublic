@@ -59,7 +59,7 @@ public class MenuApiController {
 
     //메뉴 삭제
     @GetMapping("delete-menu")
-    public List<Long> deleteMenu(@RequestParam(value = "menuCheck[]") List<Long> menuCheck) throws IOException {
+    public List<Long> deleteMenu(@RequestParam(value = "menuCheck[]") List<Long> menuCheck) throws IOException, InterruptedException {
 
         menuService.deleteMenu(menuCheck);
         return menuCheck;
@@ -67,7 +67,7 @@ public class MenuApiController {
 
     //메뉴 변경
     @PostMapping("change-menu")
-    public MenuImgDTO changeMenu(MenuImgDTO menuImgDTO, Model model) throws IOException {
+    public MenuImgDTO changeMenu(MenuImgDTO menuImgDTO, Model model) throws IOException, InterruptedException {
 
         //동일 이미지 파일 체크 부분
         if (!menuImgDTO.getMenu_img().isEmpty()) {

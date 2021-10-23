@@ -29,6 +29,13 @@ public class UserBlogService {
     @Autowired
     private BlogCommentRepository blogCommentRepository;
 
+    public Page<BlogDTO> getIndexBlogPage(int blogSq) {
+        Pageable pageable = PageRequest.of(blogSq, 4);
+
+        return blogRepository.findAllByOrderByBlogSqDesc(pageable);
+    }
+
+
     public Page<BlogDTO> getBlogIdPage(int blogSq) {
         Pageable pageable = PageRequest.of(blogSq, 5);
 

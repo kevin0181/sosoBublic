@@ -180,7 +180,9 @@
                     <div class="form-menu" id="menuForm" style="">
                         <small id="smallOrderText">위 메뉴를 클릭하여 메류를 추가해주세요.</small>
                     </div>
-                    <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;">주문</button>
+                    <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;"
+                            onclick="alert('기능 구현중입니다.')">주문
+                    </button>
                 </form>
             </div>
         </div>
@@ -200,64 +202,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
+            <div class="col-lg-3 col-md-6 col-sm-6 single-blog" th:each="blog : ${blogDTO}">
                 <div class="thumb">
-                    <img class="img-fluid" th:src="@{/img/b1.jpg}" alt="">
+                    <img class="img-fluid" style="height: 250px;"
+                         th:src="@{${blog.blogTopImgPath+'/'+blog.blogTopImgName}}" alt="블로그 사진">
                 </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html" th:href="@{/user/blog-single}"><h4>Cooking Perfect Fried Rice
-                    in minutes</h4></a>
+                <a th:href="@{/user/blog-single(blogSq=${blog.blogSq},up='true')}">
+                    <h4 th:text="${blog.blogTitle}" style="margin-top: 15px;">블로그 제목</h4>
+                </a>
                 <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
+                    <!--                    짧막한 말쓸수있음-->
                 </p>
                 <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" th:src="@{/img/b2.jpg}" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>Secret of making Heart
-                    Shaped eggs</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" th:src="@{/img/b3.jpg}" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>How to check steak if
-                    it is tender or not</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" th:src="@{/img/b4.jpg}" alt="">
-                </div>
-                <p class="date">10 Jan 2018</p>
-                <a href="blog-single.html"><h4>Seaseme and black seed
-                    Flavored Bun Rocks</h4></a>
-                <p>
-                    inappropriate behavior ipsum dolor sit amet, consectetur.
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p><span class="lnr lnr-heart"></span> 15 Likes</p>
-                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p>
+                    <p th:text="${blog.blogViewSize}+' Views'"><span class="lnr lnr-heart"></span></p>
+                    <div style="display: inherit;">
+                        <span class="lnr lnr-bubble"></span>
+                        <p th:text="${#lists.size(blog.getBlogCommentDTOList())}+' Comments'">
+                            댓글수
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

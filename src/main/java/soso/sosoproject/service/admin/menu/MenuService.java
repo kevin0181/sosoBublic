@@ -79,24 +79,15 @@ public class MenuService {
 
 
     //메뉴 삭제
-    public void deleteMenu(List<Long> menuCheck) throws IOException {
+    public void deleteMenu(List<Long> menuCheck) throws IOException, InterruptedException {
 
         String dirPath;
         //이미지 삭제 함수
         deleteImg(menuCheck, null);
-        //메뉴 삭제
-        for (int i = 0; i < menuCheck.size(); i++) {
-            menuRepository.deleteById(menuCheck.get(i));
-            dirPath = "/img/blog/" + menuCheck.get(i);
-            Path deleteDirPath = Paths.get(dirPath);
-            if (Files.exists(deleteDirPath)) {
-                Files.delete(deleteDirPath);
-            }
-        }
     }
 
     //이미지 삭제
-    public void deleteImg(List<Long> menuCheck, List<Long> imgsq) throws IOException {
+    public void deleteImg(List<Long> menuCheck, List<Long> imgsq) throws IOException, InterruptedException {
 
         String fileName;
         String imgDate = null;
@@ -115,14 +106,24 @@ public class MenuService {
                     if (Files.exists(path)) {
                         Files.delete(path);
                     }
+                    Thread.sleep(100);
                 }
+
                 //디렉토리 삭제
                 dirPath = "/img/menu/" + menuCheck.get(i) + "/" + imgDate;
                 Path deleteDirPath = Paths.get(dirPath);
                 if (Files.exists(deleteDirPath)) {
                     Files.delete(deleteDirPath);
                 }
+                Thread.sleep(100);
+                dirPath = "/img/menu/" + menuCheck.get(i);
+                Path deleteDirPath1 = Paths.get(dirPath);
+                if (Files.exists(deleteDirPath1)) {
+                    Files.delete(deleteDirPath1);
+                }
+                Thread.sleep(100);
                 imgRepository.deleteAllByMenuSq(menuCheck.get(i));
+                menuRepository.deleteById(menuCheck.get(i));
             }
 
         } else if (menuCheck == null && imgsq != null) {

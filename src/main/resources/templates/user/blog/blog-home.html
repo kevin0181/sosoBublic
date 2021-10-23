@@ -36,9 +36,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 posts-list">
-
                 <!--  요기 하나-->
-                <div class="single-post row" th:each="blog : ${blogDTOList}">
+                <div class="single-post row" th:each="blog : ${blogDTOList}" th:if="${blog.blogViewActive}">
                     <div class="col-lg-3  col-md-3 meta-details">
                         <ul class="tags">
                             <li><a href="#" th:text="${blog.getBlogCategoryDTO().blogCategoryName}">카테고리</a></li>

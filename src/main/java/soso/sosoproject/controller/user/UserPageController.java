@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class UserPageController {
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
 
         getSection(model);
+
 
         return "/user/index";
     }
@@ -64,6 +66,9 @@ public class UserPageController {
     public String blog(@RequestParam(name = "blogPageSize", defaultValue = "0") int blogPageSize,
                        Model model) {
 
+        if (blogPageSize == -1) {
+            return "error/error-500"; //403페이지
+        }
 
         Page<BlogDTO> blogDTOList = userBlogService.getBlogIdPage(blogPageSize);
 
@@ -207,6 +212,10 @@ public class UserPageController {
         //메뉴 리스트
         List<MenuDTO> menuDTOList = getMenuList();
         model.addAttribute("menu", menuDTOList);
+
+        //블로그 리스트
+        Page<BlogDTO> blogDTOPageable = userBlogService.getIndexBlogPage(0);
+        model.addAttribute("blogDTO", blogDTOPageable);
     }
 
 
