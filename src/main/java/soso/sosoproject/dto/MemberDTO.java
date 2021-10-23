@@ -53,7 +53,7 @@ public class MemberDTO {
 
 
     @OneToMany
-    @JoinColumn(name = "member_email")
+    @JoinColumn(name = "member_sq")
     private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
     @OneToMany

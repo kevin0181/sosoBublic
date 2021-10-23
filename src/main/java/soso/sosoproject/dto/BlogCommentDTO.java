@@ -12,21 +12,27 @@ public class BlogCommentDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "blog_sq")
-    private Long blog_sq;
+    private Long blogCommentSq;
 
-    @Column(name = "member_email")
-    private Long memberEmail;
+    @Column(name = "blog_sq")
+    private Long blogSq;
+
+    @Column(name = "member_sq")
+    private Long memberSq;
+
+    @Column(name = "blog_comment_date")
+    private String blogCommentDate;
+
 
     @Column(name = "comment")
-    private Long comment;
+    private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "member_email", insertable = false, updatable = false)
-    private MemberDTO member_email;
+    @JoinColumn(name = "member_sq", insertable = false, updatable = false)
+    private MemberDTO member_sq;
 
-    @ManyToOne
-    @JoinColumn(name = "blog_sq", insertable = false, updatable = false)
-    private BlogDTO blogDTO;
+//    @ManyToOne
+//    @JoinColumn(name = "blog_sq", insertable = false, updatable = false)
+//    private BlogDTO blogDTO;
 
 }

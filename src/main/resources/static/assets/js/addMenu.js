@@ -73,7 +73,7 @@ function addMenu() {
             dataType: "json",
             processData: false,
             contentType: false,
-            timeout: 18000000,
+            timeout: 20000000000,
             data: formData
         });
         alert("메뉴가 추가되었습니다.");

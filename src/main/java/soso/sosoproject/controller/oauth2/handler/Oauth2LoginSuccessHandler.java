@@ -53,6 +53,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 session.setAttribute("memberEMail", email);
                 session.setAttribute("memberName", name);
                 session.setAttribute("img", img);
+                session.setAttribute("memberSq", memberDTO.getMember_sq());
 
                 response.sendRedirect("/user/index");
             }
@@ -83,6 +84,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 session.setAttribute("memberEMail", email);
                 session.setAttribute("memberName", name);
                 session.setAttribute("img", img);
+                session.setAttribute("memberSq", memberDTO.getMember_sq());
 
                 response.sendRedirect("/user/index");
             }
@@ -102,10 +104,11 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 //구글 회원
                 session.setAttribute("memberEMail", email);
                 session.setAttribute("memberName", oauth2Detail.getName());
+                session.setAttribute("memberSq", memberDTO.getMember_sq());
 
                 response.sendRedirect("/user/index");
             }
-        }else if(client.equals("facebook")){
+        } else if (client.equals("facebook")) {
             System.out.println("성공");
         }
 

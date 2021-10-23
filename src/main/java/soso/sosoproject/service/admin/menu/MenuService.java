@@ -1,12 +1,14 @@
 package soso.sosoproject.service.admin.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import soso.sosoproject.dto.*;
 import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.ImgRepository;
@@ -209,7 +211,6 @@ public class MenuService {
         }
         return true;
     }
-
 
     //이미지 저장을 위한 시퀀스 가져옴
     public List<ImgDTO> getImgList() {

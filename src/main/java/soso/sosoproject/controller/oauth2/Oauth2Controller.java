@@ -32,6 +32,9 @@ public class Oauth2Controller {
         session.setAttribute("memberEMail", oauth2DTO.getMemberEmail());
         session.setAttribute("memberName", oauth2DTO.getMemberName());
 
+        MemberDTO memberDTO = oauth2DataService.findOauth2Member(oauth2DTO.getMemberEmail());
+        session.setAttribute("memberSq", memberDTO.getMember_sq());
+
         return "user/index";
     }
 

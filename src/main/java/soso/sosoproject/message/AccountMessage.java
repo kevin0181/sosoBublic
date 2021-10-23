@@ -15,4 +15,7 @@ public class AccountMessage {
         this.message = message;
         this.href = href;
     }
+    public AccountMessage(String href) {
+        this.href = href;
+    }
 }
