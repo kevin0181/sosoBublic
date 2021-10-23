@@ -71,6 +71,10 @@ public class UserBlogService {
     }
 
     public Optional<BlogCommentDTO> findCommentMember(Long getCommentMember) {
-        return  blogCommentRepository.findById(getCommentMember);
+        return blogCommentRepository.findById(getCommentMember);
+    }
+
+    public void saveViewBlog(BlogDTO blogDTO) {
+        blogRepository.save(blogDTO);
     }
 }

@@ -66,13 +66,14 @@
                             <img class="img-fluid" th:src="@{${blog.blogTopImgPath+'/'+blog.blogTopImgName}}"
                                  alt="블로그 대표 사진입니다.">
                         </div>
-                        <a class="posts-title" th:href="@{/user/blog-single(blogSq=${blog.blogSq})}"><h3
+                        <a class="posts-title" th:href="@{/user/blog-single(blogSq=${blog.blogSq},up='true')}"><h3
                                 th:text="${blog.blogTitle}">제목</h3>
                         </a>
                         <p class="excert">
                             Welcome to soso Blog, thank you!
                         </p>
-                        <a class="primary-btn" th:href="@{/user/blog-single(blogSq=${blog.blogSq})}">블로그 더보기</a>
+                        <a class="primary-btn" th:href="@{/user/blog-single(blogSq=${blog.blogSq},up='true')}">블로그
+                            더보기</a>
                     </div>
                 </div>
                 <!-- 요기끝-->

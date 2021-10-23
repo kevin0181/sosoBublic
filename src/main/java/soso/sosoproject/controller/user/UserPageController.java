@@ -151,9 +151,15 @@ public class UserPageController {
 
     //각각의 블로그로 가는 맵핑
     @GetMapping("/user/blog-single")
-    public String blogSingle(@RequestParam(name = "blogSq", required = false) Long blogSq, Model model) {
+    public String blogSingle(@RequestParam(name = "blogSq", required = false) Long blogSq,
+                             @RequestParam(name = "up", required = false) boolean viewSizeUp, Model model) {
         Optional<BlogDTO> blogDTOOptional = userBlogService.findBlog(blogSq);
         BlogDTO blogDTO = blogDTOOptional.get();
+        if (viewSizeUp) {
+            int viewResult = 0;
+            blogDTO.setBlogViewSize(blogDTO.getBlogViewSize() + 1);
+            userBlogService.saveViewBlog(blogDTO);
+        }
         model.addAttribute("blogDTO", blogDTO);
         return "/user/blog/blog-single";
     }
