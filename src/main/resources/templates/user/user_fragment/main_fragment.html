@@ -46,6 +46,8 @@
                     <!-- <li><a href="elements.html">Elements</a></li> -->
                     </li>
                     <li><a href="contact.html" th:href="@{/user/about}">About</a></li>
+                    <li th:if="${session.memberSq}!= null"><a
+                            th:href="@{/user/myInfo(memberSq=${session.memberSq})}">My Info</a></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
 
@@ -203,7 +205,8 @@
         </div>
         <p th:if="${blogDTO.totalPages} == 0" style="text-align: center;">개시된 블로그가 없습니다.</p>
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog" th:each="blog : ${blogDTO}" th:if="${blog.blogViewActive}">
+            <div class="col-lg-3 col-md-6 col-sm-6 single-blog" th:each="blog : ${blogDTO}"
+                 th:if="${blog.blogViewActive}">
                 <div class="thumb">
                     <img class="img-fluid" style="height: 250px;"
                          th:src="@{${blog.blogTopImgPath+'/'+blog.blogTopImgName}}" alt="블로그 사진">
@@ -282,7 +285,8 @@
                                                type="text">
                                     </div>
                                     <div class="input-group-btn">
-                                        <button class="genric-btn" onclick="alert('기능 추가중에 있습니다. 불편을 드려 죄송합니다.')"><span class="lnr lnr-arrow-right"></span>
+                                        <button class="genric-btn" onclick="alert('기능 추가중에 있습니다. 불편을 드려 죄송합니다.')"><span
+                                                class="lnr lnr-arrow-right"></span>
                                         </button>
                                     </div>
                                 </div>

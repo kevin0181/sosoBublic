@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js">
+<head>
+    <div th:replace="/user/user_fragment/link.html :: link"></div>
+    <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
+</head>
+<body>
+<header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
+
+
+</header><!-- #header -->
+
+<!-- start banner Area -->
+<section class="relative about-banner">
+    <img th:src="@{/img/salf_img/main_img2.jpg}" class="main_img"/>
+    <section class="relative about-banner">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    <h1 class="text-white">
+                        내 정보
+                    </h1>
+                    <p class="text-white link-nav"><a th:href="@{/user/index}">Home </a> <span
+                            class="lnr lnr-arrow-right"></span>
+                        <a th:href="@{/user/about}"> My_info</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<!-- End banner Area -->
+
+<!-- Start contact-page Area -->
+<section class="contact-page-area" style="padding-bottom: 120px;padding-top: 30px;">
+    <div class="container">
+        <div class="row">
+            <div class="section-top-border">
+                <h3 class="mb-30">사용자 정보</h3>
+                <div class="progress-table-wrap">
+                    <div class="progress-table">
+                        <div class="table-row">
+                            <div class="userEmail" style="margin: 0 60px;">이메일</div>
+                            <div class="userEmail" th:text="${memberDTO.memberEmail}">사용자 이메일</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="userName" style="margin: 0 67px;">이름</div>
+                            <div class="userName"th:text="${memberDTO.memberName}">사용자 이름</div>
+                            <div class="changeInfoInput">
+                                <input type="text" name="username" placeholder="변경할 이름" class="single-input"
+                                       style="line-height: 0px;margin-left: 30px;">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div class="userAddress" style="margin: 0 67px;">주소</div>
+                            <div class="userAddress" th:text="${memberDTO.memberAddress}">사용자 주소</div>
+                            <div class="changeInfoInput">
+                                <input type="text" name="userAddress" placeholder="변경할 주소" class="single-input"
+                                       style="line-height: 0px;margin-left: 30px;">
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div class="userNumber" style="margin: 0 67px;">번호</div>
+                            <div class="userNumber" th:text="${memberDTO.memberPhonenumber}">사용자 번호</div>
+                            <div class="changeInfoInput">
+                                <input type="text" name="userNumber" placeholder="변경할 번호" class="single-input"
+                                       style="line-height: 0px;margin-left: 30px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End contact-page Area -->
+
+<!-- start footer Area -->
+<footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">
+
+</footer>
+<!-- End footer Area -->
+
+<div th:replace="/user/user_fragment/script_src.html :: script"></div>
+</body>
+</html>

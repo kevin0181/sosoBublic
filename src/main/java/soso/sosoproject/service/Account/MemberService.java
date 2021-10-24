@@ -109,4 +109,8 @@ public class MemberService implements UserDetailsService {
 
         return true;
     }
+
+    public Optional<MemberDTO> findMemberSq(Long memberSq) {
+        return accountRepository.findById(memberSq);
+    }
 }

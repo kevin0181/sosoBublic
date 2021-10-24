@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import soso.sosoproject.dto.*;
 import soso.sosoproject.dto.detail.UserDetail;
+import soso.sosoproject.service.Account.MemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.user.UserBlogService;
 
@@ -27,6 +28,8 @@ public class UserPageController {
     private MenuService menuService;
     @Autowired
     private UserBlogService userBlogService;
+    @Autowired
+    private MemberService memberService;
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
@@ -171,6 +174,22 @@ public class UserPageController {
     @GetMapping("/user/about")
     public String about() {
         return "/user/about";
+    }
+
+    @GetMapping("/user/myInfo")
+    public String myInfo(@RequestParam("memberSq") Long memberSq, HttpSession session, Model model) {
+        if (session.getAttribute("memberSq") != null) {
+            if (session.getAttribute("memberSq") == memberSq) {
+                Optional<MemberDTO> memberDTOOptional = memberService.findMemberSq(memberSq);
+                MemberDTO memberDTO = memberDTOOptional.get();
+                model.addAttribute("memberDTO", memberDTO);
+                return "/user/myInfo";
+            } else {
+                return "/error/error-403";
+            }
+        } else {
+            return "/user/account/login";
+        }
     }
 
 
