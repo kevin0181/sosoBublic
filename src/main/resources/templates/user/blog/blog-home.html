@@ -40,7 +40,8 @@
                 <div class="single-post row" th:each="blog : ${blogDTOList}" th:if="${blog.blogViewActive}">
                     <div class="col-lg-3  col-md-3 meta-details">
                         <ul class="tags">
-                            <li><a href="#" th:text="${blog.getBlogCategoryDTO().blogCategoryName}">카테고리</a></li>
+                            <li><a href="#" th:if="${blog.getBlogCategoryDTO()} != null"
+                                   th:text="${blog.getBlogCategoryDTO().blogCategoryName}">카테고리</a></li>
                         </ul>
                         <div class="user-details row">
                             <p class="user-name col-lg-12 col-md-12 col-6"><a href="#"
