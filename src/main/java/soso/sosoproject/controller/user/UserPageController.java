@@ -33,7 +33,6 @@ public class UserPageController {
 
         getSection(model);
 
-
         return "/user/index";
     }
 

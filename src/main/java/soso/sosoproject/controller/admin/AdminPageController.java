@@ -15,6 +15,7 @@ import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -196,14 +197,14 @@ public class AdminPageController {
 
         List<BlogCategoryDTO> blogCategoryDTOS = adminBlogService.getCategoryList();
         List<BlogDTO> blogDTOS = adminBlogService.getBlogList();
-        int result = blogDTOS.size() - 1;
+        int result = blogDTOS.size()-1;
         //블로그 순서
         if (blogDTOS.size() != 0) {
             model.addAttribute("blogIndex", blogDTOS.get(result).getBlogSq() + 1);
         } else {
             model.addAttribute("blogIndex", 1);
         }
-
+        Collections.reverse(blogDTOS); //리스트 반대로 뒤집기.
 
         model.addAttribute("blogList", blogDTOS);
         //블로그 카테고리 리스트

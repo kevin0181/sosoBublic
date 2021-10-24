@@ -196,10 +196,9 @@ public class AdminBlogService {
         }
         for (int i = 0; i < blogSq.size(); i++) {
             List<BlogCommentDTO> blogCommentDTOS = blogCommentRepository.findAllByBlogSq(blogSq.get(i));
-            if (blogCommentDTOS.size() == 0) {
-                break;
+            for (int j = 0; j < blogCommentDTOS.size(); j++) {
+                blogCommentRepository.deleteById(blogCommentDTOS.get(j).getBlogCommentSq());
             }
-            blogCommentRepository.deleteById(blogCommentDTOS.get(i).getBlogCommentSq());
         }
         blogRepository.deleteAllById(blogSq);
 
