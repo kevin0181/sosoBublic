@@ -9,7 +9,13 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <a href="index.html"><img th:src="@{/assets/images/logo/logo.png}" alt="Logo" srcset=""></a>
+                    <small style="font-size: 20px" th:text="${session.memberName}+'님 환영합니다.'"></small>
+                    <div>
+                        <form name="logoutAdminForm" style="display: none" th:action="@{/admin/logout}" method="post">
+                        </form>
+                        <a style="font-size: 15px" href="#"
+                           onclick="javascript:document.logoutAdminForm.submit()">로그아웃</a>
+                    </div>
                 </div>
                 <div class="toggler">
                     <a class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
