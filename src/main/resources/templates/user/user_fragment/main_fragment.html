@@ -97,7 +97,7 @@
                         <div class="carousel-item " th:each="imgMenuList,index : ${todayMenu.menu_img_sq}"
                              th:classappend="${index.index} == 0 ?'active'">
                             <img th:src="@{'/img/menu/'+${imgMenuList.menuSq}+'/' +${imgMenuList.img_date}+'/'+${imgMenuList.img_name}}"
-                                 class="d-block w-100" alt="...">
+                                 style="height: 320px"   class="d-block w-100" alt="...">
                         </div>
                     </div>
                 </div>
