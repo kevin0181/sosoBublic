@@ -3,6 +3,8 @@
 <head>
     <div th:replace="/user/user_fragment/link.html :: link"></div>
     <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
+    <!--반응형-->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
 <header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
@@ -34,41 +36,92 @@
 <!-- Start contact-page Area -->
 <section class="contact-page-area" style="padding-bottom: 120px;padding-top: 30px;">
     <div class="container">
-        <div class="row">
-            <div class="section-top-border">
-                <h3 class="mb-30">사용자 정보</h3>
-                <div class="progress-table-wrap">
-                    <div class="progress-table">
-                        <div class="table-row">
-                            <div class="userEmail" style="margin: 0 60px;">이메일</div>
-                            <div class="userEmail" th:text="${memberDTO.memberEmail}">사용자 이메일</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="userName" style="margin: 0 67px;">이름</div>
-                            <div class="userName"th:text="${memberDTO.memberName}">사용자 이름</div>
-                            <div class="changeInfoInput">
-                                <input type="text" name="username" placeholder="변경할 이름" class="single-input"
-                                       style="line-height: 0px;margin-left: 30px;">
-                            </div>
-                        </div>
-                        <div class="table-row">
-                            <div class="userAddress" style="margin: 0 67px;">주소</div>
-                            <div class="userAddress" th:text="${memberDTO.memberAddress}">사용자 주소</div>
-                            <div class="changeInfoInput">
-                                <input type="text" name="userAddress" placeholder="변경할 주소" class="single-input"
-                                       style="line-height: 0px;margin-left: 30px;">
-                            </div>
-                        </div>
-                        <div class="table-row">
-                            <div class="userNumber" style="margin: 0 67px;">번호</div>
-                            <div class="userNumber" th:text="${memberDTO.memberPhonenumber}">사용자 번호</div>
-                            <div class="changeInfoInput">
-                                <input type="text" name="userNumber" placeholder="변경할 번호" class="single-input"
-                                       style="line-height: 0px;margin-left: 30px;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div>
+            <div id="myInfo">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            정보 변경을 원하시면 수정을 눌러주세요.
+                        </th>
+                        <th scope="col">
+                            <a href="#" class="genric-btn info-border circle arrow" style="line-height: 23px"
+                               onclick="changeInfo()">수정<span
+                                    class="lnr lnr-arrow-right"></span></a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>이메일</th>
+                        <td th:text="${memberDTO.memberEmail}">사용자 이메일</td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td th:text="${memberDTO.memberName}">사용자 이름</td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td th:text="${memberDTO.memberAddress}">사용자 주소</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <th>번호</th>
+                        <td th:text="${memberDTO.memberPhonenumber}">사용자 번호</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="changeMyInfo" style="display: none;">
+                <form th:action="@{/user/account/change/MyInfo}" method="post">
+                    <input type="hidden" name="member_sq" th:value="${memberDTO.member_sq}">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="4">
+                                변경할 정보를 입력하시고, 수정 버튼을 클릭해주세요. (변경하지 않을 정보는 빈값으로 두시면 됩니다.)
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>이메일</th>
+                            <td th:text="${memberDTO.memberEmail}">사용자 이메일</td>
+                        </tr>
+                        <tr>
+                            <th>이름</th>
+                            <td>
+                                <input type="text" name="memberName" placeholder="이름을 입력해주세요." class="single-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                                <div class="input-group-icon">
+                                    <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
+                                    <input type="text" name="memberAddress"
+                                           placeholder="주소를 입력해주세요.(주소를 잘못적을 시 서비스에 불이익이 있을 수 있습니다.)"
+                                           class="single-input">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <th>번호</th>
+                            <td>
+                                <input type="text" name="memberPhonenumber" placeholder="번호를 입력해주세요."
+                                       class="single-input">
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="submit" class="genric-btn danger circle changeInfoButton">수정</button>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
@@ -80,7 +133,12 @@
 
 </footer>
 <!-- End footer Area -->
-
+<script>
+    function changeInfo() {
+        $('#myInfo').hide();
+        $('#changeMyInfo').show();
+    }
+</script>
 <div th:replace="/user/user_fragment/script_src.html :: script"></div>
 </body>
 </html>

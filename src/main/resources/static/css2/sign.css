@@ -78,8 +78,6 @@ body {
 
 
 /* 로그인 반응형*/
-
-
 @media (max-width: 535px) {
 
     .form-signin {

@@ -84,6 +84,29 @@ body {
     display: none;
 }
 
+.changeInfoButton {
+    margin-left: 80%;
+}
+
+@media (max-width: 751px) {
+    .changeInfoButton {
+        margin-left: 70%;
+    }
+}
+
+@media (max-width: 415px) {
+    .changeInfoButton {
+        margin-left: 60%;
+    }
+}
+
+@media (max-width: 350px) {
+    .changeInfoButton {
+        margin-left: 50%;
+    }
+}
+
+
 
 
 

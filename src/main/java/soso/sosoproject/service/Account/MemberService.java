@@ -12,6 +12,7 @@ import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.repository.AccountRepository;
 import soso.sosoproject.repository.RoleRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,5 +113,20 @@ public class MemberService implements UserDetailsService {
 
     public Optional<MemberDTO> findMemberSq(Long memberSq) {
         return accountRepository.findById(memberSq);
+    }
+
+    public void changeInfo(MemberDTO memberDTO, HttpSession session) {
+        Optional<MemberDTO> memberDTOOptional = accountRepository.findById(memberDTO.getMember_sq());
+
+        if (!memberDTO.getMemberName().equals("")) {
+            memberDTOOptional.get().setMemberName(memberDTO.getMemberName());
+            session.setAttribute("memberName", memberDTO.getMemberName());
+        }
+        if (!memberDTO.getMemberAddress().equals(""))
+            memberDTOOptional.get().setMemberAddress(memberDTO.getMemberAddress());
+        if (!memberDTO.getMemberPhonenumber().equals(""))
+            memberDTOOptional.get().setMemberPhonenumber(memberDTO.getMemberPhonenumber());
+
+        accountRepository.save(memberDTOOptional.get());
     }
 }

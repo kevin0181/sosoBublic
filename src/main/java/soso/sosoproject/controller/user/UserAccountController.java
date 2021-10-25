@@ -11,6 +11,7 @@ import soso.sosoproject.service.Account.EmailSendService;
 import soso.sosoproject.service.Account.MemberService;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -190,6 +191,16 @@ public class UserAccountController {
             model.addAttribute("data", new AccountMessage("비밀번호 변경 오류입니다.", "/user/index"));
             return "/message/account-message";
         }
+    }
+
+    //사용자 정보 변경
+    @PostMapping("/change/MyInfo")
+    public String changeMyInfo(MemberDTO memberDTO, HttpSession session, Model model) {
+
+        memberService.changeInfo(memberDTO, session);
+
+        model.addAttribute("data", new AccountMessage("내정보가 변경되었습니다.", "/user/myInfo?memberSq=" + session.getAttribute("memberSq")));
+        return "/message/account-message";
     }
 
 }
