@@ -73,10 +73,10 @@ function addMenu() {
             dataType: "json",
             processData: false,
             contentType: false,
-            timeout: 20000000000,
             data: formData
         });
         alert("메뉴가 추가되었습니다.");
+        $('#loading').hide();
         location.href = "/admin/add-menu";
     }
 }
@@ -143,10 +143,11 @@ function searchCategoryJs() {
 }
 
 //전체선택 해제
-$('#listCheck').click(function () {
+function listCheckV() {
+    console.log("1");
     if ($("#listCheck").is(':checked')) {
         $("input[name=menuCheck]").prop("checked", true);
     } else {
         $("input[name=menuCheck]").prop("checked", false);
     }
-});
+}

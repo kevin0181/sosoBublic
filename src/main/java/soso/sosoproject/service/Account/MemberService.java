@@ -102,11 +102,12 @@ public class MemberService implements UserDetailsService {
 
     //비밀번호 변경후 저장하기
     public boolean reSave(MemberDTO memberDTO) {
+        Optional<MemberDTO> memberDTOOptional = accountRepository.findById(memberDTO.getMember_sq());
 
         String encodedPassword = passwordEncoder.encode((memberDTO.getPassword()));
-        memberDTO.setPassword(encodedPassword);
+        memberDTOOptional.get().setPassword(encodedPassword);
 
-        accountRepository.save(memberDTO);
+        accountRepository.save(memberDTOOptional.get());
 
         return true;
     }
