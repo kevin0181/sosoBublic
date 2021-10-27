@@ -22,6 +22,12 @@
 </head>
 
 <body>
+<div class="spinner-border text-primary" id="loading_var" role="status" style="position: fixed;
+    top: 50%;
+    left: 50%; z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
 <div id="app">
     <div id="sidebar" class="active">
         <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
@@ -149,7 +155,8 @@
                         <table class="table table-striped" id="table1">
                             <thead>
                             <tr>
-                                <th data-sortable="" style="width: 5.1983%;"><input type="checkbox" onclick="listCheckV()"
+                                <th data-sortable="" style="width: 5.1983%;"><input type="checkbox"
+                                                                                    onclick="listCheckV()"
                                                                                     class="form-check-input form-check-primary form-check-glow"
                                                                                     name="listCheck" id="listCheck">
                                 </th>
@@ -495,12 +502,6 @@
         </footer>
     </div>
 </div>
-<!--<div class="spinner-border text-primary" id="loading_var" role="status" style="position: absolute;-->
-<!--    top: 50%;-->
-<!--    left: 50%;-->
-<!--    display: none;">-->
-<!--    <span class="visually-hidden">Loading...</span>-->
-<!--</div>-->
 </body>
 <div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
 <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/addMenu.js}"></script>

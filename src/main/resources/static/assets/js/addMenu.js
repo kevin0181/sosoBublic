@@ -73,11 +73,23 @@ function addMenu() {
             dataType: "json",
             processData: false,
             contentType: false,
-            data: formData
+            data: formData,
+            beforeSend: function () {
+                $('#loading_var').show();
+            },
+            success: function (data) {
+                alert("메뉴가 추가되었습니다.");
+                location.href = "/admin/add-menu";
+            },
+            error: function (data) {
+                if (data) {
+                    alert("메뉴가 추가되었습니다.");
+                    location.href = "/admin/add-menu";
+                }
+                alert("메뉴 추가를 실패하였습니다.");
+                location.href = "/admin/add-menu";
+            }
         });
-        alert("메뉴가 추가되었습니다.");
-        $('#loading').hide();
-        location.href = "/admin/add-menu";
     }
 }
 
@@ -97,10 +109,22 @@ function deleteMenu() {
             dataType: "json",
             data: {
                 "menuCheck": menuCheck,
+            }, beforeSend: function () {
+                $('#loading_var').show();
+            },
+            success: function (data) {
+                alert("메뉴가 삭제되었습니다.");
+                location.href = "/admin/add-menu";
+            },
+            error: function (data) {
+                if (data) {
+                    alert("메뉴가 삭제되었습니다.");
+                    location.href = "/admin/add-menu";
+                }
+                alert("메뉴 삭제의 실패하였습니다.");
+                location.href = "/admin/add-menu";
             }
         });
-        alert("메뉴가 삭제되었습니다.");
-        location.href = "/admin/add-menu";
     }
 }
 
@@ -130,11 +154,23 @@ function changeMenu(menuSq) {
         dataType: "json",
         processData: false,
         contentType: false,
-        data: formData
+        data: formData,
+        beforeSend: function () {
+            $('#loading_var').show();
+        },
+        success: function (data) {
+            alert("메뉴가 수정되었습니다.");
+            location.href = "/admin/add-menu";
+        },
+        error: function (data) {
+            if (data) {
+                alert("메뉴가 수정되었습니다.");
+                location.href = "/admin/add-menu";
+            }
+            alert("메뉴 수정을 실패하였습니다.");
+            location.href = "/admin/add-menu";
+        }
     });
-
-    alert("메뉴가 수정되었습니다.");
-    location.href = "/admin/add-menu";
 }
 
 //카테고리 검색
@@ -144,7 +180,6 @@ function searchCategoryJs() {
 
 //전체선택 해제
 function listCheckV() {
-    console.log("1");
     if ($("#listCheck").is(':checked')) {
         $("input[name=menuCheck]").prop("checked", true);
     } else {

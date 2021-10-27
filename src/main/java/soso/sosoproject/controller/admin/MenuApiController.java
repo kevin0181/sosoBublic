@@ -31,7 +31,7 @@ public class MenuApiController {
 
     //메뉴 추가
     @PostMapping("add-menu")
-    public MenuImgDTO addMenu(MenuImgDTO menuImgDTO, Model model) throws IOException {
+    public boolean addMenu(MenuImgDTO menuImgDTO, Model model) throws IOException {
 
         //동일 이미지 파일 체크 부분
         if (!menuImgDTO.getMenu_img().isEmpty()) {
@@ -49,12 +49,12 @@ public class MenuApiController {
         //이미지 파일 주입 부분
         boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqMenuDTO, lastMenuSq, model);
         if (checkImgfile == false) {
-            return menuImgDTO;
+            return true;
         }
 
         //active 추가
         model.addAttribute("className", "add-menu");
-        return menuImgDTO;
+        return true;
     }
 
     //메뉴 삭제

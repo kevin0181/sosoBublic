@@ -111,7 +111,7 @@ public class BlogApiController {
     }
 
     @PostMapping("saveBlog")
-    public String saveBlog(@RequestParam(name = "file", required = false) MultipartFile multipartFile,
+    public boolean saveBlog(@RequestParam(name = "file", required = false) MultipartFile multipartFile,
                            @RequestParam(name = "BlogId", required = false) Long BlogSq,
                            @RequestParam(name = "MemberSq", required = false) Long memberSq,
                            @RequestParam(name = "BlogTitle", required = false) String blogTitle,
@@ -119,7 +119,7 @@ public class BlogApiController {
                            @RequestParam(name = "blogContant", required = false) String blogContant) throws IOException {
 
         adminBlogService.saveBlog(multipartFile, BlogSq, memberSq, blogTitle, blogCategorySq, blogContant);
-        return null;
+        return true;
     }
 
     @GetMapping("/blogList/changeActive")

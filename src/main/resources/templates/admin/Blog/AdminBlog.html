@@ -19,6 +19,12 @@
 </head>
 
 <body>
+<div class="spinner-border text-primary" id="loading_var" role="status" style="position: fixed;
+    top: 50%;
+    left: 50%; z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
 <div id="app">
     <div id="sidebar" class="active">
         <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
@@ -416,9 +422,14 @@
             contentType: false,
             enctype: 'multipart/form-data',
             processData: false,
+            beforeSend: function () {
+                $('#loading_var').show();
+            },
             success: function (url) {
                 $(el).summernote('insertImage', url, function ($image) {
+                    $('#loading_var').hide();
                     $image.css('width', "25%");
+
                 });
             }
         });
@@ -455,12 +466,19 @@
             contentType: false,
             enctype: 'multipart/form-data',
             processData: false,
-            data: form_data
+            data: form_data,
+            beforeSend: function () {
+                $('#loading_var').show();
+            },
+            success: function (data) {
+                alert("저장되었습니다. 블로그를 활성화 시 소소에 보여지게 됩니다.(기본값 : 비활성화)");
+                location.href = "/admin/Blog";
+            },
+            error: function (data) {
+                alert("블로그 저장에 실패하였습니다.");
+                location.href = "/admin/Blog";
+            }
         });
-
-        alert("저장되었습니다. 블로그를 활성화 시 소소에 보여지게 됩니다.(기본값 : 비활성화)");
-        location.href = "/admin/Blog";
-
     }
 </script>
 <!--데이터테이블-->

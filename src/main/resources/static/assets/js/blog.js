@@ -71,7 +71,7 @@ function changeActiveView(blogSq, active) {
     }, 200);
 }
 
-//메뉴 삭제
+//블로그 삭제
 function deleteBlog() {
     var blogCheck = [];
     $("input:checkbox[name='blogSqCheck']:checked").each(function () {
