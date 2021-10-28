@@ -34,7 +34,8 @@ public class UserAccountController {
 
     //회원가입 페이지
     @GetMapping("/signupPage")
-    public String signupPage(MemberDTO memberDTO) {
+    public String signupPage(MemberDTO memberDTO ,HttpSession session) {
+        session.removeAttribute("loginFailMsg");
         return "/user/account/signupPage";
     }
 

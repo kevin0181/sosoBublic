@@ -32,7 +32,9 @@ public class UserPageController {
     private MemberService memberService;
 
     @GetMapping("/")
-    public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal) {
+    public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal, HttpSession session) {
+
+        session.removeAttribute("loginFailMsg");
 
         getSection(model);
 
@@ -42,7 +44,10 @@ public class UserPageController {
 
     @GetMapping("/user/index")
     public String index(@AuthenticationPrincipal UserDetail userDetail, Model model, HttpSession session, MemberDTO memberDTO) {
+        session.removeAttribute("loginFailMsg");
+
         if (userDetail == null) {
+
             getSection(model);
 
             return "/user/index";
@@ -69,7 +74,7 @@ public class UserPageController {
                        Model model) {
 
         if (blogPageSize == -1) {
-            return "error/error-500"; //403페이지
+            return "error/error-403-new"; //403페이지
         }
 
         Page<BlogDTO> blogDTOList = userBlogService.getBlogIdPage(blogPageSize);
