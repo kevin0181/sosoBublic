@@ -11,3 +11,14 @@
 .btn-none {
     display: none;
 }
+
+.beforeBlogImg {
+    position: absolute;
+    left: 60%;
+}
+
+@media (max-width: 760px) {
+    .activeBlogImg {
+        position: static;
+    }
+}

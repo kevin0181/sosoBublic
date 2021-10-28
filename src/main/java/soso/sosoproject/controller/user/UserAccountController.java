@@ -31,6 +31,7 @@ public class UserAccountController {
         return "/user/account/login";
     }
 
+
     //회원가입 페이지
     @GetMapping("/signupPage")
     public String signupPage(MemberDTO memberDTO) {
@@ -202,5 +203,6 @@ public class UserAccountController {
         model.addAttribute("data", new AccountMessage("내정보가 변경되었습니다.", "/user/myInfo?memberSq=" + session.getAttribute("memberSq")));
         return "/message/account-message";
     }
+
 
 }

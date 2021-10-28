@@ -7,6 +7,7 @@
 <div class="main_container text-center">
     <div class="login_form">
         <div class="form-signin">
+
             <form class="" th:action="@{/user/login}" method="post">
                 <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
                 </h1>
@@ -31,7 +32,9 @@
                     />
                     <label for="password">Password</label>
                 </div>
-
+                <p>
+                    <b th:text="${session.loginFailMsg}" style="color: #f42f2c;">에러메시지</b>
+                </p>
                 <div class="checkbox" style="height: 35px;">
                     <div>
                         <label class="remember_btn">

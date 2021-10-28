@@ -199,7 +199,6 @@ public class UserPageController {
         return "/user/elements";
     }
 
-
     //함수--------------------------------------------------------------------------
 
     //index 페이지 오늘의 메뉴 가지고 오는 함수

@@ -16,6 +16,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
+        session.removeAttribute("loginFailMsg");
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetail userDetail = (UserDetail) principal;
 

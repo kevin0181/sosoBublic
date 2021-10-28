@@ -34,6 +34,9 @@
                             <i class="bi bi-shield-lock"></i>
                         </div>
                     </div>
+                    <p>
+                        <b th:text="${session.loginFailMsg}" style="color: #f42f2c;">에러메시지</b>
+                    </p>
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" onclick="admin_login()">Login
                     </button>
                 </form>

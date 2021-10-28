@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import soso.sosoproject.controller.admin.handler.AdminLoginFailHandler;
 import soso.sosoproject.controller.admin.handler.AdminLoginSuccessHandler;
 import soso.sosoproject.service.Account.MemberService;
 
@@ -42,7 +43,7 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/admin/login")
                 .loginProcessingUrl("/admin/login")
-                .successHandler(new AdminLoginSuccessHandler())
+                .successHandler(new AdminLoginSuccessHandler()).failureHandler(new AdminLoginFailHandler())
                 .permitAll()
                 .and()
                 .logout()
