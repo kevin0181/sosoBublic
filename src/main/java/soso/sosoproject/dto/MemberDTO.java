@@ -2,10 +2,8 @@ package soso.sosoproject.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import soso.sosoproject.dto.pk.MemberTablePk;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,5 +57,11 @@ public class MemberDTO {
     @OneToMany
     @JoinColumn(name = "member_sq")
     private List<BlogDTO> blogDTOList = new ArrayList<>();
+
+
+    @OneToMany
+    @JoinColumn(name = "member_sq")
+    private List<OrdersDetailDTO> orderDTOList = new ArrayList<>();
+
 
 }

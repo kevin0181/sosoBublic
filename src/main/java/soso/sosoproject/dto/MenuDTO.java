@@ -47,6 +47,10 @@ public class MenuDTO {
     @JoinColumn(name = "menu_sq")
     private List<ImgDTO> menu_img_sq = new ArrayList<>();
 
+//    @OneToMany
+//    @JoinColumn(name = "menu_sq")
+//    private List<OrderDTO> orderDTOList = new ArrayList<>();
+
 
     public MenuDTO(Long menuSq, String menuName, Long menuCategorySq, String menu_contant,
                    int menu_price, boolean menu_sold_out, boolean menu_enable, boolean menuToday, List<ImgDTO> menu_img_sq) {

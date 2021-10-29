@@ -128,11 +128,11 @@
         </ul>
         <div class="filters-content">
             <div class="row grid">
-                <div class="col-md-4 all " th:each="menulist : ${menu}" th:classappend="${menulist.menuCategorySq}">
+                <div class="col-md-4 all " th:each="menulist : ${menu}" th:classappend="${menulist.menuCategorySq}"
+                     th:if="${menulist.menuEnable} == true">
                     <div class="single-menu click_white" th:id="menu+${menulist.menuSq}"
                          style="text-align: center;padding: 15px"
-                         th:onclick="menuClick([[${menulist.menuSq}]],[[${menulist.menuName}]])"
-                         th:if="${menulist.menuEnable} == true">
+                         th:onclick="menuClick([[${menulist.menuSq}]],[[${menulist.menuName}]])">
                         <div class="title-wrap d-flex justify-content-between">
                             <h4 th:text="${menulist.menuName}">음식이름</h4>
                             <h4 class="price" th:text="${menulist.menu_price}">음식 가격</h4>
@@ -170,7 +170,7 @@
                 <h1 class="text-white">주문 페이지</h1>
             </div>
             <div class="col-lg-5 reservation-right">
-                <form class="form-wrap text-center" action="#">
+                <form class="form-wrap text-center" style="background-color: #f9f9ff;" action="#">
                     <input type="text" class="form-control" name="name" placeholder="이름"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
                     <input type="email" class="form-control" name="email" placeholder="주소"
@@ -179,6 +179,10 @@
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
                     <input type="datetime-local" class="form-control" placeholder="날짜" id="orderDate"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '날짜'">
+                    <div class="" style="margin-bottom: 20px;">
+                        <textarea class="single-textarea form-control" style="border: 1px solid #eeeeee;"
+                                  placeholder="하고싶은 말을 적어주세요."></textarea>
+                    </div>
                     <div class="form-menu" id="menuForm" style="">
                         <small id="smallOrderText">위 메뉴를 클릭하여 메뉴를 추가해주세요.</small>
                     </div>
