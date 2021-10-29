@@ -170,26 +170,26 @@
                 <h1 class="text-white">주문 페이지</h1>
             </div>
             <div class="col-lg-5 reservation-right">
-                <form class="form-wrap text-center" style="background-color: #f9f9ff;" action="#">
-                    <input type="text" class="form-control" name="name" placeholder="이름"
+                <div class="form-wrap text-center" style="background-color: #f9f9ff;" action="#">
+                    <input type="text" class="form-control" name="name" placeholder="이름" id="orderName"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
-                    <input type="email" class="form-control" name="email" placeholder="주소"
+                    <input type="email" class="form-control" name="email" placeholder="주소" id="orderAddress"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '주소'">
-                    <input type="text" class="form-control" name="phone" placeholder="번호"
+                    <input type="text" class="form-control" name="phone" placeholder="번호" id="orderNumber"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
                     <input type="datetime-local" class="form-control" placeholder="날짜" id="orderDate"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '날짜'">
                     <div class="" style="margin-bottom: 20px;">
-                        <textarea class="single-textarea form-control" style="border: 1px solid #eeeeee;"
+                        <textarea class="single-textarea form-control" style="border: 1px solid #eeeeee;" id="orderHelp"
                                   placeholder="하고싶은 말을 적어주세요."></textarea>
                     </div>
                     <div class="form-menu" id="menuForm" style="">
                         <small id="smallOrderText">위 메뉴를 클릭하여 메뉴를 추가해주세요.</small>
                     </div>
                     <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;"
-                            onclick="alert('기능 구현중입니다.')">주문
+                            onclick="orderMenu()">주문
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     </div>

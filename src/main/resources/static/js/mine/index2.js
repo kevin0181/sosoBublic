@@ -1,5 +1,7 @@
-var menuSq;
-var menuName;
+var menuObject = new Object();
+var menuArray = [];
+
+var menuIdArray = [];
 
 function menuClick(menuSq, menuName) {
 
@@ -13,6 +15,8 @@ function menuClick(menuSq, menuName) {
             "<p name='menuName'id='menuName" + menuSq + "' style='font-size: 14px;padding-top: 10px;' class='col' data-value=" + menuName + ">" + menuName + "</p>" +
             "<input type='number'id='menuNumber" + menuSq + "' min='0' class='form-control col' style='' name='menuSize' value='1'>"
             + "</div>");
+        menuIdArray.push(menuSq);
+
     } else if ($('#menu' + menuSq).hasClass("click_green") === true) {
         $('#menu' + menuSq).removeClass("click_green");
         $('#menu' + menuSq).addClass("click_white");
@@ -20,5 +24,11 @@ function menuClick(menuSq, menuName) {
         $('#menuName' + menuSq).remove();
         $('#menuNumber' + menuSq).remove();
         $('.menuColDiv' + menuSq).remove();
+        menuIdArray.pop(menuSq);
     }
+}
+
+//메뉴주문
+function orderMenu() {
+    menuObject.
 }
