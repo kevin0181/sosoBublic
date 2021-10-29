@@ -30,7 +30,8 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check");
+                .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check",
+                "/user/order/menu");
 
         http
                 .antMatcher("/user/**")

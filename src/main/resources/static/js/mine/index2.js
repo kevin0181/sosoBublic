@@ -81,8 +81,24 @@ function orderMenu(memberSq) {
 
     menuObject.ordersMenu = menuArray;
 
-    var jsonData = JSON.stringify(menuObject);
 
+    var orderDTO = {
+        menuObject
+    };
 
-    console.log(jsonData);
+    var jsonData = JSON.stringify(orderDTO);
+    console.log(orderDTO);
+
+    $.ajax({
+        url: "/user/order/menu",
+        type: "post",
+        dataType: "json",
+        data: jsonData,
+        success: function (data) {
+            if (data) {
+                alert("성공");
+            }
+        }
+    });
+
 }
