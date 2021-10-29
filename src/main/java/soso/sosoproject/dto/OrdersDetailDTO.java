@@ -15,14 +15,14 @@ public class OrdersDetailDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menu_order_sq;
 
-    @Column(name = "menu_sq")
-    private Long menuSq;
-
     @Column(name = "orders_id")
     private Long ordersId;
 
     @Column(name = "member_sq")
     private Long memberSq;
+
+    @Column(name = "menu_sq")
+    private Long menuSq;
 
     @Column(name = "menu_order_name")
     private String menuOrderName;

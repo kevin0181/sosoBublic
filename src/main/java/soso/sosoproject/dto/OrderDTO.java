@@ -33,6 +33,9 @@ public class OrderDTO {
     @Column(name = "order_place")
     private boolean orderPlace;
 
+    @Column(name = "order_name")
+    private String orderName;
+
     @OneToMany
     @JoinColumn(name = "orders_id")
     private List<OrdersDetailDTO> ordersMenu = new ArrayList<>();

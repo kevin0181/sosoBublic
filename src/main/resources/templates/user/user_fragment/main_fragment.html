@@ -179,6 +179,23 @@
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
                     <input type="datetime-local" class="form-control" placeholder="날짜" id="orderDate"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '날짜'">
+                    <div class="input-group-icon mt-10" style="margin-bottom: 10px;">
+                        <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+                        <div class="form-select" id="default-select2">
+                            <select style="display: none;" id="orderPlace">
+                                <option value="없음">null</option>
+                                <option value="소소한 부엌">소소한 부엌</option>
+                                <option value="앤 빠스떼우">앤 빠스떼우</option>
+                            </select>
+                            <div class="nice-select" tabindex="0"><span class="current"
+                                                                        style="margin-left: 30px;">가게</span>
+                                <ul class="list">
+                                    <li data-value="소소한 부엌" class="option">소소한 부엌</li>
+                                    <li data-value="앤 빠스떼우" class="option">앤 빠스떼우</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="" style="margin-bottom: 20px;">
                         <textarea class="single-textarea form-control" style="border: 1px solid #eeeeee;" id="orderHelp"
                                   placeholder="하고싶은 말을 적어주세요."></textarea>
@@ -187,7 +204,7 @@
                         <small id="smallOrderText">위 메뉴를 클릭하여 메뉴를 추가해주세요.</small>
                     </div>
                     <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;"
-                            onclick="orderMenu()">주문
+                            th:onclick="orderMenu([[${session.memberSq}]])">주문
                     </button>
                 </div>
             </div>
