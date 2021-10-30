@@ -2,6 +2,7 @@ package soso.sosoproject.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,27 +19,30 @@ public class OrderDTO {
     @Column(name = "member_sq")
     private Long memberSq;
 
-    @Column(name = "order_address")
+    @Column(name = "orders_address")
     private String orderAddress;
 
-    @Column(name = "order_phoneNumber")
+    @Column(name = "orders_phonenumber")
     private String orderPhoneNumber;
 
-    @Column(name = "order_help")
+    @Column(name = "orders_help")
     private String orderHelp;
 
-    @Column(name = "order_enable")
+    @Column(name = "orders_enable")
     private boolean orderEnable;
 
-    @Column(name = "order_place")
-    private boolean orderPlace;
+    @Column(name = "orders_place")
+    private String orderPlace;
 
-    @Column(name = "order_name")
+    @Column(name = "orders_date")
+    private String orderDate;
+
+    @Column(name = "orders_name")
     private String orderName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id")
-    private List<OrdersDetailDTO> ordersMenu = new ArrayList<>();
+    private List<OrdersDetailDTO> ordersMenu;
 
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)

@@ -40,4 +40,8 @@ public class OrdersDetailDTO {
     @JoinColumn(name = "menu_sq", insertable = false, updatable = false)
     private MenuDTO menu_sq;
 
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "orders_id", insertable = false, updatable = false)
+//    private OrderDTO orderDTO;
+
 }

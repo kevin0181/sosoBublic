@@ -1,4 +1,4 @@
-var menuObject = new Object();
+var orderDTO = new Object();
 
 var menuArray = [];
 
@@ -54,49 +54,44 @@ function orderMenu(memberSq) {
         return false;
     }
 
+    var formdata = new FormData();
+    formdata.append("memberSq", memberSq);
+    formdata.append("orderName", $('#orderName').val());
+    formdata.append("orderAddress", $('#orderAddress').val());
+    formdata.append("orderPhoneNumber", $('#orderNumber').val());
+    formdata.append("orderHelp", $('#orderHelp').val());
+    formdata.append("orderEnable", true);
+    formdata.append("orderPlace", $('#orderPlace').val());
+    formdata.append("member_sq", memberSq);
+    formdata.append("orderDate",$('#orderDate').val());
 
-    menuObject.memberSq = memberSq;
-    menuObject.orderName = $('#orderName').val();
-    menuObject.orderAddress = $('#orderAddress').val();
-    menuObject.orderPhoneNumber = $('#orderNumber').val();
-    menuObject.orderHelp = $('#orderHelp').val();
-    menuObject.orderEnable = true;
-    menuObject.orderPlace = $('#orderPlace').val();
 
-    menuObject.ordersMenu = new Object();
+    orderDTO.ordersMenu = new Object();
     for (var i = 0; i < menuIdArray.length; i++) {
-        var orderMenu = new Object();
-        orderMenu.memberSq = memberSq;
-        orderMenu.menuSq = $('#menuInput' + menuIdArray[i]).val();
-        orderMenu.menuOrderName = $('#menuName' + menuIdArray[i]).text();
         if ($('#menuNumber' + menuIdArray[i]).val() == 0) {
             alert("알수없는 값이 들어왔습니다. 최소 수량 주문은 1개 입니다.");
             break;
             location.href = "/user/index";
         }
-        orderMenu.menuOrderSize = $('#menuNumber' + menuIdArray[i]).val();
 
-        menuArray.push(orderMenu);
+        formdata.append("ordersMenu[" + i + "].memberSq", memberSq);
+        formdata.append("ordersMenu[" + i + "].menuSq", $('#menuInput' + menuIdArray[i]).val());
+        formdata.append("ordersMenu[" + i + "].menuOrderName", $('#menuName' + menuIdArray[i]).text());
+        formdata.append("ordersMenu[" + i + "].menuOrderSize", $('#menuNumber' + menuIdArray[i]).val());
+        formdata.append("ordersMenu[" + i + "].member_sq", memberSq);
+        formdata.append("ordersMenu[" + i + "].menu_sq", $('#menuInput' + menuIdArray[i]).val());
     }
-
-    menuObject.ordersMenu = menuArray;
-
-
-    var orderDTO = {
-        menuObject
-    };
-
-    var jsonData = JSON.stringify(orderDTO);
-    console.log(orderDTO);
 
     $.ajax({
         url: "/user/order/menu",
         type: "post",
         dataType: "json",
-        data: jsonData,
+        contentType: false,
+        processData: false,
+        data: formdata,
         success: function (data) {
             if (data) {
-                alert("성공");
+                alert("성공적으로 주문이 되었습니다.");
             }
         }
     });
