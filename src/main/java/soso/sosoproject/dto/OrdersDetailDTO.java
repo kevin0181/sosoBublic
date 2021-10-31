@@ -30,18 +30,16 @@ public class OrdersDetailDTO {
     @Column(name = "menu_order_size")
     private int menuOrderSize;
 
-
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
     private MemberDTO member_sq;
-
 
     @ManyToOne
     @JoinColumn(name = "menu_sq", insertable = false, updatable = false)
     private MenuDTO menu_sq;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "orders_id", insertable = false, updatable = false)
-//    private OrderDTO orderDTO;
+    @ManyToOne
+    @JoinColumn(name = "orders_id", insertable = false, updatable = false)
+    private OrderDTO orderDTO;
 
 }

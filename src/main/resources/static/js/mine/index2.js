@@ -63,7 +63,7 @@ function orderMenu(memberSq) {
     formdata.append("orderEnable", true);
     formdata.append("orderPlace", $('#orderPlace').val());
     formdata.append("member_sq", memberSq);
-    formdata.append("orderDate",$('#orderDate').val());
+    formdata.append("orderDate", $('#orderDate').val());
 
 
     orderDTO.ordersMenu = new Object();
@@ -92,6 +92,8 @@ function orderMenu(memberSq) {
         success: function (data) {
             if (data) {
                 alert("성공적으로 주문이 되었습니다.");
+            } else {
+                alert("주문에 실패하였습니다. 관리자에게 문의 부탁드립니다.");
             }
         }
     });

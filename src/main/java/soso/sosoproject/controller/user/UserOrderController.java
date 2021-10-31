@@ -21,9 +21,12 @@ public class UserOrderController {
     @PostMapping("/user/order/menu")
     @ResponseBody
     public boolean orderMenu(OrderDTO orderDTO) {
+        try {
+            orderService.saveOrder(orderDTO);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
 
-        orderService.saveOrder(orderDTO);
-
-        return true;
     }
 }
