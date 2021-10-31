@@ -1,5 +1,6 @@
 package soso.sosoproject.service.admin.menu;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -21,10 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class MenuService {
@@ -266,5 +264,25 @@ public class MenuService {
 
     public List<MenuDTO> AllMenu() {
         return menuRepository.findAll();
+    }
+
+    public int getOrderMenuAmmount(List<OrdersDetailDTO> ordersDetailDTOS) {
+        int result = 0;
+        List<Long> menuId = new ArrayList<>();
+        Map<Long, Integer> orderMenuSize = new HashMap<>();
+        for (int i = 0; i < ordersDetailDTOS.size(); i++) {
+            menuId.add(ordersDetailDTOS.get(i).getMenuSq());
+            orderMenuSize.put(ordersDetailDTOS.get(i).getMenuSq(), ordersDetailDTOS.get(i).getMenuOrderSize());
+        }
+
+        List<MenuDTO> menuDTOList = menuRepository.findAllById(menuId);
+
+        for (int i = 0; i < menuDTOList.size(); i++) {
+
+            result += menuDTOList.get(i).getMenu_price() * orderMenuSize.get(menuDTOList.get(i).getMenuSq());
+
+        }
+
+        return result;
     }
 }

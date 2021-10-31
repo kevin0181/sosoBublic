@@ -160,7 +160,6 @@
 </section>
 <!-- End menu-area Area -->
 
-
 <!-- Start order Area -->
 <section class="reservation-area section-gap relative" th:fragment="order_section">
     <div class="overlay overlay-bg"></div>
@@ -204,7 +203,7 @@
                         <small id="smallOrderText">위 메뉴를 클릭하여 메뉴를 추가해주세요.</small>
                     </div>
                     <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;"
-                            th:onclick="orderMenu([[${session.memberSq}]])">주문
+                            th:onclick="orderAlert([[${session.memberSq}]])">주문
                     </button>
                 </div>
             </div>
@@ -213,7 +212,7 @@
 </section>
 <!-- End reservation Area -->
 
-
+<!--th:onclick="orderMenu([[${session.memberSq}]])"-->
 <!-- Start menuReview Area -->
 <section class="blog-area section-gap" id="blog" th:fragment="menuReview_section">
     <div class="container">

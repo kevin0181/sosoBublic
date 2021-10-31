@@ -40,6 +40,12 @@ public class OrderDTO {
     @Column(name = "orders_name")
     private String orderName;
 
+    @Column(name = "orders_totalprice")
+    private String ordersTotalPrice;
+
+    @Column(name = "orders_imp_uid")
+    private String ordersImpUid;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id")
     private List<OrdersDetailDTO> ordersMenu;
