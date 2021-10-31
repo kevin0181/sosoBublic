@@ -41,8 +41,15 @@ public class UserOrderController {
     @ResponseBody
     public boolean orderMenu(OrderDTO orderDTO) {
         try {
-            orderService.saveOrder(orderDTO);
-            return true;
+            IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid());
+            String getFrontAmmount = k.getResponse().getAmount().toString();
+            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
+                orderService.saveOrder(orderDTO);
+                return true;
+            } else {
+                return false;
+            }
+
         } catch (Exception e) {
             return false;
         }
