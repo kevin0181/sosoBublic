@@ -16,6 +16,11 @@ public class OrderService {
     private OrderDetailRepository orderDetailRepository;
 
     public void saveOrder(OrderDTO orderDTO) {
+        orderDTO.setOrderEnable(true);
         orderRepository.save(orderDTO);
+    }
+
+    public OrderDTO findOrderId(String ordersImpUid) {
+        return orderRepository.findByOrdersImpUid(ordersImpUid);
     }
 }

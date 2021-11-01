@@ -46,6 +46,9 @@ public class OrderDTO {
     @Column(name = "orders_imp_uid")
     private String ordersImpUid;
 
+    @Column(name = "orders_save")
+    private boolean ordersSave;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id")
     private List<OrdersDetailDTO> ordersMenu;

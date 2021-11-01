@@ -64,7 +64,7 @@
         </div>
         <div id="kakaoPay-Img" style="margin-top: 30px">
             <img th:src="@{/img/kakaoImg/payment_icon_yellow_small.png}" style="width: 15%"
-                 th:onclick="orderKakaoPay([[${session.memberSq}]],[[${session.memberEMail}]])">
+                 th:onclick="orderKakaoPay([[${session.memberSq}]],[[${session.memberEMail}]],[[${session.memberRole}]])">
         </div>
     </div>
     <div class="modal-footer">

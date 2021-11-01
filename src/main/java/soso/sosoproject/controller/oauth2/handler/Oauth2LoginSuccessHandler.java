@@ -54,6 +54,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 session.setAttribute("memberName", name);
                 session.setAttribute("img", img);
                 session.setAttribute("memberSq", memberDTO.getMember_sq());
+                session.setAttribute("memberRole", (defaultOAuth2User.getAuthorities()).toString());
 
                 response.sendRedirect("/user/index");
             }
@@ -85,6 +86,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 session.setAttribute("memberName", name);
                 session.setAttribute("img", img);
                 session.setAttribute("memberSq", memberDTO.getMember_sq());
+                session.setAttribute("memberRole", (defaultOAuth2User.getAuthorities()).toString());
 
                 response.sendRedirect("/user/index");
             }
@@ -105,6 +107,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 session.setAttribute("memberEMail", email);
                 session.setAttribute("memberName", oauth2Detail.getName());
                 session.setAttribute("memberSq", memberDTO.getMember_sq());
+                session.setAttribute("memberRole", (oauth2Detail.getAuthorities()).toString());
 
                 response.sendRedirect("/user/index");
             }

@@ -83,12 +83,13 @@ function orderAlert(memberSq) {
 
 
 //메뉴주문
-function orderKakaoPay(memberSq, memberEmail) {
+function orderKakaoPay(memberSq, memberEmail, memberRole) {
+
+    console.log(memberRole);
 
     connect();
 
     var ammountResult = 0;
-    var userName;
 
     var formdata = new FormData();
     formdata.append("memberSq", memberSq);
@@ -149,7 +150,7 @@ function orderKakaoPay(memberSq, memberEmail) {
                         success: function (data) {
                             if (data) {
                                 alert("성공적으로 주문이 되었습니다.");
-                                sendChat(memberSq, rsp.imp_uid, userName);
+                                sendChat(memberSq, rsp.imp_uid, memberRole);
                                 location.href = "/user/index";
                             } else {
                                 alert("주문에 실패하였습니다. 관리자에게 문의 부탁드립니다.");
@@ -179,7 +180,6 @@ html5_inicis':이니시스(웹표준결제)
 'paypal':페이팔
 */
 
-
 }
 
 //웹소켓 연결
@@ -195,11 +195,12 @@ function connect() {
     });
 }
 
-function sendChat(memberSq, imp_uid, userName) {
+function sendChat(memberSq, imp_uid, memberRole) {
     stompClient.send("/order/chat", {}, JSON.stringify({
         'memberSq': memberSq,
         'ordersImpUid': imp_uid,
-        'orderName': $('#orderName').val()
+        'orderName': $('#orderName').val(),
+        'role_name': memberRole
     }));
 }
 
