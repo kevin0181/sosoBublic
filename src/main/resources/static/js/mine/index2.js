@@ -84,7 +84,11 @@ function orderAlert(memberSq) {
 
 //메뉴주문
 function orderKakaoPay(memberSq, memberEmail) {
+
+    connect();
+
     var ammountResult = 0;
+    var userName;
 
     var formdata = new FormData();
     formdata.append("memberSq", memberSq);
@@ -145,6 +149,7 @@ function orderKakaoPay(memberSq, memberEmail) {
                         success: function (data) {
                             if (data) {
                                 alert("성공적으로 주문이 되었습니다.");
+                                sendChat(memberSq, rsp.imp_uid, userName);
                                 location.href = "/user/index";
                             } else {
                                 alert("주문에 실패하였습니다. 관리자에게 문의 부탁드립니다.");
@@ -173,9 +178,31 @@ html5_inicis':이니시스(웹표준결제)
 'syrup':시럽페이
 'paypal':페이팔
 */
-    // 가맹점 식별코드
+
 
 }
+
+//웹소켓 연결
+function connect() {
+    var socket = new SockJS('/user/websocket');
+    stompClient = Stomp.over(socket);
+    // SockJS와 stomp client를 통해 연결을 시도.
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
+            showChat(JSON.parse(chat.body));
+        });
+    });
+}
+
+function sendChat(memberSq, imp_uid, userName) {
+    stompClient.send("/order/chat", {}, JSON.stringify({
+        'memberSq': memberSq,
+        'ordersImpUid': imp_uid,
+        'orderName': $('#orderName').val()
+    }));
+}
+
 
 function orderAlertClose() {
     $('#orderModal').hide();

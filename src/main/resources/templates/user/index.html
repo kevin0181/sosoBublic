@@ -75,6 +75,8 @@
     </div>
 </div>
 <div th:replace="/user/user_fragment/script_src.html :: script"></div>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script>
     Date.prototype.toDateInputValue = (function () {
         var local = new Date(this);

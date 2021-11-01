@@ -5,6 +5,7 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class UserOrderController {
             String getFrontAmmount = k.getResponse().getAmount().toString();
             if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
                 orderService.saveOrder(orderDTO);
+                sendOrderMessage(orderDTO);
                 return true;
             } else {
                 return false;
@@ -53,6 +55,10 @@ public class UserOrderController {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public String sendOrderMessage(OrderDTO orderDTO) {
+        return null;
     }
 
     @PostMapping("/user/orderMenu/pay/ammount")

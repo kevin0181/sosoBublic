@@ -71,7 +71,7 @@
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/chat', function (chat) {
+            stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
                 showChat(JSON.parse(chat.body));
             });
         });
@@ -86,7 +86,7 @@
     }
 
     function sendChat() {
-        stompClient.send("/app/chat", {}, JSON.stringify({
+        stompClient.send("/order/chat", {}, JSON.stringify({
             'name': $("#name").val(),
             'message': $("#chatMessage").val()
         }));
