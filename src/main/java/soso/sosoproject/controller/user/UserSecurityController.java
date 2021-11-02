@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,6 +53,13 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/user/index")
                 .invalidateHttpSession(true)
                 .and().rememberMe().userDetailsService(userDetailsService()).tokenValiditySeconds(2900000);
+
+        http
+                .sessionManagement()
+                .maximumSessions(50) //50 로그인 제한
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry());
+
     }
 
 
@@ -75,5 +84,10 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
 }

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     connect();
+
 });
 
 function connect() {
@@ -15,6 +16,11 @@ function connect() {
 }
 
 function showChat(chat) {
-    alert(chat.orderName + "님의 주문이 들어왔습니다.");
-    console.log(chat);
+    if (chat == "") {
+        console.log("메세지가 저장됨.");
+        return false;
+    } else {
+        alert(chat.orderName + "님의 주문이 들어왔습니다.");
+        console.log(chat);
+    }
 }

@@ -3,6 +3,7 @@ package soso.sosoproject.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,9 @@ public class AdminPageController {
     @Autowired
     private AdminBlogService adminBlogService;
 
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
     //인덱스
     @GetMapping("index")
     public String index(@AuthenticationPrincipal UserDetail userDetail,
@@ -45,6 +49,9 @@ public class AdminPageController {
 
         model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("className", className);
+
+        model.addAttribute("activeTotal", sessionRegistry.getAllPrincipals().size());
+
         return "admin/admin-index";
     }
 
@@ -197,7 +204,7 @@ public class AdminPageController {
 
         List<BlogCategoryDTO> blogCategoryDTOS = adminBlogService.getCategoryList();
         List<BlogDTO> blogDTOS = adminBlogService.getBlogList();
-        int result = blogDTOS.size()-1;
+        int result = blogDTOS.size() - 1;
         //블로그 순서
         if (blogDTOS.size() != 0) {
             model.addAttribute("blogIndex", blogDTOS.get(result).getBlogSq() + 1);
