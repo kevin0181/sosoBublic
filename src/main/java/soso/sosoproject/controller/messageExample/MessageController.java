@@ -29,7 +29,6 @@ public class MessageController {
         if (orderMessageDTO.getRole_name().equals("[ROLE_ADMIN]")) { //관리자 권한 들고있음
             //관리자면 세션에 저장
             session.setAttribute("AdminLoginActive", true); //websocket disconnect 할때 false로 바꿔줘야함 관리자.
-
         }
 
 
