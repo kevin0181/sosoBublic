@@ -18,7 +18,6 @@ function showChat(chat) {
         return false;
     } else {
         alert(chat.orderName + "님의 주문이 들어왔습니다.");
-        console.log(chat);
     }
 }
 

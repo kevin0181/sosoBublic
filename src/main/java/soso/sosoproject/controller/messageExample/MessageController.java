@@ -20,23 +20,27 @@ public class MessageController {
     @Autowired
     private OrderService orderService;
 
-
     private List<MemberCountDTO> memberCountDTOList = new ArrayList<>();
+
+    boolean adminActive;
 
     //chat example
     @MessageMapping("/chat")
     @SendTo("/sendAdminMessage/OrderChat")
     public OrderMessageDTO getOrderMessage(OrderMessageDTO orderMessageDTO) throws Exception { //주문시 알림처리.
 
-        boolean adminActive;
+
         //권한을 가지고 있는 유저인지 확인
         //웹소켓이 연결되었을때 관리자가 연결상태인지 아닌지 확인 (만약 연결이 안되어있으면 db로 저장)
-        if (memberCountDTOList.size() != 0) { //관리자 권한 들고있음
+        if (memberCountDTOList.size() != 0) { //사용자가 있는지 없는지 체크
             //관리자면 (세션?DB?ㄴㄴ 그냥 유지되므로 객체에 저장해보자) 에 저장
-
-            adminActive = true;
+            for (int i = 0; i < memberCountDTOList.size(); i++) {
+                if (memberCountDTOList.get(i).getRole_name().equals("[ROLE_ADMIN]")) { //접속자 중에 관리자가 있으면
+                    adminActive = true; //true
+                }
+            }
         } else {
-            adminActive = false;
+            adminActive = false; //false
         }
 
 
