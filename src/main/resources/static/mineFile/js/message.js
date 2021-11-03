@@ -25,6 +25,7 @@ function showChat(chat) {
             gravity: "bottom",
             position: "right",
             backgroundColor: "#4fbe87",
+            destination: "/admin/orderList?className=order&orderImp=" + chat.ordersImpUid  //지정 url로 이동
         }).showToast();
     }
 }
@@ -57,6 +58,7 @@ function adminChatSend(memberSq, memberRole) {
 function adminLogout(memberSq, memberRole) {
     stompClient.send("/order/count", {}, JSON.stringify({
         'memberSq': memberSq,
+        'role_name': memberRole,
         'loginActive': false
     }));
     document.logoutAdminForm.submit();

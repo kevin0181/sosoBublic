@@ -93,6 +93,11 @@ public class MessageController {
             //로그아웃
             for (int i = 0; i < memberCountDTOList.size(); i++) {
                 if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
+                    if (memberCountDTOList.get(i).getRole_name().equals("[ROLE_ADMIN]")
+                            && memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
+                        memberCountDTOList.remove(i);
+                        adminActive = false;
+                    }
                     memberCountDTOList.remove(i); //해당 같은 멤버찾을때 리스트 제거
                 }
             }
