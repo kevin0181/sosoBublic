@@ -17,6 +17,7 @@
         <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon"
               th:href="@{/assets/images/favicon.svg}">
         <link rel="stylesheet" th:href="@{/assets/css/mine/mine.css}">
+        <link rel="stylesheet" th:href="@{/assets/vendors/toastify/toastify.css}">
     </div>
 
     <div th:fragment="script">
@@ -29,6 +30,10 @@
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script th:src="@{/mineFile/js/message.js}"></script>
+
+        <!--toast-->
+        <script th:src="@{/assets/vendors/toastify/toastify.js}"></script>
+        <script th:src="@{/assets/js/extensions/toastify.js}"></script>
     </div>
 </head>
 </html>

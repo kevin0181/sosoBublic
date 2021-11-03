@@ -520,5 +520,11 @@
 
     var kk;
 </script>
-
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+        setTimeout(() => memberStartConnect(), 500);
+        setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
+    })
+</script>
 </html>

@@ -12,12 +12,20 @@ function connect() {
     });
 }
 
+
 function showChat(chat) {
     if (chat == "") {
         console.log("메세지가 저장됨.");
         return false;
     } else {
-        alert(chat.orderName + "님의 주문이 들어왔습니다.");
+        Toastify({
+            text: chat.orderName + "님의 주문이 들어왔습니다.",
+            duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
+            close: true,
+            gravity: "bottom",
+            position: "right",
+            backgroundColor: "#4fbe87",
+        }).showToast();
     }
 }
 
@@ -44,4 +52,12 @@ function adminChatSend(memberSq, memberRole) {
         'role_name': memberRole,
         'loginActive': true
     }));
+}
+
+function adminLogout(memberSq, memberRole) {
+    stompClient.send("/order/count", {}, JSON.stringify({
+        'memberSq': memberSq,
+        'loginActive': false
+    }));
+    document.logoutAdminForm.submit();
 }

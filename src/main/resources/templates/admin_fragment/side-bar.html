@@ -14,7 +14,7 @@
                         <form name="logoutAdminForm" style="display: none" th:action="@{/admin/logout}" method="post">
                         </form>
                         <a style="font-size: 15px" href="#"
-                           onclick="javascript:document.logoutAdminForm.submit()">로그아웃</a>
+                           th:onclick="adminLogout([[${session.memberSq}]],[[${session.memberRole}]])">로그아웃</a>
                     </div>
                 </div>
                 <div class="toggler">
