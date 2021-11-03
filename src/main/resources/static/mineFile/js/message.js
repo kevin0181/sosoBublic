@@ -42,6 +42,7 @@ function getMemberCountShow(chat) {
 function adminChatSend(memberSq, memberRole) {
     stompClient.send("/order/count", {}, JSON.stringify({
         'memberSq': memberSq,
-        'role_name': memberRole
+        'role_name': memberRole,
+        'loginActive': true
     }));
 }

@@ -148,7 +148,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                         success: function (data) {
                             if (data) {
                                 alert("성공적으로 주문이 되었습니다.");
-                                sendChat(memberSq, rsp.imp_uid, memberRole);
+                                sendOrderChat(memberSq, rsp.imp_uid, memberRole);
                                 location.href = "/user/index";
                             } else {
                                 alert("주문에 실패하였습니다. 관리자에게 문의 부탁드립니다.");
@@ -181,6 +181,7 @@ html5_inicis':이니시스(웹표준결제)
 }
 
 var stompClient = null;
+
 //웹소켓 연결
 function connect() {
     var socket = new SockJS('/user/websocket');
@@ -194,7 +195,7 @@ function connect() {
     // });
 }
 
-function sendChat(memberSq, imp_uid, memberRole) {
+function sendOrderChat(memberSq, imp_uid, memberRole) {
     stompClient.send("/order/chat", {}, JSON.stringify({
         'memberSq': memberSq,
         'ordersImpUid': imp_uid,
@@ -212,7 +213,8 @@ function sendCount(memberSq, memberEMail, memberRole) {
     stompClient.send("/order/count", {}, JSON.stringify({
         'memberSq': memberSq,
         'memberEmail': memberEMail,
-        'role_name': memberRole
+        'role_name': memberRole,
+        'loginActive': true
     }));
 }
 
@@ -220,4 +222,12 @@ function sendCount(memberSq, memberEMail, memberRole) {
 function orderAlertClose() {
     $('#orderModal').hide();
     $('#modalOrderBody').empty();
+}
+
+function logoutActive(memberEMail, memberSq) { //로그아웃
+    stompClient.send("/order/count", {}, JSON.stringify({
+        'memberSq': memberSq,
+        'loginActive': false
+    }));
+    document.logoutForm.submit();
 }

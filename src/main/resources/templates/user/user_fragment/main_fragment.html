@@ -23,7 +23,7 @@
 
             </form>
             <a class="a_top_btn" style="color:white;" href="#"
-               onclick="javascript:document.logoutForm.submit()">logout</a>
+               th:onclick="logoutActive([[${session.memberEMail}]],[[${session.memberSq}]])">logout</a>
         </div>
     </div>
     <div class="header-top">

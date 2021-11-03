@@ -20,8 +20,6 @@ public class MessageController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private SessionRegistry sessionRegistry;
 
     private List<MemberCountDTO> memberCountDTOList = new ArrayList<>();
 
@@ -33,8 +31,9 @@ public class MessageController {
         boolean adminActive;
         //권한을 가지고 있는 유저인지 확인
         //웹소켓이 연결되었을때 관리자가 연결상태인지 아닌지 확인 (만약 연결이 안되어있으면 db로 저장)
-        if (sessionRegistry.getAllPrincipals().size() != 0) { //관리자 권한 들고있음
+        if (memberCountDTOList.size() != 0) { //관리자 권한 들고있음
             //관리자면 (세션?DB?ㄴㄴ 그냥 유지되므로 객체에 저장해보자) 에 저장
+
             adminActive = true;
         } else {
             adminActive = false;
@@ -60,27 +59,40 @@ public class MessageController {
     @SendTo("/sendAdminMessage/memberCount")
     public int countMember(MemberCountDTO memberCountDTO) throws Exception { //주문시 알림처리.
 
-        if (memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
-            for (int i = 0; i < memberCountDTOList.size(); i++) {
-                if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
-                    return memberCountDTOList.size();
-                }
-            }
-            memberCountDTOList.add(memberCountDTO);
-            return memberCountDTOList.size();
-        } else {
-            if (memberCountDTOList.size() == 0) {
-                memberCountDTOList.add(memberCountDTO);
-                return memberCountDTOList.size();
-            } else {
+        if (memberCountDTO.isLoginActive()) {
+            //로그인
+            if (memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
+                //관리자 권한을 가지고 있으면 접속중인 유저 카운트를 넘김
                 for (int i = 0; i < memberCountDTOList.size(); i++) {
                     if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
                         return memberCountDTOList.size();
                     }
                 }
-                memberCountDTOList.add(memberCountDTO);
+                memberCountDTOList.add(memberCountDTO); //+ 어드민도 리스트에 넣음
                 return memberCountDTOList.size();
+            } else {
+                //일반 유저 권한이면
+                if (memberCountDTOList.size() == 0) { //리스트가 없으면 그냥 바로 추가
+                    memberCountDTOList.add(memberCountDTO);
+                    return memberCountDTOList.size();
+                } else { //리스트가 있으면?
+                    for (int i = 0; i < memberCountDTOList.size(); i++) {
+                        if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) { //같은 유저가 있는지 조회
+                            return memberCountDTOList.size(); //잇으면 그냥 리턴
+                        }
+                    }
+                    memberCountDTOList.add(memberCountDTO);
+                    return memberCountDTOList.size(); //없으면 추가해서 리턴
+                }
             }
+        } else {
+            //로그아웃
+            for (int i = 0; i < memberCountDTOList.size(); i++) {
+                if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
+                    memberCountDTOList.remove(i); //해당 같은 멤버찾을때 리스트 제거
+                }
+            }
+            return memberCountDTOList.size(); // 후 카운트 넘김
         }
     }
 }

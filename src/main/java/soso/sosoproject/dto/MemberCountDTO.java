@@ -9,4 +9,5 @@ public class MemberCountDTO {
     private Long memberSq;
     private String memberEMail;
     private String role_name;
+    private boolean loginActive;
 }
