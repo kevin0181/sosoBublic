@@ -85,8 +85,6 @@ function orderAlert(memberSq) {
 //메뉴주문
 function orderKakaoPay(memberSq, memberEmail, memberRole) {
 
-    console.log(memberRole);
-
     connect();
 
     var ammountResult = 0;
@@ -182,17 +180,18 @@ html5_inicis':이니시스(웹표준결제)
 
 }
 
+var stompClient = null;
 //웹소켓 연결
 function connect() {
     var socket = new SockJS('/user/websocket');
     stompClient = Stomp.over(socket);
     // SockJS와 stomp client를 통해 연결을 시도.
-    stompClient.connect({}, function (frame) {
-        // console.log('Connected: ' + frame);
-        stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
-            showChat(JSON.parse(chat.body));
-        });
-    });
+    // stompClient.connect({}, function (frame) {
+    //     // console.log('Connected: ' + frame);
+    //     stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
+    //         showChat(JSON.parse(chat.body));
+    //     });
+    // });
 }
 
 function sendChat(memberSq, imp_uid, memberRole) {
@@ -200,6 +199,19 @@ function sendChat(memberSq, imp_uid, memberRole) {
         'memberSq': memberSq,
         'ordersImpUid': imp_uid,
         'orderName': $('#orderName').val(),
+        'role_name': memberRole
+    }));
+}
+
+function memberStartConnect() {
+    var socket = new SockJS('/user/websocket');
+    stompClient = Stomp.over(socket);
+}
+
+function sendCount(memberSq, memberEMail, memberRole) {
+    stompClient.send("/order/count", {}, JSON.stringify({
+        'memberSq': memberSq,
+        'memberEmail': memberEMail,
         'role_name': memberRole
     }));
 }

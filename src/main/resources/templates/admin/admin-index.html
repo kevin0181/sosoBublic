@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <h6 class="text-muted font-semibold">실시간 접속자</h6>
-                                            <h6 class="font-extrabold mb-0" th:text="${activeTotal}">실시간 접속자 수</h6>
+                                            <h6 class="font-extrabold mb-0" id="activeMemberCount">0</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -262,9 +262,15 @@
         </footer>
     </div>
 </div>
-
 </body>
 <script src="assets/vendors/apexcharts/apexcharts.js" th:src="@{/assets/vendors/apexcharts/apexcharts.js}"></script>
 <script src="assets/js/pages/dashboard.js" th:src="@{/assets/js/pages/dashboard.js}"></script>
 <div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+        setTimeout(() => memberStartConnect(), 500);
+        setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
+    })
+</script>
 </html>

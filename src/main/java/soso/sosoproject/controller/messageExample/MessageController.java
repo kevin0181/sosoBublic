@@ -1,28 +1,29 @@
 package soso.sosoproject.controller.messageExample;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
-import soso.sosoproject.dto.MemberDTO;
+import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.service.order.OrderService;
 
+import java.util.ArrayList;
+import java.util.List;
 
-@RestController
+
+@Controller
 public class MessageController {
 
     @Autowired
     private OrderService orderService;
 
-    private boolean adminLoginActive;
-
     @Autowired
     private SessionRegistry sessionRegistry;
+
+    private List<MemberCountDTO> memberCountDTOList = new ArrayList<>();
 
     //chat example
     @MessageMapping("/chat")
@@ -52,8 +53,34 @@ public class MessageController {
             orderService.saveOrder(orderDTO); //저장상태 false로 저장함. 나중에 관리자가 들어오면 한번에 메시지 가져올 수 있게.
             return null;
         }
-
-
     }
 
+
+    @MessageMapping("/count")
+    @SendTo("/sendAdminMessage/memberCount")
+    public int countMember(MemberCountDTO memberCountDTO) throws Exception { //주문시 알림처리.
+
+        if (memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
+            for (int i = 0; i < memberCountDTOList.size(); i++) {
+                if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
+                    return memberCountDTOList.size();
+                }
+            }
+            memberCountDTOList.add(memberCountDTO);
+            return memberCountDTOList.size();
+        } else {
+            if (memberCountDTOList.size() == 0) {
+                memberCountDTOList.add(memberCountDTO);
+                return memberCountDTOList.size();
+            } else {
+                for (int i = 0; i < memberCountDTOList.size(); i++) {
+                    if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
+                        return memberCountDTOList.size();
+                    }
+                }
+                memberCountDTOList.add(memberCountDTO);
+                return memberCountDTOList.size();
+            }
+        }
+    }
 }

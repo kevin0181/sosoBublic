@@ -30,8 +30,6 @@ public class AdminPageController {
     @Autowired
     private AdminBlogService adminBlogService;
 
-    @Autowired
-    private SessionRegistry sessionRegistry;
 
     //인덱스
     @GetMapping("index")
@@ -49,8 +47,6 @@ public class AdminPageController {
 
         model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("className", className);
-
-        model.addAttribute("activeTotal", sessionRegistry.getAllPrincipals().size());
 
         return "admin/admin-index";
     }

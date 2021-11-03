@@ -87,11 +87,14 @@
     $(document).ready(function () {
         $('#orderDate').val(new Date().toDateInputValue());
 
-        // /*<![CDATA[*/
-        // var memberSq = "[[${session.memberSq}]]";
-        // var memberRole = "[[${session.memberRole}]]";
-        // alert(memberSq + " " + memberRole);
-        // /*]]>*/
+        /*<![CDATA[*/
+        var memberSq = [[${session.memberSq}]];
+        /*]]>*/
+
+        if (memberSq != null) {
+            memberStartConnect();
+            setTimeout(() => sendCount(memberSq, [[${session.memberEMail}]], [[${session.memberRole}]]), 3000);
+        }
     });
 
 

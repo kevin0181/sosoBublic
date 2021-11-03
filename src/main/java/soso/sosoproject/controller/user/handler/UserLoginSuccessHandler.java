@@ -23,8 +23,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
         session.setAttribute("memberName", userDetail.getMemberDTO().getMemberName());
         session.setAttribute("memberEMail", userDetail.getMemberDTO().getMemberEmail());
         session.setAttribute("memberSq", userDetail.getMemberDTO().getMember_sq());
-        session.setAttribute("memberRole", userDetail.getAuthorities());
-
+        session.setAttribute("memberRole", userDetail.getAuthorities().toString());
 
         response.sendRedirect("/user/index");
     }
