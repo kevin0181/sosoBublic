@@ -1,9 +1,10 @@
 package soso.sosoproject.controller.messageExample;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.OrderDTO;
@@ -61,32 +62,33 @@ public class MessageController {
 
     @MessageMapping("/count")
     @SendTo("/sendAdminMessage/memberCount")
-    public int countMember(MemberCountDTO memberCountDTO) throws Exception { //주문시 알림처리.
+    public SizeAndOrderList countMember(MemberCountDTO memberCountDTO) throws Exception { //주문시 알림처리.
 
         if (memberCountDTO.isLoginActive()) {
             //로그인
             if (memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
                 //관리자 권한을 가지고 있으면 접속중인 유저 카운트를 넘김
-                for (int i = 0; i < memberCountDTOList.size(); i++) {
+                for (int i = 0; i < memberCountDTOList.size(); i++) { //이미 로그인 되어있는 상태
                     if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
-                        return memberCountDTOList.size();
+                        return new SizeAndOrderList(memberCountDTOList.size(), 0);
                     }
                 }
-                memberCountDTOList.add(memberCountDTO); //+ 어드민도 리스트에 넣음
-                return memberCountDTOList.size();
+                List<OrderDTO> orderDTOList = orderService.findOrderNotSave();
+                memberCountDTOList.add(memberCountDTO); //+ 어드민도 리스트에 넣음 //로그인 안되어있는 상태
+                return new SizeAndOrderList(memberCountDTOList.size(), orderDTOList.size());
             } else {
                 //일반 유저 권한이면
                 if (memberCountDTOList.size() == 0) { //리스트가 없으면 그냥 바로 추가
                     memberCountDTOList.add(memberCountDTO);
-                    return memberCountDTOList.size();
+                    return new SizeAndOrderList(memberCountDTOList.size(), 0);
                 } else { //리스트가 있으면?
                     for (int i = 0; i < memberCountDTOList.size(); i++) {
                         if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) { //같은 유저가 있는지 조회
-                            return memberCountDTOList.size(); //잇으면 그냥 리턴
+                            return new SizeAndOrderList(memberCountDTOList.size(), 0); //잇으면 그냥 리턴
                         }
                     }
                     memberCountDTOList.add(memberCountDTO);
-                    return memberCountDTOList.size(); //없으면 추가해서 리턴
+                    return new SizeAndOrderList(memberCountDTOList.size(), 0); //없으면 추가해서 리턴
                 }
             }
         } else {
@@ -101,7 +103,19 @@ public class MessageController {
                     memberCountDTOList.remove(i); //해당 같은 멤버찾을때 리스트 제거
                 }
             }
-            return memberCountDTOList.size(); // 후 카운트 넘김
+            return new SizeAndOrderList(memberCountDTOList.size(), 0); // 후 카운트 넘김
         }
+    }
+}
+
+@Getter
+@Setter
+class SizeAndOrderList {
+    private int MemberCount;
+    private int OrderSize;
+
+    public SizeAndOrderList(int memberCount, int orderSize) {
+        MemberCount = memberCount;
+        OrderSize = orderSize;
     }
 }

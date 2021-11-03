@@ -6,6 +6,8 @@ import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.repository.OrderDetailRepository;
 import soso.sosoproject.repository.OrderRepository;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -22,5 +24,9 @@ public class OrderService {
 
     public OrderDTO findOrderId(String ordersImpUid) {
         return orderRepository.findByOrdersImpUid(ordersImpUid);
+    }
+
+    public List<OrderDTO> findOrderNotSave() {
+        return orderRepository.findAllByOrdersSave(false);
     }
 }
