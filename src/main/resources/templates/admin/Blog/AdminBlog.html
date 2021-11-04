@@ -326,6 +326,13 @@
 
 <script th:src="@{/assets/vendors/jquery/jquery.min.js}"></script>
 <script th:src="@{/assets/vendors/summernote/summernote-lite.min.js}"></script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+        setTimeout(() => memberStartConnect(), 500);
+        setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
+    })
+</script>
 <script>
 
     $(document).ready(function () {

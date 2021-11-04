@@ -229,5 +229,6 @@ function logoutActive(memberEMail, memberSq) { //로그아웃
         'memberSq': memberSq,
         'loginActive': false
     }));
+    stompClient.disconnect();
     document.logoutForm.submit();
 }

@@ -25,7 +25,7 @@ public class MessageController {
 
     boolean adminActive;
 
-    //chat example
+    //주문 stomp
     @MessageMapping("/chat")
     @SendTo("/sendAdminMessage/OrderChat")
     public OrderMessageDTO getOrderMessage(OrderMessageDTO orderMessageDTO) throws Exception { //주문시 알림처리.
@@ -55,7 +55,7 @@ public class MessageController {
             OrderDTO orderDTO = orderService.findOrderId(orderMessageDTO.getOrdersImpUid());
             orderDTO.setOrdersSave(false);
             orderService.saveOrder(orderDTO); //저장상태 false로 저장함. 나중에 관리자가 들어오면 한번에 메시지 가져올 수 있게.
-            return null;
+            return orderMessageDTO;
         }
     }
 
@@ -66,6 +66,10 @@ public class MessageController {
 
         if (memberCountDTO.isLoginActive()) {
             //로그인
+            if (memberCountDTO.getRole_name() == null) {
+                memberCountDTOList.add(memberCountDTO);
+                return new SizeAndOrderList(memberCountDTOList.size(), 0); //없으면 추가해서 리턴
+            }
             if (memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
                 //관리자 권한을 가지고 있으면 접속중인 유저 카운트를 넘김
                 for (int i = 0; i < memberCountDTOList.size(); i++) { //이미 로그인 되어있는 상태

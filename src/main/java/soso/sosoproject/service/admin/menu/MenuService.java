@@ -63,7 +63,7 @@ public class MenuService {
     public List<MenuDTO> save_menu(MenuImgDTO menuImgDTO) {
         List<ImgDTO> imgDTOList = imgRepository.findAllByMenuSq(menuImgDTO.getMenuSq());
         MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenuSq(), menuImgDTO.getMenuName(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
-                menuImgDTO.getMenu_price(), menuImgDTO.isMenu_sold_out(), menuImgDTO.isMenuEnable(), menuImgDTO.isMenu_today(), imgDTOList);
+                menuImgDTO.getMenu_price(), menuImgDTO.isMenuSoldOut(), menuImgDTO.isMenuEnable(), menuImgDTO.isMenu_today(), imgDTOList);
 
         menuRepository.save(menuDTO);
         return menuRepository.findAllByMenuName(menuDTO.getMenuName());

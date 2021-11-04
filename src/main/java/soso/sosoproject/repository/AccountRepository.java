@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import soso.sosoproject.dto.MemberDTO;
 
+import java.util.List;
+
 
 @Repository
 public interface AccountRepository extends JpaRepository<MemberDTO, Long> {

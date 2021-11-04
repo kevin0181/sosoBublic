@@ -20,7 +20,7 @@ public class MenuImgDTO {
 
     private int menu_price;
 
-    private boolean menu_sold_out;
+    private boolean menuSoldOut;
 
     private boolean menuEnable;
 

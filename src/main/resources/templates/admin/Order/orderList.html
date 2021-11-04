@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소소한 부엌</title>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/static/assets/js/jquery-3.6.0.js}"></script>
+    <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+    <!--    리스트-->
+    <link rel="stylesheet" href="../../../static/assets/vendors/simple-datatables/style.css"
+          th:href="@{/static/assets/vendors/simple-datatables/style.css}">
+</head>
+
+<body>
+<div id="app">
+    <div id="sidebar" class="active">
+        <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3 style="display: inline-block" th:if="${className} == 'soso'">소소한 부엌</h3>
+                        <h3 style="display: inline-block" th:if="${className} == 'pas'">앤 빠스떼우</h3>
+                        <h3 style="display: inline-block"> 주문 리스트</h3>
+                        <p class="text-subtitle text-muted">현재 들어온 주문입니다.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/admin/index}">Main</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Order</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+            </section>
+        </div>
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2021 &copy; version 0.0.1</p>
+                </div>
+                <div class="float-end">
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> :
+                        <a>kevin0181@naver.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+        setTimeout(() => memberStartConnect(), 500);
+        setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
+    })
+</script>
+</html>

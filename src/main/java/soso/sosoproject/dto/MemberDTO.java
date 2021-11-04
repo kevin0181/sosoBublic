@@ -2,6 +2,8 @@ package soso.sosoproject.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -50,18 +52,16 @@ public class MemberDTO {
     private Set<RoleDTO> role = new HashSet<>();
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
-    private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
+    private List<OrderDTO> orderDTOList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
     private List<BlogDTO> blogDTOList = new ArrayList<>();
 
-
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
-    private List<OrdersDetailDTO> orderDTOList = new ArrayList<>();
-
+    private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
 }

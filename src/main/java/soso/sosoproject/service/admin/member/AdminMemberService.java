@@ -17,9 +17,15 @@ public class AdminMemberService {
         return accountRepository.findAll();
     }
 
-    public int memberCount() { return accountRepository.countTotalMember(); }
+    public int memberCount() {
+        return accountRepository.countTotalMember();
+    }
 
     public void deleteMember(List<Long> memberSq) {
+//        List<MemberDTO> memberDTOList = accountRepository.findAllById(memberSq);
+//        for (int i = 0; i < memberDTOList.size(); i++) {
+//            accountRepository.delete(memberDTOList.get(i));
+//        }
         accountRepository.deleteAllById(memberSq);
     }
 }

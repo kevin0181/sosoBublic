@@ -147,7 +147,6 @@ function changeMenu(menuSq) {
         alert("빈칸을 입력해주세요.");
         return false;
     }
-
     $.ajax({
         type: "POST",
         url: "/menu/change-menu",
@@ -157,20 +156,10 @@ function changeMenu(menuSq) {
         data: formData,
         beforeSend: function () {
             $('#loading_var').show();
-        },
-        success: function (data) {
-            alert("메뉴가 수정되었습니다.");
-            location.href = "/admin/add-menu";
-        },
-        error: function (data) {
-            if (data) {
-                alert("메뉴가 수정되었습니다.");
-                location.href = "/admin/add-menu";
-            }
-            alert("메뉴 수정을 실패하였습니다.");
-            location.href = "/admin/add-menu";
         }
     });
+    alert("메뉴가 수정되었습니다.");
+    location.href = "/admin/add-menu";
 }
 
 //카테고리 검색

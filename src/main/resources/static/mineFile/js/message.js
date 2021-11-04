@@ -54,7 +54,6 @@ function getMemberCountShow(chat) {
             destination: "/admin/orderList?className=order"  //지정 url로 이동
         }).showToast();
     }
-
 }
 
 function adminChatSend(memberSq, memberRole) {
@@ -71,5 +70,6 @@ function adminLogout(memberSq, memberRole) {
         'role_name': memberRole,
         'loginActive': false
     }));
+    stompClient.disconnect();
     document.logoutAdminForm.submit();
 }

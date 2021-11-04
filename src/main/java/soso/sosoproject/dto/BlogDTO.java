@@ -51,11 +51,11 @@ public class BlogDTO {
     @JoinColumn(name = "blog_category_sq", insertable = false, updatable = false)
     private BlogCategoryDTO blogCategoryDTO;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "blog_sq")
     private List<BlogImgDTO> blogImg_sq = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "blog_sq")
     private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 

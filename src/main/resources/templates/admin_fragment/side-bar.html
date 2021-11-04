@@ -55,6 +55,7 @@
                             </a>
                         </li>
                     </ul>
+                </li>
                 <li class="sidebar-item " th:classappend="${className} == 'MemberList' ? 'top-active'">
                     <a href="table-datatable.html" class='sidebar-link'
                        th:href="@{/admin/MemberList(className='MemberList')}">
@@ -68,6 +69,31 @@
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Blog</span>
                     </a>
+                </li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link' th:classappend="${(className == 'soso' ? 'top-active':'')+
+                                                                        (className == 'pas' ? 'top-active':'')}">
+                        <i class="bi bi-stack"></i>
+                        <span>Order</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="" th:classappend="${className} == 'soso' ? 'btn-active'">
+                            <a href="form-layout.html" th:href="@{/admin/orderList(className='soso')}"
+                               style="margin-top: 5px"
+                               class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>소소한 부엌</span>
+                            </a>
+                        </li>
+                        <li class="" th:classappend="${className} == 'pas' ? 'btn-active'">
+                            <a href="form-layout.html" th:href="@{/admin/orderList(className='pas')}"
+                               style="margin-top: 5px"
+                               class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>앤 빠스떼우</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
