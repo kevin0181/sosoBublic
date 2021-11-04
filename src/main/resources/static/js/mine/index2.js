@@ -5,7 +5,12 @@ var menuArray = [];
 
 var menuIdArray = [];
 
-function menuClick(menuSq, menuName) {
+function menuClick(menuSq, menuName, menuSoldOut) {
+
+    if (menuSoldOut) {
+        alert("품절된 메뉴입니다.");
+        return false;
+    }
 
     $('#smallOrderText').remove();
 

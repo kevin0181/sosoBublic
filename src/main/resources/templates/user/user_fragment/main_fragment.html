@@ -132,11 +132,12 @@
                      th:if="${menulist.menuEnable} == true">
                     <div class="single-menu click_white" th:id="menu+${menulist.menuSq}"
                          style="text-align: center;padding: 15px"
-                         th:onclick="menuClick([[${menulist.menuSq}]],[[${menulist.menuName}]])">
+                         th:onclick="menuClick([[${menulist.menuSq}]],[[${menulist.menuName}]],[[${menulist.menuSoldOut}]])">
                         <div class="title-wrap d-flex justify-content-between">
                             <h4 th:text="${menulist.menuName}">음식이름</h4>
                             <h4 class="price" th:text="${menulist.menu_price}">음식 가격</h4>
                         </div>
+                        <small style="color: #ffc107; position: absolute;left: 10%;" th:if=" ${menulist.menuSoldOut}">(품절)</small>
                         <p th:text="${menulist.menu_contant}">
                             음식 contant
                         </p>
