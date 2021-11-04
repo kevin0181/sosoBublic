@@ -44,6 +44,40 @@
                 </div>
             </div>
             <section class="section">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col" th:each="order : ${orderList}">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${order.orderName}+'님의 주문입니다.'"
+                                    style="margin-bottom: 20px;">이름</h5>
+                                <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"
+                                    th:each="menu, index : ${order.getOrdersMenu()}">
+                                    <div class="d-flex bd-highlight">
+                                        <p th:text="${menu.menuOrderName}" class="me-auto p-2" style="margin: 0">시킨 메뉴
+                                            이름</p>
+                                        <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}" class="p-2" style="margin: 0">메뉴
+                                            수량</p>
+                                    </div>
+                                    <div th:if="${index.index} == ${#lists.size(menu)}"
+                                         style="text-align: center; margin: 15px 0;">
+                                        <div class="btn-group btn-group-sm" role="group"
+                                             aria-label="Basic example">
+                                            <button type="button" class="btn btn-outline-success">주문 완료</button>
+                                            <button type="button" class="btn btn-outline-dark"></button>
+                                            <button type="button" class="btn btn-outline-danger">주문 취소</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <small class="text-muted" th:text="${order.orderDate}">시간</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
         <footer>

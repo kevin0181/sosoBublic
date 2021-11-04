@@ -29,4 +29,8 @@ public class OrderService {
     public List<OrderDTO> findOrderNotSave() {
         return orderRepository.findAllByOrdersSave(false);
     }
+
+    public List<OrderDTO> findAllSosoOrder(String place) {
+        return orderRepository.findAllByOrderPlace(place);
+    }
 }
