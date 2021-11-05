@@ -5,6 +5,9 @@ var menuArray = [];
 
 var menuIdArray = [];
 
+
+var startPasActive;
+
 function menuClick(menuSq, menuName, menuSoldOut) {
 
     if (menuSoldOut) {
@@ -42,11 +45,18 @@ function menuClick(menuSq, menuName, menuSoldOut) {
 
 function orderAlert(memberSq) {
 
+
     if (memberSq == null) {
         alert("로그인을 해주세요.");
         location.href = "/user/account/login";
         return false;
     }
+
+    if (!startPasActive) {
+        alert("오픈 전 입니다. 불편을 드려 죄송합니다.");
+        return false;
+    }
+
     if ($('#orderName').val() == "") {
         alert("이름을 입력해주세요.");
         return false;
@@ -86,7 +96,6 @@ function orderAlert(memberSq) {
         }
 
 
-
         $('#orderModal').show();
         for (var i = 0; i < menuIdArray.length; i++) {
             if (i == menuIdArray.length - 1) {
@@ -102,6 +111,7 @@ function orderAlert(memberSq) {
 
 //메뉴주문
 function orderKakaoPay(memberSq, memberEmail, memberRole) {
+
 
     connect();
 
@@ -130,7 +140,6 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
         formdata.append("ordersMenu[" + i + "].menu_sq", $('#menuInput' + menuIdArray[i]).val());
 
     }
-
 
     $.ajax({
         url: "/user/orderMenu/pay/ammount",
@@ -196,7 +205,6 @@ html5_inicis':이니시스(웹표준결제)
 'syrup':시럽페이
 'paypal':페이팔
 */
-
 }
 
 var stompClient = null;
@@ -206,12 +214,17 @@ function connect() {
     var socket = new SockJS('/user/websocket');
     stompClient = Stomp.over(socket);
     // SockJS와 stomp client를 통해 연결을 시도.
-    // stompClient.connect({}, function (frame) {
-    //     // console.log('Connected: ' + frame);
-    //     stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
-    //         showChat(JSON.parse(chat.body));
-    //     });
-    // });
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
+            var JsonData = JSON.parse(chat.body);
+
+            if (JsonData.message == "error-404") {
+                alert("처리중 오류가 났습니다. 결제가 실행 된 경우 soso에게 문의해주세요.");
+                location.href = "/user/index";
+            }
+        });
+    });
 }
 
 function sendOrderChat(memberSq, imp_uid, memberRole) {
@@ -226,6 +239,13 @@ function sendOrderChat(memberSq, imp_uid, memberRole) {
 function memberStartConnect() {
     var socket = new SockJS('/user/websocket');
     stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe('/sendAdminMessage/memberCount', function (chat) {
+            var result = JSON.parse(chat.body);
+            startPasActive = result.startPas;
+        });
+    });
 }
 
 function sendCount(memberSq, memberEMail, memberRole) {

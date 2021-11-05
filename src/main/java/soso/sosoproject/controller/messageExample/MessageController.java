@@ -95,15 +95,15 @@ public class MessageController {
                 //일반 유저 권한이면
                 if (memberCountDTOList.size() == 0) { //리스트가 없으면 그냥 바로 추가
                     memberCountDTOList.add(memberCountDTO);
-                    return new SizeAndOrderList(memberCountDTOList.size(), 0);
+                    return new SizeAndOrderList(startPas);
                 } else { //리스트가 있으면?
                     for (int i = 0; i < memberCountDTOList.size(); i++) {
                         if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) { //같은 유저가 있는지 조회
-                            return new SizeAndOrderList(memberCountDTOList.size(), 0); //잇으면 그냥 리턴
+                            return new SizeAndOrderList(startPas); //잇으면 그냥 리턴
                         }
                     }
                     memberCountDTOList.add(memberCountDTO);
-                    return new SizeAndOrderList(memberCountDTOList.size(), 0); //없으면 추가해서 리턴
+                    return new SizeAndOrderList(startPas); //없으면 추가해서 리턴
                 }
             }
         } else {
@@ -146,11 +146,18 @@ public class MessageController {
 class SizeAndOrderList {
     private int MemberCount;
     private int OrderSize;
+    private boolean startPas;
 
     public SizeAndOrderList(int memberCount, int orderSize) {
         MemberCount = memberCount;
         OrderSize = orderSize;
     }
+
+    public SizeAndOrderList(boolean startPas) {
+        this.startPas = startPas;
+    }
+
+
 }
 
 @Getter
