@@ -8,7 +8,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
     OrderDTO findByOrdersImpUid(String id);
 
-    List<OrderDTO> findAllByOrdersSave(boolean active);
+    List<OrderDTO> findAllByOrdersSaveAndOrderPlace(boolean active, String place);
 
     List<OrderDTO> findAllByOrderPlace(String place);
 }

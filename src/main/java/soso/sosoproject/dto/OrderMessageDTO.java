@@ -10,4 +10,5 @@ public class OrderMessageDTO {
     private String ordersImpUid;
     private String orderName;
     private String role_name;
+    private String orderPlace;
 }

@@ -31,7 +31,10 @@
                         <h3 style="display: inline-block" th:if="${className} == 'soso'">소소한 부엌</h3>
                         <h3 style="display: inline-block" th:if="${className} == 'pas'">앤 빠스떼우</h3>
                         <h3 style="display: inline-block"> 주문 리스트</h3>
-                        <p class="text-subtitle text-muted">현재 들어온 주문입니다.</p>
+                        <div style="margin-bottom: 20px;">
+                            <button onclick="startPas()" class="btn btn-outline-info">시작</button>
+                            <button onclick="disconnectPas()" class="btn btn-outline-warning">종료</button>
+                        </div>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -61,17 +64,16 @@
                                         <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}" class="p-2" style="margin: 0">메뉴
                                             수량</p>
                                     </div>
-                                    <div th:if="${index.index} == ${#lists.size(menu)}"
-                                         style="text-align: center; margin: 15px 0;">
-                                        <div class="btn-group btn-group-sm" role="group"
-                                             aria-label="Basic example">
-                                            <button type="button" class="btn btn-outline-success">주문 완료</button>
-                                            <button type="button" class="btn btn-outline-dark"></button>
-                                            <button type="button" class="btn btn-outline-danger">주문 취소</button>
-                                        </div>
-                                    </div>
                                 </li>
                             </ul>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <div class="btn-group btn-group-sm" role="group"
+                                     aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-success">주문 완료</button>
+                                    <button type="button" class="btn btn-outline-dark"></button>
+                                    <button type="button" class="btn btn-outline-danger">주문 취소</button>
+                                </div>
+                            </div>
                             <div class="card-footer">
                                 <small class="text-muted" th:text="${order.orderDate}">시간</small>
                             </div>
@@ -101,5 +103,6 @@
         setTimeout(() => memberStartConnect(), 500);
         setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
     })
+
 </script>
 </html>

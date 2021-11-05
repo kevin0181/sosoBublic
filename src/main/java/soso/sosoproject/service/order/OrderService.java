@@ -18,7 +18,6 @@ public class OrderService {
     private OrderDetailRepository orderDetailRepository;
 
     public void saveOrder(OrderDTO orderDTO) {
-        orderDTO.setOrderEnable(true);
         orderRepository.save(orderDTO);
     }
 
@@ -27,7 +26,7 @@ public class OrderService {
     }
 
     public List<OrderDTO> findOrderNotSave() {
-        return orderRepository.findAllByOrdersSave(false);
+        return orderRepository.findAllByOrdersSaveAndOrderPlace(false,"소소한 부엌");
     }
 
     public List<OrderDTO> findAllSosoOrder(String place) {
