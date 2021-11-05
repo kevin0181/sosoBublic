@@ -64,26 +64,37 @@ function orderAlert(memberSq) {
         return false;
     }
     if (menuIdArray.length == 0) {
-        alert("메뉴를 골라주세요.");
-        return false;
-    }
-
-    for (var i = 0; i < menuIdArray.length; i++) {
-        if ($('#menuNumber' + menuIdArray[i]).val() == 0) {
-            alert("알수없는 값이 들어왔습니다. 최소 수량 주문은 1개 입니다.");
-            return false;
-            break;
-        }
-    }
-    $('#orderModal').show();
-    for (var i = 0; i < menuIdArray.length; i++) {
-        if (i == menuIdArray.length - 1) {
-            $('#modalOrderBody').append("<span>" + $('#menuName' + menuIdArray[i]).text() + " </span>");
+        if ($("#orderPlace option:selected").val() == "소소한 부엌") {
+            alert("소소한 부엌이 예약되었습니다. (soso가 확인하고 연락드리겠습니다.)");
+            location.href = "/user/index";
         } else {
-            $('#modalOrderBody').append("<span>" + $('#menuName' + menuIdArray[i]).text() + ", </span>");
+            alert("메뉴를 골라주세요.");
+            return false;
         }
+    } else {
+        if ($("#orderPlace option:selected").val() == "소소한 부엌") {
+            alert("소소한 부엌은 메뉴를 선택하실 수 없습니다.");
+            return false;
+        }
+
+        for (var i = 0; i < menuIdArray.length; i++) {
+            if ($('#menuNumber' + menuIdArray[i]).val() == 0) {
+                alert("알수없는 값이 들어왔습니다. 최소 수량 주문은 1개 입니다.");
+                return false;
+                break;
+            }
+        }
+
+        $('#orderModal').show();
+        for (var i = 0; i < menuIdArray.length; i++) {
+            if (i == menuIdArray.length - 1) {
+                $('#modalOrderBody').append("<span>" + $('#menuName' + menuIdArray[i]).text() + " </span>");
+            } else {
+                $('#modalOrderBody').append("<span>" + $('#menuName' + menuIdArray[i]).text() + ", </span>");
+            }
+        }
+        $('#modalOrderBody').append("<span> 를 주문하셨습니다. 결제 방식을 선택해주세요.</span>");
     }
-    $('#modalOrderBody').append("<span> 를 주문하셨습니다. 결제 방식을 선택해주세요.</span>");
 }
 
 

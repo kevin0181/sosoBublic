@@ -95,6 +95,17 @@
             memberStartConnect();
             setTimeout(() => sendCount(memberSq, [[${session.memberEMail}]], [[${session.memberRole}]]), 3000);
         }
+
+
+        $('#orderPlace').on('click', function () {
+            if ($("#orderPlace option:selected").val() == "소소한 부엌") {
+                $('#orderDate').show();
+            } else {
+                $('#orderDate').hide();
+            }
+        })
+
+
     });
 </script>
 </body>

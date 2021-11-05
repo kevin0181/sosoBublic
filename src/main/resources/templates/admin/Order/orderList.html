@@ -31,7 +31,7 @@
                         <h3 style="display: inline-block" th:if="${className} == 'soso'">소소한 부엌</h3>
                         <h3 style="display: inline-block" th:if="${className} == 'pas'">앤 빠스떼우</h3>
                         <h3 style="display: inline-block"> 주문 리스트</h3>
-                        <div style="margin-bottom: 20px;">
+                        <div style="margin-bottom: 20px;" th:if="${className} == 'pas'">
                             <button onclick="startPas()" class="btn btn-outline-info">시작</button>
                             <button onclick="disconnectPas()" class="btn btn-outline-warning">종료</button>
                         </div>
