@@ -47,13 +47,13 @@ public class MessageController {
             if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(true);
                 orderService.saveOrder(orderDTO);
+                orderMessageDTO.setOrderPlace("soso");
                 return orderMessageDTO;
             }
         } else {
             if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(false);
                 orderService.saveOrder(orderDTO);
-                orderMessageDTO.setOrderPlace("soso");
                 return null;
             }
         }

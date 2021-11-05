@@ -33,4 +33,8 @@ public class OrderService {
         return orderRepository.findAllByOrderPlace(place);
     }
 
+    public List<OrderDTO> findAllPlaceAndEnableOrder(String place) {
+        return orderRepository.findAllByOrderPlaceAndOrderEnable(place, false);
+    }
+
 }

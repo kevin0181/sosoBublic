@@ -100,7 +100,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
     formdata.append("orderAddress", $('#orderAddress').val());
     formdata.append("orderPhoneNumber", $('#orderNumber').val());
     formdata.append("orderHelp", $('#orderHelp').val());
-    formdata.append("orderEnable", true);
+    formdata.append("orderEnable", false);
     formdata.append("orderPlace", $('#orderPlace').val());
     formdata.append("member_sq", memberSq);
     formdata.append("orderDate", $('#orderDate').val());
@@ -132,7 +132,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                 pg: 'kakao',
                 pay_method: 'card',
                 merchant_uid: 'merchant_' + new Date().getTime(),
-                name: 'soso', //결제창에서 보여질 이름
+                name: $('#orderPlace').val(), //결제창에서 보여질 이름
                 amount: data, //실제 결제되는 가격
                 buyer_email: memberEmail,
                 buyer_name: $('#orderName').val(),

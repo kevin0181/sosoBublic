@@ -11,4 +11,6 @@ public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
     List<OrderDTO> findAllByOrdersSaveAndOrderPlace(boolean active, String place);
 
     List<OrderDTO> findAllByOrderPlace(String place);
+
+    List<OrderDTO> findAllByOrderPlaceAndOrderEnable(String place, boolean enable);
 }

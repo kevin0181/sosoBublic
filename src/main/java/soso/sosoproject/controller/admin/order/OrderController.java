@@ -23,11 +23,14 @@ public class OrderController {
 
         if (className.equals("soso")) {
 
+            List<OrderDTO> orderDTOList = orderService.findAllPlaceAndEnableOrder("소소한 부엌");
+
+            model.addAttribute("orderList", orderDTOList);
             model.addAttribute("className", className);
             return "admin/Order/orderList";
         } else if (className.equals("pas")) {
 
-            List<OrderDTO> orderDTOList = orderService.findAllPlaceOrder("앤 빠스떼우");
+            List<OrderDTO> orderDTOList = orderService.findAllPlaceAndEnableOrder("앤 빠스떼우");
 
             model.addAttribute("orderList", orderDTOList);
             model.addAttribute("className", className);
