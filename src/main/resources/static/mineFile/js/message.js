@@ -15,7 +15,7 @@ function connect() {
 
 
 function showOrder(chat) {
-        console.log(chat);
+    console.log(chat);
     if (chat.orderPlace === "soso") {
         Toastify({
             text: chat.orderName + "님의 주문이 들어왔습니다. by soso",
@@ -26,16 +26,20 @@ function showOrder(chat) {
             backgroundColor: "#4fbe87",
             destination: "/admin/orderList/OrderSingleBoard?className=soso&orderImp=" + chat.ordersImpUid  //지정 url로 이동
         }).showToast();
-    } else {
-        Toastify({
-            text: chat.orderName + "님의 주문이 들어왔습니다.",
-            duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
-            close: true,
-            gravity: "bottom",
-            position: "right",
-            backgroundColor: "#4fbe87",
-            destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
-        }).showToast();
+    } else if (chat.orderPlace === "pas") {
+        if (chat.message === "error-404") {
+
+        } else {
+            Toastify({
+                text: chat.orderName + "님의 주문이 들어왔습니다.",
+                duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
+                close: true,
+                gravity: "bottom",
+                position: "right",
+                backgroundColor: "#4fbe87",
+                destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
+            }).showToast();
+        }
     }
 }
 

@@ -54,7 +54,7 @@ public class MessageController {
             if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(false);
                 orderService.saveOrder(orderDTO);
-                return null;
+                return orderMessageDTO;
             }
         }
 
@@ -64,7 +64,8 @@ public class MessageController {
             return orderMessageDTO;
         } else { //관리자가 메뉴를 받고있지 않다면?
 
-            return null;
+            orderMessageDTO.setMessage("error-404"); //관리자가 매장을 오픈하지 않음.
+            return orderMessageDTO;
         }
     }
 
