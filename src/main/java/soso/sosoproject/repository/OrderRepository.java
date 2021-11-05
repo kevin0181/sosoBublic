@@ -12,5 +12,5 @@ public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
 
     List<OrderDTO> findAllByOrderPlace(String place);
 
-    List<OrderDTO> findAllByOrderPlaceAndOrderEnable(String place, boolean enable);
+    List<OrderDTO> findAllByOrderPlaceAndOrderEnableOrderByOrderDateDesc(String place, boolean enable);
 }
