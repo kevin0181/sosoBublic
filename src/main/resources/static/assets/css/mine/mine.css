@@ -22,3 +22,13 @@
         position: static;
     }
 }
+
+.kakaoPayImg {
+    width: 15%;
+}
+
+@media (max-width: 450px) {
+    .kakaoPayImg {
+        width: 30%;
+    }
+}

@@ -85,6 +85,8 @@ function orderAlert(memberSq) {
             }
         }
 
+
+
         $('#orderModal').show();
         for (var i = 0; i < menuIdArray.length; i++) {
             if (i == menuIdArray.length - 1) {
@@ -128,6 +130,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
         formdata.append("ordersMenu[" + i + "].menu_sq", $('#menuInput' + menuIdArray[i]).val());
 
     }
+
 
     $.ajax({
         url: "/user/orderMenu/pay/ammount",
