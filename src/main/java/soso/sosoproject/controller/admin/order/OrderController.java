@@ -27,7 +27,7 @@ public class OrderController {
             return "admin/Order/orderList";
         } else if (className.equals("pas")) {
 
-            List<OrderDTO> orderDTOList = orderService.findAllSosoOrder("앤 빠스떼우");
+            List<OrderDTO> orderDTOList = orderService.findAllPlaceOrder("앤 빠스떼우");
 
             model.addAttribute("orderList", orderDTOList);
             model.addAttribute("className", className);

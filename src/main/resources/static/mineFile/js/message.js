@@ -7,6 +7,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         // console.log('Connected: ' + frame);
         stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
+            console.log(chat);
             showOrder(JSON.parse(chat.body));
         });
     });
@@ -14,7 +15,7 @@ function connect() {
 
 
 function showOrder(chat) {
-
+        console.log(chat);
     if (chat.orderPlace === "soso") {
         Toastify({
             text: chat.orderName + "님의 주문이 들어왔습니다. by soso",

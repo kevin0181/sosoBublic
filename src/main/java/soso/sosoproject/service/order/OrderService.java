@@ -26,10 +26,11 @@ public class OrderService {
     }
 
     public List<OrderDTO> findOrderNotSave() {
-        return orderRepository.findAllByOrdersSaveAndOrderPlace(false,"소소한 부엌");
+        return orderRepository.findAllByOrdersSaveAndOrderPlace(false, "소소한 부엌");
     }
 
-    public List<OrderDTO> findAllSosoOrder(String place) {
+    public List<OrderDTO> findAllPlaceOrder(String place) {
         return orderRepository.findAllByOrderPlace(place);
     }
+
 }

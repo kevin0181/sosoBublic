@@ -14,6 +14,7 @@ import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.admin.blog.AdminBlogService;
 import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
+import soso.sosoproject.service.order.OrderService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -29,6 +30,9 @@ public class AdminPageController {
     private AdminMemberService adminMemberService;
     @Autowired
     private AdminBlogService adminBlogService;
+
+    @Autowired
+    private OrderService orderService;
 
 
     //인덱스
@@ -47,6 +51,13 @@ public class AdminPageController {
 
         model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("className", className);
+
+        //soso,pas 총 주문수
+        List<OrderDTO> sosoList = orderService.findAllPlaceOrder("소소한 부엌");
+        model.addAttribute("totalSoso", sosoList.size());
+
+        List<OrderDTO> pasList = orderService.findAllPlaceOrder("앤 빠스떼우");
+        model.addAttribute("totalPas", pasList.size());
 
         return "admin/admin-index";
     }

@@ -1,5 +1,8 @@
 package soso.sosoproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,10 +54,12 @@ public class OrderDTO {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id")
+    @JsonIgnore
     private List<OrdersDetailDTO> ordersMenu;
 
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
+    @JsonIgnore
     private MemberDTO member_sq;
 
 }

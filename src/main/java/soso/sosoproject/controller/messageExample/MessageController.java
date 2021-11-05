@@ -28,11 +28,13 @@ public class MessageController {
 
     boolean startPas = false;
 
+    @Autowired
+    private ObjectMapper mapper;
+
     //주문 stomp
     @MessageMapping("/chat")
     @SendTo("/sendAdminMessage/OrderChat")
     public OrderMessageDTO getOrderMessage(OrderMessageDTO orderMessageDTO) throws Exception { //주문시 알림처리.
-
 
         if (orderMessageDTO.getOrdersImpUid() == null) { //결제안하고 들어온 잘못된 접근
             return null;
@@ -45,10 +47,9 @@ public class MessageController {
             if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(true);
                 orderService.saveOrder(orderDTO);
-                orderMessageDTO.setOrderPlace("soso");
                 return orderMessageDTO;
             }
-        }else{
+        } else {
             if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(false);
                 orderService.saveOrder(orderDTO);
