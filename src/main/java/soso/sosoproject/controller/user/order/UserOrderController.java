@@ -1,4 +1,4 @@
-package soso.sosoproject.controller.user;
+package soso.sosoproject.controller.user.order;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -42,7 +42,7 @@ public class UserOrderController {
     @ResponseBody
     public boolean orderMenu(OrderDTO orderDTO) {
         try {
-            IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid());
+            IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
             if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
                 orderService.saveOrder(orderDTO);

@@ -52,6 +52,9 @@ public class OrderDTO {
     @Column(name = "orders_save")
     private boolean ordersSave;
 
+    @Column(name = "orders_merchant_uid")
+    private boolean ordersMerchantUid;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orders_id")
     @JsonIgnore

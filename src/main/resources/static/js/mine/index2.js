@@ -162,10 +162,10 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                 buyer_tel: $('#orderNumber').val(),
                 buyer_addr: $('#orderAddress').val(),
             }, function (rsp) {
-
                 if (rsp.success) {
                     formdata.append("ordersImpUid", rsp.imp_uid);
                     formdata.append("ordersTotalPrice", data);
+                    formdata.append("merchant_uid", rsp.merchant_uid)
                     $.ajax({
                         url: "/user/order/menu",
                         type: "post",
@@ -246,7 +246,7 @@ function memberStartConnect() {
             startPasActive = result.startPas;
             if (startPasActive) {
                 $('#openId').text('오픈 중 입니다. 메뉴를 선택해주세요!');
-            }else{
+            } else {
                 $('#openId').text('오픈 전 입니다. 불편을 드려 죄송합니다.');
             }
         });
