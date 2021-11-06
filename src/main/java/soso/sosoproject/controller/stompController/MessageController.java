@@ -49,14 +49,14 @@ public class MessageController {
         OrderDTO orderDTO = orderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
 
         if (adminActive) { //관리자가 로그인 중이라면?
-            if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
+            if (orderDTO.getOrderPlace().equals("soso")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(true);
                 orderService.saveOrder(orderDTO);
                 orderMessageDTO.setOrderPlace("soso");
                 return orderMessageDTO;
             }
         } else {
-            if (orderDTO.getOrderPlace().equals("소소한 부엌")) { //소소한부엌 주문
+            if (orderDTO.getOrderPlace().equals("soso")) { //소소한부엌 주문
                 orderDTO.setOrdersSave(false);
                 orderService.saveOrder(orderDTO);
                 return orderMessageDTO;
@@ -64,7 +64,7 @@ public class MessageController {
         }
 
         if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
-            if (orderMessageDTO.getOrderPlace().equals("pas")) {
+            if (orderDTO.getOrderPlace().equals("pas")) {
                 return orderDTO;
             }
             orderMessageDTO.setMessage("장소가 잘못된 주문"); //error

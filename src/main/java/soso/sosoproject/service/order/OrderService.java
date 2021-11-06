@@ -29,7 +29,7 @@ public class OrderService {
     }
 
     public List<OrderDTO> findOrderNotSave() {
-        return orderRepository.findAllByOrdersSaveAndOrderPlace(false, "소소한 부엌");
+        return orderRepository.findAllByOrdersSaveAndOrderPlace(false, "soso");
     }
 
     public List<OrderDTO> findAllPlaceOrder(String place) {
