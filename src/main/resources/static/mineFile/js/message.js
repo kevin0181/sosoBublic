@@ -29,6 +29,7 @@ function showOrder(chat) {
         if (chat.message === "error-404") {
 
         } else {
+            //toast 알림
             Toastify({
                 text: chat.orderName + "님의 주문이 들어왔습니다.",
                 duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
@@ -38,6 +39,37 @@ function showOrder(chat) {
                 backgroundColor: "#4fbe87",
                 destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
             }).showToast();
+
+            //html append
+            $('#orderListId').prepend("<div class=\"col\">\n" +
+                "                        <div class=\"card h-100\">\n" +
+                "                            <div class=\"card-body\">\n" +
+                "                                <h5 class=\"card-title\" style=\"margin-bottom: 20px;\">" + chat.orderName + "님의 주문입니다</h5>\n" +
+                "                                <p class=\"card-text\">" + chat.orderHelp + "</p>\n" +
+                "                            </div>\n" +
+                "                            <ul class=\"list-group list-group-flush\">\n" +
+                "                                <li class=\"list-group-item\">\n" +
+                "                                    <div class=\"d-flex bd-highlight\">\n" +
+                "                                        <p class=\"me-auto p-2\" style=\"margin: 0\">시킨 메뉴\n" +
+                "                                            이름</p>\n" +
+                "                                        <p class=\"p-2\" style=\"margin: 0\">메뉴\n" +
+                "                                            수량</p>\n" +
+                "                                    </div>\n" +
+                "                                </li>\n" +
+                "                            </ul>\n" +
+                "                            <div style=\"text-align: center; margin: 15px 0;\">\n" +
+                "                                <div class=\"btn-group btn-group-sm\" role=\"group\"\n" +
+                "                                     aria-label=\"Basic example\">\n" +
+                "                                    <button type=\"button\" class=\"btn btn-outline-success\">주문 완료</button>\n" +
+                "                                    <button type=\"button\" class=\"btn btn-outline-dark\"></button>\n" +
+                "                                    <button type=\"button\" class=\"btn btn-outline-danger\">주문 취소</button>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-footer\">\n" +
+                "                                <small class=\"text-muted\">" + chat.orderDate + "</small>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>");
         }
     }
 }
