@@ -188,6 +188,8 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                     var msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + rsp.error_msg;
                     alert(msg);
+
+                    //DB에서도 처리해야함.
                 }
             });
         }
@@ -232,7 +234,7 @@ function sendOrderChat(memberSq, imp_uid, memberRole) {
         'ordersImpUid': imp_uid,
         'orderName': $('#orderName').val(),
         'role_name': memberRole,
-        'orderPlace': 'soso'
+        'orderPlace': 'pas'
     }));
 }
 

@@ -7,7 +7,6 @@ function connect() {
     stompClient.connect({}, function (frame) {
         // console.log('Connected: ' + frame);
         stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
-            console.log(chat);
             showOrder(JSON.parse(chat.body));
         });
     });

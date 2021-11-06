@@ -1,6 +1,9 @@
 package soso.sosoproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity(name = "order")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
 public class OrderDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,14 +55,12 @@ public class OrderDTO {
     @Column(name = "orders_merchant_uid")
     private String ordersMerchantUid;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "orders_id")
-    @JsonIgnore
     private List<OrdersDetailDTO> ordersMenu;
 
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
-    @JsonIgnore
     private MemberDTO member_sq;
 
 }

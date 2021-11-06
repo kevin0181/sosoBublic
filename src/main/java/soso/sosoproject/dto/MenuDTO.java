@@ -1,5 +1,8 @@
 package soso.sosoproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity(name = "menu")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
 public class MenuDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +45,12 @@ public class MenuDTO {
 
     @ManyToOne
     @JoinColumn(name = "menu_category_sq", insertable = false, updatable = false)
+    @JsonIgnore
     private MenuCategoryDTO menuCategoryDTO;
 
     @OneToMany
     @JoinColumn(name = "menu_sq")
+    @JsonIgnore
     private List<ImgDTO> menu_img_sq = new ArrayList<>();
 
 //    @OneToMany

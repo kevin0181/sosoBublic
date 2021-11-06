@@ -1,5 +1,9 @@
 package soso.sosoproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
@@ -15,6 +19,7 @@ import java.util.Set;
 @Getter
 @Entity(name = "member")
 //@IdClass(MemberTablePk.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
 public class MemberDTO {
 
     @Id
@@ -54,14 +59,17 @@ public class MemberDTO {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
+    @JsonIgnore
     private List<OrderDTO> orderDTOList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
+    @JsonIgnore
     private List<BlogDTO> blogDTOList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
+    @JsonIgnore
     private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
 }
