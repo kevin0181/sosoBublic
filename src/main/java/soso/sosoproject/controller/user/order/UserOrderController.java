@@ -5,21 +5,16 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.order.OrderService;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class UserOrderController {
@@ -44,9 +39,10 @@ public class UserOrderController {
         try {
             IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
-            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
-                orderService.saveOrder(orderDTO);
-                sendOrderMessage(orderDTO);
+            OrderDTO checkOrderDTO = orderService.findUid(orderDTO.getOrdersMerchantUid());
+            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
+                checkOrderDTO.setOrdersImpUid(orderDTO.getOrdersImpUid());
+                orderService.saveOrder(checkOrderDTO);
                 return true;
             } else {
                 return false;
@@ -57,15 +53,16 @@ public class UserOrderController {
         }
     }
 
-    public String sendOrderMessage(OrderDTO orderDTO) {
-        return null;
-    }
 
     @PostMapping("/user/orderMenu/pay/ammount")
     @ResponseBody
-    public int MenuAmmount(OrderDTO orderDTO) {
+    public Map<String, Object> MenuAmmount(OrderDTO orderDTO) {
         int result = menuService.getOrderMenuAmmount(orderDTO.getOrdersMenu());
-        return result;
+        String uid = orderService.saveFirstOrder(orderDTO, result); //주문번호 콜백
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalPrice", result);
+        data.put("uid", uid);
+        return data;
     }
 
     public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {

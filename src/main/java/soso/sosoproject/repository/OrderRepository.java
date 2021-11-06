@@ -13,4 +13,6 @@ public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
     List<OrderDTO> findAllByOrderPlace(String place);
 
     List<OrderDTO> findAllByOrderPlaceAndOrderEnableOrderByOrderDateDesc(String place, boolean enable);
+
+    OrderDTO findAllByOrdersMerchantUid(String id);
 }

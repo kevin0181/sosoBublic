@@ -75,7 +75,7 @@ function orderAlert(memberSq) {
     }
     if (menuIdArray.length == 0) {
         if ($("#orderPlace option:selected").val() == "소소한 부엌") {
-            alert("소소한 부엌이 예약되었습니다. (soso가 확인하고 연락드리겠습니다.)");
+            alert("소소한 부엌이 예약되었습니다. (soso가 확인하고 연락드리겠습니다.)"); //소소한부엌 예약 체계
             location.href = "/user/index";
         } else {
             alert("메뉴를 골라주세요.");
@@ -149,14 +149,14 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
         processData: false,
         data: formdata,
         success: function (data) {
-
             IMP.init('imp76725859');
             IMP.request_pay({
                 pg: 'kakao',
                 pay_method: 'card',
-                merchant_uid: 'merchant_' + new Date().getTime(),
+                // merchant_uid: 'merchant_' + new Date().getTime(),
+                merchant_uid: data.uid,
                 name: $('#orderPlace').val(), //결제창에서 보여질 이름
-                amount: data, //실제 결제되는 가격
+                amount: data.totalPrice, //실제 결제되는 가격
                 buyer_email: memberEmail,
                 buyer_name: $('#orderName').val(),
                 buyer_tel: $('#orderNumber').val(),
@@ -164,8 +164,8 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
             }, function (rsp) {
                 if (rsp.success) {
                     formdata.append("ordersImpUid", rsp.imp_uid);
-                    formdata.append("ordersTotalPrice", data);
-                    formdata.append("merchant_uid", rsp.merchant_uid)
+                    formdata.append("ordersTotalPrice", data.totalPrice);
+                    formdata.append("ordersMerchantUid", rsp.merchant_uid);
                     $.ajax({
                         url: "/user/order/menu",
                         type: "post",
@@ -218,7 +218,6 @@ function connect() {
         // console.log('Connected: ' + frame);
         stompClient.subscribe('/sendAdminMessage/OrderChat', function (chat) {
             var JsonData = JSON.parse(chat.body);
-
             if (JsonData.message == "error-404") {
                 alert("처리중 오류가 났습니다. 결제가 실행 된 경우 soso에게 문의해주세요.");
                 location.href = "/user/index";
@@ -232,7 +231,8 @@ function sendOrderChat(memberSq, imp_uid, memberRole) {
         'memberSq': memberSq,
         'ordersImpUid': imp_uid,
         'orderName': $('#orderName').val(),
-        'role_name': memberRole
+        'role_name': memberRole,
+        'orderPlace': 'soso'
     }));
 }
 

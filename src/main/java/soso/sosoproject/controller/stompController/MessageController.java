@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
@@ -32,6 +33,7 @@ public class MessageController {
     private ObjectMapper mapper;
 
     //주문 stomp
+    @Transactional
     @MessageMapping("/chat")
     @SendTo("/sendAdminMessage/OrderChat")
     public OrderMessageDTO getOrderMessage(OrderMessageDTO orderMessageDTO) throws Exception { //주문시 알림처리.
@@ -59,8 +61,10 @@ public class MessageController {
         }
 
         if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
-
-
+            if (orderMessageDTO.getOrderPlace().equals("soso")) {
+                return orderMessageDTO;
+            }
+            orderMessageDTO.setMessage("장소가 잘못된 주문"); //error
             return orderMessageDTO;
         } else { //관리자가 메뉴를 받고있지 않다면?
 
