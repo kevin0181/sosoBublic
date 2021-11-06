@@ -1,4 +1,4 @@
-package soso.sosoproject.controller.messageExample;
+package soso.sosoproject.controller.stompController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -95,15 +95,15 @@ public class MessageController {
                 //일반 유저 권한이면
                 if (memberCountDTOList.size() == 0) { //리스트가 없으면 그냥 바로 추가
                     memberCountDTOList.add(memberCountDTO);
-                    return new SizeAndOrderList(startPas);
+                    return new SizeAndOrderList(memberCountDTOList.size(), 0, startPas);
                 } else { //리스트가 있으면?
                     for (int i = 0; i < memberCountDTOList.size(); i++) {
                         if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) { //같은 유저가 있는지 조회
-                            return new SizeAndOrderList(startPas); //잇으면 그냥 리턴
+                            return new SizeAndOrderList(memberCountDTOList.size(), 0, startPas); //잇으면 그냥 리턴
                         }
                     }
                     memberCountDTOList.add(memberCountDTO);
-                    return new SizeAndOrderList(startPas); //없으면 추가해서 리턴
+                    return new SizeAndOrderList(memberCountDTOList.size(), 0, startPas); //없으면 추가해서 리턴
                 }
             }
         } else {
@@ -151,6 +151,12 @@ class SizeAndOrderList {
     public SizeAndOrderList(int memberCount, int orderSize) {
         MemberCount = memberCount;
         OrderSize = orderSize;
+    }
+
+    public SizeAndOrderList(int memberCount, int orderSize, boolean startPas) {
+        MemberCount = memberCount;
+        OrderSize = orderSize;
+        this.startPas = startPas;
     }
 
     public SizeAndOrderList(boolean startPas) {

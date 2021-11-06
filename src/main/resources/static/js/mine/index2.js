@@ -244,6 +244,11 @@ function memberStartConnect() {
         stompClient.subscribe('/sendAdminMessage/memberCount', function (chat) {
             var result = JSON.parse(chat.body);
             startPasActive = result.startPas;
+            if (startPasActive) {
+                $('#openId').text('오픈 중 입니다. 메뉴를 선택해주세요!');
+            }else{
+                $('#openId').text('오픈 전 입니다. 불편을 드려 죄송합니다.');
+            }
         });
     });
 }
