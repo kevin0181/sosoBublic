@@ -88,9 +88,25 @@ body {
     margin-left: 80%;
 }
 
+.mapPositionLeft {
+    padding-left: 100px;
+}
+
+.mapPositionRight {
+    padding-right: 100px;
+}
+
 @media (max-width: 751px) {
     .changeInfoButton {
         margin-left: 70%;
+    }
+
+    .mapPositionLeft {
+        padding-left: 10px;
+    }
+
+    .mapPositionRight {
+        padding-right: 10px;
     }
 }
 
@@ -98,11 +114,27 @@ body {
     .changeInfoButton {
         margin-left: 60%;
     }
+
+    .mapPositionLeft {
+        padding-left: 10px;
+    }
+
+    .mapPositionRight {
+        padding-right: 10px;
+    }
 }
 
 @media (max-width: 350px) {
     .changeInfoButton {
         margin-left: 50%;
+    }
+
+    .mapPositionLeft {
+        padding-left: 10px;
+    }
+
+    .mapPositionRight {
+        padding-right: 10px;
     }
 }
 
