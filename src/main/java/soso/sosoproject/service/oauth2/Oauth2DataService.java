@@ -42,12 +42,11 @@ public class Oauth2DataService {
         memberDTO.setPolicy(oauth2DTO.isPolicy());
 
         //권한 가져옴
-        List<RoleDTO> role_id = roleRepository.findAll();
-        RoleDTO role_id_l = role_id.get(1);
+        RoleDTO roleDTO = roleRepository.findByRoleName("ROLE_USER");
 
         //권한 부여
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setRole_sq(role_id_l.getRole_sq());
+//        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setRole_sq(roleDTO.getRole_sq());
 
         memberDTO.getRole().add(roleDTO);
 

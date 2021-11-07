@@ -52,7 +52,7 @@ public class UserBlogController {
         Set<RoleDTO> roles = memberDTO.getRole();
         List<String> list = new ArrayList<>();
         for (RoleDTO role : roles) {
-            list.add(role.getRole_name());
+            list.add(role.getRoleName());
         }
 
         if (list.get(0).equals("ROLE_ADMIN")) {

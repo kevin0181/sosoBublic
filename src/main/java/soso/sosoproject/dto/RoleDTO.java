@@ -17,8 +17,8 @@ public class RoleDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long role_sq;
 
-    @Column
-    private String role_name;
+    @Column(name = "role_name")
+    private String roleName;
 
 //    @ManyToMany(mappedBy = "role")
 //    private Set<MemberDTO> userModel = new HashSet<>();

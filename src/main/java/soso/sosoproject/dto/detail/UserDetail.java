@@ -45,7 +45,7 @@ public class UserDetail implements UserDetails, OAuth2User {
         Set<RoleDTO> roles = memberDTO.getRole();
         List<GrantedAuthority> list = new ArrayList<>();
         for (RoleDTO role : roles) {
-            list.add(new SimpleGrantedAuthority(role.getRole_name()));
+            list.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         return list;
     }
