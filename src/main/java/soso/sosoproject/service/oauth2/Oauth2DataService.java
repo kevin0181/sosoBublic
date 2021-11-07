@@ -39,6 +39,7 @@ public class Oauth2DataService {
         memberDTO.setMemberAddress(oauth2DTO.getMemberAddress());
         memberDTO.setPassword(passwordEncoder.encode(randomPassword));
         memberDTO.setCertiNumber(randomPassword);
+        memberDTO.setSocialId(oauth2DTO.getSocialId());
         memberDTO.setPolicy(oauth2DTO.isPolicy());
 
         //권한 가져옴

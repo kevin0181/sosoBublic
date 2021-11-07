@@ -12,15 +12,17 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
+import soso.sosoproject.dto.MemberDTO;
+import soso.sosoproject.dto.RoleDTO;
 import soso.sosoproject.dto.detail.CustomOauth2Detail;
+import soso.sosoproject.service.Account.MemberService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -28,6 +30,9 @@ public class Oauth2UserService extends SimpleUrlAuthenticationSuccessHandler imp
 
     @Autowired
     HttpSession httpSession;
+
+    @Autowired
+    private MemberService memberService;
 
 
     @SneakyThrows
@@ -42,7 +47,21 @@ public class Oauth2UserService extends SimpleUrlAuthenticationSuccessHandler imp
         Map<String, Object> response = oAuth2User.getAttributes();
         httpSession.setAttribute("client", client);
         if (client.equals("kakao")) {
-            return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
+
+            MemberDTO memberDTO = memberService.findOauth2User(response);
+            if (memberDTO == null) {
+                return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
+            } else {
+//                String resultRole = "ROLE_USER";
+//                List<RoleDTO> role = new ArrayList<>();
+//                role.addAll(memberDTO.getRole());
+//                if (role.size() == 1) {
+//                    resultRole = role.get(0).getRoleName();
+//                    return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(resultRole)), response, userNameAttributeName);
+//                } else {
+                return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
+//                }
+            }
         } else if (client.equals("naver")) {
             return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), response, userNameAttributeName);
         } else if (client.equals("google")) {
@@ -53,5 +72,6 @@ public class Oauth2UserService extends SimpleUrlAuthenticationSuccessHandler imp
         }
         return null;
     }
+
 
 }

@@ -10,5 +10,6 @@ public class Oauth2DTO {
     private String memberName;
     private String memberAddress;
     private String memberPhonenumber;
+    private String socialId;
     private boolean policy;
 }

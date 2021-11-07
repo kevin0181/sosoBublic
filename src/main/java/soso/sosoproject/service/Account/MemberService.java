@@ -14,6 +14,7 @@ import soso.sosoproject.repository.RoleRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -129,5 +130,10 @@ public class MemberService implements UserDetailsService {
             memberDTOOptional.get().setMemberPhonenumber(memberDTO.getMemberPhonenumber());
 
         accountRepository.save(memberDTOOptional.get());
+    }
+
+    public MemberDTO findOauth2User(Map<String, Object> response) {
+       String id = Integer.toString((Integer) response.get("id"));
+        return accountRepository.findBySocialId(id);
     }
 }

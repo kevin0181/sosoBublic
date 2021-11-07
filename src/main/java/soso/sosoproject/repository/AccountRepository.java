@@ -24,4 +24,6 @@ public interface AccountRepository extends JpaRepository<MemberDTO, Long> {
 
     MemberDTO findAllByMemberName(String name);
 
+    MemberDTO findBySocialId(String id);
+
 }

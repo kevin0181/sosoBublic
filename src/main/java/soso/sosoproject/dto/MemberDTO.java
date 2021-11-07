@@ -47,6 +47,9 @@ public class MemberDTO {
     @Column(nullable = false, name = "policy", updatable = false)
     private boolean policy;
 
+    @Column(name = "social_id")
+    private String socialId;
+
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(

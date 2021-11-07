@@ -46,6 +46,7 @@ public class Oauth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
                 //카카오 신규회원
                 session.setAttribute("email", email + id);
                 session.setAttribute("name", name);
+                session.setAttribute("kakaoId", id);
 
                 response.sendRedirect("/user/account/OAuth2form");
             } else if (memberDTO != null) {
