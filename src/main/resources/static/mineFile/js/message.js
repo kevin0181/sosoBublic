@@ -12,7 +12,6 @@ function connect() {
     });
 }
 
-
 function showOrder(chat) {
     console.log(chat);
     if (chat.orderPlace === "soso") {
@@ -40,36 +39,47 @@ function showOrder(chat) {
                 destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
             }).showToast();
 
+            var JsonMenuData = chat.ordersMenu;
+            var menuSource = "<ul class='list-group list-group-flush'>";
+            for (var i = 0; i < JsonMenuData.length; i++) {
+                menuSource +=
+                    "<li class='list-group-item'>" +
+                    "<div class='d-flex bd-highlight'>" +
+                    "<p class='me-auto' style='margin: 0'>" + JsonMenuData[i].menuOrderName + "</p>" +
+                    "<p style='margin: 0'>메뉴 수량: " + JsonMenuData[i].menuOrderSize + "</p>" +
+                    "</div>" +
+                    "</li>";
+            }
+
+            menuSource += "</ul>";
+
+
+            var htmlSource =
+                "<div class='col' id='" + chat.ordersMerchantUid + "'>" +
+                "<div class='card h-100'>" +
+                "<div class='card-body'>" +
+                "<h5 class='card-title' style='margin-bottom: 20px;' onclick='getMemberProfile(" + chat.memberSq + ")'>" + chat.orderName + "님의 주문입니다</h5>" +
+                "<p class='card-text'>" + chat.orderHelp + "</p>" +
+                "</div>" + menuSource +
+                "<div style='text-align: center; margin: 15px 0;'>" +
+                "<div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>" +
+                "<button type='button' class='btn btn-outline-success'>주문 완료</button>" +
+                "<button type='button' class='btn btn-outline-dark'></button>\n" +
+                "<button type='button' class='btn btn-outline-danger'>주문 취소</button>" +
+                "</div>" +
+                "</div>" +
+                "<div class=\"card-footer\" style=\"padding: 1rem;\">" +
+                "<small class='text-muted' style='color: #eb6547!important'>총 금액 : " + chat.ordersTotalPrice + "</small>" + "<br>" +
+                "<small class='text-muted'>주문 시간 : " + chat.orderDate + "</small>" + "<br>" +
+                "<small class='text-muted'>주문 번호 : " + chat.ordersMerchantUid + "</small>" + "<br>" +
+                "<small class='text-muted'>전화 번호 : " + chat.orderPhoneNumber + "</small>" + "<br>" +
+                "<small class='text-muted'>주소 : " + chat.orderAddress + "</small>" +
+                "</div>" +
+                "</div>" +
+                "</div>"
+
             //html append
-            $('#orderListId').prepend("<div class=\"col\">\n" +
-                "                        <div class=\"card h-100\">\n" +
-                "                            <div class=\"card-body\">\n" +
-                "                                <h5 class=\"card-title\" style=\"margin-bottom: 20px;\">" + chat.orderName + "님의 주문입니다</h5>\n" +
-                "                                <p class=\"card-text\">" + chat.orderHelp + "</p>\n" +
-                "                            </div>\n" +
-                "                            <ul class=\"list-group list-group-flush\">\n" +
-                "                                <li class=\"list-group-item\">\n" +
-                "                                    <div class=\"d-flex bd-highlight\">\n" +
-                "                                        <p class=\"me-auto p-2\" style=\"margin: 0\">시킨 메뉴\n" +
-                "                                            이름</p>\n" +
-                "                                        <p class=\"p-2\" style=\"margin: 0\">메뉴\n" +
-                "                                            수량</p>\n" +
-                "                                    </div>\n" +
-                "                                </li>\n" +
-                "                            </ul>\n" +
-                "                            <div style=\"text-align: center; margin: 15px 0;\">\n" +
-                "                                <div class=\"btn-group btn-group-sm\" role=\"group\"\n" +
-                "                                     aria-label=\"Basic example\">\n" +
-                "                                    <button type=\"button\" class=\"btn btn-outline-success\">주문 완료</button>\n" +
-                "                                    <button type=\"button\" class=\"btn btn-outline-dark\"></button>\n" +
-                "                                    <button type=\"button\" class=\"btn btn-outline-danger\">주문 취소</button>\n" +
-                "                                </div>\n" +
-                "                            </div>\n" +
-                "                            <div class=\"card-footer\">\n" +
-                "                                <small class=\"text-muted\">" + chat.orderDate + "</small>\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                    </div>");
+            $('#orderListId').prepend(htmlSource);
         }
     }
 }
@@ -135,4 +145,20 @@ function disconnectPas() {
         'act': 'false'
     }));
     alert("주문이 종료되었습니다.");
+}
+
+
+//주문 에서 처리 ---------------------------------------------------
+
+
+function getMemberProfile(memberSq) { //멤버 프로필로 넘김
+
+}
+
+function orderSuccess(memberSq, ordersMerchantUid, ordersImpUid) { //주문 완료
+
+}
+
+function orderFail(memberSq, ordersMerchantUid, ordersImpUid) { //주문 취소
+
 }

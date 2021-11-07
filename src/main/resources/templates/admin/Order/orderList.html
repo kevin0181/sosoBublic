@@ -48,10 +48,11 @@
             </div>
             <section class="section">
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="orderListId">
-                    <div class="col" th:each="order : ${orderList}">
+                    <div class="col" th:each="order : ${orderList}" th:id="${order.ordersMerchantUid}">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${order.orderName}+'님의 주문입니다.'"
+                                    th:onclick="getMemberProfile([[${order.memberSq}]])"
                                     style="margin-bottom: 20px;">이름</h5>
                                 <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
                             </div>
@@ -59,9 +60,11 @@
                                 <li class="list-group-item"
                                     th:each="menu, index : ${order.getOrdersMenu()}">
                                     <div class="d-flex bd-highlight">
-                                        <p th:text="${menu.menuOrderName}" class="me-auto p-2" style="margin: 0">시킨 메뉴
+                                        <p th:text="${menu.menuOrderName}" class="me-auto"
+                                           style="margin: 0;">시킨 메뉴
                                             이름</p>
-                                        <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}" class="p-2" style="margin: 0">메뉴
+                                        <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}" class=""
+                                           style="margin: 0;">메뉴
                                             수량</p>
                                     </div>
                                 </li>
@@ -69,13 +72,26 @@
                             <div style="text-align: center; margin: 15px 0;">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
-                                    <button type="button" class="btn btn-outline-success">주문 완료</button>
+                                    <button type="button" class="btn btn-outline-success"
+                                            th:onclick="orderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],[[${order.ordersImpUid}]])">
+                                        주문 완료
+                                    </button>
                                     <button type="button" class="btn btn-outline-dark"></button>
-                                    <button type="button" class="btn btn-outline-danger">주문 취소</button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                            th:onclick="orderFail([[${order.memberSq}]],[[${order.ordersMerchantUid}]],[[${order.ordersImpUid}]])">
+                                        주문 취소
+                                    </button>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted" th:text="${order.orderDate}">시간</small>
+                            <div class="card-footer" style="padding: 1rem;">
+                                <small class="text-muted" style="color: #eb6547!important"
+                                       th:text="'총 금액 : '+${order.ordersTotalPrice}">총 금액</small><br>
+                                <small class="text-muted" th:text="'주문 시간 : '+${order.orderDate}">시간</small><br>
+                                <small class="text-muted"
+                                       th:text="'주문 번호 : '+${order.ordersMerchantUid}">주문번호</small><br>
+                                <small class="text-muted"
+                                       th:text="'전화 번호 : '+${order.orderPhoneNumber}">전화번호</small><br>
+                                <small class="text-muted" th:text="'주소 : '+${order.orderAddress}">주소</small>
                             </div>
                         </div>
                     </div>
