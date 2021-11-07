@@ -11,6 +11,7 @@
                   novalidate="">
                 <h1 class="h3 fw-normal soso_font"><a class="simple_btn index_btn" th:href="@{/user/index}">소소한 부엌</a>
                 </h1>
+                <input type="hidden" th:value="${#session.getAttribute('kakaoId')}" name="socialId">
                 <small>나머지 정보를 입력해주세요.</small>
                 <div class="form-floating">
                     <input
