@@ -40,8 +40,14 @@
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li><a href="index.html" th:href="@{/user/index}">Home</a></li>
-                    <li><a href="menu.html" th:href="@{/user/menu}">Menu & Order</a></li>
-                    <li class="menu-has-children"><a th:href="@{/user/blog}">Blog</a>
+                    <li class="menu-has-children">
+                        <a href="#">Reserve & Order</a>
+                        <ul>
+                            <li><a th:href="@{/user/Reserve/calendar}">soso Reserve</a></li>
+                            <li><a th:href="@{/user/menu}">&pas Order</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a th:href="@{/user/blog}">Blog</a>
                     </li>
                     <!-- <li><a href="elements.html">Elements</a></li> -->
                     </li>
@@ -167,24 +173,17 @@
     <div class="container">
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-6 reservation-left">
-                <h1 class="text-white">주문 페이지</h1>
+                <h1 class="text-white">앤 빠스떼우 주문 페이지</h1>
             </div>
             <div class="col-lg-5 reservation-right">
                 <div class="form-wrap text-center" style="background-color: #f9f9ff;" action="#">
+                    <div style="margin-bottom: 20px;"><small>앤 빠스떼우 예약페이지입니다. <a href="#">소소한부엌 주문하러가기</a></small></div>
                     <input type="text" class="form-control" name="name" placeholder="이름" id="orderName"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
                     <input type="email" class="form-control" name="email" placeholder="주소" id="orderAddress"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '주소'">
                     <input type="text" class="form-control" name="phone" placeholder="번호" id="orderNumber"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
-                    <select id="orderPlace" class="form-control">
-                        <option value="없음">가게를 선택해주세요.</option>
-                        <option value="soso">소소한 부엌</option>
-                        <option value="pas">앤 빠스떼우</option>
-                    </select>
-                    <input type="datetime-local" class="form-control" placeholder="날짜" id="orderDate"
-                           style="display: none;"
-                           onfocus="this.placeholder = ''" onblur="this.placeholder = '날짜'">
                     <div class="" style="margin-bottom: 20px;">
                         <textarea class="single-textarea form-control" style="border: 1px solid #eeeeee;" id="orderHelp"
                                   placeholder="하고싶은 말을 적어주세요."></textarea>
@@ -309,9 +308,11 @@
                     <div class="single-footer-widget">
                         <h4>SNS</h4>
                         <ul class="col-lg-4 col-mdcol-sm-6 -6 social-icons">
-                            <li style="display: inline-block; margin-left: 3px;"><a href="#" class="custom-fa"><i
+                            <li style="display: inline-block; margin-left: 3px;" class="custom-mine"><a href="#"
+                                                                                                        class="custom-fa"><i
                                     class="fa fa-facebook"></i></a></li>
-                            <li style="display: inline-block; margin-left: 3px;"><a href="#" class="custom-fa"><i
+                            <li style="display: inline-block; margin-left: 3px;" class="custom-mine"><a href="#"
+                                                                                                        class="custom-fa"><i
                                     class="fa fa-instagram"></i></a></li>
                         </ul>
                     </div>

@@ -372,9 +372,9 @@
 .lnr-chevron-up:before {
 	content: "\e873";
 }
-/*.lnr-chevron-down:before {*/
-/*	content: "\e874";*/
-/*}*/
+.lnr-chevron-down:before {
+	content: "\e874";
+}
 .lnr-chevron-left:before {
 	content: "\e875";
 }

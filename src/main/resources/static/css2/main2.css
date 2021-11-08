@@ -139,6 +139,11 @@ body {
 }
 
 
+@media (max-width: 1190px) {
+    .custom-mine {
+        margin-bottom: 5px !important;
+    }
+}
 
 
 
