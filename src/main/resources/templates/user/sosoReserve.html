@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>soso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="/user/user_fragment/link.html :: link"></div>
+    <!--
+    CSS
+    ============================================= -->
+    <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
+    <link rel="stylesheet" th:href="@{/assets/css/mine/mine.css}">
+</head>
+<body>
+<header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
+</header><!-- #header -->
+<!-- start banner Area -->
+<section class="about-banner relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    소소한 부엌 예약 페이지
+                </h1>
+                <p class="text-white link-nav"><a th:href="@{/user/index}">Home </a> <span
+                        class="lnr lnr-arrow-right"></span>
+                    <a th:href="@{/user/Reserve/calendar}"> soso Reserve Page</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+<!-- Start order Area -->
+<section class="reservation-area section-gap relative">
+    <div class="overlay"></div>
+    <div class="container">
+    </div>
+</section>
+<!-- End reservation Area -->
+<!-- start footer Area -->
+<footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">
+</footer>
+
+<div th:replace="/user/user_fragment/script_src.html :: script"></div>
+</body>
+</html>

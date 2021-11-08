@@ -198,6 +198,12 @@ public class UserPageController {
     }
 
 
+    @GetMapping("/user/Reserve/calendar")
+    public String goReservePage() {
+        return "/user/sosoReserve";
+    }
+
+
     //그냥 만들어둠 나중에 쓸꺼같아서
     @GetMapping("/user/elements")
     public String elements() {

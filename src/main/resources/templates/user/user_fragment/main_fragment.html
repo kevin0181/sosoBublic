@@ -177,7 +177,8 @@
             </div>
             <div class="col-lg-5 reservation-right">
                 <div class="form-wrap text-center" style="background-color: #f9f9ff;" action="#">
-                    <div style="margin-bottom: 20px;"><small>앤 빠스떼우 예약페이지입니다. <a href="#">소소한부엌 주문하러가기</a></small></div>
+                    <div style="margin-bottom: 20px;"><small>앤 빠스떼우 예약페이지입니다. <a th:href="@{/user/Reserve/calendar}">소소한부엌
+                        주문하러가기</a></small></div>
                     <input type="text" class="form-control" name="name" placeholder="이름" id="orderName"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
                     <input type="email" class="form-control" name="email" placeholder="주소" id="orderAddress"
