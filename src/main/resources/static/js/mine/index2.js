@@ -117,9 +117,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
 
     var ammountResult = 0;
     var nowDate = new Date();
-    var dateStr;
-    dateStr = nowDate.getFullYear() + "-" + nowDate.getMonth() + "-" + nowDate.getDate() + " "
-        + nowDate.getHours() + ":" + nowDate.getMinutes() + ":" + nowDate.getSeconds();
+    var dateStr = timestamp();
 
     var formdata = new FormData();
     formdata.append("memberSq", memberSq);
@@ -288,3 +286,10 @@ function logoutActive(memberEMail, memberSq) { //로그아웃
     stompClient.disconnect();
     document.logoutForm.submit();
 }
+
+function timestamp() {
+    var today = new Date();
+    today.setHours(today.getHours() + 9);
+    return today.toISOString().replace('T', ' ').substring(0, 19);
+}
+

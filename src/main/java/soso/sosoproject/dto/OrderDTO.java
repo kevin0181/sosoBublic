@@ -53,7 +53,6 @@ public class OrderDTO {
     @Column(name = "orders_name")
     private String orderName;
 
-    @NotNull
     @Column(name = "orders_totalprice")
     private String ordersTotalPrice;
 

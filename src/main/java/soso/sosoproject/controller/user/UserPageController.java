@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.*;
 import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.Account.MemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
+import soso.sosoproject.service.order.OrderService;
 import soso.sosoproject.service.user.UserBlogService;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +32,8 @@ public class UserPageController {
     private UserBlogService userBlogService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal, HttpSession session) {
@@ -199,8 +203,17 @@ public class UserPageController {
 
 
     @GetMapping("/user/Reserve/calendar")
-    public String goReservePage() {
+    public String goReservePage() {  //soso 주문으로
         return "/user/sosoReserve";
+    }
+
+    @ResponseBody
+    @GetMapping("/user/Reserve/calendar/getList")
+    public List<OrderDTO> sendDateReserveList(@RequestParam(value = "date") String date) {  //soso 주문으로
+
+        List<OrderDTO> orderDTOList = orderService.findAllsosoReserveListbyDate(date);
+
+        return orderDTOList;
     }
 
 

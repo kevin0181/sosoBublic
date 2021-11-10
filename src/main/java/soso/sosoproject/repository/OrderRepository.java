@@ -12,9 +12,12 @@ public interface OrderRepository extends JpaRepository<OrderDTO, Long> {
 
     List<OrderDTO> findAllByOrderPlace(String place);
 
-    List<OrderDTO> findAllByOrderPlaceAndOrderEnableOrderByOrderDateAsc(String place, boolean enable);
-//    List<OrderDTO> findAllByOrderPlaceAndOrderEnableOrderByOrderDateDesc(String place, boolean enable);
+    //    List<OrderDTO> findAllByOrderPlaceAndOrderEnableOrderByOrderDateAsc(String place, boolean enable);
+    List<OrderDTO> findAllByOrderPlaceAndOrderEnableOrderByOrderDateDesc(String place, boolean enable);
 
 
     OrderDTO findAllByOrdersMerchantUid(String id);
+
+    List<OrderDTO> findAllByOrderDateContainingAndOrderPlace(String date, String place);
+
 }

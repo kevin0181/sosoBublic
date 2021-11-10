@@ -96,6 +96,10 @@ body {
     padding-right: 100px;
 }
 
+.greenColor{
+    color: #95f42c!important;
+}
+
 @media (max-width: 751px) {
     .changeInfoButton {
         margin-left: 70%;

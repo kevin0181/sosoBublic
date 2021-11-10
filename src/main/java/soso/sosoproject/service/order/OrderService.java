@@ -37,7 +37,7 @@ public class OrderService {
     }
 
     public List<OrderDTO> findAllPlaceAndEnableOrder(String place) {
-        return orderRepository.findAllByOrderPlaceAndOrderEnableOrderByOrderDateAsc(place, false);
+        return orderRepository.findAllByOrderPlaceAndOrderEnableOrderByOrderDateDesc(place, false);
     }
 
     public String saveFirstOrder(OrderDTO orderDTO, int totalPay) {
@@ -65,5 +65,9 @@ public class OrderService {
 
     public OrderDTO findUid(String ordersMerchantUid) {
         return orderRepository.findAllByOrdersMerchantUid(ordersMerchantUid);
+    }
+
+    public List<OrderDTO> findAllsosoReserveListbyDate(String date) {
+        return orderRepository.findAllByOrderDateContainingAndOrderPlace(date, "soso");
     }
 }
