@@ -7,12 +7,14 @@ import com.siot.IamportRestClient.response.Payment;
 import com.siot.IamportRestClient.response.Prepare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.order.OrderService;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,10 +59,17 @@ public class UserOrderController {
 
     @PostMapping("/user/orderMenu/pay/ammount")
     @ResponseBody
-    public Map<String, Object> MenuAmmount(OrderDTO orderDTO) {
+    public Map<String, Object> MenuAmmount(@Valid OrderDTO orderDTO, Errors errors) {
+        Map<String, Object> data = new HashMap<>();
+
+        if (errors.hasErrors()) { //에러 발생!
+            data.put("error", true);
+            return data;
+        }
+
         int result = menuService.getOrderMenuAmmount(orderDTO.getOrdersMenu());
         String uid = orderService.saveFirstOrder(orderDTO, result); //주문번호 콜백
-        Map<String, Object> data = new HashMap<>();
+
         data.put("totalPrice", result);
         data.put("uid", uid);
         return data;
