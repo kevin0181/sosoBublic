@@ -4,6 +4,7 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import com.siot.IamportRestClient.response.Prepare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class UserOrderController {
             IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
             OrderDTO checkOrderDTO = orderService.findUid(orderDTO.getOrdersMerchantUid());
-            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
+            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkOrderDTO.getOrdersTotalPrice().equals(orderDTO.getOrdersTotalPrice())) { //검증 통과
                 checkOrderDTO.setOrdersImpUid(orderDTO.getOrdersImpUid());
                 orderService.saveOrder(checkOrderDTO);
                 return true;

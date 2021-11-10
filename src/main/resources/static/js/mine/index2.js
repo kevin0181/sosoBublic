@@ -116,6 +116,10 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
     connect();
 
     var ammountResult = 0;
+    var nowDate = new Date();
+    var dateStr;
+    dateStr = nowDate.getFullYear() + "-" + nowDate.getMonth() + "-" + nowDate.getDate() + " "
+        + nowDate.getHours() + ":" + nowDate.getMinutes() + ":" + nowDate.getSeconds();
 
     var formdata = new FormData();
     formdata.append("memberSq", memberSq);
@@ -124,9 +128,9 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
     formdata.append("orderPhoneNumber", $('#orderNumber').val());
     formdata.append("orderHelp", $('#orderHelp').val());
     formdata.append("orderEnable", false);
-    formdata.append("orderPlace", $('#orderPlace').val());
+    formdata.append("orderPlace", 'pas'); //장소 중요 선택 없을 시 주문 불가.
     formdata.append("member_sq", memberSq);
-    formdata.append("orderDate", $('#orderDate').val());
+    formdata.append("orderDate", dateStr);
 
 
     orderDTO.ordersMenu = new Object();
@@ -155,7 +159,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                 pay_method: 'card',
                 // merchant_uid: 'merchant_' + new Date().getTime(),
                 merchant_uid: data.uid,
-                name: $('#orderPlace').val(), //결제창에서 보여질 이름
+                name: '앤 빠스떼우', //결제창에서 보여질 이름
                 amount: data.totalPrice, //실제 결제되는 가격
                 buyer_email: memberEmail,
                 buyer_name: $('#orderName').val(),
