@@ -17,7 +17,23 @@ var nowDate = new Date();
         url: "/user/Reserve/calendar/getList",
         type: "GET",
         success: function (data) {
-            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].orderDate == (selectD + " " + "11:00~13:00")) {
+                    $('#timeFirst').attr("disabled", true);
+                    $('#timeFirst').removeClass('activeGreenColor');
+                    $('#timeFirst').text("11:00~13:00 예약중 입니다.");
+                }
+                if (data[i].orderDate == (selectD + " " + "13:00~15:00")) {
+                    $('#timeMiddle').attr("disabled", true);
+                    $('#timeMiddle').removeClass('activeGreenColor');
+                    $('#timeMiddle').text("13:00~15:00 예약중 입니다.");
+                }
+                if (data[i].orderDate == (selectD + " " + "15:00~17:00")) {
+                    $('#timeLast').attr("disabled", true);
+                    $('#timeLast').removeClass('activeGreenColor');
+                    $('#timeLast').text("15:00~17:00 예약중 입니다.");
+                }
+            }
         }
     });
 
@@ -124,6 +140,16 @@ function calendarMaker(target, date) {
 
 function selectDate(date) {
 
+    $('#timeFirst').attr("disabled", false);
+    $('#timeFirst').addClass('activeGreenColor');
+    $('#timeFirst').text("11:00~13:00");
+    $('#timeMiddle').attr("disabled", false);
+    $('#timeMiddle').addClass('activeGreenColor');
+    $('#timeMiddle').text("13:00~15:00");
+    $('#timeLast').attr("disabled", false);
+    $('#timeLast').addClass('activeGreenColor');
+    $('#timeLast').text("15:00~17:00");
+
     var tagId = $(date).attr('id');
 
     if (tagId == "todayColor") {
@@ -145,8 +171,38 @@ function selectDate(date) {
         url: "/user/Reserve/calendar/getList",
         type: "GET",
         success: function (data) {
+
             console.log(data);
+
+            if (data.length != 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].orderDate == (selectD + " " + "11:00~13:00")) {
+                        $('#timeFirst').attr("disabled", true);
+                        $('#timeFirst').removeClass('activeGreenColor');
+                        $('#timeFirst').text("11:00~13:00 예약중 입니다.");
+                    }
+                    if (data[i].orderDate == (selectD + " " + "13:00~15:00")) {
+                        $('#timeMiddle').attr("disabled", true);
+                        $('#timeMiddle').removeClass('activeGreenColor');
+                        $('#timeMiddle').text("13:00~15:00 예약중 입니다.");
+                    }
+                    if (data[i].orderDate == (selectD + " " + "15:00~17:00")) {
+                        $('#timeLast').attr("disabled", true);
+                        $('#timeLast').removeClass('activeGreenColor');
+                        $('#timeLast').text("15:00~17:00 예약중 입니다.");
+                    }
+                }
+            }
         }
     });
+}
 
+function orderSosoToReserve(memberSq, Data) {
+    if (memberSq == null) {
+        alert("로그인을 해주세요.");
+        location.href = "/user/account/login";
+        return false;
+    }
+    console.log($(Data).val());
+    console.log(memberSq);
 }
