@@ -33,3 +33,14 @@
     background-color: #cbdeff;
     color: #fff;
 }
+
+.activeGreenColor:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #388f1f;
+    border-color: #388f1f;
+}
+
+.disabledRedColor{
+    color: red;
+}

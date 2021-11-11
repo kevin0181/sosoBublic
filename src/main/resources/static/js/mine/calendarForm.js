@@ -1,10 +1,31 @@
-(function () {
-    calendarMaker($("#calendarForm"), new Date());
-})();
-
 var nowDate = new Date();
 
+
+(function () {
+    calendarMaker($("#calendarForm"), new Date());
+    var startDate = new Date();
+
+    var sYear = startDate.getFullYear();
+    var sMonth = (startDate.getMonth() + 1);
+    var sDate = startDate.getDate();
+    var selectD = sYear + "-" + sMonth + "-" + sDate;
+
+    $.ajax({
+        data: {
+            'date': selectD
+        },
+        url: "/user/Reserve/calendar/getList",
+        type: "GET",
+        success: function (data) {
+            console.log(data);
+        }
+    });
+
+})();
+
+
 function calendarMaker(target, date) {
+    var todayMonth = new Date();
     if (date == null || date == undefined) {
         date = new Date();
     }
@@ -14,6 +35,9 @@ function calendarMaker(target, date) {
         var month = nowDate.getMonth() + 1;
         var getD = nowDate.getDate();
         $(target).empty().append(assembly(year, month));
+        if ((todayMonth.getMonth() + 1) == month) {
+            $('.prev').attr('disabled', true);
+        }
     } else {
         console.error("custom_calendar Target is empty!!!");
         return;
@@ -37,13 +61,12 @@ function calendarMaker(target, date) {
             tag += "<tr style='height: 40px'>";
         }
 
-        // if(i == getD){
-        //
-        // }else{
-        //
-        // }
+        if (i == getD && year == todayMonth.getFullYear() && month == (todayMonth.getMonth() + 1)) {
+            tag += "<td onclick='selectDate(this)' style='background-color: #cbdeff;' id='todayColor'>" + i + "</td>";
+        } else {
+            tag += "<td onclick='selectDate(this)'>" + i + "</td>";
+        }
 
-        tag += "<td onclick='selectDate(this)'>" + i + "</td>";
         cnt++;
         if (cnt % 7 == 0) {
             tag += "</tr style='height: 40px'>";
@@ -100,6 +123,15 @@ function calendarMaker(target, date) {
 }
 
 function selectDate(date) {
+
+    var tagId = $(date).attr('id');
+
+    if (tagId == "todayColor") {
+        $('#todayColor').css("background-color", "#cbdeff");
+    } else {
+        $('#todayColor').css("background-color", "#ffffff");
+    }
+
 
     var sYear = $('#yearId').text();
     var sMonth = $('#monthId').text();
