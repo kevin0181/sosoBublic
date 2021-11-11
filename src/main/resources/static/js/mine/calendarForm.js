@@ -10,32 +10,9 @@ var nowDate = new Date();
     var sDate = startDate.getDate();
     var selectD = sYear + "-" + sMonth + "-" + sDate;
 
-    $.ajax({
-        data: {
-            'date': selectD
-        },
-        url: "/user/Reserve/calendar/getList",
-        type: "GET",
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].orderDate == (selectD + " " + "11:00~13:00")) {
-                    $('#timeFirst').attr("disabled", true);
-                    $('#timeFirst').removeClass('activeGreenColor');
-                    $('#timeFirst').text("11:00~13:00 예약중 입니다.");
-                }
-                if (data[i].orderDate == (selectD + " " + "13:00~15:00")) {
-                    $('#timeMiddle').attr("disabled", true);
-                    $('#timeMiddle').removeClass('activeGreenColor');
-                    $('#timeMiddle').text("13:00~15:00 예약중 입니다.");
-                }
-                if (data[i].orderDate == (selectD + " " + "15:00~17:00")) {
-                    $('#timeLast').attr("disabled", true);
-                    $('#timeLast').removeClass('activeGreenColor');
-                    $('#timeLast').text("15:00~17:00 예약중 입니다.");
-                }
-            }
-        }
-    });
+    $('#sosoOrderDateHidden').val(selectD);
+    $('#sosoOrderDate').val(selectD);
+
 
 })();
 
@@ -78,7 +55,7 @@ function calendarMaker(target, date) {
         }
 
         if (i == getD && year == todayMonth.getFullYear() && month == (todayMonth.getMonth() + 1)) {
-            tag += "<td onclick='selectDate(this)' style='background-color: #cbdeff;' id='todayColor'>" + i + "</td>";
+            tag += "<td onclick='selectDate(this)' style='border: 2px solid #d1ddd7;' id='todayColor'>" + i + "</td>";
         } else {
             tag += "<td onclick='selectDate(this)'>" + i + "</td>";
         }
@@ -105,7 +82,7 @@ function calendarMaker(target, date) {
             "</colgroup>" +
             "<thead class='cal_date'>" +
             "<th><button type='button' class='prev'><</button></th>" +
-            "<th colspan='5' style='text-align: center;'><p><span id='yearId'>" + year + "</span>년 <span id='monthId'>" + month + "</span>월</p></th>" +
+            "<th colspan='5' style='text-align: center;'><p style='color:#abcbbb;'><span id='yearId'>" + year + "</span>년 <span id='monthId'>" + month + "</span>월</p></th>" +
             "<th><button type='button' class='next'>></button></th>" +
             "</thead>" +
             "<thead  class='cal_week' style='text-align: center; height: 30px;'>" +
@@ -140,22 +117,12 @@ function calendarMaker(target, date) {
 
 function selectDate(date) {
 
-    $('#timeFirst').attr("disabled", false);
-    $('#timeFirst').addClass('activeGreenColor');
-    $('#timeFirst').text("11:00~13:00");
-    $('#timeMiddle').attr("disabled", false);
-    $('#timeMiddle').addClass('activeGreenColor');
-    $('#timeMiddle').text("13:00~15:00");
-    $('#timeLast').attr("disabled", false);
-    $('#timeLast').addClass('activeGreenColor');
-    $('#timeLast').text("15:00~17:00");
-
     var tagId = $(date).attr('id');
 
     if (tagId == "todayColor") {
-        $('#todayColor').css("background-color", "#cbdeff");
+        $('#todayColor').css("border", "2px solid #d1ddd7");
     } else {
-        $('#todayColor').css("background-color", "#ffffff");
+        $('#todayColor').css("border", "none");
     }
 
 
@@ -164,45 +131,7 @@ function selectDate(date) {
     var sDate = $(date).text();
     var selectD = sYear + "-" + sMonth + "-" + sDate;
 
-    $.ajax({
-        data: {
-            'date': selectD
-        },
-        url: "/user/Reserve/calendar/getList",
-        type: "GET",
-        success: function (data) {
+    $('#sosoOrderDateHidden').val(selectD);
+    $('#sosoOrderDate').val(selectD);
 
-            console.log(data);
-
-            if (data.length != 0) {
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].orderDate == (selectD + " " + "11:00~13:00")) {
-                        $('#timeFirst').attr("disabled", true);
-                        $('#timeFirst').removeClass('activeGreenColor');
-                        $('#timeFirst').text("11:00~13:00 예약중 입니다.");
-                    }
-                    if (data[i].orderDate == (selectD + " " + "13:00~15:00")) {
-                        $('#timeMiddle').attr("disabled", true);
-                        $('#timeMiddle').removeClass('activeGreenColor');
-                        $('#timeMiddle').text("13:00~15:00 예약중 입니다.");
-                    }
-                    if (data[i].orderDate == (selectD + " " + "15:00~17:00")) {
-                        $('#timeLast').attr("disabled", true);
-                        $('#timeLast').removeClass('activeGreenColor');
-                        $('#timeLast').text("15:00~17:00 예약중 입니다.");
-                    }
-                }
-            }
-        }
-    });
-}
-
-function orderSosoToReserve(memberSq, Data) {
-    if (memberSq == null) {
-        alert("로그인을 해주세요.");
-        location.href = "/user/account/login";
-        return false;
-    }
-    console.log($(Data).val());
-    console.log(memberSq);
 }

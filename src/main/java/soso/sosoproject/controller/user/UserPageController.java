@@ -207,14 +207,6 @@ public class UserPageController {
         return "/user/sosoReserve";
     }
 
-    @ResponseBody
-    @GetMapping("/user/Reserve/calendar/getList")
-    public List<OrderDTO> sendDateReserveList(@RequestParam(value = "date") String date) {  //soso 주문으로
-
-        List<OrderDTO> orderDTOList = orderService.findAllsosoReserveListbyDate(date);
-
-        return orderDTOList;
-    }
 
 
     //그냥 만들어둠 나중에 쓸꺼같아서
