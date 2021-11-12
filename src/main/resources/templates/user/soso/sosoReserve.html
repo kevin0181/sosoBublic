@@ -8,7 +8,11 @@
     CSS
     ============================================= -->
     <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
-    <link rel="stylesheet" th:href="@{/assets/css/mine/mine.css}">
+    <link rel="stylesheet" th:href="@{/static/assets/css/mine/mine.css}">
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
@@ -36,33 +40,44 @@
         <div class="col-md-6 ">
             <div class="container">
                 <div id="calendarForm"></div>
+                <div style="margin-top: 15%;">
+                    <p style="margin-bottom: 0">소소한 부엌 예약</p>
+                    <small>예약 비용: 20000원</small><br>
+                    <small>예약 시 주의사항 : --</small><br>
+                    <p style="margin-bottom: 0;margin-top: 20px;">이용 약관</p>
+                    <small>--</small><br>
+                    <p style="margin-bottom: 0;margin-top: 20px;">예약 환불 규정</p>
+                    <small>3일전 : --원</small><br>
+                    <small>2일전 : --원</small><br>
+                    <small>1일전 : --원</small><br>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="container">
                 <div class="time-se">
                     <div class="form-group formMine" style="border-radius: 20px;">
-                        <form style="text-align: center;">
+                        <form style="text-align: center;" id="sosoOrderForm" method="post"
+                              th:action="@{/user/Reserve/calendar/order}">
                             <h3 style="text-align: center;color: #abcbbb;">soso 예약 주문</h3>
+                            <input type="hidden" th:value="${session.memberSq}" name="memberSq">
                             <div class="mt-10">
-                                <input type="text" name="userName" placeholder="Name" onfocus="this.placeholder = ''"
+                                <input type="text" name="orderName" placeholder="Name" onfocus="this.placeholder = ''"
                                        id="sosoOrderName"
                                        onblur="this.placeholder = 'Name'" required="" class="single-input">
                             </div>
                             <div class="mt-10">
-                                <input type="text" name="Email" placeholder="Email" onfocus="this.placeholder = ''"
-                                       id="sosoOrderEmail"
-                                       onblur="this.placeholder = 'Email'" required="" class="single-input">
-                            </div>
-                            <div class="mt-10">
-                                <input type="text" name="Number" placeholder="Phone Number"
+                                <input type="text" name="orderPhoneNumber" placeholder="Phone Number"
                                        onfocus="this.placeholder = ''"
                                        id="sosoOrderPhoneNumber"
+                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                        onblur="this.placeholder = 'Phone Number'" required="" class="single-input">
                             </div>
                             <div class="input-group-icon mt-10">
                                 <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-                                <input type="text" name="address" placeholder="Address" onfocus="this.placeholder = ''"
+                                <input type="text" name="orderAddress" placeholder="Address"
+                                       onfocus="this.placeholder = ''"
+                                       id="sosoOrderAddress"
                                        onblur="this.placeholder = 'Address'" required="" class="single-input">
                             </div>
                             <div class="mt-10">
@@ -80,14 +95,29 @@
                                        class="single-input">
                             </div>
                             <div class="mt-10">
-                                <textarea class="single-textarea form-control"
+                                <textarea class="single-textarea form-control" name="orderHelp"
                                           id="orderHelp" placeholder="하고싶은 말을 적어주세요."></textarea>
                             </div>
-                            <div class="mt-10">
-                                <input type="checkbox" class="mr-3"><span>주문 정보 활용 동의</span>
+                            <div class="input-group-icon mt-10">
+                                <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+                                <div class="form-select" id="default-select">
+                                    <select id="selectPayVale">
+                                        <option value="none">지불 방식</option>
+                                        <option value="kakao">카카오페이</option>
+                                        <option value="papal">페이팔</option>
+                                        <option value="payko">페이코</option>
+                                    </select>
+                                </div>
                             </div>
-                            <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;">주문
-                            </button>
+                            <div class="mt-10">
+                                <input type="checkbox" id="sosoOrderCheckbox" name="ordersPolicy"
+                                       class="mr-3"><span> <a th:href="@{/user/soso/Reserve/policy}" target="_blank">주문 정보 활용 동의</a></span>
+                            </div>
+                            <a class="primary-btn text-uppercase mt-20"
+                               th:onclick="sosoOrder([[${session.memberSq}]],[[${session.memberEMail}]])"
+                               style="background-color: #3ea99d; color: white">
+                                주문
+                            </a>
                         </form>
                     </div>
                 </div>

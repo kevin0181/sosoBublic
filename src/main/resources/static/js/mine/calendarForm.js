@@ -13,7 +13,6 @@ var nowDate = new Date();
     $('#sosoOrderDateHidden').val(selectD);
     $('#sosoOrderDate').val(selectD);
 
-
 })();
 
 
@@ -135,3 +134,102 @@ function selectDate(date) {
     $('#sosoOrderDate').val(selectD);
 
 }
+
+
+var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; //이메일 정규식
+var phoneExp = /^(\d{10,11}|\d{3}-\d{3,4}-\d{4})$/i;
+
+function sosoOrder(memberSq, memberEMail) {
+
+    if (memberSq == null) {
+        alert("로그인을 해주세요.");
+        location.href = "/user/account/login";
+        return false;
+    } else if ($('#sosoOrderName').val() == "") {
+        alert("예약자 성함을 채워주세요.");
+        $('#sosoOrderName').focus();
+        return false;
+    } else if ($('#sosoOrderPhoneNumber').val() == "") {
+        alert("전화번호를 입력해주세요.");
+        $('#sosoOrderPhoneNumber').focus();
+        return false;
+    } else if ($('#sosoOrderAddress').val() == "") {
+        alert("주소를 채워주세요.");
+        $('#sosoOrderAddress').focus();
+        return false;
+    } else if ($('#sosoOrderDate').val() == "") {
+        alert("시간을 선택해주세요. (에러)");
+        location.href = "/user/Reserve/calendar";
+        return false;
+    } else if ($('#sosoOrderTime').val() == "") {
+        alert("시간을 입력해주세요.");
+        $('#sosoOrderTime').focus();
+        return false;
+    } else if ($('#sosoOrderCheckbox').is(":checked") != true) {
+        alert("주문 정보 활용 동의를 체크해주세요.");
+        return false;
+    } else {
+        if (phoneExp.test($('#sosoOrderPhoneNumber').val()) != true) {
+            alert("전화번호 형식에 맞지 않습니다. (-)를 빼주세요.");
+            return false;
+        } else if ($('#selectPayVale').val() == "none") {
+            alert("지불 방식을 선택해주세요.");
+            return false;
+        } else {
+
+            var totalPrice = 1;//결제금액 백에서 결제금액 체크 필수!
+
+            var form = $("#sosoOrderForm")[0];
+            var formData = new FormData(form);
+            formData.append("orderDate", $('#sosoOrderDateHidden').val() + " " + $('#sosoOrderTime').val());
+            formData.append("orderPlace", "soso");
+            formData.append("ordersTotalPrice", totalPrice);
+
+            $.ajax({
+                url: "/user/Reserve/calendar/order",
+                type: "post",
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (data) {
+                    console.log(data.error);
+                    if (data.error == "error7001") {
+                        alert("주문하는 장소 오류가 발생하였습니다.");
+                        location.href = "/user/Reserve/calendar";
+                        return false;
+                    }
+                    console.log("통과");
+                    IMP.init('imp76725859');
+                    IMP.request_pay({ // param
+                        pg: $('#selectPayVale').val(),
+                        pay_method: "card",
+                        merchant_uid: data.uid,
+                        name: "소소한 부엌",
+                        amount: totalPrice,
+                        buyer_email: memberEMail,
+                        buyer_name: $('#sosoOrderName').val(),
+                        buyer_tel: $('#sosoOrderPhoneNumber').val(),
+                        buyer_addr: $('#sosoOrderAddress').val(),
+                    }, function (rsp) { // callback
+                        if (rsp.success) {
+
+                        } else {
+
+                        }
+                    });
+                }
+            });
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+

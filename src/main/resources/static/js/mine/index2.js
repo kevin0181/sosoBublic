@@ -69,8 +69,8 @@ function orderAlert(memberSq) {
         alert("전화번호를 입력해주세요.");
         return false;
     }
-    if ($('#orderPlace').val() == '없음') {
-        alert("가게를 골라주세요.");
+    if ($('#pasOrderCheckbox').is(":checked") != true) {
+        alert("주문 정보 활용 동의를 체크해주세요.");
         return false;
     }
     if (menuIdArray.length == 0) {
@@ -129,7 +129,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
     formdata.append("orderPlace", 'pas'); //장소 중요 선택 없을 시 주문 불가.
     formdata.append("member_sq", memberSq);
     formdata.append("orderDate", dateStr);
-
+    formdata.append("ordersPolicy", $('#pasOrderCheckbox').is(":checked"));
 
     orderDTO.ordersMenu = new Object();
     for (var i = 0; i < menuIdArray.length; i++) {

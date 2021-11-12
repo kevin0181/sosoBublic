@@ -204,9 +204,14 @@ public class UserPageController {
 
     @GetMapping("/user/Reserve/calendar")
     public String goReservePage() {  //soso 주문으로
-        return "/user/sosoReserve";
+        return "/user/soso/sosoReserve";
     }
 
+
+    @GetMapping("/user/soso/Reserve/policy")
+    public String goReservePolicy() {  //soso 주문으로
+        return "/user/soso/sosoPolicy";
+    }
 
 
     //그냥 만들어둠 나중에 쓸꺼같아서
@@ -214,6 +219,7 @@ public class UserPageController {
     public String elements() {
         return "/user/elements";
     }
+
 
     //함수--------------------------------------------------------------------------
 

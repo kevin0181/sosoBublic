@@ -20,11 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class UserOrderController {
+public class UserPasOrderController {
 
     private IamportClient imIamportClient;
 
-    public UserOrderController() {
+    public UserPasOrderController() {
         // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
         this.imIamportClient =
                 new IamportClient("1152819197412694",

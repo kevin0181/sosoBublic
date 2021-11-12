@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </section>
 <!-- End banner Area -->
 
@@ -191,6 +191,11 @@
                     </div>
                     <div class="form-menu" id="menuForm" style="">
                         <small id="smallOrderText">위 메뉴를 클릭하여 메뉴를 추가해주세요.</small>
+                    </div>
+                    <div class="mt-10">
+                        <input type="checkbox" id="pasOrderCheckbox" name="ordersPolicy"
+                               class="mr-3"><span> <a th:href="@{/user/soso/Reserve/policy}"
+                                                      target="_blank">주문 정보 활용 동의</a></span>
                     </div>
                     <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;"
                             th:onclick="orderAlert([[${session.memberSq}]])">주문

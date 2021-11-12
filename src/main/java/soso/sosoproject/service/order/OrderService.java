@@ -70,4 +70,29 @@ public class OrderService {
     public List<OrderDTO> findAllsosoReserveListbyDate(String date) {
         return orderRepository.findAllByOrderDateContainingAndOrderPlace(date, "soso");
     }
+
+    public String saveSosoOrder(OrderDTO orderDTO) {
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer(); //랜덤 난수 설정
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        sb.append(dtf.format(LocalDateTime.now()));
+        int num = 0;
+        do {
+            num = random.nextInt(75) + 48;
+            if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
+                sb.append((char) num);
+            } else {
+                continue;
+            }
+
+        } while (sb.length() < 19);
+        sb.append("S");
+        String uid = sb.toString();
+        orderDTO.setOrdersMerchantUid(uid);
+
+        orderRepository.save(orderDTO);
+
+        return uid;
+    }
 }

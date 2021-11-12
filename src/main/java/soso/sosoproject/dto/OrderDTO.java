@@ -65,6 +65,9 @@ public class OrderDTO {
     @Column(name = "orders_merchant_uid")
     private String ordersMerchantUid;
 
+    @Column(name = "orders_policy")
+    private boolean ordersPolicy;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "orders_id")
     private List<OrdersDetailDTO> ordersMenu;
