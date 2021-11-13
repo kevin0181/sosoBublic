@@ -180,6 +180,26 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                         msg += '에러내용 : ' + rsp.error_msg;
                         alert(msg);
                         //DB에서도 처리해야함.
+
+                        $.ajax({
+                            url: "/user/order/menu/cancle",
+                            type: "GET",
+                            dataType: "json",
+                            data: {
+                                'uid': rsp.merchant_uid
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                if (data) {
+                                    console.log("메뉴 취소 완료");
+                                } else {
+                                    alert("메뉴 주문 취소에 실패하였습니다. (관리자에게 문의바랍니다)");
+                                }
+                            }
+                        });
+
+                        location.href = "/user/index";
+
                     }
                 });
             }

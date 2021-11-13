@@ -2,6 +2,7 @@ package soso.sosoproject.service.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.repository.OrderDetailRepository;
 import soso.sosoproject.repository.OrderRepository;
@@ -75,5 +76,10 @@ public class OrderService {
 
         orderRepository.save(orderDTO);
 
+    }
+
+    @Transactional
+    public void cancleMenuService(String uid) {
+        orderRepository.deleteByOrdersMerchantUid(uid);
     }
 }

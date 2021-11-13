@@ -8,7 +8,9 @@ import com.siot.IamportRestClient.response.Prepare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.OrderDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
@@ -73,6 +75,18 @@ public class UserPasOrderController {
         data.put("totalPrice", result);
         data.put("uid", uid);
         return data;
+    }
+
+
+    @GetMapping("/user/order/menu/cancle")
+    @ResponseBody
+    public boolean cancleMenu(@RequestParam(name = "uid") String uid) {
+        try {
+            orderService.cancleMenuService(uid);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
