@@ -38,90 +38,109 @@
 <!-- Start order Area -->
 <section class="reservation-area section-gap relative">
     <div class="row" style="margin-right: 0">
-        <div class="col-md-6 ">
+        <div class="col-md-6 " style="padding-right: 0">
             <div class="container">
                 <div id="calendarForm"></div>
-                <div style="margin-top: 7%;margin-left: 5%;">
-                    <p style="margin-bottom: 0">소소한 부엌 예약</p>
-                    <small>예약 비용: 20000원</small><br>
-                    <small>예약 시 주의사항 : --</small><br>
-                    <p style="margin-bottom: 0;margin-top: 20px;">이용 약관</p>
-                    <small>--</small><br>
-                    <p style="margin-bottom: 0;margin-top: 20px;">예약 환불 규정</p>
-                    <small>3일전 : --원</small><br>
-                    <small>2일전 : --원</small><br>
-                    <small>1일전 : --원</small><br>
+            </div>
+            <div class="container" style="margin-top: 25.5%;">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Featured
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        2 days ago
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="padding-right: 0">
             <div class="container">
                 <div class="time-se">
-                    <div class="form-group formMine" style="border-radius: 20px;">
+                    <div class="form-group card formMine" style="border-radius: 10px;">
                         <form style="text-align: center;" id="sosoOrderForm" method="post"
                               th:action="@{/user/Reserve/calendar/order}">
-                            <h3 style="text-align: center;color: #abcbbb;">soso 예약 주문</h3>
-                            <input type="hidden" th:value="${session.memberSq}" name="memberSq">
-                            <div class="mt-10">
-                                <input type="text" name="orderName" placeholder="Name" onfocus="this.placeholder = ''"
-                                       id="sosoOrderName"
-                                       onblur="this.placeholder = 'Name'" required="" class="single-input">
-                            </div>
-                            <div class="mt-10">
-                                <input type="text" name="orderPhoneNumber" placeholder="Phone Number"
-                                       onfocus="this.placeholder = ''"
-                                       id="sosoOrderPhoneNumber"
-                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                       onblur="this.placeholder = 'Phone Number'" required="" class="single-input">
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-                                <input type="text" name="orderAddress" placeholder="Address"
-                                       onfocus="this.placeholder = ''"
-                                       id="sosoOrderAddress"
-                                       onblur="this.placeholder = 'Address'" required="" class="single-input">
-                            </div>
-                            <div class="mt-10">
-                                <input type="hidden" name="Date" placeholder="Date"
-                                       onfocus="this.placeholder = ''"
-                                       id="sosoOrderDateHidden"
-                                       onblur="this.placeholder = 'Phone Date'" required="" class="single-input">
-                                <input type="text" id="sosoOrderDate" name="Number" placeholder="Date" required=""
-                                       class="single-input"
-                                       disabled>
-                            </div>
-                            <div class="mt-10">
-                                <input type="time" id="sosoOrderTime" name="time" placeholder="time(시계를 눌러주세요)"
-                                       required=""
-                                       class="single-input">
-                            </div>
-                            <div class="mt-10">
+                            <h3 style="text-align: center;color: #abcbbb;margin-top: 20px"
+                                class="">soso 예약
+                                주문</h3>
+                            <div class="card-body">
+                                <input type="hidden" th:value="${session.memberSq}" name="memberSq">
+                                <div class="mt-10">
+                                    <input type="text" name="orderName" placeholder="Name"
+                                           onfocus="this.placeholder = ''"
+                                           id="sosoOrderName"
+                                           onblur="this.placeholder = 'Name'" required="" class="single-input">
+                                </div>
+                                <div class="mt-10">
+                                    <input type="text" name="orderPhoneNumber" placeholder="Phone Number"
+                                           onfocus="this.placeholder = ''"
+                                           id="sosoOrderPhoneNumber"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                           onblur="this.placeholder = 'Phone Number'" required="" class="single-input">
+                                </div>
+                                <div class="input-group-icon mt-10">
+                                    <div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
+                                    <input type="text" name="orderAddress" placeholder="Address"
+                                           onfocus="this.placeholder = ''"
+                                           id="sosoOrderAddress"
+                                           onblur="this.placeholder = 'Address'" required="" class="single-input">
+                                </div>
+                                <div class="mt-10">
+                                    <input type="hidden" name="Date" placeholder="Date"
+                                           onfocus="this.placeholder = ''"
+                                           id="sosoOrderDateHidden"
+                                           onblur="this.placeholder = 'Phone Date'" required="" class="single-input">
+                                    <input type="text" id="sosoOrderDate" name="Number" placeholder="Date" required=""
+                                           class="single-input"
+                                           disabled>
+                                </div>
+                                <div class="mt-10">
+                                    <input type="time" id="sosoOrderTime" name="time" placeholder="time(시계를 눌러주세요)"
+                                           required=""
+                                           class="single-input">
+                                </div>
+                                <div class="mt-10">
                                 <textarea class="single-textarea form-control" name="orderHelp"
                                           id="orderHelp" placeholder="하고싶은 말을 적어주세요."></textarea>
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
-                                <div class="form-select" id="default-select">
-                                    <select id="selectPayVale">
-                                        <option value="none">지불 방식</option>
-                                        <option value="kakaopay">카카오페이</option>
-                                        <option value="tosspay">토스</option>
-                                        <!--                                        <option value="payco">페이코</option>-->
-                                    </select>
                                 </div>
+                                <div class="input-group-icon mt-10">
+                                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+                                    <div class="form-select" id="default-select">
+                                        <select id="selectPayVale">
+                                            <option value="none">지불 방식</option>
+                                            <option value="kakaopay">카카오페이</option>
+                                            <option value="tosspay">토스</option>
+                                            <!--                                        <option value="payco">페이코</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mt-10">
+                                    <input type="checkbox" id="sosoOrderCheckbox" name="ordersPolicy"
+                                           class="mr-3"><span> <a th:href="@{/user/soso/Reserve/policy}"
+                                                                  target="_blank">주문 정보 활용 동의</a></span>
+                                </div>
+                                <a class="primary-btn text-uppercase mt-20"
+                                   th:onclick="sosoOrder([[${session.memberSq}]],[[${session.memberEMail}]])"
+                                   style="background-color: #3ea99d; color: white">
+                                    주문
+                                </a>
                             </div>
-                            <div class="mt-10">
-                                <input type="checkbox" id="sosoOrderCheckbox" name="ordersPolicy"
-                                       class="mr-3"><span> <a th:href="@{/user/soso/Reserve/policy}" target="_blank">주문 정보 활용 동의</a></span>
-                            </div>
-                            <a class="primary-btn text-uppercase mt-20"
-                               th:onclick="sosoOrder([[${session.memberSq}]],[[${session.memberEMail}]])"
-                               style="background-color: #3ea99d; color: white">
-                                주문
-                            </a>
                         </form>
                     </div>
                 </div>
+            </div>
+            <div style="margin-top: 10%;margin-left: 5%;">
+                <p style="margin-bottom: 0">소소한 부엌 예약</p>
+                <small>예약 비용: 총 요금의 10% </small><br>
+                <small>예약 시 주의사항 : --</small><br>
+                <p style="margin-bottom: 0;margin-top: 20px;">이용 약관</p>
+                <small>--</small><br>
+                <p style="margin-bottom: 0;margin-top: 20px;">예약 환불 규정</p>
+                <small>7일전 : 전액 환불</small><br>
+                <small>6 ~ 1일전 : 환불 불가</small><br>
             </div>
         </div>
     </div>

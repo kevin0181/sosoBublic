@@ -54,7 +54,7 @@ function calendarMaker(target, date) {
         }
 
         if (i == getD && year == todayMonth.getFullYear() && month == (todayMonth.getMonth() + 1)) {
-            tag += "<td onclick='selectDate(this)' style='border: 2px solid #d1ddd7;' id='todayColor'>" + i + "</td>";
+            tag += "<td onclick='selectDate(this)' style='border: 1px solid rgba(0,0,0,0.125);' id='todayColor'>" + i + "</td>";
         } else {
             tag += "<td onclick='selectDate(this)'>" + i + "</td>";
         }
@@ -81,7 +81,7 @@ function calendarMaker(target, date) {
             "</colgroup>" +
             "<thead class='cal_date'>" +
             "<th><button type='button' class='prev'><</button></th>" +
-            "<th colspan='5' style='text-align: center;'><p style='color:#abcbbb;'><span id='yearId'>" + year + "</span>년 <span id='monthId'>" + month + "</span>월</p></th>" +
+            "<th colspan='5' style='text-align: center;'><p style='color:#abcbbb; margin-bottom: 5px'><span id='yearId'>" + year + "</span>년 <span id='monthId'>" + month + "</span>월</p></th>" +
             "<th><button type='button' class='next'>></button></th>" +
             "</thead>" +
             "<thead  class='cal_week' style='text-align: center; height: 30px;'>" +
