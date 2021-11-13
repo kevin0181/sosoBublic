@@ -265,11 +265,11 @@ function userSizeCheck(size) {
         $('#sosoMenuDiv').hide();
     }
 
-    $('#totalPrice').text((userSize * selectMenuValue) + "원");
+    $('#totalPrice').text("총 가격 : " + (userSize * selectMenuValue) + "원");
 }
 
 $('#selectSosoMenu').on("change", function () {
     var userSize = $('#sosoUserSize').val();
     var selectMenuValue = $('#selectSosoMenu').val();
-    $('#totalPrice').text((userSize * selectMenuValue) + "원");
+    $('#totalPrice').text("총 가격 : " + (userSize * selectMenuValue) + "원");
 });
