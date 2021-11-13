@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class OrderService {
+public class PasOrderService {
 
     @Autowired
     private PasOrderRepository pasOrderRepository;

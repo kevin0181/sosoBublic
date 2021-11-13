@@ -13,7 +13,7 @@ import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.admin.blog.AdminBlogService;
 import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
-import soso.sosoproject.service.order.OrderService;
+import soso.sosoproject.service.order.PasOrderService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class AdminPageController {
     private AdminBlogService adminBlogService;
 
     @Autowired
-    private OrderService orderService;
+    private PasOrderService pasOrderService;
 
 
     //인덱스
@@ -52,7 +52,7 @@ public class AdminPageController {
         model.addAttribute("className", className);
 
         //pas 총 주문수
-        List<PasOrderDTO> sosoList = orderService.findAllPlaceOrder();
+        List<PasOrderDTO> sosoList = pasOrderService.findAllPlaceOrder();
         model.addAttribute("totalSoso", sosoList.size());
         //pas 총 주문수
         //List<PasOrderDTO> pasList = orderService.findAllPlaceOrder();

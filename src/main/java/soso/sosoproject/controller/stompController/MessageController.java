@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
-import soso.sosoproject.service.order.OrderService;
+import soso.sosoproject.service.order.PasOrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MessageController {
 
     @Autowired
-    private OrderService orderService;
+    private PasOrderService pasOrderService;
 
     private List<MemberCountDTO> memberCountDTOList = new ArrayList<>();
 
@@ -45,12 +45,11 @@ public class MessageController {
             return null;
         }
 
-
-        PasOrderDTO pasOrderDTO = orderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
+        PasOrderDTO pasOrderDTO = pasOrderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
 
         if (adminActive) { //관리자가 로그인 중이라면?
             pasOrderDTO.setOrdersSave(true);
-            orderService.saveOrder(pasOrderDTO);
+            pasOrderService.saveOrder(pasOrderDTO);
             orderMessageDTO.setOrderPlace("soso");
 
             if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
@@ -62,7 +61,7 @@ public class MessageController {
 
         } else {
             pasOrderDTO.setOrdersSave(false);
-            orderService.saveOrder(pasOrderDTO);
+            pasOrderService.saveOrder(pasOrderDTO);
 
             if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
                 return pasOrderDTO;
@@ -94,7 +93,7 @@ public class MessageController {
                         return new SizeAndOrderList(memberCountDTOList.size(), 0);
                     }
                 }
-                List<PasOrderDTO> pasOrderDTOList = orderService.findOrderNotSave(); //소소한부엌 주문확인안된거 가져옴
+                List<PasOrderDTO> pasOrderDTOList = pasOrderService.findOrderNotSave(); //소소한부엌 주문확인안된거 가져옴
                 memberCountDTOList.add(memberCountDTO); //+ 어드민도 리스트에 넣음 //로그인 안되어있는 상태
                 adminActive = true; //true
                 return new SizeAndOrderList(memberCountDTOList.size(), pasOrderDTOList.size());

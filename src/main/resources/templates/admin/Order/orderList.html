@@ -55,7 +55,7 @@
                                     style="margin-bottom: 20px;">이름</h5>
                                 <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
                             </div>
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush" th:if="${order.getOrdersMenu()}">
                                 <li class="list-group-item"
                                     th:each="menu, index : ${order.getOrdersMenu()}">
                                     <div class="d-flex bd-highlight">

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
-import soso.sosoproject.service.order.OrderService;
+import soso.sosoproject.service.order.PasOrderService;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class UserPasOrderController {
     }
 
     @Autowired
-    private OrderService orderService;
+    private PasOrderService pasOrderService;
     @Autowired
     private MenuService menuService;
 
@@ -43,15 +43,14 @@ public class UserPasOrderController {
         try {
             IamportResponse<Payment> k = paymentByImpUid(pasOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
-            PasOrderDTO checkPasOrderDTO = orderService.findUid(pasOrderDTO.getOrdersMerchantUid());
+            PasOrderDTO checkPasOrderDTO = pasOrderService.findUid(pasOrderDTO.getOrdersMerchantUid());
             if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkPasOrderDTO.getOrdersTotalPrice().equals(pasOrderDTO.getOrdersTotalPrice())) { //검증 통과
                 checkPasOrderDTO.setOrdersImpUid(pasOrderDTO.getOrdersImpUid());
-                orderService.saveOrder(checkPasOrderDTO);
+                pasOrderService.saveOrder(checkPasOrderDTO);
                 return true;
             } else {
                 return false;
             }
-
         } catch (Exception e) {
             return false;
         }
@@ -69,7 +68,7 @@ public class UserPasOrderController {
         }
 
         int result = menuService.getOrderMenuAmmount(pasOrderDTO.getOrdersMenu());
-        String uid = orderService.saveFirstOrder(pasOrderDTO, result); //주문번호 콜백
+        String uid = pasOrderService.saveFirstOrder(pasOrderDTO, result); //주문번호 콜백
 
         data.put("totalPrice", result);
         data.put("uid", uid);
@@ -81,7 +80,7 @@ public class UserPasOrderController {
     @ResponseBody
     public boolean cancleMenu(@RequestParam(name = "uid") String uid) {
         try {
-            orderService.cancleMenuService(uid);
+            pasOrderService.cancleMenuService(uid);
             return true;
         } catch (Exception e) {
             return false;

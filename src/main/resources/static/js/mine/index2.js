@@ -108,7 +108,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
     formdata.append("orderPhoneNumber", $('#orderNumber').val());
     formdata.append("orderHelp", $('#orderHelp').val());
     formdata.append("orderEnable", false);
-    formdata.append("orderPlace", 'pas'); //장소 중요 선택 없을 시 주문 불가.
+    // formdata.append("orderPlace", 'pas'); //장소 중요 선택 없을 시 주문 불가.
     formdata.append("member_sq", memberSq);
     formdata.append("orderDate", dateStr);
     formdata.append("ordersPolicy", $('#pasOrderCheckbox').is(":checked"));

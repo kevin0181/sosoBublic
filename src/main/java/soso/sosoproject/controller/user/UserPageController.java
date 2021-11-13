@@ -4,18 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.*;
 import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.Account.MemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
-import soso.sosoproject.service.order.OrderService;
+import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.user.UserBlogService;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +31,7 @@ public class UserPageController {
     @Autowired
     private MemberService memberService;
     @Autowired
-    private OrderService orderService;
+    private PasOrderService pasOrderService;
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal, HttpSession session) {

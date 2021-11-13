@@ -13,75 +13,58 @@ function connect() {
 }
 
 function showOrder(chat) {
-    console.log(chat);
-    if (chat.orderPlace === "soso") {
-        Toastify({
-            text: chat.orderName + "님의 주문이 들어왔습니다. by soso",
-            duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
-            close: true,
-            gravity: "bottom",
-            position: "right",
-            backgroundColor: "#4fbe87",
-            destination: "/admin/orderList/OrderSingleBoard?className=soso&orderImp=" + chat.ordersImpUid  //지정 url로 이동
-        }).showToast();
-    } else if (chat.orderPlace === "pas") {
-        if (chat.message === "error-404") {
+    //toast 알림
+    Toastify({
+        text: chat.orderName + "님의 주문이 들어왔습니다.",
+        duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
+        close: true,
+        gravity: "bottom",
+        position: "right",
+        backgroundColor: "#4fbe87",
+        destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
+    }).showToast();
 
-        } else {
-            //toast 알림
-            Toastify({
-                text: chat.orderName + "님의 주문이 들어왔습니다.",
-                duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
-                close: true,
-                gravity: "bottom",
-                position: "right",
-                backgroundColor: "#4fbe87",
-                destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
-            }).showToast();
-
-            var JsonMenuData = chat.ordersMenu;
-            var menuSource = "<ul class='list-group list-group-flush'>";
-            for (var i = 0; i < JsonMenuData.length; i++) {
-                menuSource +=
-                    "<li class='list-group-item'>" +
-                    "<div class='d-flex bd-highlight'>" +
-                    "<p class='me-auto' style='margin: 0'>" + JsonMenuData[i].menuOrderName + "</p>" +
-                    "<p style='margin: 0'>메뉴 수량: " + JsonMenuData[i].menuOrderSize + "</p>" +
-                    "</div>" +
-                    "</li>";
-            }
-
-            menuSource += "</ul>";
-
-
-            var htmlSource =
-                "<div class='col' id='" + chat.ordersMerchantUid + "'>" +
-                "<div class='card h-100'>" +
-                "<div class='card-body'>" +
-                "<h5 class='card-title' style='margin-bottom: 20px;' onclick='getMemberProfile(" + chat.memberSq + ")'>" + chat.orderName + "님의 주문입니다</h5>" +
-                "<p class='card-text'>" + chat.orderHelp + "</p>" +
-                "</div>" + menuSource +
-                "<div style='text-align: center; margin: 15px 0;'>" +
-                "<div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>" +
-                "<button type='button' class='btn btn-outline-success'>주문 완료</button>" +
-                "<button type='button' class='btn btn-outline-dark'></button>\n" +
-                "<button type='button' class='btn btn-outline-danger'>주문 취소</button>" +
-                "</div>" +
-                "</div>" +
-                "<div class=\"card-footer\" style=\"padding: 1rem;\">" +
-                "<small class='text-muted' style='color: #eb6547!important'>총 금액 : " + chat.ordersTotalPrice + "</small>" + "<br>" +
-                "<small class='text-muted'>주문 시간 : " + chat.orderDate + "</small>" + "<br>" +
-                "<small class='text-muted'>주문 번호 : " + chat.ordersMerchantUid + "</small>" + "<br>" +
-                "<small class='text-muted'>전화 번호 : " + chat.orderPhoneNumber + "</small>" + "<br>" +
-                "<small class='text-muted'>주소 : " + chat.orderAddress + "</small>" +
-                "</div>" +
-                "</div>" +
-                "</div>"
-
-            //html append
-            $('#orderListId').prepend(htmlSource);
-        }
+    var JsonMenuData = chat.ordersMenu;
+    var menuSource = "<ul class='list-group list-group-flush'>";
+    for (var i = 0; i < JsonMenuData.length; i++) {
+        menuSource +=
+            "<li class='list-group-item'>" +
+            "<div class='d-flex bd-highlight'>" +
+            "<p class='me-auto' style='margin: 0'>" + JsonMenuData[i].menuOrderName + "</p>" +
+            "<p style='margin: 0'>메뉴 수량: " + JsonMenuData[i].menuOrderSize + "</p>" +
+            "</div>" +
+            "</li>";
     }
+
+    menuSource += "</ul>";
+
+
+    var htmlSource =
+        "<div class='col' id='" + chat.ordersMerchantUid + "'>" +
+        "<div class='card h-100'>" +
+        "<div class='card-body'>" +
+        "<h5 class='card-title' style='margin-bottom: 20px;' onclick='getMemberProfile(" + chat.memberSq + ")'>" + chat.orderName + "님의 주문입니다</h5>" +
+        "<p class='card-text'>" + chat.orderHelp + "</p>" +
+        "</div>" + menuSource +
+        "<div style='text-align: center; margin: 15px 0;'>" +
+        "<div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>" +
+        "<button type='button' class='btn btn-outline-success'>주문 완료</button>" +
+        "<button type='button' class='btn btn-outline-dark'></button>\n" +
+        "<button type='button' class='btn btn-outline-danger'>주문 취소</button>" +
+        "</div>" +
+        "</div>" +
+        "<div class=\"card-footer\" style=\"padding: 1rem;\">" +
+        "<small class='text-muted' style='color: #eb6547!important'>총 금액 : " + chat.ordersTotalPrice + "</small>" + "<br>" +
+        "<small class='text-muted'>주문 시간 : " + chat.orderDate + "</small>" + "<br>" +
+        "<small class='text-muted'>주문 번호 : " + chat.ordersMerchantUid + "</small>" + "<br>" +
+        "<small class='text-muted'>전화 번호 : " + chat.orderPhoneNumber + "</small>" + "<br>" +
+        "<small class='text-muted'>주소 : " + chat.orderAddress + "</small>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+
+    //html append
+    $('#orderListId').prepend(htmlSource);
 }
 
 
