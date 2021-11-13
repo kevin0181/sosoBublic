@@ -118,6 +118,27 @@
                                     </div>
                                 </div>
                                 <div class="mt-10">
+                                    <input type="number" name="orderUserSize" placeholder="인원 수를 적어주세요."
+                                           onfocus="this.placeholder = ''"
+                                           id="sosoUserSize" onkeyup="userSizeCheck(this)"
+                                           onblur="this.placeholder = '인원 수를 적어주세요.'" required="" class="single-input">
+                                </div>
+                                <div class="mt-10" id="sosoMenuDiv" style="display: none;">
+                                    <div class="single-element-widget">
+                                        <div class="default-select" id="default-select" style="display: inline">
+                                            <select id="selectSosoMenu">
+                                                <option value="20000">기본 - 20000원</option>
+                                                <option value="25000">기본+고기 - 25000원</option>
+                                                <option value="30000">기본+고기+치즈구이 - 30000원</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <p id="totalPrice" style="display: inline-block;margin-top: 10px;">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-10">
                                     <input type="checkbox" id="sosoOrderCheckbox" name="ordersPolicy"
                                            class="mr-3"><span> <a th:href="@{/user/soso/Reserve/policy}"
                                                                   target="_blank">주문 정보 활용 동의</a></span>

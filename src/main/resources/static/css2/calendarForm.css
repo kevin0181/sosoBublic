@@ -30,7 +30,7 @@
 }
 
 .custom_calendar_table tbody td.select_day {
-    border: 1px solid rgba(0,0,0,0.125);
+    border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .activeGreenColor:hover {
@@ -49,9 +49,16 @@
     /*padding: 40px;*/
 }
 
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 
 @media (max-width: 751px) {
     .formMine {
         margin-top: 20%;
     }
 }
+

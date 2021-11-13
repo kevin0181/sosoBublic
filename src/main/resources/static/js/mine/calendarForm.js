@@ -119,7 +119,7 @@ function selectDate(date) {
     var tagId = $(date).attr('id');
 
     if (tagId == "todayColor") {
-        $('#todayColor').css("border", "2px solid #d1ddd7");
+        $('#todayColor').css("border", "1px solid rgba(0, 0, 0, 0.125)");
     } else {
         $('#todayColor').css("border", "none");
     }
@@ -165,15 +165,18 @@ function sosoOrder(memberSq, memberEMail) {
         alert("시간을 입력해주세요.");
         $('#sosoOrderTime').focus();
         return false;
+    } else if ($('#selectPayVale').val() == "none") {
+        alert("지불 방식을 선택해주세요.");
+        return false;
+    } else if ($('#sosoUserSize').val() == "") {
+        alert("최소 인원은 1명입니다.");
+        return false;
     } else if ($('#sosoOrderCheckbox').is(":checked") != true) {
         alert("주문 정보 활용 동의를 체크해주세요.");
         return false;
     } else {
         if (phoneExp.test($('#sosoOrderPhoneNumber').val()) != true) {
             alert("전화번호 형식에 맞지 않습니다. (-)를 빼주세요.");
-            return false;
-        } else if ($('#selectPayVale').val() == "none") {
-            alert("지불 방식을 선택해주세요.");
             return false;
         } else {
 
@@ -253,7 +256,20 @@ function rand(min, max) {
 }
 
 
+function userSizeCheck(size) {
+    var userSize = $(size).val();
+    var selectMenuValue = $('#selectSosoMenu').val();
+    if (userSize >= 6) {
+        $('#sosoMenuDiv').show();
+    } else {
+        $('#sosoMenuDiv').hide();
+    }
 
+    $('#totalPrice').text((userSize * selectMenuValue) + "원");
+}
 
-
-
+$('#selectSosoMenu').on("change", function () {
+    var userSize = $('#sosoUserSize').val();
+    var selectMenuValue = $('#selectSosoMenu').val();
+    $('#totalPrice').text((userSize * selectMenuValue) + "원");
+});
