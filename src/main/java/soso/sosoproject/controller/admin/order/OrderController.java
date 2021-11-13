@@ -6,10 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import soso.sosoproject.dto.OrderDTO;
+import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.service.order.OrderService;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -22,18 +21,20 @@ public class OrderController {
     @GetMapping("/orderList")
     public String startOrderList(@RequestParam("className") String className, Model model) {
 
-        if (className.equals("soso")) {
+        if (className.equals("pas")) {
 
-            List<OrderDTO> orderDTOList = orderService.findAllPlaceAndEnableOrder("soso");
+            //pas list get
+            List<PasOrderDTO> pasOrderDTOList = orderService.findAllPlaceAndEnableOrder();
 
-            model.addAttribute("orderList", orderDTOList);
+            model.addAttribute("orderList", pasOrderDTOList);
             model.addAttribute("className", className);
             return "admin/Order/orderList";
-        } else if (className.equals("pas")) {
+        } else if (className.equals("soso")) {
 
-            List<OrderDTO> orderDTOList = orderService.findAllPlaceAndEnableOrder("pas");
+            //soso list get
+            List<PasOrderDTO> pasOrderDTOList = orderService.findAllPlaceAndEnableOrder();
 
-            model.addAttribute("orderList", orderDTOList);
+            model.addAttribute("orderList", pasOrderDTOList);
             model.addAttribute("className", className);
             return "admin/Order/orderList";
         }

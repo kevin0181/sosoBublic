@@ -12,9 +12,9 @@ import java.util.List;
 
 @Setter
 @Getter
-@Entity(name = "order")
+@Entity(name = "order_pas")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
-public class OrderDTO {
+public class PasOrderDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orders_id;
@@ -39,10 +39,6 @@ public class OrderDTO {
 
     @Column(name = "orders_enable")
     private boolean orderEnable;
-
-    @NotNull
-    @Column(name = "orders_place")
-    private String orderPlace;
 
     @NotNull
     @Column(name = "orders_date")
@@ -70,7 +66,7 @@ public class OrderDTO {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "orders_id")
-    private List<OrdersDetailDTO> ordersMenu;
+    private List<PasOrdersDetailDTO> ordersMenu;
 
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)

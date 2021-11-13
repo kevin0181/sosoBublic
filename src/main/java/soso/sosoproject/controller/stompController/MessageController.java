@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.MemberCountDTO;
-import soso.sosoproject.dto.OrderDTO;
+import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.service.order.OrderService;
 
@@ -46,34 +46,34 @@ public class MessageController {
         }
 
 
-        OrderDTO orderDTO = orderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
+        PasOrderDTO pasOrderDTO = orderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
 
         if (adminActive) { //관리자가 로그인 중이라면?
-            if (orderDTO.getOrderPlace().equals("soso")) { //소소한부엌 주문
-                orderDTO.setOrdersSave(true);
-                orderService.saveOrder(orderDTO);
-                orderMessageDTO.setOrderPlace("soso");
+            pasOrderDTO.setOrdersSave(true);
+            orderService.saveOrder(pasOrderDTO);
+            orderMessageDTO.setOrderPlace("soso");
+
+            if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
+                return pasOrderDTO;
+            } else { //관리자가 메뉴를 받고있지 않다면?
+                orderMessageDTO.setMessage("error-404"); //관리자가 매장을 오픈하지 않음.
                 return orderMessageDTO;
             }
+
         } else {
-            if (orderDTO.getOrderPlace().equals("soso")) { //소소한부엌 주문
-                orderDTO.setOrdersSave(false);
-                orderService.saveOrder(orderDTO);
+            pasOrderDTO.setOrdersSave(false);
+            orderService.saveOrder(pasOrderDTO);
+
+            if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
+                return pasOrderDTO;
+            } else { //관리자가 메뉴를 받고있지 않다면?
+                orderMessageDTO.setMessage("error-404"); //관리자가 매장을 오픈하지 않음.
                 return orderMessageDTO;
             }
+
         }
 
-        if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
-            if (orderDTO.getOrderPlace().equals("pas")) {
-                return orderDTO;
-            }
-            orderMessageDTO.setMessage("장소가 잘못된 주문"); //error
-            return orderMessageDTO;
-        } else { //관리자가 메뉴를 받고있지 않다면?
 
-            orderMessageDTO.setMessage("error-404"); //관리자가 매장을 오픈하지 않음.
-            return orderMessageDTO;
-        }
     }
 
 
@@ -94,10 +94,10 @@ public class MessageController {
                         return new SizeAndOrderList(memberCountDTOList.size(), 0);
                     }
                 }
-                List<OrderDTO> orderDTOList = orderService.findOrderNotSave(); //소소한부엌 주문확인안된거 가져옴
+                List<PasOrderDTO> pasOrderDTOList = orderService.findOrderNotSave(); //소소한부엌 주문확인안된거 가져옴
                 memberCountDTOList.add(memberCountDTO); //+ 어드민도 리스트에 넣음 //로그인 안되어있는 상태
                 adminActive = true; //true
-                return new SizeAndOrderList(memberCountDTOList.size(), orderDTOList.size());
+                return new SizeAndOrderList(memberCountDTOList.size(), pasOrderDTOList.size());
             } else {
                 //일반 유저 권한이면
                 if (memberCountDTOList.size() == 0) { //리스트가 없으면 그냥 바로 추가

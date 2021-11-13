@@ -4,7 +4,6 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
-import com.siot.IamportRestClient.response.Prepare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import soso.sosoproject.dto.OrderDTO;
+import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.order.OrderService;
 
@@ -40,14 +39,14 @@ public class UserPasOrderController {
 
     @PostMapping("/user/order/menu")
     @ResponseBody
-    public boolean orderMenu(OrderDTO orderDTO) {
+    public boolean orderMenu(PasOrderDTO pasOrderDTO) {
         try {
-            IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid()); //가격이 같은지 검증
+            IamportResponse<Payment> k = paymentByImpUid(pasOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
-            OrderDTO checkOrderDTO = orderService.findUid(orderDTO.getOrdersMerchantUid());
-            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkOrderDTO.getOrdersTotalPrice().equals(orderDTO.getOrdersTotalPrice())) { //검증 통과
-                checkOrderDTO.setOrdersImpUid(orderDTO.getOrdersImpUid());
-                orderService.saveOrder(checkOrderDTO);
+            PasOrderDTO checkPasOrderDTO = orderService.findUid(pasOrderDTO.getOrdersMerchantUid());
+            if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkPasOrderDTO.getOrdersTotalPrice().equals(pasOrderDTO.getOrdersTotalPrice())) { //검증 통과
+                checkPasOrderDTO.setOrdersImpUid(pasOrderDTO.getOrdersImpUid());
+                orderService.saveOrder(checkPasOrderDTO);
                 return true;
             } else {
                 return false;
@@ -61,7 +60,7 @@ public class UserPasOrderController {
 
     @PostMapping("/user/orderMenu/pay/ammount")
     @ResponseBody
-    public Map<String, Object> MenuAmmount(@Valid OrderDTO orderDTO, Errors errors) {
+    public Map<String, Object> MenuAmmount(@Valid PasOrderDTO pasOrderDTO, Errors errors) {
         Map<String, Object> data = new HashMap<>();
 
         if (errors.hasErrors()) { //에러 발생!
@@ -69,8 +68,8 @@ public class UserPasOrderController {
             return data;
         }
 
-        int result = menuService.getOrderMenuAmmount(orderDTO.getOrdersMenu());
-        String uid = orderService.saveFirstOrder(orderDTO, result); //주문번호 콜백
+        int result = menuService.getOrderMenuAmmount(pasOrderDTO.getOrdersMenu());
+        String uid = orderService.saveFirstOrder(pasOrderDTO, result); //주문번호 콜백
 
         data.put("totalPrice", result);
         data.put("uid", uid);

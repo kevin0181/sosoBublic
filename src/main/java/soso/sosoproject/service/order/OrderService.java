@@ -3,9 +3,9 @@ package soso.sosoproject.service.order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import soso.sosoproject.dto.OrderDTO;
-import soso.sosoproject.repository.OrderDetailRepository;
-import soso.sosoproject.repository.OrderRepository;
+import soso.sosoproject.dto.PasOrderDTO;
+import soso.sosoproject.repository.PasOrderDetailRepository;
+import soso.sosoproject.repository.PasOrderRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,32 +16,32 @@ import java.util.Random;
 public class OrderService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private PasOrderRepository pasOrderRepository;
 
     @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private PasOrderDetailRepository pasOrderDetailRepository;
 
-    public void saveOrder(OrderDTO orderDTO) {
-        orderRepository.save(orderDTO);
+    public void saveOrder(PasOrderDTO pasOrderDTO) {
+        pasOrderRepository.save(pasOrderDTO);
     }
 
-    public OrderDTO findOrderId(String ordersImpUid) {
-        return orderRepository.findByOrdersImpUid(ordersImpUid);
+    public PasOrderDTO findOrderId(String ordersImpUid) {
+        return pasOrderRepository.findByOrdersImpUid(ordersImpUid);
     }
 
-    public List<OrderDTO> findOrderNotSave() {
-        return orderRepository.findAllByOrdersSaveAndOrderPlace(false, "soso");
+    public List<PasOrderDTO> findOrderNotSave() {
+        return pasOrderRepository.findAllByOrdersSave(false);
     }
 
-    public List<OrderDTO> findAllPlaceOrder(String place) {
-        return orderRepository.findAllByOrderPlace(place);
+    public List<PasOrderDTO> findAllPlaceOrder() {
+        return pasOrderRepository.findAll();
     }
 
-    public List<OrderDTO> findAllPlaceAndEnableOrder(String place) {
-        return orderRepository.findAllByOrderPlaceAndOrderEnableOrderByOrderDateDesc(place, false);
+    public List<PasOrderDTO> findAllPlaceAndEnableOrder() {
+        return pasOrderRepository.findAllByOrderEnableOrderByOrderDateDesc(false);
     }
 
-    public String saveFirstOrder(OrderDTO orderDTO, int totalPay) {
+    public String saveFirstOrder(PasOrderDTO pasOrderDTO, int totalPay) {
         Random random = new Random();
         StringBuffer sb = new StringBuffer(); //랜덤 난수 설정
 
@@ -58,28 +58,25 @@ public class OrderService {
 
         } while (sb.length() < 20);
         String uid = sb.toString();
-        orderDTO.setOrdersMerchantUid(uid);
-        orderDTO.setOrdersTotalPrice(Integer.toString(totalPay));
-        orderRepository.save(orderDTO);
+        pasOrderDTO.setOrdersMerchantUid(uid);
+        pasOrderDTO.setOrdersTotalPrice(Integer.toString(totalPay));
+        pasOrderRepository.save(pasOrderDTO);
         return uid;
     }
 
-    public OrderDTO findUid(String ordersMerchantUid) {
-        return orderRepository.findAllByOrdersMerchantUid(ordersMerchantUid);
+    public PasOrderDTO findUid(String ordersMerchantUid) {
+        return pasOrderRepository.findAllByOrdersMerchantUid(ordersMerchantUid);
     }
 
-    public List<OrderDTO> findAllsosoReserveListbyDate(String date) {
-        return orderRepository.findAllByOrderDateContainingAndOrderPlace(date, "soso");
-    }
 
-    public void saveSosoOrder(OrderDTO orderDTO) {
+    public void saveSosoOrder(PasOrderDTO pasOrderDTO) {
 
-        orderRepository.save(orderDTO);
+        pasOrderRepository.save(pasOrderDTO);
 
     }
 
     @Transactional
     public void cancleMenuService(String uid) {
-        orderRepository.deleteByOrdersMerchantUid(uid);
+        pasOrderRepository.deleteByOrdersMerchantUid(uid);
     }
 }

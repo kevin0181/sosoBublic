@@ -3,7 +3,6 @@ package soso.sosoproject.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,12 +51,12 @@ public class AdminPageController {
         model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("className", className);
 
-        //soso,pas 총 주문수
-        List<OrderDTO> sosoList = orderService.findAllPlaceOrder("soso");
+        //pas 총 주문수
+        List<PasOrderDTO> sosoList = orderService.findAllPlaceOrder();
         model.addAttribute("totalSoso", sosoList.size());
-
-        List<OrderDTO> pasList = orderService.findAllPlaceOrder("pas");
-        model.addAttribute("totalPas", pasList.size());
+        //pas 총 주문수
+        //List<PasOrderDTO> pasList = orderService.findAllPlaceOrder();
+        //model.addAttribute("totalPas", pasList.size());
 
         return "admin/admin-index";
     }

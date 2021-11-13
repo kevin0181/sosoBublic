@@ -1,15 +1,12 @@
 package soso.sosoproject.service.admin.menu;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import soso.sosoproject.dto.*;
 import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.ImgRepository;
@@ -266,13 +263,13 @@ public class MenuService {
         return menuRepository.findAll();
     }
 
-    public int getOrderMenuAmmount(List<OrdersDetailDTO> ordersDetailDTOS) {
+    public int getOrderMenuAmmount(List<PasOrdersDetailDTO> pasOrdersDetailDTOS) {
         int result = 0;
         List<Long> menuId = new ArrayList<>();
         Map<Long, Integer> orderMenuSize = new HashMap<>();
-        for (int i = 0; i < ordersDetailDTOS.size(); i++) {
-            menuId.add(ordersDetailDTOS.get(i).getMenuSq());
-            orderMenuSize.put(ordersDetailDTOS.get(i).getMenuSq(), ordersDetailDTOS.get(i).getMenuOrderSize());
+        for (int i = 0; i < pasOrdersDetailDTOS.size(); i++) {
+            menuId.add(pasOrdersDetailDTOS.get(i).getMenuSq());
+            orderMenuSize.put(pasOrdersDetailDTOS.get(i).getMenuSq(), pasOrdersDetailDTOS.get(i).getMenuOrderSize());
         }
 
         List<MenuDTO> menuDTOList = menuRepository.findAllById(menuId);

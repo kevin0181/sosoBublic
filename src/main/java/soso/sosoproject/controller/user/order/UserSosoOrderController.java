@@ -6,10 +6,9 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import soso.sosoproject.dto.OrderDTO;
+import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.service.order.OrderService;
 
 import java.io.IOException;
@@ -35,18 +34,14 @@ public class UserSosoOrderController {
 
     @ResponseBody
     @PostMapping("/user/Reserve/calendar/order")
-    public Map<String, Object> orderSoso(OrderDTO orderDTO) { //soso 주문들어온거 일단 db에 저장
+    public Map<String, Object> orderSoso(PasOrderDTO pasOrderDTO) { //soso 주문들어온거 일단 db에 저장
         Map<String, Object> data = new HashMap<>();
-        if (!orderDTO.getOrderPlace().equals("soso")) {
-            data.put("error", "error7001");
-            return data;
-        }
 
         try {
-            IamportResponse<Payment> k = paymentByImpUid(orderDTO.getOrdersImpUid()); //가격이 같은지 검증
+            IamportResponse<Payment> k = paymentByImpUid(pasOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
-            if (orderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
-                orderService.saveSosoOrder(orderDTO);
+            if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
+                orderService.saveSosoOrder(pasOrderDTO);
                 return data;
             } else {
                 data.put("error", "error7003"); //totalPrice 일치하지않으면 에러발생

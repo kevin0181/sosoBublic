@@ -2,12 +2,9 @@ package soso.sosoproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class MemberDTO {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
     @JsonIgnore
-    private List<OrderDTO> orderDTOList = new ArrayList<>();
+    private List<PasOrderDTO> pasOrderDTOList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq")
