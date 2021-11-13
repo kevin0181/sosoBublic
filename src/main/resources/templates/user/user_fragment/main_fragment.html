@@ -185,9 +185,19 @@
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '주소'">
                     <input type="text" class="form-control" name="phone" placeholder="번호" id="orderNumber"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = '번호'">
-                    <div class="" style="margin-bottom: 20px;">
+                    <div class="" style="">
                         <textarea class="single-textarea form-control" style="border: 1px solid #eeeeee;" id="orderHelp"
                                   placeholder="하고싶은 말을 적어주세요."></textarea>
+                    </div>
+                    <div class="input-group-icon mb-5">
+                        <div class="form-select" id="default-select">
+                            <select id="selectPasPayVale">
+                                <option value="none">지불 방식</option>
+                                <option value="kakaopay">카카오페이</option>
+                                <option value="tosspay">토스</option>
+                                <!--                                        <option value="payco">페이코</option>-->
+                            </select>
+                        </div>
                     </div>
                     <div class="form-menu" id="menuForm" style="">
                         <small id="smallOrderText">위 메뉴를 클릭하여 메뉴를 추가해주세요.</small>
@@ -198,7 +208,8 @@
                                                       target="_blank">주문 정보 활용 동의</a></span>
                     </div>
                     <button class="primary-btn text-uppercase mt-20" style="background-color: #3ea99d;"
-                            th:onclick="orderAlert([[${session.memberSq}]])">주문
+                            th:onclick="orderAlert([[${session.memberSq}]],[[${session.memberEMail}]],[[${session.memberRole}]])">
+                        주문
                     </button>
                 </div>
             </div>
