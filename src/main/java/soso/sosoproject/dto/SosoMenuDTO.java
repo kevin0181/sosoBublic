@@ -22,9 +22,9 @@ public class SosoMenuDTO {
 
     @NotNull
     @Column(name = "menu_soso_name")
-    private Long menuSosoName;
+    private String menuSosoName;
 
     @NotNull
     @Column(name = "menu_soso_price")
-    private Long menuSosoPrice;
+    private int menuSosoPrice;
 }

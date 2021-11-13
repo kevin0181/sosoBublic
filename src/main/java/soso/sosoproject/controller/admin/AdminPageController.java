@@ -13,6 +13,7 @@ import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.admin.blog.AdminBlogService;
 import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
+import soso.sosoproject.service.admin.menu.SosoMenuService;
 import soso.sosoproject.service.order.PasOrderService;
 
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,8 @@ public class AdminPageController {
 
     @Autowired
     private PasOrderService pasOrderService;
+    @Autowired
+    private SosoMenuService sosoMenuService;
 
 
     //인덱스
@@ -231,6 +234,9 @@ public class AdminPageController {
     @GetMapping("/soso/addMenu")
     public String addSosoMenu(@RequestParam(value = "className", defaultValue = "sosoMenu") String className, Model model) {
 
+        List<SosoMenuDTO> sosoMenuDTOList = sosoMenuService.findAllSosoList();
+
+        model.addAttribute("sosoMenuList", sosoMenuDTOList);
 
         //active
         model.addAttribute("className", className);

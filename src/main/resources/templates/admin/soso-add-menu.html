@@ -103,6 +103,34 @@
                 </div>
             </section>
             <!-- // Basic multiple Column Form section end -->
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        soso 메뉴
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>가격</th>
+                                <th>삭제</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="menu : ${sosoMenuList}">
+                                <td th:text="${menu.menuSosoName}">이름</td>
+                                <td th:text="${menu.menuSosoPrice}">가격</td>
+                                <td>
+                                    <a th:href="@{/menu/soso/deleteMenu(menuSq=${menu.menu_order_sq})}">삭제</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
         </div>
         <footer>
             <div class="footer clearfix mb-0 text-muted">
