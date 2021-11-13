@@ -1,7 +1,6 @@
 package soso.sosoproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +24,6 @@ public class MenuCategoryDTO {
 
     @OneToMany
     @JoinColumn(name = "menu_category_sq")
-    private List<MenuDTO> menuList = new ArrayList<>();
+    private List<PasMenuDTO> menuList = new ArrayList<>();
 
 }

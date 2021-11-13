@@ -198,7 +198,7 @@ function sosoOrder(memberSq, memberEMail) {
                 pay_method: "card",
                 merchant_uid: uid,
                 name: "소소한 부엌",
-                amount: totalPrice,
+                amount: $('#totalPrice').text(),
                 buyer_email: memberEMail,
                 buyer_name: $('#sosoOrderName').val(),
                 buyer_tel: $('#sosoOrderPhoneNumber').val(),

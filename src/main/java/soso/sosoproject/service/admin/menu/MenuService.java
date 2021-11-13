@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import soso.sosoproject.dto.*;
 import soso.sosoproject.repository.CategoryRepository;
 import soso.sosoproject.repository.ImgRepository;
-import soso.sosoproject.repository.MenuRepository;
+import soso.sosoproject.repository.PasMenuRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ public class MenuService {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private MenuRepository menuRepository;
+    private PasMenuRepository pasMenuRepository;
 
     @Autowired
     private ImgRepository imgRepository;
@@ -57,19 +57,19 @@ public class MenuService {
     }
 
     //메뉴 생성
-    public List<MenuDTO> save_menu(MenuImgDTO menuImgDTO) {
+    public List<PasMenuDTO> save_menu(MenuImgDTO menuImgDTO) {
         List<ImgDTO> imgDTOList = imgRepository.findAllByMenuSq(menuImgDTO.getMenuSq());
-        MenuDTO menuDTO = new MenuDTO(menuImgDTO.getMenuSq(), menuImgDTO.getMenuName(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
+        PasMenuDTO pasMenuDTO = new PasMenuDTO(menuImgDTO.getMenuSq(), menuImgDTO.getMenuName(), menuImgDTO.getMenuCategorySq(), menuImgDTO.getMenu_contant(),
                 menuImgDTO.getMenu_price(), menuImgDTO.isMenuSoldOut(), menuImgDTO.isMenuEnable(), menuImgDTO.isMenu_today(), imgDTOList);
 
-        menuRepository.save(menuDTO);
-        return menuRepository.findAllByMenuName(menuDTO.getMenuName());
+        pasMenuRepository.save(pasMenuDTO);
+        return pasMenuRepository.findAllByMenuName(pasMenuDTO.getMenuName());
     }
 
     //메뉴 리스트
-    public Page<MenuDTO> getMenuList(int pageId) {
+    public Page<PasMenuDTO> getMenuList(int pageId) {
         Pageable pageable = PageRequest.of(pageId, 10);
-        return menuRepository.findAllByOrderByMenuSqDesc(pageable);
+        return pasMenuRepository.findAllByOrderByMenuSqDesc(pageable);
     }
 
 
@@ -118,7 +118,7 @@ public class MenuService {
                 }
                 Thread.sleep(100);
                 imgRepository.deleteAllByMenuSq(menuCheck.get(i));
-                menuRepository.deleteById(menuCheck.get(i));
+                pasMenuRepository.deleteById(menuCheck.get(i));
             }
 
         } else if (menuCheck == null && imgsq != null) {
@@ -149,10 +149,10 @@ public class MenuService {
 
     //active 변경
     public void changeActive(Long menu_sq, boolean active) {
-        Optional<MenuDTO> optionalMenuDTO = menuRepository.findById(menu_sq);
-        MenuDTO menuDTO = optionalMenuDTO.get();
-        menuDTO.setMenuEnable(active);
-        menuRepository.save(menuDTO);
+        Optional<PasMenuDTO> optionalMenuDTO = pasMenuRepository.findById(menu_sq);
+        PasMenuDTO pasMenuDTO = optionalMenuDTO.get();
+        pasMenuDTO.setMenuEnable(active);
+        pasMenuRepository.save(pasMenuDTO);
     }
 
     //이미지 저장
@@ -167,7 +167,7 @@ public class MenuService {
     }
 
     //서버에 이미지 저장(실질적인)
-    public boolean saveRealImg(MenuImgDTO menuImgDTO, List<ImgDTO> imgDTO, List<MenuDTO> sqMenuDTO, int lastMenuSq, Model model) throws IOException {
+    public boolean saveRealImg(MenuImgDTO menuImgDTO, List<ImgDTO> imgDTO, List<PasMenuDTO> sqPasMenuDTO, int lastMenuSq, Model model) throws IOException {
 
         String filePath;
 
@@ -184,9 +184,9 @@ public class MenuService {
                 String nowDate = format.format(now);
 
                 if (imgDTO.isEmpty()) {
-                    filePath = "/img/menu/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
+                    filePath = "/img/menu/" + sqPasMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 } else {
-                    filePath = "/img/menu/" + sqMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
+                    filePath = "/img/menu/" + sqPasMenuDTO.get(lastMenuSq).getMenuSq() + "/" + nowDate;
                 }
                 Path path = Paths.get(filePath);
 
@@ -198,7 +198,7 @@ public class MenuService {
                     InputStream inputStream = menuImgDTO.getMenu_img().get(i).getInputStream();
                     Path pushFilePath = path.resolve(fileName);
                     Files.copy(inputStream, pushFilePath, StandardCopyOption.REPLACE_EXISTING);
-                    saveImg(fileName, pushFilePath.toString(), sqMenuDTO.get(lastMenuSq).getMenuSq(), nowDate);
+                    saveImg(fileName, pushFilePath.toString(), sqPasMenuDTO.get(lastMenuSq).getMenuSq(), nowDate);
                 } catch (IOException e) {
                     throw new IOException("파일업로드 안됌");
                 }
@@ -217,8 +217,8 @@ public class MenuService {
     //today list 가져옴
     public boolean getTodayList(Long menuSq) {
 
-        Optional<MenuDTO> menuDTO = menuRepository.findById(menuSq);
-        List<Long> menuTodayList = menuRepository.findAllByMenuToday();
+        Optional<PasMenuDTO> menuDTO = pasMenuRepository.findById(menuSq);
+        List<Long> menuTodayList = pasMenuRepository.findAllByMenuToday();
 
         if (menuDTO.get().isMenuToday()) {
             return true;
@@ -234,33 +234,33 @@ public class MenuService {
     }
 
     //메뉴이름 검색
-    public List<MenuDTO> getSearch(String searchText) {
+    public List<PasMenuDTO> getSearch(String searchText) {
 
-        List<MenuDTO> menuDTOS = menuRepository.findByMenuNameContains(searchText);
+        List<PasMenuDTO> pasMenuDTOS = pasMenuRepository.findByMenuNameContains(searchText);
 
-        return menuDTOS;
+        return pasMenuDTOS;
     }
 
     //active 검색
-    public List<MenuDTO> getActiveSearch(boolean active) {
+    public List<PasMenuDTO> getActiveSearch(boolean active) {
 
-        List<MenuDTO> menuDTOList = menuRepository.findAllByMenuEnable(active);
-        return menuDTOList;
+        List<PasMenuDTO> pasMenuDTOList = pasMenuRepository.findAllByMenuEnable(active);
+        return pasMenuDTOList;
     }
 
-    public List<MenuDTO> searchCategory(Long searchCategory) {
-        List<MenuDTO> menuDTOList = menuRepository.findAllByMenuCategorySq(searchCategory);
-        return menuDTOList;
+    public List<PasMenuDTO> searchCategory(Long searchCategory) {
+        List<PasMenuDTO> pasMenuDTOList = pasMenuRepository.findAllByMenuCategorySq(searchCategory);
+        return pasMenuDTOList;
     }
 
     //오늘의 메뉴 가져옴
-    public MenuDTO getTodayMenu() {
+    public PasMenuDTO getTodayMenu() {
         boolean id = true;
-        return menuRepository.findByMenuToday(id);
+        return pasMenuRepository.findByMenuToday(id);
     }
 
-    public List<MenuDTO> AllMenu() {
-        return menuRepository.findAll();
+    public List<PasMenuDTO> AllMenu() {
+        return pasMenuRepository.findAll();
     }
 
     public int getOrderMenuAmmount(List<PasOrdersDetailDTO> pasOrdersDetailDTOS) {
@@ -272,11 +272,11 @@ public class MenuService {
             orderMenuSize.put(pasOrdersDetailDTOS.get(i).getMenuSq(), pasOrdersDetailDTOS.get(i).getMenuOrderSize());
         }
 
-        List<MenuDTO> menuDTOList = menuRepository.findAllById(menuId);
+        List<PasMenuDTO> pasMenuDTOList = pasMenuRepository.findAllById(menuId);
 
-        for (int i = 0; i < menuDTOList.size(); i++) {
+        for (int i = 0; i < pasMenuDTOList.size(); i++) {
 
-            result += menuDTOList.get(i).getMenu_price() * orderMenuSize.get(menuDTOList.get(i).getMenuSq());
+            result += pasMenuDTOList.get(i).getMenu_price() * orderMenuSize.get(pasMenuDTOList.get(i).getMenuSq());
 
         }
 

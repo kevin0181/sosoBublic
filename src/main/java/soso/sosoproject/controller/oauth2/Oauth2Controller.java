@@ -1,7 +1,6 @@
 package soso.sosoproject.controller.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +12,6 @@ import soso.sosoproject.service.oauth2.Oauth2DataService;
 import soso.sosoproject.service.user.UserBlogService;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -73,9 +70,9 @@ public class Oauth2Controller {
     }
 
     //index 페이지 오늘의 메뉴 가지고 오는 함수
-    public MenuDTO todayMenu() {
-        MenuDTO menuDTO = menuService.getTodayMenu();
-        return menuDTO;
+    public PasMenuDTO todayMenu() {
+        PasMenuDTO pasMenuDTO = menuService.getTodayMenu();
+        return pasMenuDTO;
     }
 
     private List<MenuCategoryDTO> getCategory() {
@@ -84,7 +81,7 @@ public class Oauth2Controller {
         return categoryList;
     }
 
-    private List<MenuDTO> getMenuList() {
+    private List<PasMenuDTO> getMenuList() {
         return menuService.AllMenu();
     }
 }

@@ -222,9 +222,9 @@ public class UserPageController {
     //함수--------------------------------------------------------------------------
 
     //index 페이지 오늘의 메뉴 가지고 오는 함수
-    public MenuDTO todayMenu() {
-        MenuDTO menuDTO = menuService.getTodayMenu();
-        return menuDTO;
+    public PasMenuDTO todayMenu() {
+        PasMenuDTO pasMenuDTO = menuService.getTodayMenu();
+        return pasMenuDTO;
     }
 
     private List<MenuCategoryDTO> getCategory() {
@@ -233,13 +233,13 @@ public class UserPageController {
         return categoryList;
     }
 
-    private List<MenuDTO> getMenuList() {
+    private List<PasMenuDTO> getMenuList() {
         return menuService.AllMenu();
     }
 
     private void getSection(Model model) {
         //오늘의 메뉴 가져옴
-        MenuDTO todayMenu = todayMenu();
+        PasMenuDTO todayMenu = todayMenu();
         model.addAttribute("todayMenu", todayMenu);
 
         //카테고리 가져옴
@@ -247,8 +247,8 @@ public class UserPageController {
         model.addAttribute("category", menuCategoryDTO);
 
         //메뉴 리스트
-        List<MenuDTO> menuDTOList = getMenuList();
-        model.addAttribute("menu", menuDTOList);
+        List<PasMenuDTO> pasMenuDTOList = getMenuList();
+        model.addAttribute("menu", pasMenuDTOList);
 
         //블로그 리스트
         Page<BlogDTO> blogDTOPageable = userBlogService.getIndexBlogPage(0);

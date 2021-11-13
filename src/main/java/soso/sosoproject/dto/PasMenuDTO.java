@@ -14,9 +14,9 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity(name = "menu")
+@Entity(name = "menu_pas")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
-public class MenuDTO {
+public class PasMenuDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_sq")
@@ -58,8 +58,8 @@ public class MenuDTO {
 //    private List<OrderDTO> orderDTOList = new ArrayList<>();
 
 
-    public MenuDTO(Long menuSq, String menuName, Long menuCategorySq, String menu_contant,
-                   int menu_price, boolean menu_sold_out, boolean menu_enable, boolean menuToday, List<ImgDTO> menu_img_sq) {
+    public PasMenuDTO(Long menuSq, String menuName, Long menuCategorySq, String menu_contant,
+                      int menu_price, boolean menu_sold_out, boolean menu_enable, boolean menuToday, List<ImgDTO> menu_img_sq) {
         this.menuSq = menuSq;
         this.menuName = menuName;
         this.menuCategorySq = menuCategorySq;

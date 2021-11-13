@@ -23,6 +23,10 @@ public class SosoOrderDTO {
     private Long memberSq;
 
     @NotNull
+    @Column(name = "menu_order_sq")
+    private Long menuOrderSq;
+
+    @NotNull
     @Length(max = 64)
     @Column(name = "orders_address")
     private String orderAddress;
@@ -31,6 +35,7 @@ public class SosoOrderDTO {
     @Length(max = 11)
     @Column(name = "orders_phonenumber")
     private String orderPhoneNumber;
+
 
     @Length(max = 500)
     @Column(name = "orders_help")

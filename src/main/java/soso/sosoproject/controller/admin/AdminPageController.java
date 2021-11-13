@@ -85,8 +85,8 @@ public class AdminPageController {
         }
 
         if (searchCategory != null) {
-            List<MenuDTO> menuDTOList = menuService.searchCategory(searchCategory);
-            model.addAttribute("menuList", menuDTOList);
+            List<PasMenuDTO> pasMenuDTOList = menuService.searchCategory(searchCategory);
+            model.addAttribute("menuList", pasMenuDTOList);
 
             //카테고리 리스트 가져오는 부분
             List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
@@ -111,9 +111,9 @@ public class AdminPageController {
                 }
 
 
-                List<MenuDTO> menuDTOS = menuService.getSearch(searchText);
+                List<PasMenuDTO> pasMenuDTOS = menuService.getSearch(searchText);
                 //검색해온 리스트
-                model.addAttribute("menuList", menuDTOS);
+                model.addAttribute("menuList", pasMenuDTOS);
                 //카테고리 리스트 가져오는 부분
                 List<MenuCategoryDTO> categoryList = menuService.getCategoryList();
                 model.addAttribute("categoryList", categoryList);
@@ -126,7 +126,7 @@ public class AdminPageController {
         }
 
         //메뉴 리스트 가져오는 부분
-        Page<MenuDTO> menuList = menuService.getMenuList(pageId);
+        Page<PasMenuDTO> menuList = menuService.getMenuList(pageId);
 
         int startSize = 1;
         int maxSize = 5;
@@ -231,8 +231,8 @@ public class AdminPageController {
 
     //함수-------------------------------------------------------------------------------
     private void searchActive(boolean active, Model model, String className) {
-        List<MenuDTO> menuDTOList = menuService.getActiveSearch(active);
-        model.addAttribute("menuList", menuDTOList);
+        List<PasMenuDTO> pasMenuDTOList = menuService.getActiveSearch(active);
+        model.addAttribute("menuList", pasMenuDTOList);
 
         //카테고리 리스트 가져오는 부분
         List<MenuCategoryDTO> categoryList = menuService.getCategoryList();

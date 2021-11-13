@@ -17,7 +17,7 @@ public class MenuApiController {
     @Autowired
     private MenuService menuService;
 
-    private List<MenuDTO> sqMenuDTO;
+    private List<PasMenuDTO> sqPasMenuDTO;
     private List<ImgDTO> imgDTO;
 
     //카테고리 추가
@@ -42,12 +42,12 @@ public class MenuApiController {
 
 
         //메뉴 가져와서 Entity클래스에 주입
-        sqMenuDTO = menuService.save_menu(menuImgDTO);
+        sqPasMenuDTO = menuService.save_menu(menuImgDTO);
         imgDTO = menuService.getImgList();
-        int lastMenuSq = sqMenuDTO.size() - 1;
+        int lastMenuSq = sqPasMenuDTO.size() - 1;
 
         //이미지 파일 주입 부분
-        boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqMenuDTO, lastMenuSq, model);
+        boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqPasMenuDTO, lastMenuSq, model);
         if (checkImgfile == false) {
             return true;
         }
@@ -90,11 +90,11 @@ public class MenuApiController {
 
         if (menuImgDTO != null) {
             //메뉴 가져와서 Entity클래스에 주입
-            sqMenuDTO = menuService.save_menu(menuImgDTO);
+            sqPasMenuDTO = menuService.save_menu(menuImgDTO);
             imgDTO = menuService.getImgList();
-            int lastMenuSq = sqMenuDTO.size() - 1;
+            int lastMenuSq = sqPasMenuDTO.size() - 1;
             //이미지 파일 주입 부분
-            boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqMenuDTO, lastMenuSq, model);
+            boolean checkImgfile = menuService.saveRealImg(menuImgDTO, imgDTO, sqPasMenuDTO, lastMenuSq, model);
             if (checkImgfile == false) {
                 return menuImgDTO;
             }

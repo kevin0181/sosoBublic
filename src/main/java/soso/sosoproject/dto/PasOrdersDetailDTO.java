@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@Entity(name = "orders_detail")
+@Entity(name = "orders_detail_pas")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
 public class PasOrdersDetailDTO {
 
@@ -38,7 +38,7 @@ public class PasOrdersDetailDTO {
 
     @ManyToOne
     @JoinColumn(name = "menu_sq", insertable = false, updatable = false)
-    private MenuDTO menu_sq;
+    private PasMenuDTO menu_sq;
 
     @ManyToOne
     @JoinColumn(name = "orders_id", insertable = false, updatable = false)
