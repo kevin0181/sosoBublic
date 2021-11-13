@@ -68,6 +68,13 @@ public class SosoOrderDTO {
     @Column(name = "orders_policy")
     private boolean ordersPolicy;
 
+    @Column(name = "orders_member_size")
+    private boolean ordersMemberSize;
+
+    @ManyToOne
+    @JoinColumn(name = "menu_order_sq", insertable = false, updatable = false)
+    private SosoMenuDTO sosoMenuDTO;
+
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
     private MemberDTO member_sq;

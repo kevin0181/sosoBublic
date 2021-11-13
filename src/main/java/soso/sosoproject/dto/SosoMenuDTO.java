@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Setter
 @Getter
@@ -27,4 +28,8 @@ public class SosoMenuDTO {
     @NotNull
     @Column(name = "menu_soso_price")
     private int menuSosoPrice;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "menu_order_sq")
+    private List<SosoOrderDTO> sosoOrderDTOS;
 }
