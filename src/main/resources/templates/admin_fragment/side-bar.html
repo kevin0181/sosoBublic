@@ -56,6 +56,13 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item " th:classappend="${className} == 'sosoMenu' ? 'top-active'">
+                    <a href="table-datatable.html" class='sidebar-link'
+                       th:href="@{/admin/soso/addMenu(className='sosoMenu')}">
+                        <i class="bi bi-stack"></i>
+                        <span>soso Menu</span>
+                    </a>
+                </li>
                 <li class="sidebar-item " th:classappend="${className} == 'MemberList' ? 'top-active'">
                     <a href="table-datatable.html" class='sidebar-link'
                        th:href="@{/admin/MemberList(className='MemberList')}">

@@ -228,6 +228,15 @@ public class AdminPageController {
         return "admin/Blog/AdminBlog";
     }
 
+    @GetMapping("/soso/addMenu")
+    public String addSosoMenu(@RequestParam(value = "className", defaultValue = "sosoMenu") String className, Model model) {
+
+
+        //active
+        model.addAttribute("className", className);
+        return "admin/soso-add-menu";
+    }
+
 
     //함수-------------------------------------------------------------------------------
     private void searchActive(boolean active, Model model, String className) {

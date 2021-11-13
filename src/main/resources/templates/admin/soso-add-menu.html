@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소소한부엌</title>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+    <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+
+    <!--    메뉴추가-->
+    <link rel="stylesheet" href="assets/vendors/quill/quill.bubble.css"
+          th:href="@{/assets/vendors/quill/quill.bubble.css}">
+    <link rel="stylesheet" href="assets/vendors/quill/quill.snow.css" th:href="@{/assets/vendors/quill/quill.snow.css}">
+    <!--    리스트-->
+    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css"
+          th:href="@{/assets/vendors/simple-datatables/style.css}">
+
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css"
+          th:href="@{/assets/vendors/choices.js/choices.min.css}"/>
+</head>
+
+<body>
+<div class="spinner-border text-primary" id="loading_var" role="status" style="position: fixed;
+    top: 50%;
+    left: 50%; z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
+<div id="app">
+    <div id="sidebar" class="active">
+        <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>soso 메뉴 추가&삭제</h3>
+                        <p class="text-subtitle text-muted">메뉴를 추가하거나 삭제할 수 있음</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html" th:href="@{/admin/index}">Main</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Menu add & delete</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- // Basic Horizontal form layout section end -->
+
+            <!-- // Basic multiple Column Form section start -->
+            <section class="section">
+                <div class="row match-height">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">메뉴 추가</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <form class="form" id="soso_menu_form" method="post"
+                                          th:action="@{/menu/soso/addmenu}">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12" style="width: 100%">
+                                                <div class="form-group">
+                                                    <label for="menuSosoName">메뉴 이름</label>
+                                                    <input type="text" id="menuSosoName" class="form-control"
+                                                           placeholder="menu name" name="menuSosoName">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="menuSosoPrice">가격</label>
+                                                    <input type="number" id="menuSosoPrice" class="form-control"
+                                                           name="menuSosoPrice" placeholder="price">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="button" onclick="sosoAddMenu()"
+                                                        class="btn btn-primary me-1 mb-1">
+                                                    Add
+                                                </button>
+                                                <button type="reset"
+                                                        class="btn btn-light-secondary me-1 mb-1">Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- // Basic multiple Column Form section end -->
+        </div>
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2021 &copy; version 0.0.1</p>
+                </div>
+                <div class="float-end">
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> :
+                        <a>kevin0181@naver.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
+
+<script th:src="@{/mineFile/js/sosoAddMenu.js}"></script>
+
+<!-- Include Choices JavaScript -->
+<script src="assets/vendors/choices.js/choices.min.js" th:src="@{/assets/vendors/choices.js/choices.min.js}"></script>
+
+<script src="assets/vendors/quill/quill.min.js" th:src="@{/assets/vendors/quill/quill.min.js}"></script>
+<script src="assets/js/pages/form-editor.js" th:src="@{/assets/js/pages/form-editor.js}"></script>
+<!--리스트-->
+<script src="assets/vendors/simple-datatables/simple-datatables.js"
+        th:src="@{/assets/vendors/simple-datatables/simple-datatables.js}"></script>
+<script th:inline="javascript">
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    var kk;
+</script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+    });
+</script>
+</html>
