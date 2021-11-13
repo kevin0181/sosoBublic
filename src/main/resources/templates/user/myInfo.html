@@ -130,7 +130,6 @@
 
 <!-- start footer Area -->
 <footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">
-
 </footer>
 <!-- End footer Area -->
 <script>
@@ -139,6 +138,21 @@
         $('#changeMyInfo').show();
     }
 </script>
+
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        /*<![CDATA[*/
+        var memberSq = [[${session.memberSq}]];
+        /*]]>*/
+
+        if (memberSq != null) {
+            memberStartConnect();
+        }
+    });
+</script>
+
 <div th:replace="/user/user_fragment/script_src.html :: script"></div>
 </body>
 </html>

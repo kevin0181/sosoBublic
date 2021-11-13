@@ -142,6 +142,21 @@
 <!-- End footer Area -->
 
 <div th:replace="/user/user_fragment/script_src.html :: script"></div>
+
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        /*<![CDATA[*/
+        var memberSq = [[${session.memberSq}]];
+        /*]]>*/
+
+        if (memberSq != null) {
+            memberStartConnect();
+        }
+    });
+</script>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b6c2741de9cbdc2557bd80dfee9650b7"></script>
 <script>
     var mapContainer = document.getElementById('soso_map'), // 지도를 표시할 div_소소

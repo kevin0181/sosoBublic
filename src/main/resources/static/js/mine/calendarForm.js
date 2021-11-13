@@ -185,41 +185,61 @@ function sosoOrder(memberSq, memberEMail) {
             formData.append("orderPlace", "soso");
             formData.append("ordersTotalPrice", totalPrice);
 
-            $.ajax({
-                url: "/user/Reserve/calendar/order",
-                type: "post",
-                dataType: "json",
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (data) {
-                    console.log(data.error);
-                    if (data.error == "error7001") {
-                        alert("주문하는 장소 오류가 발생하였습니다.");
-                        location.href = "/user/Reserve/calendar";
+            var uid;
+            var DateUid = new Date();
+            uid = DateUid.getFullYear() + "" + (DateUid.getMonth() + 1) + "" + DateUid.getDate() + "" + DateUid.getHours() + "" + DateUid.getMinutes() + "" + DateUid.getSeconds() + "" + rand(1, 9999) + "S";
+
+            IMP.init('imp76725859');
+            IMP.request_pay({ // param
+                pg: $('#selectPayVale').val(),
+                pay_method: "card",
+                merchant_uid: uid,
+                name: "소소한 부엌",
+                amount: totalPrice,
+                buyer_email: memberEMail,
+                buyer_name: $('#sosoOrderName').val(),
+                buyer_tel: $('#sosoOrderPhoneNumber').val(),
+                buyer_addr: $('#sosoOrderAddress').val(),
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    if (rsp.merchant_uid == uid) {
+                        formData.append("ordersMerchantUid", uid);
+                        formData.append("ordersImpUid", rsp.imp_uid);
+                    } else {
+                        alert("결제 정보 오류가 발생하였습니다."); //주문번호가 일치하지않음 //백에서 검사한번더해야함.
                         return false;
                     }
-                    console.log("통과");
-                    IMP.init('imp76725859');
-                    IMP.request_pay({ // param
-                        pg: $('#selectPayVale').val(),
-                        pay_method: "card",
-                        merchant_uid: data.uid,
-                        name: "소소한 부엌",
-                        amount: totalPrice,
-                        buyer_email: memberEMail,
-                        buyer_name: $('#sosoOrderName').val(),
-                        buyer_tel: $('#sosoOrderPhoneNumber').val(),
-                        buyer_addr: $('#sosoOrderAddress').val(),
-                    }, function (rsp) { // callback
-                        if (rsp.success) {
-
-                        } else {
-
+                    $.ajax({
+                        url: "/user/Reserve/calendar/order",
+                        type: "post",
+                        dataType: "json",
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (data) {
+                            if (data.error == "error7001") {
+                                alert("주문하는 장소 오류가 발생하였습니다.  : 7001");
+                                location.href = "/user/Reserve/calendar";
+                                return false;
+                            } else if (data.error == "error7002") {
+                                alert("주문번호가 일치하지않습니다.(관리자에게 문의해주세요.)  : 7002");
+                                location.href = "/user/Reserve/calendar";
+                                return false;
+                            } else if (data.error == "error7003") {
+                                alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7003");
+                                location.href = "/user/Reserve/calendar";
+                                return false;
+                            } else {
+                                alert("주문이 완료되었습니다.");
+                                location.href = "/user/index";
+                            }
                         }
                     });
+                } else {
+
                 }
             });
+
 
         }
 
@@ -227,6 +247,10 @@ function sosoOrder(memberSq, memberEMail) {
 
 }
 
+
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 
 
