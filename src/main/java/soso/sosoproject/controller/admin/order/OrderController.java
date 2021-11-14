@@ -12,6 +12,7 @@ import soso.sosoproject.message.AccountMessage;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -38,6 +39,7 @@ public class OrderController {
         } else if (className.equals("soso")) {
             //soso list get
             List<SosoOrderDTO> sosoOrderServices = sosoOrderService.findAllPlaceAndEnableOrder();
+            Collections.reverse(sosoOrderServices);
 
             model.addAttribute("orderList", sosoOrderServices);
             model.addAttribute("className", className);

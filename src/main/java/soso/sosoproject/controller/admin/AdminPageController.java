@@ -15,6 +15,7 @@ import soso.sosoproject.service.admin.member.AdminMemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.admin.menu.SosoMenuService;
 import soso.sosoproject.service.order.PasOrderService;
+import soso.sosoproject.service.order.SosoOrderService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -35,6 +36,8 @@ public class AdminPageController {
     private PasOrderService pasOrderService;
     @Autowired
     private SosoMenuService sosoMenuService;
+    @Autowired
+    private SosoOrderService sosoOrderService;
 
 
     //인덱스
@@ -58,8 +61,8 @@ public class AdminPageController {
         List<PasOrderDTO> sosoList = pasOrderService.findAllPlaceOrder();
         model.addAttribute("totalSoso", sosoList.size());
         //pas 총 주문수
-        //List<PasOrderDTO> pasList = orderService.findAllPlaceOrder();
-        //model.addAttribute("totalPas", pasList.size());
+        List<SosoOrderDTO> pasList = sosoOrderService.findAllPlaceOrder();
+        model.addAttribute("totalPas", pasList.size());
 
         return "admin/admin-index";
     }

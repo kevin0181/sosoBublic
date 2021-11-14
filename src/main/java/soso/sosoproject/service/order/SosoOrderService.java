@@ -25,7 +25,7 @@ public class SosoOrderService {
     }
 
     public List<SosoOrderDTO> findAllPlaceAndEnableOrder() {
-        return sosoOrderRepository.findAllByOrderEnableOrderByOrderDateDesc(false);
+        return sosoOrderRepository.findAllByOrderEnable(false);
     }
 
     public int getTotalService(Long menu_order_sq, int userSize) {
@@ -34,5 +34,9 @@ public class SosoOrderService {
         SosoMenuDTO sosoMenuDTO = optionalSosoMenuDTO.get();
 
         return userSize * sosoMenuDTO.getMenuSosoPrice();
+    }
+
+    public List<SosoOrderDTO> findAllPlaceOrder() {
+        return sosoOrderRepository.findAll();
     }
 }

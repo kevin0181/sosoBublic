@@ -50,15 +50,14 @@
                                     style="margin-bottom: 20px;">이름</h5>
                                 <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
+                            <ul class="list-group list-group-flush" th:if="${order.sosoMenuDTO} != null">
+                                <li class="list-group-item" th:each="menu : ${order.sosoMenuDTO}">
                                     <div class="d-flex bd-highlight">
-                                        <p class="me-auto"
+                                        <p class="me-auto" th:text="${menu.menuSosoName}"
                                            style="margin: 0;">시킨 메뉴
                                             이름</p>
-                                        <p class=""
-                                           style="margin: 0;">메뉴
-                                            수량</p>
+                                        <p class="" th:text="${menu.menuSosoPrice}+'원'"
+                                           style="margin: 0;">메뉴 가격</p>
                                     </div>
                                 </li>
                             </ul>
@@ -78,10 +77,13 @@
                             </div>
                             <div class="card-footer" style="padding: 1rem;">
                                 <small class="text-muted" style="color: #eb6547!important"
-                                       th:text="'총 금액 : '+${order.ordersTotalPrice}">총 금액</small><br>
-                                <small class="text-muted" th:text="'주문 시간 : '+${order.orderDate}">시간</small><br>
-                                <small class="text-muted"
-                                       th:text="'주문 번호 : '+${order.ordersMerchantUid}">주문번호</small><br>
+                                       th:text="'예약 금액 : '+${order.ordersTotalPrice}">총 금액</small><br>
+                                <small class="text-muted" th:text="'예약 시간 : '+${order.orderDate}">시간</small><br>
+                                <small class="text-muted" th:text="'인원 수 : '+${order.ordersMemberSize}">총 인원
+                                    수</small><br>
+                                <small class="text-muted" th:if="${order.ordersMerchantUid} != null"
+                                       th:text="'주문 번호 : '+${order.ordersMerchantUid}">주문번호</small><br
+                                    th:if="${order.ordersMerchantUid} != null">
                                 <small class="text-muted"
                                        th:text="'전화 번호 : '+${order.orderPhoneNumber}">전화번호</small><br>
                                 <small class="text-muted" th:text="'주소 : '+${order.orderAddress}">주소</small>
