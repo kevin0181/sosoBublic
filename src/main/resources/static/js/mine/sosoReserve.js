@@ -165,7 +165,7 @@ function sosoOrder(memberSq, memberEMail) {
         alert("시간을 입력해주세요.");
         $('#sosoOrderTime').focus();
         return false;
-    } else if ($('#selectPayVale').val() == "none") {
+    } else if ($('#selectPayVale').val() == "none" && $('#myDiv').is(':visible')) {
         alert("지불 방식을 선택해주세요.");
         return false;
     } else if ($('#sosoUserSize').val() == "") {
@@ -180,70 +180,93 @@ function sosoOrder(memberSq, memberEMail) {
             return false;
         } else {
 
-            var totalPrice = 1;//결제금액 백에서 결제금액 체크 필수!
+            var totalPrice = $('#totalHiddenInputPrice').val();//결제금액 백에서 결제금액 체크 필수!
 
             var form = $("#sosoOrderForm")[0];
             var formData = new FormData(form);
             formData.append("orderDate", $('#sosoOrderDateHidden').val() + " " + $('#sosoOrderTime').val());
             formData.append("orderPlace", "soso");
-            formData.append("ordersTotalPrice", totalPrice);
 
-            var uid;
-            var DateUid = new Date();
-            uid = DateUid.getFullYear() + "" + (DateUid.getMonth() + 1) + "" + DateUid.getDate() + "" + DateUid.getHours() + "" + DateUid.getMinutes() + "" + DateUid.getSeconds() + "" + rand(1, 9999) + "S";
 
-            IMP.init('imp76725859');
-            IMP.request_pay({ // param
-                pg: $('#selectPayVale').val(),
-                pay_method: "card",
-                merchant_uid: uid,
-                name: "소소한 부엌",
-                amount: $('#totalPrice').text(),
-                buyer_email: memberEMail,
-                buyer_name: $('#sosoOrderName').val(),
-                buyer_tel: $('#sosoOrderPhoneNumber').val(),
-                buyer_addr: $('#sosoOrderAddress').val(),
-            }, function (rsp) { // callback
-                if (rsp.success) {
-                    if (rsp.merchant_uid == uid) {
-                        formData.append("ordersMerchantUid", uid);
-                        formData.append("ordersImpUid", rsp.imp_uid);
-                    } else {
-                        alert("결제 정보 오류가 발생하였습니다."); //주문번호가 일치하지않음 //백에서 검사한번더해야함.
-                        return false;
-                    }
-                    $.ajax({
-                        url: "/user/Reserve/calendar/order",
-                        type: "post",
-                        dataType: "json",
-                        contentType: false,
-                        processData: false,
-                        data: formData,
-                        success: function (data) {
-                            if (data.error == "error7001") {
-                                alert("주문하는 장소 오류가 발생하였습니다.  : 7001");
-                                location.href = "/user/Reserve/calendar";
-                                return false;
-                            } else if (data.error == "error7002") {
-                                alert("주문번호가 일치하지않습니다.(관리자에게 문의해주세요.)  : 7002");
-                                location.href = "/user/Reserve/calendar";
-                                return false;
-                            } else if (data.error == "error7003") {
-                                alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7003");
-                                location.href = "/user/Reserve/calendar";
-                                return false;
-                            } else {
-                                alert("주문이 완료되었습니다.");
-                                location.href = "/user/index";
-                            }
+            if ($('#sosoUserSize').val() >= 6) {
+                formData.append("ordersTotalPrice", totalPrice);
+                var uid;
+                var DateUid = new Date();
+                uid = DateUid.getFullYear() + "" + (DateUid.getMonth() + 1) + "" + DateUid.getDate() + "" + DateUid.getHours() + "" + DateUid.getMinutes() + "" + DateUid.getSeconds() + "" + rand(1, 9999) + "S";
+
+                IMP.init('imp76725859');
+                IMP.request_pay({ // param
+                    pg: $('#selectPayVale').val(),
+                    pay_method: "card",
+                    merchant_uid: uid,
+                    name: "소소한 부엌",
+                    amount: totalPrice,
+                    buyer_email: memberEMail,
+                    buyer_name: $('#sosoOrderName').val(),
+                    buyer_tel: $('#sosoOrderPhoneNumber').val(),
+                    buyer_addr: $('#sosoOrderAddress').val(),
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        if (rsp.merchant_uid == uid) {
+                            formData.append("ordersMerchantUid", uid);
+                            formData.append("ordersImpUid", rsp.imp_uid);
+                            formData.append("menuOrderSq", $('#selectSosoMenu').val());
+                            formData.append("ordersMemberSize", $("#sosoUserSize").val());
+                        } else {
+                            alert("결제 정보 오류가 발생하였습니다."); //주문번호가 일치하지않음 //백에서 검사한번더해야함.
+                            return false;
                         }
-                    });
-                } else {
+                        $.ajax({
+                            url: "/user/Reserve/soso/order",
+                            type: "post",
+                            dataType: "json",
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (data) {
+                                if (data.error == "error7001") {
+                                    alert("주문하는 장소 오류가 발생하였습니다.  : 7001");
+                                    location.href = "/user/Reserve/soso";
+                                    return false;
+                                } else if (data.error == "error7002") {
+                                    alert("주문번호가 일치하지않습니다.(관리자에게 문의해주세요.)  : 7002");
+                                    location.href = "/user/Reserve/soso";
+                                    return false;
+                                } else if (data.error == "error7003") {
+                                    alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7003");
+                                    location.href = "/user/Reserve/soso";
+                                    return false;
+                                } else {
+                                    alert("주문이 완료되었습니다.");
+                                    location.href = "/user/index";
+                                }
+                            }
+                        });
+                    } else {
 
-                }
-            });
-
-
+                    }
+                });
+            } else {
+                formData.append("ordersTotalPrice", 0);
+                formData.append("ordersMemberSize", $("#sosoUserSize").val());
+                $.ajax({
+                    url: "/user/Reserve/soso/order/normal",
+                    type: "post",
+                    dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data.error == "error7005") {
+                            alert("알수없는 오류가 발생하였습니다.");
+                            location.href = "/user/Reserve/soso";
+                        } else {
+                            alert("주문이 완료되었습니다.");
+                            location.href = "/user/index";
+                        }
+                    }
+                });
+            }
         }
 
     }
@@ -261,15 +284,43 @@ function userSizeCheck(size) {
     var selectMenuValue = $('#selectSosoMenu').val();
     if (userSize >= 6) {
         $('#sosoMenuDiv').show();
+        $('#selectPayDiv').show();
     } else {
         $('#sosoMenuDiv').hide();
+        $('#selectPayDiv').hide();
     }
 
-    $('#totalPrice').text("총 가격 : " + (userSize * selectMenuValue) + "원");
+    $.ajax({
+        url: "/user/Reserve/soso/totalPrice",
+        type: "GET",
+        dataType: "json",
+        data: {
+            "menu_order_sq": selectMenuValue,
+            "userSize": userSize
+        },
+        success: function (totalPrice) {
+            $('#totalPrice').text("총 가격 : " + totalPrice + "원");
+            $('#totalHiddenInputPrice').val(totalPrice);
+        }
+    });
 }
 
 $('#selectSosoMenu').on("change", function () {
     var userSize = $('#sosoUserSize').val();
     var selectMenuValue = $('#selectSosoMenu').val();
-    $('#totalPrice').text("총 가격 : " + (userSize * selectMenuValue) + "원");
+
+    $.ajax({
+        url: "/user/Reserve/soso/totalPrice",
+        type: "GET",
+        dataType: "json",
+        data: {
+            "menu_order_sq": selectMenuValue,
+            "userSize": userSize
+        },
+        success: function (totalPrice) {
+            $('#totalPrice').text("총 가격 : " + totalPrice + "원");
+            $('#totalHiddenInputPrice').val(totalPrice);
+        }
+    });
+
 });

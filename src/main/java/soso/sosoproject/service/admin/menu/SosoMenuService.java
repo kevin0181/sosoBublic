@@ -17,7 +17,6 @@ public class SosoMenuService {
         return sosoMenuRepository.findAll();
     }
 
-
     public void saveMenu(SosoMenuDTO sosoMenuDTO) {
         sosoMenuRepository.save(sosoMenuDTO);
     }

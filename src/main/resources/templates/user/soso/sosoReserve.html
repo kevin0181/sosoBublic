@@ -106,7 +106,7 @@
                                 <textarea class="single-textarea form-control" name="orderHelp"
                                           id="orderHelp" placeholder="하고싶은 말을 적어주세요."></textarea>
                                 </div>
-                                <div class="input-group-icon mt-10">
+                                <div class="input-group-icon mt-10" style="display: none;" id="selectPayDiv">
                                     <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
                                     <div class="form-select" id="default-select">
                                         <select id="selectPayVale">
@@ -129,12 +129,13 @@
                                             <select id="selectSosoMenu">
                                                 <option th:each="sosoMenulist : ${sosoMenuList}"
                                                         th:text="${sosoMenulist.menuSosoName}"
-                                                        th:value="${sosoMenulist.menuSosoPrice}"></option>
+                                                        th:value="${sosoMenulist.menu_order_sq}"></option>
                                             </select>
                                         </div>
                                         <div>
                                             <p id="totalPrice" style="display: inline-block;margin-top: 10px;">
                                             </p>
+                                            <input type="hidden" id="totalHiddenInputPrice">
                                         </div>
                                     </div>
                                 </div>

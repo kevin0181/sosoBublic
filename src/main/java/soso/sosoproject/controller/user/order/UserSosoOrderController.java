@@ -6,7 +6,9 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
@@ -34,7 +36,7 @@ public class UserSosoOrderController {
 
 
     @ResponseBody
-    @PostMapping("/user/Reserve/calendar/order")
+    @PostMapping("/user/Reserve/soso/order")
     public Map<String, Object> orderSoso(SosoOrderDTO sosoOrderDTO) { //soso 주문들어온거 일단 db에 저장
         Map<String, Object> data = new HashMap<>();
 
@@ -55,8 +57,35 @@ public class UserSosoOrderController {
             return data;
 
         }
-
     }
+
+    @ResponseBody
+    @PostMapping("/user/Reserve/soso/order/normal")
+    public Map<String, Object> orderSosoNormal(SosoOrderDTO sosoOrderDTO) {
+        Map<String, Object> data = new HashMap<>();
+
+//        try {
+        sosoOrderService.saveSosoOrder(sosoOrderDTO);
+        return data;
+//        } catch (Exception e) {
+//            data.put("error", "error7005"); //알수없는 오류
+//            return data;
+//        }
+    }
+
+
+    @ResponseBody
+    @GetMapping("/user/Reserve/soso/totalPrice")
+    public int getTotalPrice(@RequestParam(value = "menu_order_sq") Long menu_order_sq,
+                             @RequestParam(value = "userSize") int userSize) {
+
+        int totalPrice = 0;
+
+        totalPrice = sosoOrderService.getTotalService(menu_order_sq, userSize);
+
+        return totalPrice;
+    }
+
 
     public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
         return imIamportClient.paymentByImpUid(imp_uid);

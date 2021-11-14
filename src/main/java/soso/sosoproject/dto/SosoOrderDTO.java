@@ -22,7 +22,6 @@ public class SosoOrderDTO {
     @Column(name = "member_sq")
     private Long memberSq;
 
-    @NotNull
     @Column(name = "menu_order_sq")
     private Long menuOrderSq;
 
@@ -69,7 +68,7 @@ public class SosoOrderDTO {
     private boolean ordersPolicy;
 
     @Column(name = "orders_member_size")
-    private boolean ordersMemberSize;
+    private int ordersMemberSize;
 
     @ManyToOne
     @JoinColumn(name = "menu_order_sq", insertable = false, updatable = false)
