@@ -65,12 +65,14 @@
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
                                     <button type="button" class="btn btn-outline-success"
-                                            th:onclick="orderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],[[${order.ordersImpUid}]])">
+                                            th:onclick="orderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
+                                            [[${order.ordersImpUid}]],[[${order.orders_id}]])">
                                         주문 완료
                                     </button>
                                     <button type="button" class="btn btn-outline-dark"></button>
                                     <button type="button" class="btn btn-outline-danger"
-                                            th:onclick="orderFail([[${order.memberSq}]],[[${order.ordersMerchantUid}]],[[${order.ordersImpUid}]])">
+                                            th:onclick="orderFail([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
+                                            [[${order.ordersImpUid}]],[[${order.orders_id}]])">
                                         주문 취소
                                     </button>
                                 </div>
@@ -107,6 +109,7 @@
     </div>
 </div>
 </body>
+
 <div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
 <script th:inline="javascript">
     $(document).ready(function () {

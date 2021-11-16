@@ -72,4 +72,9 @@ public class MemberDTO {
     @JsonIgnore
     private List<BlogCommentDTO> blogCommentDTOList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_sq")
+    @JsonIgnore
+    private List<SosoOrderDTO> sosoOrderDTOS = new ArrayList<>();
+
 }

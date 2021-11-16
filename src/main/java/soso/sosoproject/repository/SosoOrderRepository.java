@@ -9,4 +9,5 @@ import java.util.List;
 public interface SosoOrderRepository extends JpaRepository<SosoOrderDTO, Long> {
     //    List<SosoOrderDTO> findAllByOrderEnableOrderByOrderDateDesc(boolean b);
     List<SosoOrderDTO> findAllByOrderEnable(boolean b);
+
 }

@@ -29,7 +29,7 @@ public class SosoMenuDTO {
     @Column(name = "menu_soso_price")
     private int menuSosoPrice;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany
     @JoinColumn(name = "menu_order_sq")
     private List<SosoOrderDTO> sosoOrderDTOS;
 }

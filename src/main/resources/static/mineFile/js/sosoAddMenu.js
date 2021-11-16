@@ -8,5 +8,4 @@ function sosoAddMenu() {
     } else {
         $('#soso_menu_form').submit();
     }
-
 }

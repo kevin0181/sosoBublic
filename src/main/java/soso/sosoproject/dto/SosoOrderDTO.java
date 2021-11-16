@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @Entity(name = "order_soso")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
 public class SosoOrderDTO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orders_id;

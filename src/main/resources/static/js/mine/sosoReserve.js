@@ -165,7 +165,7 @@ function sosoOrder(memberSq, memberEMail) {
         alert("시간을 입력해주세요.");
         $('#sosoOrderTime').focus();
         return false;
-    } else if ($('#selectPayVale').val() == "none" && $('#myDiv').is(':visible')) {
+    } else if ($('#selectPayVale').val() == "none") {
         alert("지불 방식을 선택해주세요.");
         return false;
     } else if ($('#sosoUserSize').val() == "") {
