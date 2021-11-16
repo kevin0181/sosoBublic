@@ -65,13 +65,13 @@
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
                                     <button type="button" class="btn btn-outline-success"
-                                            th:onclick="orderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
+                                            th:onclick="sosoOrderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
                                             [[${order.ordersImpUid}]],[[${order.orders_id}]])">
                                         주문 완료
                                     </button>
                                     <button type="button" class="btn btn-outline-dark"></button>
                                     <button type="button" class="btn btn-outline-danger"
-                                            th:onclick="orderFail([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
+                                            th:onclick="sosoOrderFail([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
                                             [[${order.ordersImpUid}]],[[${order.orders_id}]])">
                                         주문 취소
                                     </button>

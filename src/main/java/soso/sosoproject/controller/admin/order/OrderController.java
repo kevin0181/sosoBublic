@@ -52,7 +52,7 @@ public class OrderController {
     }
 
     @ResponseBody
-    @GetMapping("/orderList/orderComplte") //소소 주문 성공
+    @GetMapping("/orderList/sosoOrderComplte") //소소 주문 성공
     public boolean sosoOrderComplte(@RequestParam(value = "memberSq", required = false) Long memberSq,
                                     @RequestParam(value = "orders_id", required = false) Long orders_id,
                                     @RequestParam(value = "ordersMerchantUid", required = false) String ordersMerchantUid,
@@ -64,13 +64,37 @@ public class OrderController {
     }
 
     @ResponseBody
-    @GetMapping("/orderList/orderDelete") //소소 주문 취소
+    @GetMapping("/orderList/sosoOrderDelete") //소소 주문 취소
     public boolean sosoOrderDelete(@RequestParam(value = "memberSq", required = false) Long memberSq,
                                    @RequestParam(value = "orders_id", required = false) Long orders_id,
                                    @RequestParam(value = "ordersMerchantUid", required = false) String ordersMerchantUid,
                                    @RequestParam(value = "ordersImpUid", required = false) String ordersImpUid) {
 
         boolean result = sosoOrderService.deleteSosoService(memberSq, orders_id, ordersMerchantUid, ordersImpUid);
+
+        return result;
+    }
+
+    @ResponseBody
+    @GetMapping("/orderList/pasOrderComplte") //pas 주문 성공
+    public boolean pasOrderComplte(@RequestParam(value = "memberSq", required = false) Long memberSq,
+                                   @RequestParam(value = "orders_id", required = false) Long orders_id,
+                                   @RequestParam(value = "ordersMerchantUid", required = false) String ordersMerchantUid,
+                                   @RequestParam(value = "ordersImpUid", required = false) String ordersImpUid) {
+
+        boolean result = pasOrderService.compltePasService(memberSq, orders_id, ordersMerchantUid, ordersImpUid);
+
+        return result;
+    }
+
+    @ResponseBody
+    @GetMapping("/orderList/pasOrderDelete") //pas 주문 취소
+    public boolean pasOrderDelete(@RequestParam(value = "memberSq", required = false) Long memberSq,
+                                  @RequestParam(value = "orders_id", required = false) Long orders_id,
+                                  @RequestParam(value = "ordersMerchantUid", required = false) String ordersMerchantUid,
+                                  @RequestParam(value = "ordersImpUid", required = false) String ordersImpUid) {
+
+        boolean result = pasOrderService.deletePasService(memberSq, orders_id, ordersMerchantUid, ordersImpUid);
 
         return result;
     }

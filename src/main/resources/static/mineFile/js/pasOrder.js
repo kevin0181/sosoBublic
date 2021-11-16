@@ -1,4 +1,4 @@
-function sosoOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
+function pasOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
 
     if (ordersMerchantUid != null && ordersImpUid != null) {
         //일반 주문
@@ -6,7 +6,7 @@ function sosoOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) 
             //주문 완료
             $.ajax({
                 type: "GET",
-                url: "/admin/orderList/sosoOrderComplte",
+                url: "/admin/orderList/pasOrderComplte",
                 dataType: "json",
                 data: {
                     'memberSq': memberSq,
@@ -18,7 +18,7 @@ function sosoOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) 
 
                     if (result) {
                         alert("주문을 완료하였습니다.");
-                        location.href = "/admin/orderList?className=soso";
+                        location.href = "/admin/orderList?className=pas";
                         return false;
                     } else {
                         alert("주문완료에 실패하였습니다.(관리자에게 문의해주세요)");
@@ -37,7 +37,7 @@ function sosoOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) 
             //주문 완료
             $.ajax({
                 type: "GET",
-                url: "/admin/orderList/sosoOrderComplte",
+                url: "/admin/orderList/pasOrderComplte",
                 dataType: "json",
                 data: {
                     'memberSq': memberSq,
@@ -47,7 +47,7 @@ function sosoOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) 
 
                     if (result) {
                         alert("주문을 완료하였습니다.");
-                        location.href = "/admin/orderList?className=soso";
+                        location.href = "/admin/orderList?className=pas";
                         return false;
                     } else {
                         alert("주문완료에 실패하였습니다.(관리자에게 문의해주세요)");
@@ -63,14 +63,14 @@ function sosoOrderSuccess(memberSq, ordersMerchantUid, ordersImpUid, orders_id) 
 
 }
 
-function sosoOrderFail(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
+function pasOrderFail(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
     if (ordersMerchantUid != null && ordersImpUid != null) {
         //일반 주문
         if (confirm("주문을 추소하시겠습니까?") == true) {
             //주문 취소
             $.ajax({
                 type: "GET",
-                url: "/admin/orderList/sosoOrderDelete",
+                url: "/admin/orderList/pasOrderDelete",
                 dataType: "json",
                 data: {
                     'memberSq': memberSq,
@@ -82,7 +82,7 @@ function sosoOrderFail(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
 
                     if (result) {
                         alert("주문취소를 완료하였습니다.");
-                        location.href = "/admin/orderList?className=soso";
+                        location.href = "/admin/orderList?className=pas";
                         return false;
                     } else {
                         alert("주문취소에 실패하였습니다.(관리자에게 문의해주세요)");
@@ -101,7 +101,7 @@ function sosoOrderFail(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
             //주문 완료
             $.ajax({
                 type: "GET",
-                url: "/admin/orderList/sosoOrderDelete",
+                url: "/admin/orderList/pasOrderDelete",
                 dataType: "json",
                 data: {
                     'memberSq': memberSq,
@@ -111,7 +111,7 @@ function sosoOrderFail(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
 
                     if (result) {
                         alert("주문취소를 완료하였습니다.");
-                        location.href = "/admin/orderList?className=soso";
+                        location.href = "/admin/orderList?className=pas";
                         return false;
                     } else {
                         alert("주문취소에 실패하였습니다.(관리자에게 문의해주세요)");

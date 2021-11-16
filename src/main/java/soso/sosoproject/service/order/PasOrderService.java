@@ -1,19 +1,25 @@
 package soso.sosoproject.service.order;
 
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.request.CancelData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import soso.sosoproject.dto.PasOrderDTO;
+import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.repository.PasOrderDetailRepository;
 import soso.sosoproject.repository.PasOrderRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class PasOrderService {
+
+
 
     @Autowired
     private PasOrderRepository pasOrderRepository;
@@ -40,6 +46,17 @@ public class PasOrderService {
     public List<PasOrderDTO> findAllPlaceAndEnableOrder() {
         return pasOrderRepository.findAllByOrderEnableOrderByOrderDateDesc(false);
     }
+
+
+    private IamportClient imIamportClient;
+
+    public PasOrderService() {
+        // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
+        this.imIamportClient =
+                new IamportClient("1152819197412694",
+                        "acffbee8c37f2492f2654739c30af6863c53e981f2488325703fb8d691f222814862c2ab7d67779a");
+    }
+
 
     public String saveFirstOrder(PasOrderDTO pasOrderDTO, int totalPay) {
         Random random = new Random();
@@ -78,5 +95,37 @@ public class PasOrderService {
     @Transactional
     public void cancleMenuService(String uid) {
         pasOrderRepository.deleteByOrdersMerchantUid(uid);
+    }
+
+    public boolean compltePasService(Long memberSq, Long orders_id, String ordersMerchantUid, String ordersImpUid) {
+        Optional<PasOrderDTO> sosoOrderDTOOptional = pasOrderRepository.findById(orders_id);
+        PasOrderDTO pasOrderDTO = sosoOrderDTOOptional.get();
+        try {
+            pasOrderDTO.setOrderEnable(true);
+            pasOrderDTO.setOrdersSave(true);
+
+            pasOrderRepository.save(pasOrderDTO);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public boolean deletePasService(Long memberSq, Long orders_id, String ordersMerchantUid, String ordersImpUid) {
+        try {
+            if (ordersMerchantUid != null && ordersImpUid != null) {
+
+                CancelData cancelData = new CancelData(ordersImpUid, true);
+                imIamportClient.cancelPaymentByImpUid(cancelData);
+
+            }
+
+            pasOrderRepository.deleteById(orders_id);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
