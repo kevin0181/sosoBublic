@@ -1,6 +1,7 @@
 var nowDate = new Date();
 
 var menuSizeListInputClassName = new Array();
+var menuNumberListInputCN = new Array();
 
 (function () {
     calendarMaker($("#calendarForm"), new Date());
@@ -286,6 +287,8 @@ function userSizeCheck(size) {
     if (userSize >= 6) {
 
         menuSizeListInputClassName.length = 0;
+        menuNumberListInputCN.length = 0;
+
         $('#sosoDefultMenuDiv').empty();
 
         //6명 이상일때
@@ -364,13 +367,15 @@ function addMenuBySosoMenu() {
                     location.href = "/user/Reserve/soso";
                 } else {
                     var NC = 'menu' + menuSizeListInputClassName.length;
+                    var NCN = 'menuS' + menuSizeListInputClassName.length;
                     menuSizeListInputClassName.push(NC);
+                    menuNumberListInputCN.push(NCN);
 
                     var selectContent;
 
                     $.each(data, function (idx, val) {
                         if (idx == 0) {
-                            selectContent = "<select id='" + NC + "'>";
+                            selectContent = "<select id='" + NC + "' class='nice-select'>";
                         }
                         selectContent += "<option value='" + val.menu_order_sq + "'>" + val.menuSosoName + "</option>";
                         if (idx == data.length) {
@@ -379,7 +384,7 @@ function addMenuBySosoMenu() {
                     });
 
                     $('#sosoDefultMenuDiv').append(selectContent);
-
+                    $('#sosoDefultMenuDiv').append("<input type='number' style='width: 50px;' class='nice-number' id='" + NCN + "' value='1'>");
                 }
             }
         });
@@ -389,7 +394,9 @@ function addMenuBySosoMenu() {
 function deleteMenuBySosoMenu() {
 
     var Iname = menuSizeListInputClassName[menuSizeListInputClassName.length - 1];
-
+    var Nname = menuNumberListInputCN[menuNumberListInputCN.length - 1];
+    $('#' + Nname).remove();
+    menuNumberListInputCN.pop();
     $('#' + Iname).remove();
     menuSizeListInputClassName.pop();
 
