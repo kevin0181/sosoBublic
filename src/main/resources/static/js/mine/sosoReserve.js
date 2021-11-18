@@ -189,12 +189,14 @@ function sosoOrder(memberSq, memberEMail) {
             formData.append("orderDate", $('#sosoOrderDateHidden').val() + " " + $('#sosoOrderTime').val());
             formData.append("orderPlace", "soso");
 
+            var uid;
+            var DateUid = new Date();
+            uid = DateUid.getFullYear() + "" + (DateUid.getMonth() + 1) + "" + DateUid.getDate() + "" + DateUid.getHours() + "" + DateUid.getMinutes() + "" + DateUid.getSeconds() + "" + rand(1, 9999) + "S";
+
+            formData.append("ordersTotalPrice", totalPrice);
 
             if ($('#sosoUserSize').val() >= 6) {
-                formData.append("ordersTotalPrice", totalPrice);
-                var uid;
-                var DateUid = new Date();
-                uid = DateUid.getFullYear() + "" + (DateUid.getMonth() + 1) + "" + DateUid.getDate() + "" + DateUid.getHours() + "" + DateUid.getMinutes() + "" + DateUid.getSeconds() + "" + rand(1, 9999) + "S";
+
 
                 IMP.init('imp76725859');
                 IMP.request_pay({ // param
@@ -249,8 +251,10 @@ function sosoOrder(memberSq, memberEMail) {
                     }
                 });
             } else {
-                formData.append("ordersTotalPrice", 0);
-                formData.append("ordersMemberSize", $("#sosoUserSize").val());
+
+
+
+
                 $.ajax({
                     url: "/user/Reserve/soso/order/normal",
                     type: "post",
