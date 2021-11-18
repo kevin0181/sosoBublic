@@ -282,13 +282,6 @@ function rand(min, max) {
 function userSizeCheck(size) {
     var userSize = $(size).val();
     var selectMenuValue = $('#selectSosoMenu').val();
-    if (userSize >= 6) {
-        $('#sosoMenuDiv').show();
-        $('#selectPayDiv').show();
-    } else {
-        $('#sosoMenuDiv').hide();
-        $('#selectPayDiv').hide();
-    }
 
     $.ajax({
         url: "/user/Reserve/soso/totalPrice",

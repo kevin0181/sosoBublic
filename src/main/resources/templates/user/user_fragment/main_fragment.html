@@ -120,16 +120,16 @@
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
-                    <h1 class="mb-10">주문 메뉴</h1>
+                    <h1 class="mb-10">앤 빠스떼우 주문 메뉴</h1>
                     <p id="openId"></p>
                 </div>
             </div>
         </div>
 
-
         <ul class="filter-wrap filters col-lg-12 no-padding">
             <li class="active" data-filter="*">모든 메뉴</li>
-            <li th:each="categoryList : ${category}" th:text="${categoryList.category_name}"
+            <li th:each="categoryList : ${category}"
+                th:text="${categoryList.categoryName}"
                 th:attr="data-filter='.'+${categoryList.category_sq}"></li>
         </ul>
         <div class="filters-content">

@@ -2,6 +2,7 @@ package soso.sosoproject.service.admin.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import soso.sosoproject.dto.MenuCategoryDTO;
 import soso.sosoproject.dto.SosoMenuDTO;
 import soso.sosoproject.repository.SosoMenuRepository;
 
@@ -24,4 +25,5 @@ public class SosoMenuService {
     public void deleteMenu(Long sosoMenuSq) {
         sosoMenuRepository.deleteById(sosoMenuSq);
     }
+
 }

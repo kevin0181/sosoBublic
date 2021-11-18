@@ -20,7 +20,7 @@ public class MenuCategoryDTO {
     private Long category_sq;
 
     @Column(nullable = false, length = 80, name = "category_name")
-    private String category_name;
+    private String categoryName;
 
     @OneToMany
     @JoinColumn(name = "menu_category_sq")

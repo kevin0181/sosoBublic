@@ -177,7 +177,7 @@ public class AdminPageController {
                 //바뀐 카테고리 이름을 새로운 dto에 주입
                 MenuCategoryDTO menuCategoryDTO = new MenuCategoryDTO();
                 menuCategoryDTO.setCategory_sq(categoryId);
-                menuCategoryDTO.setCategory_name(categoryName);
+                menuCategoryDTO.setCategoryName(categoryName);
                 menuService.changeCategory(menuCategoryDTO);
             } else if (condition.equals("delete")) {
                 menuService.deleteCategory(categoryId);

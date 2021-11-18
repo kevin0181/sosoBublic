@@ -49,7 +49,12 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">예약 방법!</h5>
-                        <p class="card-text">이러쿵 저러쿵 예약하면되요!</p>
+                        <p class="card-text">5인 이하 : 6인 메뉴 제외하고 주문해주시면 됩니다.<small style="color: red;">주의! 기본이 들어간 메뉴는
+                            선택하시면 안됩니다.</small></p>
+                        <p class="card-text">6인 이상 : 기본 20000원에서 시작으로 매일 변경되는 메뉴가 나갑니다.<small style="color: red;">
+                            6인 이상은 메뉴 선택X -> (기본) 으로 주문해주세요.
+                        </small></p>
+                        <p class="card-text">전화 문의 가능합니다. 010-8318-9956</p>
                     </div>
                     <div class="card-footer text-muted">
                         <a href="https://blog.naver.com/arang0181" target="_blank">예약 문의</a>
@@ -106,7 +111,7 @@
                                 <textarea class="single-textarea form-control" name="orderHelp"
                                           id="orderHelp" placeholder="하고싶은 말을 적어주세요."></textarea>
                                 </div>
-                                <div class="input-group-icon mt-10" style="display: none;" id="selectPayDiv">
+                                <div class="input-group-icon mt-10" id="selectPayDiv">
                                     <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
                                     <div class="form-select" id="default-select">
                                         <select id="selectPayVale">
@@ -123,7 +128,7 @@
                                            id="sosoUserSize" onkeyup="userSizeCheck(this)"
                                            onblur="this.placeholder = '인원 수를 적어주세요.'" required="" class="single-input">
                                 </div>
-                                <div class="mt-10" id="sosoMenuDiv" style="display: none;">
+                                <div class="mt-10" id="sosoMenuDiv">
                                     <div class="single-element-widget">
                                         <div class="form-select" id="default-select" style="display: inline">
                                             <select id="selectSosoMenu">
@@ -157,12 +162,14 @@
             <div style="margin-top: 10%;margin-left: 5%;">
                 <p style="margin-bottom: 0">소소한 부엌 예약</p>
                 <small>예약 비용: 총 요금의 10% </small><br>
-                <small>예약 시 주의사항 : --</small><br>
-                <p style="margin-bottom: 0;margin-top: 20px;">이용 약관</p>
-                <small>--</small><br>
+                <small>예약 시 주의사항 : 7일전 환불 문의 주셔야 환불 가능합니다.</small><br>
+                <!--                <p style="margin-bottom: 0;margin-top: 20px;">이용 약관</p>-->
+                <!--                <small>&#45;&#45;</small><br>-->
                 <p style="margin-bottom: 0;margin-top: 20px;">예약 환불 규정</p>
                 <small>7일전 : 전액 환불</small><br>
                 <small>6 ~ 1일전 : 환불 불가</small><br>
+                <small>예약시 적는 이름과 전화번호가 일치해야 환불이 가능합니다. 꼭 제대로 적어주세요!</small><br>
+                <small>환불 문의 : 010-8318-9956</small><br>
             </div>
         </div>
     </div>

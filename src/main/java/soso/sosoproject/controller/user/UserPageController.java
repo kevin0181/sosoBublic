@@ -14,6 +14,7 @@ import soso.sosoproject.dto.detail.UserDetail;
 import soso.sosoproject.service.Account.MemberService;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.admin.menu.SosoMenuService;
+import soso.sosoproject.service.order.MenuCategoryService;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.user.UserBlogService;
 
@@ -35,6 +36,8 @@ public class UserPageController {
     private PasOrderService pasOrderService;
     @Autowired
     private SosoMenuService sosoMenuService;
+    @Autowired
+    private MenuCategoryService menuCategoryService;
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal, HttpSession session) {
@@ -207,8 +210,8 @@ public class UserPageController {
     public String goReservePage(Model model) {  //soso 주문으로
 
         List<SosoMenuDTO> sosoMenuDTOList = sosoMenuService.findAllSosoList();
-
         model.addAttribute("sosoMenuList", sosoMenuDTOList);
+
         return "/user/soso/sosoReserve";
     }
 
