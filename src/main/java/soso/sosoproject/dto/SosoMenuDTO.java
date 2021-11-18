@@ -29,6 +29,12 @@ public class SosoMenuDTO {
     @Column(name = "menu_soso_price")
     private int menuSosoPrice;
 
+
+    @NotNull
+    @Column(name = "menu_limit")
+    private String menuLimit;
+
+
     @OneToMany
     @JoinColumn(name = "menu_order_sq")
     private List<SosoOrderDTO> sosoOrderDTOS;
