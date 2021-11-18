@@ -77,4 +77,8 @@ public class MemberDTO {
     @JsonIgnore
     private List<SosoOrderDTO> sosoOrderDTOS = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_sq")
+    @JsonIgnore
+    private List<SosoOrdersDetailDTO> sosoOrdersDetailDTOS = new ArrayList<>();
 }

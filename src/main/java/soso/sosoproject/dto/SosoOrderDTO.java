@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Setter
 @Getter
@@ -77,4 +78,8 @@ public class SosoOrderDTO {
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
     private MemberDTO member_sq;
+
+    @OneToMany
+    @JoinColumn(name = "order_soso_id")
+    private List<SosoOrdersDetailDTO> sosoOrdersDetailDTOS;
 }
