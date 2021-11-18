@@ -3,6 +3,9 @@
 <head>
     <div th:replace="/user/user_fragment/link.html :: link"></div>
     <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
+
+    <script src="../../../js/vendor/jquery-2.2.4.min.js" th:src="@{/js/vendor/jquery-2.2.4.min.js}"></script>
+
     <!--반응형-->
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
@@ -128,6 +131,60 @@
 </section>
 <!-- End contact-page Area -->
 
+<section class="contact-page-area" style="padding-bottom: 120px;padding-top: 30px;">
+    <div class="container">
+        <div class="title" style="margin-bottom: 30px;"><h3 class="fs-md-3 p-2">앤 빠스떼우 주문 내역</h3></div>
+        <div class="orderList">
+            <div>
+                <div class="card" th:each="pasOrderList : ${memberDTO.pasOrderDTOList}" style="width: 49%;display: inline-block;">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${pasOrderList.orderDate}">주문 날짜</h5>
+                            <p class="card-text">
+                                Chocolate sesame snaps apple pie danish cupcake sweet roll jujubes
+                                tiramisu.Gummies
+                                bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll.
+                            </p>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-page-area" style="padding-bottom: 120px;padding-top: 30px;">
+    <div class="container">
+        <div class="title" style="margin-bottom: 30px;"><h3 class="fs-md-3 p-2">소소한 부엌 주문 내역</h3></div>
+        <div class="orderList">
+            <div>
+                <div class="card" th:each="sosoOrderList : ${memberDTO.sosoOrderDTOS}"
+                     style="width: 49%;display: inline-block;">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${sosoOrderList.orderDate}">예약 날짜</h5>
+                            <p class="card-text">
+                                Chocolate sesame snaps apple pie danish cupcake sweet roll jujubes
+                                tiramisu.Gummies
+                                bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll.
+                            </p>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- start footer Area -->
 <footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">
 </footer>
