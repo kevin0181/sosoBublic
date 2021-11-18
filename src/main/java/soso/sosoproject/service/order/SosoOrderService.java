@@ -89,6 +89,10 @@ public class SosoOrderService {
             return false;
         }
     }
+
+    public List<SosoMenuDTO> getMenuLimitByDef(String menuLimit) {
+        return sosoMenuRepository.findAllByMenuLimit(menuLimit);
+    }
 }
 
 

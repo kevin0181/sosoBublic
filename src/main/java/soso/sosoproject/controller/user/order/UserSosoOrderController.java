@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.PasOrderDTO;
+import soso.sosoproject.dto.SosoMenuDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.service.order.SosoOrderService;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -84,6 +86,19 @@ public class UserSosoOrderController {
         totalPrice = sosoOrderService.getTotalService(menu_order_sq, userSize);
 
         return totalPrice;
+    }
+
+    @ResponseBody
+    @GetMapping("/user/Reserve/soso/addInputMenuList")
+    public List<SosoMenuDTO> addInputMenuRet(@RequestParam(value = "menuLimit") String menuLimit) {
+
+        if (menuLimit.equals("기본메뉴")) {
+            List<SosoMenuDTO> sosoMenuDTOList = sosoOrderService.getMenuLimitByDef(menuLimit);
+            return sosoMenuDTOList;
+        } else {
+            return null;
+        }
+
     }
 
 

@@ -1,5 +1,6 @@
 var nowDate = new Date();
 
+var menuSizeListInputClassName = new Array();
 
 (function () {
     calendarMaker($("#calendarForm"), new Date());
@@ -278,3 +279,118 @@ function rand(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function userSizeCheck(size) {
+    var userSize = $(size).val();
+    var selectMenuValue = $('#selectSosoMenu').val();
+
+    if (userSize >= 6) {
+
+        menuSizeListInputClassName.length = 0;
+        $('#sosoDefultMenuDiv').empty();
+
+        //6명 이상일때
+        $('#sosoMenuDiv').show();
+        $('#selectPayDiv').show();
+
+        $('#sosoAddMenuDiv').hide();
+
+        $.ajax({
+            url: "/user/Reserve/soso/totalPrice",
+            type: "GET",
+            dataType: "json",
+            data: {
+                "menu_order_sq": selectMenuValue,
+                "userSize": userSize
+            },
+            success: function (totalPrice) {
+                $('#totalPrice').text("총 가격 : " + totalPrice + "원");
+                $('#totalHiddenInputPrice').val(totalPrice);
+            }
+        });
+
+    } else {
+        $('#sosoMenuDiv').hide();
+        $('#selectPayDiv').hide();
+
+        $('#sosoAddMenuDiv').show();
+    }
+
+
+}
+
+$('#selectSosoMenu').on("change", function () {
+    var userSize = $('#sosoUserSize').val();
+    var selectMenuValue = $('#selectSosoMenu').val();
+
+    $.ajax({
+        url: "/user/Reserve/soso/totalPrice",
+        type: "GET",
+        dataType: "json",
+        data: {
+            "menu_order_sq": selectMenuValue,
+            "userSize": userSize
+        },
+        success: function (totalPrice) {
+            $('#totalPrice').text("총 가격 : " + totalPrice + "원");
+            $('#totalHiddenInputPrice').val(totalPrice);
+        }
+    });
+
+});
+
+//메뉴 추가
+function addMenuBySosoMenu() {
+
+
+    if ($('#orderUserSize').val() >= 6) {
+
+        alert("메뉴 선택은 6명 이하의 인원만 선택하실 수 있습니다.");
+        return false;
+
+    } else {
+
+        $("#sosoDefultMenuDiv").show(); //보이게
+
+        $.ajax({
+            url: "/user/Reserve/soso/addInputMenuList",
+            type: "GET",
+            dataType: "json",
+            data: {
+                "menuLimit": '기본메뉴'
+            },
+            success: function (data) {
+                if (data == null) {
+                    alert("메뉴를 불러오지 못했습니다.");
+                    location.href = "/user/Reserve/soso";
+                } else {
+                    var NC = 'menu' + menuSizeListInputClassName.length;
+                    menuSizeListInputClassName.push(NC);
+
+                    var selectContent;
+
+                    $.each(data, function (idx, val) {
+                        if (idx == 0) {
+                            selectContent = "<select id='" + NC + "'>";
+                        }
+                        selectContent += "<option value='" + val.menu_order_sq + "'>" + val.menuSosoName + "</option>";
+                        if (idx == data.length) {
+                            selectContent += "</select>";
+                        }
+                    });
+
+                    $('#sosoDefultMenuDiv').append(selectContent);
+
+                }
+            }
+        });
+    }
+}
+
+function deleteMenuBySosoMenu() {
+
+    var Iname = menuSizeListInputClassName[menuSizeListInputClassName.length - 1];
+
+    $('#' + Iname).remove();
+    menuSizeListInputClassName.pop();
+
+}

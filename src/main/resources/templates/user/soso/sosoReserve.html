@@ -145,10 +145,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-10" id="sosoDefultMenuDiv" style="display: none;">
+                                <div class="mt-10" id="sosoDefultMenuDiv"
+                                     style="display: none;">
                                 </div>
                                 <div class="mt-10" style="display: none;" id="sosoAddMenuDiv">
-                                    <p onclick="" style="color: #5d9569;">메뉴 추가</p>
+                                    <p onclick="addMenuBySosoMenu()"
+                                       style="color: #5d9569; display: inline-block; margin: 0px 5px;">메뉴
+                                        추가</p>
+                                    <p onclick="deleteMenuBySosoMenu()"
+                                       style="color: red; display: inline-block; margin: 0px 5px;">메뉴 삭제</p>
                                 </div>
                                 <div class="mt-10">
                                     <input type="checkbox" id="sosoOrderCheckbox" name="ordersPolicy"
@@ -202,63 +207,6 @@
         if (memberSq != null) {
             memberStartConnect();
         }
-    });
-
-
-    function userSizeCheck(size) {
-        var userSize = $(size).val();
-        var selectMenuValue = $('#selectSosoMenu').val();
-
-        if (userSize >= 6) {
-
-            //6명 이상일때
-            $('#sosoMenuDiv').show();
-            $('#selectPayDiv').show();
-
-            $('#sosoAddMenuDiv').hide();
-
-            $.ajax({
-                url: "/user/Reserve/soso/totalPrice",
-                type: "GET",
-                dataType: "json",
-                data: {
-                    "menu_order_sq": selectMenuValue,
-                    "userSize": userSize
-                },
-                success: function (totalPrice) {
-                    $('#totalPrice').text("총 가격 : " + totalPrice + "원");
-                    $('#totalHiddenInputPrice').val(totalPrice);
-                }
-            });
-
-        } else {
-            $('#sosoMenuDiv').hide();
-            $('#selectPayDiv').hide();
-
-            $('#sosoAddMenuDiv').show();
-        }
-
-
-    }
-
-    $('#selectSosoMenu').on("change", function () {
-        var userSize = $('#sosoUserSize').val();
-        var selectMenuValue = $('#selectSosoMenu').val();
-
-        $.ajax({
-            url: "/user/Reserve/soso/totalPrice",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "menu_order_sq": selectMenuValue,
-                "userSize": userSize
-            },
-            success: function (totalPrice) {
-                $('#totalPrice').text("총 가격 : " + totalPrice + "원");
-                $('#totalHiddenInputPrice').val(totalPrice);
-            }
-        });
-
     });
 
 </script>
