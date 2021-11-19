@@ -93,6 +93,21 @@ public class SosoOrderService {
     public List<SosoMenuDTO> getMenuLimitByDef(String menuLimit) {
         return sosoMenuRepository.findAllByMenuLimit(menuLimit);
     }
+
+    public int getNomalTotalPrice(List<Long> menuSq, List<Integer> menuSize) {
+
+        int totalResult = 0;
+
+        for (int i = 0; i < menuSq.size(); i++) {
+
+            Optional<SosoMenuDTO> sosoMenuDTO = sosoMenuRepository.findById(menuSq.get(i));
+
+            totalResult += sosoMenuDTO.get().getMenuSosoPrice() * menuSize.get(i);
+
+        }
+
+        return totalResult;
+    }
 }
 
 

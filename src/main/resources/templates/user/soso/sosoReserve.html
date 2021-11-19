@@ -13,7 +13,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
 </head>
 <body>
 <header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
@@ -155,6 +154,11 @@
                                     <p onclick="deleteMenuBySosoMenu()"
                                        style="color: red; display: inline-block; margin: 0px 5px;">메뉴 삭제</p>
                                 </div>
+                                <div class="mt-10" style="display: none;" id="sosoNomalTotalDiv">
+                                    <p id="sosoNomalTotal" style="display: inline-block;margin-top: 10px;">
+                                    </p>
+                                    <input type="hidden" id="sosoHiddenNomalTotal">
+                                </div>
                                 <div class="mt-10">
                                     <input type="checkbox" id="sosoOrderCheckbox" name="ordersPolicy"
                                            class="mr-3"><span> <a th:href="@{/user/soso/Reserve/policy}"
@@ -207,6 +211,7 @@
         if (memberSq != null) {
             memberStartConnect();
         }
+
     });
 
 </script>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.PasOrderDTO;
+import soso.sosoproject.dto.SosoMenu;
 import soso.sosoproject.dto.SosoMenuDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.service.order.SosoOrderService;
@@ -84,6 +85,22 @@ public class UserSosoOrderController {
         int totalPrice = 0;
 
         totalPrice = sosoOrderService.getTotalService(menu_order_sq, userSize);
+
+        return totalPrice;
+    }
+
+    @ResponseBody
+    @GetMapping("/user/Reserve/soso/nomal/totalPrice")
+    public int getNomalTotalPrice(@RequestParam(value = "menuSq[]") List<Long> menuSq,
+                                  @RequestParam(value = "menuSize[]") List<Integer> menuSize) {
+        int totalPrice = 0;
+
+        if (menuSq.size() != menuSize.size()) {
+            return 0;
+        }
+
+        totalPrice = sosoOrderService.getNomalTotalPrice(menuSq,menuSize);
+
 
         return totalPrice;
     }
