@@ -179,13 +179,6 @@ function sosoOrder(memberSq, memberEMail) {
         return false;
     } else {
 
-        for (var i = 0; i < menuNumberListInputCN.length; i++) {
-            if (menuNumberListInputCN[i] == 0) {
-                alert("올바른 수량을 입력해주세요. (0개 이상)");
-                return false;
-            }
-        }
-
         if (phoneExp.test($('#sosoOrderPhoneNumber').val()) != true) {
             alert("전화번호 형식에 맞지 않습니다. (-)를 빼주세요.");
             return false;
@@ -229,6 +222,7 @@ function sosoOrder(memberSq, memberEMail) {
                             formData.append("ordersMemberSize", $("#sosoUserSize").val());
                         } else {
                             alert("결제 정보 오류가 발생하였습니다."); //주문번호가 일치하지않음 //백에서 검사한번더해야함.
+                            location.href = "/user/Reserve/soso";
                             return false;
                         }
                         $.ajax({
@@ -255,9 +249,22 @@ function sosoOrder(memberSq, memberEMail) {
                         });
                     } else {
                         alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                        location.href = "/user/Reserve/soso";
                     }
                 });
             } else {
+
+                if (menuNumberListInputCN.length == 0 || menuSizeListInputClassName == 0) {
+                    alert("메뉴를 추가해주세요.");
+                    return false;
+                }
+
+                for (var i = 0; i < menuNumberListInputCN.length; i++) {
+                    if ($('#' + menuNumberListInputCN[i]).val() == 0) {
+                        alert("올바른 수량을 입력해주세요. (0개 이상)");
+                        return false;
+                    }
+                }
 
                 //소소한부엌 일반 결제
 
@@ -322,6 +329,7 @@ function sosoOrder(memberSq, memberEMail) {
 
                         } else {
                             alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                            location.href = "/user/Reserve/soso";
                         }
                     });
 
