@@ -79,7 +79,7 @@ public class SosoOrderDTO {
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
     private MemberDTO member_sq;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_soso_id")
     private List<SosoOrdersDetailDTO> sosoOrdersDetailDTOS;
 }

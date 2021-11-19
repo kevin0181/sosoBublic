@@ -6,6 +6,7 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +43,6 @@ public class UserSosoOrderController {
     @PostMapping("/user/Reserve/soso/order")
     public Map<String, Object> orderSoso(SosoOrderDTO sosoOrderDTO) { //soso 주문들어온거 일단 db에 저장
         Map<String, Object> data = new HashMap<>();
-
         try {
             IamportResponse<Payment> k = paymentByImpUid(sosoOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
@@ -66,14 +66,23 @@ public class UserSosoOrderController {
     @PostMapping("/user/Reserve/soso/order/normal")
     public Map<String, Object> orderSosoNormal(SosoOrderDTO sosoOrderDTO) {
         Map<String, Object> data = new HashMap<>();
+        try {
+            IamportResponse<Payment> k = paymentByImpUid(sosoOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
+            String getFrontAmmount = k.getResponse().getAmount().toString();
+            if (sosoOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
+                sosoOrderService.saveSosoOrder(sosoOrderDTO);
+                return data;
+            } else {
+                data.put("error", "error7003"); //totalPrice 일치하지않으면 에러발생
+                return data;
+            }
 
-//        try {
-        sosoOrderService.saveSosoOrder(sosoOrderDTO);
-        return data;
-//        } catch (Exception e) {
-//            data.put("error", "error7005"); //알수없는 오류
-//            return data;
-//        }
+        } catch (Exception e) {
+
+            data.put("error", "error7002"); //imp uid 일치하지않으면 에러발생
+            return data;
+
+        }
     }
 
 
@@ -99,7 +108,7 @@ public class UserSosoOrderController {
             return 0;
         }
 
-        totalPrice = sosoOrderService.getNomalTotalPrice(menuSq,menuSize);
+        totalPrice = sosoOrderService.getNomalTotalPrice(menuSq, menuSize);
 
 
         return totalPrice;

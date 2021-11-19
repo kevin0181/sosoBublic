@@ -29,15 +29,15 @@ public class SosoOrdersDetailDTO {
     @Column(name = "menu_soso_sq")
     private Long menuSosoSq;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "menu_soso_sq", insertable = false, updatable = false)
     private SosoMenuDTO sosoMenuDTO;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_soso_id", insertable = false, updatable = false)
     private SosoOrderDTO sosoOrderDTO;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
     private MemberDTO memberDTO;
 
