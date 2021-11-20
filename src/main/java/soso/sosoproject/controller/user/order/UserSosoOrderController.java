@@ -48,8 +48,17 @@ public class UserSosoOrderController {
             IamportResponse<Payment> k = paymentByImpUid(sosoOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
             if (sosoOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
-                sosoOrderService.saveSosoOrder(sosoOrderDTO);
-                return data;
+                boolean result = sosoOrderService.specialCheckAmount(sosoOrderDTO);
+                if (result) {
+                    sosoOrderService.saveSosoOrder(sosoOrderDTO);
+                    return data;
+                } else {
+                    data.put("error", "error7004"); //값 변조
+                    CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
+                    imIamportClient.cancelPaymentByImpUid(cancelData);
+                    return data;
+                }
+
             } else {
                 data.put("error", "error7003"); //totalPrice 일치하지않으면 에러발생
                 CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
@@ -58,12 +67,10 @@ public class UserSosoOrderController {
             }
 
         } catch (Exception e) {
-
             data.put("error", "error7002"); //imp uid 일치하지않으면 에러발생
             CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
             imIamportClient.cancelPaymentByImpUid(cancelData);
             return data;
-
         }
     }
 
@@ -75,8 +82,17 @@ public class UserSosoOrderController {
             IamportResponse<Payment> k = paymentByImpUid(sosoOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
             if (sosoOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
-                sosoOrderService.saveSosoOrder(sosoOrderDTO);
-                return data;
+                boolean result = sosoOrderService.nomalCheckAmount(sosoOrderDTO);
+                if (result) {
+                    sosoOrderService.saveSosoOrder(sosoOrderDTO);
+                    return data;
+                } else {
+                    data.put("error", "error7004"); //값 변조
+                    CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
+                    imIamportClient.cancelPaymentByImpUid(cancelData);
+                    return data;
+                }
+
             } else {
                 data.put("error", "error7003"); //totalPrice 일치하지않으면 에러발생
                 CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
@@ -129,6 +145,9 @@ public class UserSosoOrderController {
 
         if (menuLimit.equals("기본메뉴")) {
             List<SosoMenuDTO> sosoMenuDTOList = sosoOrderService.getMenuLimitByDef(menuLimit);
+            for (int i = 0; i < sosoMenuDTOList.size(); i++) {
+                sosoMenuDTOList.get(i).getSosoOrdersDetailDTOS().removeAll(sosoMenuDTOList.get(i).getSosoOrdersDetailDTOS());
+            }
             return sosoMenuDTOList;
         } else {
             return null;

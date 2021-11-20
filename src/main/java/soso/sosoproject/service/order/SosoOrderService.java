@@ -2,12 +2,9 @@ package soso.sosoproject.service.order;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.request.CancelData;
-import com.siot.IamportRestClient.response.IamportResponse;
-import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.SosoMenuDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.repository.SosoMenuRepository;
@@ -107,6 +104,33 @@ public class SosoOrderService {
         }
 
         return totalResult;
+    }
+
+    public boolean specialCheckAmount(SosoOrderDTO sosoOrderDTO) { //가격이 맞는지 검증
+        Optional<SosoMenuDTO> sosoMenuDTOOptional = sosoMenuRepository.findById(sosoOrderDTO.getMenuOrderSq());
+        int checkTotal = sosoMenuDTOOptional.get().getMenuSosoPrice() * sosoOrderDTO.getOrdersMemberSize();
+        int getTotal = Integer.parseInt(sosoOrderDTO.getOrdersTotalPrice());
+        if (checkTotal == getTotal) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean nomalCheckAmount(SosoOrderDTO sosoOrderDTO) { //가격 검증
+
+        int totalResult = 0;
+
+        for (int i = 0; i < sosoOrderDTO.getSosoOrdersDetailDTOS().size(); i++) {
+            Optional<SosoMenuDTO> sosoMenuDTOOptional = sosoMenuRepository.findById(sosoOrderDTO.getSosoOrdersDetailDTOS().get(i).getMenuSosoSq());
+            totalResult += sosoMenuDTOOptional.get().getMenuSosoPrice() * sosoOrderDTO.getSosoOrdersDetailDTOS().get(i).getMenuOrderSize();
+        }
+
+        if (totalResult == Integer.parseInt(sosoOrderDTO.getOrdersTotalPrice())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

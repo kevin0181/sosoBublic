@@ -241,6 +241,10 @@ function sosoOrder(memberSq, memberEMail) {
                                     alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7003");
                                     location.href = "/user/Reserve/soso";
                                     return false;
+                                } else if (data.error == "error7004") {
+                                    alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7004");
+                                    location.href = "/user/Reserve/soso";
+                                    return false;
                                 } else {
                                     alert("주문이 완료되었습니다.");
                                     location.href = "/user/index";
@@ -271,8 +275,6 @@ function sosoOrder(memberSq, memberEMail) {
                 if (menuNumberListInputCN.length == menuSizeListInputClassName.length) {
 
                     for (var i = 0; i < menuSizeListInputClassName.length; i++) {
-                        console.log($('#' + menuSizeListInputClassName[i]).val());
-                        console.log($('#' + menuNumberListInputCN[i]).val());
                         formData.append("sosoOrdersDetailDTOS[" + i + "].menuSosoSq", $('#' + menuSizeListInputClassName[i]).val());
                         formData.append("sosoOrdersDetailDTOS[" + i + "].menuOrderSize", $('#' + menuNumberListInputCN[i]).val());
                         formData.append("sosoOrdersDetailDTOS[" + i + "].memberSq", memberSq);
@@ -318,6 +320,10 @@ function sosoOrder(memberSq, memberEMail) {
                                         return false;
                                     } else if (data.error == "error7003") {
                                         alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7003");
+                                        location.href = "/user/Reserve/soso";
+                                        return false;
+                                    } else if (data.error == "error7004") {
+                                        alert("주문 가격이 일치하지않습니다.(관리자에게 문의해주세요.)  : 7004");
                                         location.href = "/user/Reserve/soso";
                                         return false;
                                     } else {
@@ -428,6 +434,7 @@ function addMenuBySosoMenu() {
                 "menuLimit": '기본메뉴'
             },
             success: function (data) {
+                console.log(data);
                 if (data == null) {
                     alert("메뉴를 불러오지 못했습니다.");
                     location.href = "/user/Reserve/soso";
