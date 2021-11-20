@@ -2,6 +2,7 @@ package soso.sosoproject.controller.user.order;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class UserSosoOrderController {
 
     @ResponseBody
     @PostMapping("/user/Reserve/soso/order")
-    public Map<String, Object> orderSoso(SosoOrderDTO sosoOrderDTO) { //soso 주문들어온거 일단 db에 저장
+    public Map<String, Object> orderSoso(SosoOrderDTO sosoOrderDTO) throws IOException, IamportResponseException { //soso 주문들어온거 일단 db에 저장
         Map<String, Object> data = new HashMap<>();
         try {
             IamportResponse<Payment> k = paymentByImpUid(sosoOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
@@ -51,12 +52,16 @@ public class UserSosoOrderController {
                 return data;
             } else {
                 data.put("error", "error7003"); //totalPrice 일치하지않으면 에러발생
+                CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
+                imIamportClient.cancelPaymentByImpUid(cancelData);
                 return data;
             }
 
         } catch (Exception e) {
 
             data.put("error", "error7002"); //imp uid 일치하지않으면 에러발생
+            CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
+            imIamportClient.cancelPaymentByImpUid(cancelData);
             return data;
 
         }
@@ -64,7 +69,7 @@ public class UserSosoOrderController {
 
     @ResponseBody
     @PostMapping("/user/Reserve/soso/order/normal")
-    public Map<String, Object> orderSosoNormal(SosoOrderDTO sosoOrderDTO) {
+    public Map<String, Object> orderSosoNormal(SosoOrderDTO sosoOrderDTO) throws IOException, IamportResponseException {
         Map<String, Object> data = new HashMap<>();
         try {
             IamportResponse<Payment> k = paymentByImpUid(sosoOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
@@ -74,12 +79,16 @@ public class UserSosoOrderController {
                 return data;
             } else {
                 data.put("error", "error7003"); //totalPrice 일치하지않으면 에러발생
+                CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
+                imIamportClient.cancelPaymentByImpUid(cancelData);
                 return data;
             }
 
         } catch (Exception e) {
 
             data.put("error", "error7002"); //imp uid 일치하지않으면 에러발생
+            CancelData cancelData = new CancelData(sosoOrderDTO.getOrdersImpUid(), true);
+            imIamportClient.cancelPaymentByImpUid(cancelData);
             return data;
 
         }
