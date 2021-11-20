@@ -50,14 +50,14 @@
                                     style="margin-bottom: 20px;">이름</h5>
                                 <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
                             </div>
-                            <ul class="list-group list-group-flush" th:if="${order.sosoMenuDTO} != null">
-                                <li class="list-group-item" th:each="menu : ${order.sosoMenuDTO}">
+                            <ul class="list-group list-group-flush" th:if="${order.sosoOrdersDetailDTOS} != null">
+                                <li class="list-group-item" th:each="menu : ${order.sosoOrdersDetailDTOS}">
                                     <div class="d-flex bd-highlight">
-                                        <p class="me-auto" th:text="${menu.menuSosoName}"
+                                        <p class="me-auto" th:text="${menu.sosoMenuDTO.menuSosoName}"
                                            style="margin: 0;">시킨 메뉴
                                             이름</p>
-                                        <p class="" th:text="${menu.menuSosoPrice}+'원'"
-                                           style="margin: 0;">메뉴 가격</p>
+                                        <p class="" th:text="'메뉴 수량 : '+${menu.menuOrderSize}"
+                                           style="margin: 0;">주문 메뉴 갯수</p>
                                     </div>
                                 </li>
                             </ul>
