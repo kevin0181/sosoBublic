@@ -132,6 +132,10 @@ public class SosoOrderService {
             return false;
         }
     }
+
+    public List<SosoOrderDTO> findOrderNotSave() {
+        return sosoOrderRepository.findAllByOrdersSave(false);
+    }
 }
 
 

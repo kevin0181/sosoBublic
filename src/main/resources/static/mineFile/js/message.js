@@ -87,13 +87,13 @@ function getMemberCountShow(chat) {
         $('#activeMemberCount').text(chat.memberCount);
 
         Toastify({ //소소한부엌 확인안된거 가져옴
-            text: chat.orderSize + "건의 확인되지 않은 주문이 들어왔습니다. by &pas",
+            text: chat.orderSize + "건의 주문이 들어왔습니다. by soso",
             duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
             close: true,
             gravity: "bottom",
             position: "right",
             backgroundColor: "#4fbe87",
-            destination: "/admin/orderList?className=pas"  //지정 url로 이동
+            destination: "/admin/orderList?className=soso"  //지정 url로 이동
         }).showToast();
     }
 }

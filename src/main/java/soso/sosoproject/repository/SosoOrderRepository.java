@@ -10,4 +10,5 @@ public interface SosoOrderRepository extends JpaRepository<SosoOrderDTO, Long> {
     //    List<SosoOrderDTO> findAllByOrderEnableOrderByOrderDateDesc(boolean b);
     List<SosoOrderDTO> findAllByOrderEnable(boolean b);
 
+    List<SosoOrderDTO> findAllByOrdersSave(boolean result);
 }

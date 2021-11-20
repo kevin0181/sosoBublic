@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
+import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.service.order.PasOrderService;
+import soso.sosoproject.service.order.SosoOrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ public class MessageController {
 
     @Autowired
     private PasOrderService pasOrderService;
+    @Autowired
+    private SosoOrderService sosoOrderService;
 
     private List<MemberCountDTO> memberCountDTOList = new ArrayList<>();
 
@@ -93,10 +97,10 @@ public class MessageController {
                         return new SizeAndOrderList(memberCountDTOList.size(), 0);
                     }
                 }
-                List<PasOrderDTO> pasOrderDTOList = pasOrderService.findOrderNotSave(); //소소한부엌 주문확인안된거 가져옴
+                List<SosoOrderDTO> sosoOrderDTOS = sosoOrderService.findOrderNotSave(); //소소한부엌 주문확인안된거 가져옴
                 memberCountDTOList.add(memberCountDTO); //+ 어드민도 리스트에 넣음 //로그인 안되어있는 상태
                 adminActive = true; //true
-                return new SizeAndOrderList(memberCountDTOList.size(), pasOrderDTOList.size());
+                return new SizeAndOrderList(memberCountDTOList.size(), sosoOrderDTOS.size());
             } else {
                 //일반 유저 권한이면
                 if (memberCountDTOList.size() == 0) { //리스트가 없으면 그냥 바로 추가
