@@ -36,10 +36,6 @@ public class SosoMenuDTO {
 
 
     @OneToMany
-    @JoinColumn(name = "menu_order_sq")
-    private List<SosoOrderDTO> sosoOrderDTOS;
-
-    @OneToMany
     @JoinColumn(name = "menu_soso_sq")
     private List<SosoOrdersDetailDTO> sosoOrdersDetailDTOS;
 }

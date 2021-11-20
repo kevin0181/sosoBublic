@@ -15,7 +15,7 @@ public class SosoOrdersDetailDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long menu_order_sq;
+    private Long menu_order_detail_sq;
 
     @Column(name = "member_sq")
     private Long memberSq;

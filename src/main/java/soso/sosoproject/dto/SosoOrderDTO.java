@@ -23,9 +23,6 @@ public class SosoOrderDTO {
     @Column(name = "member_sq")
     private Long memberSq;
 
-    @Column(name = "menu_order_sq")
-    private Long menuOrderSq;
-
     @NotNull
     @Length(max = 64)
     @Column(name = "orders_address")
@@ -70,10 +67,6 @@ public class SosoOrderDTO {
 
     @Column(name = "orders_member_size")
     private int ordersMemberSize;
-
-    @ManyToOne
-    @JoinColumn(name = "menu_order_sq", insertable = false, updatable = false)
-    private SosoMenuDTO sosoMenuDTO;
 
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)

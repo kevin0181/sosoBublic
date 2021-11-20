@@ -107,7 +107,7 @@ public class SosoOrderService {
     }
 
     public boolean specialCheckAmount(SosoOrderDTO sosoOrderDTO) { //가격이 맞는지 검증
-        Optional<SosoMenuDTO> sosoMenuDTOOptional = sosoMenuRepository.findById(sosoOrderDTO.getMenuOrderSq());
+        Optional<SosoMenuDTO> sosoMenuDTOOptional = sosoMenuRepository.findById(sosoOrderDTO.getSosoOrdersDetailDTOS().get(0).getMenuSosoSq());
         int checkTotal = sosoMenuDTOOptional.get().getMenuSosoPrice() * sosoOrderDTO.getOrdersMemberSize();
         int getTotal = Integer.parseInt(sosoOrderDTO.getOrdersTotalPrice());
         if (checkTotal == getTotal) {

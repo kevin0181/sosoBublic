@@ -218,7 +218,11 @@ function sosoOrder(memberSq, memberEMail) {
                         if (rsp.merchant_uid == uid) {
                             formData.append("ordersMerchantUid", uid);
                             formData.append("ordersImpUid", rsp.imp_uid);
-                            formData.append("menuOrderSq", $('#selectSosoMenu').val());
+                            // formData.append("menuOrderSq", $('#selectSosoMenu').val());
+
+                            formData.append("sosoOrdersDetailDTOS[" + 0 + "].menuSosoSq", $('#selectSosoMenu').val());
+                            formData.append("sosoOrdersDetailDTOS[" + 0 + "].menuOrderSize", $("#sosoUserSize").val());
+                            formData.append("sosoOrdersDetailDTOS[" + 0 + "].memberSq", memberSq);
                             formData.append("ordersMemberSize", $("#sosoUserSize").val());
                         } else {
                             alert("결제 정보 오류가 발생하였습니다."); //주문번호가 일치하지않음 //백에서 검사한번더해야함.
