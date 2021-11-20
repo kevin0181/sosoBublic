@@ -490,9 +490,7 @@ function deleteMenuBySosoMenu() {
 
 
 function sosoMenuSelectClick(data) {
-
     getNomalTotal();
-
 }
 
 function sosoMenuSizeKey(data) {
