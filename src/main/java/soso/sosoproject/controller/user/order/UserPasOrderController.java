@@ -2,6 +2,7 @@ package soso.sosoproject.controller.user.order;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +40,28 @@ public class UserPasOrderController {
 
     @PostMapping("/user/order/menu")
     @ResponseBody
-    public boolean orderMenu(PasOrderDTO pasOrderDTO) {
+    public boolean orderMenu(PasOrderDTO pasOrderDTO) throws IOException, IamportResponseException {
         try {
             IamportResponse<Payment> k = paymentByImpUid(pasOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
             String getFrontAmmount = k.getResponse().getAmount().toString();
-            PasOrderDTO checkPasOrderDTO = pasOrderService.findUid(pasOrderDTO.getOrdersMerchantUid());
-            if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount) && checkPasOrderDTO.getOrdersTotalPrice().equals(pasOrderDTO.getOrdersTotalPrice())) { //검증 통과
-                checkPasOrderDTO.setOrdersImpUid(pasOrderDTO.getOrdersImpUid());
-                pasOrderService.saveOrder(checkPasOrderDTO);
-                return true;
+            if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) { //검증 통과
+                boolean result = pasOrderService.checkTotalAmount(pasOrderDTO);
+                if (result) {
+                    pasOrderService.saveOrder(pasOrderDTO);
+                    return true;
+                } else {
+                    CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+                    imIamportClient.cancelPaymentByImpUid(cancelData);
+                    return false;
+                }
             } else {
+                CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+                imIamportClient.cancelPaymentByImpUid(cancelData);
                 return false;
             }
         } catch (Exception e) {
+            CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+            imIamportClient.cancelPaymentByImpUid(cancelData);
             return false;
         }
     }
@@ -76,16 +86,16 @@ public class UserPasOrderController {
     }
 
 
-    @GetMapping("/user/order/menu/cancle")
-    @ResponseBody
-    public boolean cancleMenu(@RequestParam(name = "uid") String uid) {
-        try {
-            pasOrderService.cancleMenuService(uid);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+//    @GetMapping("/user/order/menu/cancle")
+//    @ResponseBody
+//    public boolean cancleMenu(@RequestParam(name = "uid") String uid) {
+//        try {
+//            pasOrderService.cancleMenuService(uid);
+//            return true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
         return imIamportClient.paymentByImpUid(imp_uid);

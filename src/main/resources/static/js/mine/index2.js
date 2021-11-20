@@ -125,6 +125,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
 
     }
 
+
     $.ajax({
         url: "/user/orderMenu/pay/ammount",
         type: "post",
@@ -133,7 +134,6 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
         processData: false,
         data: formdata,
         success: function (data) {
-
             if (data.error) {
                 alert("입력값을 정확히 확인해주세요.");
                 location.href = '/user/index';
@@ -181,22 +181,22 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                         alert(msg);
                         //DB에서도 처리해야함.
 
-                        $.ajax({
-                            url: "/user/order/menu/cancle",
-                            type: "GET",
-                            dataType: "json",
-                            data: {
-                                'uid': rsp.merchant_uid
-                            },
-                            success: function (data) {
-                                console.log(data);
-                                if (data) {
-                                    console.log("메뉴 취소 완료");
-                                } else {
-                                    alert("메뉴 주문 취소에 실패하였습니다. (관리자에게 문의바랍니다)");
-                                }
-                            }
-                        });
+                        // $.ajax({
+                        //     url: "/user/order/menu/cancle",
+                        //     type: "GET",
+                        //     dataType: "json",
+                        //     data: {
+                        //         'uid': rsp.merchant_uid
+                        //     },
+                        //     success: function (data) {
+                        //         console.log(data);
+                        //         if (data) {
+                        //             console.log("메뉴 취소 완료");
+                        //         } else {
+                        //             alert("메뉴 주문 취소에 실패하였습니다. (관리자에게 문의바랍니다)");
+                        //         }
+                        //     }
+                        // });
 
                         location.href = "/user/index";
 

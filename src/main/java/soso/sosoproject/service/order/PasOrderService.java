@@ -2,11 +2,15 @@ package soso.sosoproject.service.order;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.request.CancelData;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import soso.sosoproject.dto.PasMenuDTO;
 import soso.sosoproject.dto.PasOrderDTO;
+import soso.sosoproject.dto.SosoMenuDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
+import soso.sosoproject.repository.PasMenuRepository;
 import soso.sosoproject.repository.PasOrderDetailRepository;
 import soso.sosoproject.repository.PasOrderRepository;
 
@@ -25,6 +29,9 @@ public class PasOrderService {
 
     @Autowired
     private PasOrderDetailRepository pasOrderDetailRepository;
+
+    @Autowired
+    private PasMenuRepository pasMenuRepository;
 
     public void saveOrder(PasOrderDTO pasOrderDTO) {
         pasOrderRepository.save(pasOrderDTO);
@@ -74,9 +81,9 @@ public class PasOrderService {
 
         } while (sb.length() < 20);
         String uid = sb.toString();
-        pasOrderDTO.setOrdersMerchantUid(uid);
-        pasOrderDTO.setOrdersTotalPrice(Integer.toString(totalPay));
-        pasOrderRepository.save(pasOrderDTO);
+//        pasOrderDTO.setOrdersMerchantUid(uid); 미리 저장 X;
+//        pasOrderDTO.setOrdersTotalPrice(Integer.toString(totalPay));
+//        pasOrderRepository.save(pasOrderDTO);
         return uid;
     }
 
@@ -90,11 +97,11 @@ public class PasOrderService {
         pasOrderRepository.save(pasOrderDTO);
 
     }
-
-    @Transactional
-    public void cancleMenuService(String uid) {
-        pasOrderRepository.deleteByOrdersMerchantUid(uid);
-    }
+//
+//    @Transactional
+//    public void cancleMenuService(String uid) {
+//        pasOrderRepository.deleteByOrdersMerchantUid(uid);
+//    }
 
     public boolean compltePasService(Long memberSq, Long orders_id, String ordersMerchantUid, String ordersImpUid) {
         Optional<PasOrderDTO> sosoOrderDTOOptional = pasOrderRepository.findById(orders_id);
@@ -124,6 +131,23 @@ public class PasOrderService {
 
             return true;
         } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean checkTotalAmount(PasOrderDTO pasOrderDTO) {
+        int resultTotal = 0;
+
+        for (int i = 0; i < pasOrderDTO.getOrdersMenu().size(); i++) {
+            Optional<PasMenuDTO> pasMenuDTOOptional = pasMenuRepository.findById(pasOrderDTO.getOrdersMenu().get(i).getMenuSq());
+
+            resultTotal += pasMenuDTOOptional.get().getMenu_price() * pasOrderDTO.getOrdersMenu().get(i).getMenuOrderSize();
+
+        }
+
+        if (Integer.parseInt(pasOrderDTO.getOrdersTotalPrice()) == resultTotal) {
+            return true;
+        } else {
             return false;
         }
     }
