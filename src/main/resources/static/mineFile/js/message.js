@@ -48,11 +48,11 @@ function showOrder(chat) {
         "</div>" + menuSource +
         "<div style='text-align: center; margin: 15px 0;'>" +
         "<div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>" +
-        "<button type='button' class='btn btn-outline-success' onclick='sssskkkk(" + chat.memberSq + "," + chat.ordersMerchantUid
-        + "," + chat.ordersImpUid + "," + chat.orders_id + ")'>주문 완료</button>" +
+        "<button type='button' class='btn btn-outline-success' onclick='pasOrderSuccess(\"" + chat.memberSq + "\",\"" + chat.ordersMerchantUid + "\"" +
+        ",\"" + chat.ordersImpUid + "\",\"" + chat.orders_id + "\")'>주문 완료</button>" +
         "<button type='button' class='btn btn-outline-dark'></button>\n" +
-        "<button type='button' class='btn btn-outline-danger' onclick='pasOrderFail(" + chat.memberSq + "," + chat.ordersMerchantUid
-        + "," + chat.ordersImpUid + "," + chat.orders_id + ")'>주문 취소</button>" +
+        "<button type='button' class='btn btn-outline-danger' onclick='pasOrderFail(\"" + chat.memberSq + "\",\"" + chat.ordersMerchantUid + "\"" +
+        ",\"" + chat.ordersImpUid + "\",\"" + chat.orders_id + "\")'>주문 취소</button>" +
         "</div>" +
         "</div>" +
         "<div class=\"card-footer\" style=\"padding: 1rem;\">" +
@@ -64,7 +64,8 @@ function showOrder(chat) {
         "</div>" +
         "</div>" +
         "</div>";
-
+    // sssskkkk(" + chat.memberSq + "," + chat.ordersMerchantUid
+    //     + "," + chat.ordersImpUid + "," + chat.orders_id + ")
     //html append
     $('#orderListId').prepend(htmlSource);
 }
@@ -151,6 +152,6 @@ function orderFail(memberSq, ordersMerchantUid, ordersImpUid) { //주문 취소
 
 //----------------------------pasOrder.js 에서 가져옴
 
-function sssskkkk(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
-    console.log(memberSq + ordersMerchantUid);
+function sssskkkk(memberSq, ordersMerchantUid) {
+    console.log(memberSq + " " + ordersMerchantUid);
 }
