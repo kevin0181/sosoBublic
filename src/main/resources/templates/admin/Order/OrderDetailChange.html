@@ -40,10 +40,125 @@
                 </div>
             </div>
             <section class="section" th:if="${place} == 'soso'">
-                <p th:text="${sosoOrderDTO.memberSq}"></p>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" th:text="${sosoOrderDTO.orderName}+'님의 주문 내역입니다.'">주문 이름</h4>
+                        <small>soso</small>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div>
+                                <p th:text="${sosoOrderDTO.orderHelp}">내용</p>
+                            </div>
+                            <div>
+                                <div th:each="menu : ${sosoOrderDTO.sosoOrdersDetailDTOS}">
+                                    <p th:text="'메뉴 이름 : '+${menu.sosoMenuDTO.menuSosoName}"
+                                       style="display: inline-block;margin-right: 30px;"></p>
+                                    <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}" style="display: inline-block;"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ReserveTime">예약 날자 및 시간</label>
+                                    <small class="text-muted">ex.<i>2021-00-00 24:00</i></small>
+                                    <input type="text" class="form-control" id="ReserveTime"
+                                           th:value="${sosoOrderDTO.orderDate}"
+                                           placeholder="예약 날짜">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="numberSize">인원 수</label>
+                                    <input type="text" class="form-control" id="numberSize" style="width: 15%;"
+                                           th:value="${sosoOrderDTO.ordersMemberSize}" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderMetchUid">주문 번호</label>
+                                    <input type="text" id="orderMetchUid" class="form-control" placeholder="Name"
+                                           th:value="${sosoOrderDTO.ordersMerchantUid}"
+                                           disabled>
+                                    <p><small class="text-muted">주문번호는 변경하실 수 없습니다. (관리자에게 문의해주세요.)</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phoneNumber">전화 번호</label>
+                                    <input type="text" class="form-control" id="phoneNumber"
+                                           th:value="${sosoOrderDTO.orderPhoneNumber}"
+                                           placeholder="핸드폰 번호" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="memberAddress">주소</label>
+                                    <input type="text" class="form-control" id="memberAddress" disabled
+                                           th:value="${sosoOrderDTO.orderAddress}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="totalPrice">총 금액</label>
+                                    <p class="form-control-static" id="totalPrice"
+                                       th:text="${sosoOrderDTO.ordersTotalPrice}+' : 원'"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button>수정</button>
+                        </div>
+                    </div>
+                </div>
             </section>
+
+
             <section class="section" th:if="${place} == 'pas'">
-                <p th:text="${pasOrderDTO.memberSq}"></p>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" th:text="${pasOrderDTO.orderName}+'님의 주문 내역입니다.'">주문 이름</h4>
+                        <small>&pas</small>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="basicInput">Basic Input</label>
+                                    <input type="text" class="form-control" id="basicInput"
+                                           placeholder="Enter email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="helpInputTop">Input text with help</label>
+                                    <small class="text-muted">eg.<i>someone@example.com</i></small>
+                                    <input type="text" class="form-control" id="helpInputTop">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="helperText">With Helper Text</label>
+                                    <input type="text" id="helperText" class="form-control" placeholder="Name">
+                                    <p><small class="text-muted">Find helper text here for given textbox.</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="disabledInput">Disabled Input</label>
+                                    <input type="text" class="form-control" id="disabledInput"
+                                           placeholder="Disabled Text" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="disabledInput">Readonly Input</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                           value="You can't update me :P">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="disabledInput">Static Text</label>
+                                    <p class="form-control-static" id="staticInput">email@mazer.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
         <footer>
