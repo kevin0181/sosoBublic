@@ -438,7 +438,6 @@ function addMenuBySosoMenu() {
                 "menuLimit": '기본메뉴'
             },
             success: function (data) {
-                console.log(data);
                 if (data == null) {
                     alert("메뉴를 불러오지 못했습니다.");
                     location.href = "/user/Reserve/soso";
@@ -452,7 +451,7 @@ function addMenuBySosoMenu() {
 
                     $.each(data, function (idx, val) {
                         if (idx == 0) {
-                            selectContent = "<select id='" + NC + "' class='nice-select' name='menuSq' " +
+                            selectContent = "<select id='" + NC + "' style='margin-top: 5px;' class='nice-select' name='menuSq' " +
                                 "onchange='sosoMenuSelectClick(this)'>";
                         }
                         selectContent += "<option value='" + val.menu_order_sq + "'>" + val.menuSosoName + "</option>";
@@ -462,7 +461,7 @@ function addMenuBySosoMenu() {
                     });
 
                     $('#sosoDefultMenuDiv').append(selectContent);
-                    $('#sosoDefultMenuDiv').append("<input type='number' style='width: 50px;' class='nice-number'" +
+                    $('#sosoDefultMenuDiv').append("<input type='number' style='width: 50px;margin-top: 5px;' class='nice-number'" +
                         "name='menuSize' onkeyup='sosoMenuSizeKey(this)' id='" + NCN + "' value='1'>");
 
 
