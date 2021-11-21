@@ -51,6 +51,27 @@ public class OrderController {
         return "/message/account-message";
     }
 
+
+    @GetMapping("/order/changeDetail")
+    public String changeDetailOrder(@RequestParam(value = "memberSq") String memberSq,
+                                    @RequestParam(value = "uid") String uid,
+                                    @RequestParam(value = "place") String place, Model model) {
+
+        if (place.equals("pas")) {
+            PasOrderDTO pasOrderDTO = pasOrderService.findOrderId(uid);
+            model.addAttribute("pasOrderDTO", pasOrderDTO);
+            model.addAttribute("place", "pas");
+            return "/admin/Order/OrderDetailChange";
+        } else if (place.equals("soso")) {
+            SosoOrderDTO sosoOrderDTO = sosoOrderService.findOrderUid(uid);
+            model.addAttribute("sosoOrderDTO", sosoOrderDTO);
+            model.addAttribute("place", "soso");
+            return "/admin/Order/OrderDetailChange";
+        } else {
+            return "/error/error-404-new";
+        }
+    }
+
     @ResponseBody
     @GetMapping("/orderList/sosoOrderComplte") //소소 주문 성공
     public boolean sosoOrderComplte(@RequestParam(value = "memberSq", required = false) Long memberSq,

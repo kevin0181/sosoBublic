@@ -136,6 +136,10 @@ public class SosoOrderService {
     public List<SosoOrderDTO> findOrderNotSave() {
         return sosoOrderRepository.findAllByOrdersSave(false);
     }
+
+    public SosoOrderDTO findOrderUid(String uid) {
+        return sosoOrderRepository.findByOrdersImpUid(uid);
+    }
 }
 
 

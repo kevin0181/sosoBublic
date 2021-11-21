@@ -46,7 +46,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${order.orderName}+'님의 주문입니다.'"
-                                    th:onclick="getMemberProfile([[${order.memberSq}]])"
+                                    th:onclick="getMemberProfile([[${order.memberSq}]],[[${order.ordersImpUid}]],'soso')"
                                     style="margin-bottom: 20px;">이름</h5>
                                 <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
                             </div>

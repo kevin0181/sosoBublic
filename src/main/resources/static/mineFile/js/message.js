@@ -43,7 +43,8 @@ function showOrder(chat) {
         "<div class='col' id='" + chat.ordersMerchantUid + "'>" +
         "<div class='card h-100'>" +
         "<div class='card-body'>" +
-        "<h5 class='card-title' style='margin-bottom: 20px;' onclick='getMemberProfile(" + chat.memberSq + ")'>" + chat.orderName + "님의 주문입니다</h5>" +
+        "<h5 class='card-title' style='margin-bottom: 20px;' onclick='getMemberProfile(\"" + chat.memberSq + "\",\"" + chat.ordersImpUid + "\"" +
+        ",\"" + 'pas' + "\")'>" + chat.orderName + "님의 주문입니다</h5>" +
         "<p class='card-text'>" + chat.orderHelp + "</p>" +
         "</div>" + menuSource +
         "<div style='text-align: center; margin: 15px 0;'>" +
@@ -137,8 +138,8 @@ function disconnectPas() {
 //주문 에서 처리 ---------------------------------------------------
 
 
-function getMemberProfile(memberSq) { //멤버 프로필로 넘김
-    alert(memberSq);
+function getMemberProfile(memberSq, uid, place) { //멤버 주문 수정
+    location.href = "/admin/order/changeDetail?memberSq=" + memberSq + "&uid=" + uid + "&place=" + place;
 }
 
 function orderSuccess(memberSq, ordersMerchantUid, ordersImpUid) { //주문 완료
@@ -147,11 +148,4 @@ function orderSuccess(memberSq, ordersMerchantUid, ordersImpUid) { //주문 완�
 
 function orderFail(memberSq, ordersMerchantUid, ordersImpUid) { //주문 취소
 
-}
-
-
-//----------------------------pasOrder.js 에서 가져옴
-
-function sssskkkk(memberSq, ordersMerchantUid) {
-    console.log(memberSq + " " + ordersMerchantUid);
 }
