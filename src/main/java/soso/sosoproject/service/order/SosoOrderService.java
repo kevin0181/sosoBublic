@@ -140,6 +140,10 @@ public class SosoOrderService {
     public SosoOrderDTO findOrderUid(String uid) {
         return sosoOrderRepository.findByOrdersImpUid(uid);
     }
+
+    public Optional<SosoOrderDTO> findAllById(SosoOrderDTO sosoOrderDTO) {
+        return sosoOrderRepository.findById(sosoOrderDTO.getOrders_id());
+    }
 }
 
 

@@ -70,7 +70,7 @@
                                                 </div>
                                                 <div class="col-md-8 form-group">
                                                     <input type="text" id="category_name" class="form-control"
-                                                           name="category_name" placeholder="카테고리 이름">
+                                                           name="categoryName" placeholder="카테고리 이름">
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-end">
                                                     <button type="button" onclick="addCategory()"
@@ -112,7 +112,7 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="categortlist : ${categoryList}">
-                                            <td class="text-bold-500" th:text="${categortlist.getCategory_name()}">
+                                            <td class="text-bold-500" th:text="${categortlist.getCategoryName()}">
                                                 카테고리 이름
                                             </td>
                                             <td style="padding: 0px">

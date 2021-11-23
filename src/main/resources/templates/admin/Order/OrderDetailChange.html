@@ -47,63 +47,81 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row">
-                            <div>
-                                <p th:text="${sosoOrderDTO.orderHelp}">내용</p>
-                            </div>
-                            <div>
-                                <div th:each="menu : ${sosoOrderDTO.sosoOrdersDetailDTOS}">
-                                    <p th:text="'메뉴 이름 : '+${menu.sosoMenuDTO.menuSosoName}"
-                                       style="display: inline-block;margin-right: 30px;"></p>
-                                    <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}" style="display: inline-block;"></p>
+                        <form id="sosoChangeForm" method="post" th:action="@{/admin/detail/order/change/soso}">
+                            <input type="hidden" name="orders_id" th:value="${sosoOrderDTO.orders_id}">
+                            <div class="row">
+                                <div>
+                                    <p th:text="${sosoOrderDTO.orderHelp}">내용</p>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="ReserveTime">예약 날자 및 시간</label>
-                                    <small class="text-muted">ex.<i>2021-00-00 24:00</i></small>
-                                    <input type="text" class="form-control" id="ReserveTime"
-                                           th:value="${sosoOrderDTO.orderDate}"
-                                           placeholder="예약 날짜">
+                                <div>
+                                    <div th:each="menu : ${sosoOrderDTO.sosoOrdersDetailDTOS}">
+                                        <p th:text="'메뉴 이름 : '+${menu.sosoMenuDTO.menuSosoName}"
+                                           style="display: inline-block;margin-right: 30px;"></p>
+                                        <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}"
+                                           style="display: inline-block;"></p>
+                                    </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="sosoReserveTime">예약 날자 및 시간</label>
+                                        <!--                                    <small class="text-muted">ex.<i>2021-00-00 24:00</i></small>-->
+                                        <input type="text" class="form-control" id="sosoReserveTime" disabled
+                                               th:value="${sosoOrderDTO.orderDate}"
+                                               placeholder="예약 날짜">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sosoChangeTime">변경할 예약 날자 및 시간</label>
+                                        <small class="text-muted">ex.<i>2021-00-00 24:00</i></small>
+                                        <input type="datetime-local" class="form-control" id="sosoChangeTime"
+                                               name="orderDate"
+                                               placeholder="예약 날짜">
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="numberSize">인원 수</label>
-                                    <input type="text" class="form-control" id="numberSize" style="width: 15%;"
-                                           th:value="${sosoOrderDTO.ordersMemberSize}" disabled>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="numberSize">인원 수</label>
+                                        <input type="text" class="form-control" id="numberSize" style="width: 15%;"
+                                               th:value="${sosoOrderDTO.ordersMemberSize}" disabled>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="orderMetchUid">주문 번호</label>
-                                    <input type="text" id="orderMetchUid" class="form-control" placeholder="Name"
-                                           th:value="${sosoOrderDTO.ordersMerchantUid}"
-                                           disabled>
-                                    <p><small class="text-muted">주문번호는 변경하실 수 없습니다. (관리자에게 문의해주세요.)</small>
-                                    </p>
+                                    <div class="form-group">
+                                        <label for="orderMetchUid">주문 번호</label>
+                                        <input type="text" id="orderMetchUid" class="form-control" placeholder="Name"
+                                               th:value="${sosoOrderDTO.ordersMerchantUid}"
+                                               disabled>
+                                        <p><small class="text-muted">주문번호는 변경하실 수 없습니다. (관리자에게 문의해주세요.)</small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phoneNumber">전화 번호</label>
+                                        <input type="text" class="form-control" id="phoneNumber"
+                                               th:value="${sosoOrderDTO.orderPhoneNumber}"
+                                               placeholder="핸드폰 번호" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="memberAddress">주소</label>
+                                        <input type="text" class="form-control" id="memberAddress" disabled
+                                               th:value="${sosoOrderDTO.orderAddress}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="totalPrice">총 금액</label>
+                                        <p class="form-control-static" id="totalPrice"
+                                           th:text="${sosoOrderDTO.ordersTotalPrice}+' 원'"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orderEnable">주문 상태</label>
+                                        <p class="form-control-static" id="orderEnable"
+                                           th:if="${sosoOrderDTO.orderEnable} == false">주문 중</p>
+                                        <p class="form-control-static" id="orderEnable"
+                                           th:if="${sosoOrderDTO.orderEnable} == true">주문 완료</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="phoneNumber">전화 번호</label>
-                                    <input type="text" class="form-control" id="phoneNumber"
-                                           th:value="${sosoOrderDTO.orderPhoneNumber}"
-                                           placeholder="핸드폰 번호" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="memberAddress">주소</label>
-                                    <input type="text" class="form-control" id="memberAddress" disabled
-                                           th:value="${sosoOrderDTO.orderAddress}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="totalPrice">총 금액</label>
-                                    <p class="form-control-static" id="totalPrice"
-                                       th:text="${sosoOrderDTO.ordersTotalPrice}+' : 원'"></p>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                         <div>
-                            <button>수정</button>
+                            <button class="btn btn-outline-warning" onclick="sosoChangeOrderDetailButton()">수정</button>
                         </div>
                     </div>
                 </div>
@@ -118,44 +136,76 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="basicInput">Basic Input</label>
-                                    <input type="text" class="form-control" id="basicInput"
-                                           placeholder="Enter email">
+                        <form method="post" id="pasChangeForm" th:action="@{/admin/detail/order/change/pas}">
+                            <input type="hidden" name="orders_id" th:value="${pasOrderDTO.orders_id}">
+                            <div class="row">
+                                <div>
+                                    <p th:text="${pasOrderDTO.orderHelp}">내용</p>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="helpInputTop">Input text with help</label>
-                                    <small class="text-muted">eg.<i>someone@example.com</i></small>
-                                    <input type="text" class="form-control" id="helpInputTop">
+                                <div>
+                                    <div th:each="menu : ${pasOrderDTO.ordersMenu}">
+                                        <p th:text="'메뉴 이름 : '+${menu.menuOrderName}"
+                                           style="display: inline-block;margin-right: 30px;"></p>
+                                        <p th:text="'메뉴 수량 : '+${menu.menuOrderSize}"
+                                           style="display: inline-block;"></p>
+                                    </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pasReserveTime">예약 날자 및 시간</label>
+                                        <!--                                    <small class="text-muted">ex.<i>2021-00-00 24:00</i></small>-->
+                                        <input type="text" class="form-control" id="pasReserveTime" disabled
+                                               th:value="${pasOrderDTO.orderDate}"
+                                               placeholder="예약 날짜">
+                                    </div>
+                                    <!--                                    <div class="form-group">-->
+                                    <!--                                        <label for="pasChangeTime">변경할 예약 날자 및 시간</label>-->
+                                    <!--                                        <small class="text-muted">ex.<i>2021-00-00 24:00</i></small>-->
+                                    <!--                                        <input type="datetime-local" class="form-control" id="pasChangeTime"-->
+                                    <!--                                               name="orderDate"-->
+                                    <!--                                               placeholder="예약 날짜">-->
+                                    <!--                                    </div>-->
 
-                                <div class="form-group">
-                                    <label for="helperText">With Helper Text</label>
-                                    <input type="text" id="helperText" class="form-control" placeholder="Name">
-                                    <p><small class="text-muted">Find helper text here for given textbox.</small>
-                                    </p>
+
+                                    <div class="form-group">
+                                        <label for="orderMetchUid">주문 번호</label>
+                                        <input type="text" id="orderMetchUid" class="form-control" placeholder="Name"
+                                               th:value="${pasOrderDTO.ordersMerchantUid}"
+                                               disabled>
+                                        <p><small class="text-muted">주문번호는 변경하실 수 없습니다. (관리자에게 문의해주세요.)</small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phoneNumber">전화 번호</label>
+                                        <input type="text" class="form-control" id="phoneNumber"
+                                               th:value="${pasOrderDTO.orderPhoneNumber}"
+                                               placeholder="핸드폰 번호" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="memberAddress">주소</label>
+                                        <input type="text" class="form-control" id="memberAddress" disabled
+                                               th:value="${pasOrderDTO.orderAddress}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="totalPrice">총 금액</label>
+                                        <p class="form-control-static" id="totalPrice"
+                                           th:text="${pasOrderDTO.ordersTotalPrice}+' 원'"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orderEnable">주문 상태</label>
+                                        <p class="form-control-static" id="orderEnable"
+                                           th:if="${pasOrderDTO.orderEnable} == false">주문 중</p>
+                                        <p class="form-control-static" id="orderEnable"
+                                           th:if="${pasOrderDTO.orderEnable} == true">주문 완료</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="disabledInput">Disabled Input</label>
-                                    <input type="text" class="form-control" id="disabledInput"
-                                           placeholder="Disabled Text" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label for="disabledInput">Readonly Input</label>
-                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
-                                           value="You can't update me :P">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="disabledInput">Static Text</label>
-                                    <p class="form-control-static" id="staticInput">email@mazer.com</p>
-                                </div>
-                            </div>
+                        </form>
+                        <div>
+                            <button class="btn btn-outline-warning" onclick="pasChangeOrderDetailButton()">수정</button>
                         </div>
                     </div>
                 </div>
@@ -175,11 +225,12 @@
     </div>
 </div>
 </body>
-
+<script th:src="@{/admin/js/orderDetail.js}"></script>
 <div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
 <script th:inline="javascript">
     $(document).ready(function () {
         connect();
+
     });
 </script>
 </html>

@@ -85,7 +85,7 @@
                                                             name="menuCategorySq">
                                                         <option th:each="categortlist : ${categoryList}"
                                                                 th:value="${categortlist.category_sq}"
-                                                                th:text="${categortlist.category_name}"
+                                                                th:text="${categortlist.categoryName}"
                                                         ></option>
                                                     </select>
                                                 </fieldset>
@@ -182,7 +182,7 @@
                                            name="menuCheck" id="customColorCheck1"
                                            th:value="${menulist.menuSq}">
                                 </td>
-                                <td th:text="${menulist.menuCategoryDTO != null} ? ${menulist.menuCategoryDTO.category_name}:' '">
+                                <td th:text="${menulist.menuCategoryDTO != null} ? ${menulist.menuCategoryDTO.categoryName}:' '">
                                     카테고리이름
                                 </td>
                                 <td>
@@ -328,7 +328,7 @@
                                                                     <option th:each="categortlist : ${categoryList}"
                                                                             th:selected="${menulist.menuCategorySq} == ${categortlist.category_sq}"
                                                                             th:value="${categortlist.category_sq}"
-                                                                            th:text="${categortlist.category_name}"
+                                                                            th:text="${categortlist.categoryName}"
                                                                     ></option>
                                                                 </select>
                                                             </div>

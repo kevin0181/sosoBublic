@@ -3,18 +3,21 @@ package soso.sosoproject.controller.admin.order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.message.AccountMessage;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("admin")
@@ -53,9 +56,9 @@ public class OrderController {
 
 
     @GetMapping("/order/changeDetail")
-    public String changeDetailOrder(@RequestParam(value = "memberSq") String memberSq,
-                                    @RequestParam(value = "uid") String uid,
-                                    @RequestParam(value = "place") String place, Model model) {
+    public String changeDetailOrderGoPage(@RequestParam(value = "memberSq") String memberSq,
+                                          @RequestParam(value = "uid") String uid,
+                                          @RequestParam(value = "place") String place, Model model) {
 
         if (place.equals("pas")) {
             PasOrderDTO pasOrderDTO = pasOrderService.findOrderId(uid);
@@ -70,6 +73,35 @@ public class OrderController {
         } else {
             return "/error/error-404-new";
         }
+    }
+
+    @PostMapping("/detail/order/change/soso")
+    public String sosoChangeDetailOrder(SosoOrderDTO sosoOrderDTO, Model model) throws ParseException {
+
+        String dateString = sosoOrderDTO.getOrderDate();
+        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(dateString);
+
+        // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
+        String yyyyMMdd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        String date = yyyyMMdd + " " + HHmmss;
+
+        Optional<SosoOrderDTO> sosoOrderDTOGetId = sosoOrderService.findAllById(sosoOrderDTO);
+
+        sosoOrderDTOGetId.get().setOrderDate(date);
+
+        sosoOrderService.saveSosoOrder(sosoOrderDTOGetId.get());
+
+        model.addAttribute("data", new AccountMessage("수정되었습니다.", "/admin/orderList?className=soso"));
+        return "/message/account-message";
+    }
+
+    @PostMapping("/detail/order/change/pas")
+    public String pasChangeDetailOrder(PasOrderDTO pasOrderDTO, Model model) throws ParseException {
+
+        model.addAttribute("data", new AccountMessage("수정되었습니다.", "/admin/orderList?className=soso"));
+        return "/message/account-message";
     }
 
     @ResponseBody
