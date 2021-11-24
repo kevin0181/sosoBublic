@@ -144,6 +144,10 @@ public class SosoOrderService {
     public Optional<SosoOrderDTO> findAllById(SosoOrderDTO sosoOrderDTO) {
         return sosoOrderRepository.findById(sosoOrderDTO.getOrders_id());
     }
+
+    public List<SosoOrderDTO> findAllOrderList() {
+        return sosoOrderRepository.findAll();
+    }
 }
 
 

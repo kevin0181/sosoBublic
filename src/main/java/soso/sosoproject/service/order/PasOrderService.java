@@ -151,4 +151,8 @@ public class PasOrderService {
             return false;
         }
     }
+
+    public List<PasOrderDTO> findAllOrderList() {
+        return pasOrderRepository.findAll();
+    }
 }

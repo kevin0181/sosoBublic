@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소소한 부엌</title>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/static/assets/js/jquery-3.6.0.js}"></script>
+    <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+    <!--    리스트-->
+    <link rel="stylesheet" href="../../../static/assets/vendors/simple-datatables/style.css"
+          th:href="@{/static/assets/vendors/simple-datatables/style.css}">
+</head>
+
+<body>
+<div id="app">
+    <div id="sidebar" class="active">
+        <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3 style="display: inline-block" th:if="${className} == 'soso'">소소한 부엌</h3>
+                        <h3 style="display: inline-block"> 주문 전체 리스트</h3>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/admin/index}">Main</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">All Order List</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="orderListId">
+                    <div class="col" th:each="order : ${orderList}" th:id="${order.ordersMerchantUid}">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${order.orderName}+'님의 주문입니다.'"
+                                    th:onclick="getMemberProfile([[${order.memberSq}]],[[${order.ordersImpUid}]],'soso')"
+                                    style="margin-bottom: 20px;">이름</h5>
+                                <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
+                            </div>
+                            <ul class="list-group list-group-flush" th:if="${order.sosoOrdersDetailDTOS} != null">
+                                <li class="list-group-item" th:each="menu : ${order.sosoOrdersDetailDTOS}">
+                                    <div class="d-flex bd-highlight">
+                                        <p class="me-auto" th:text="${menu.sosoMenuDTO.menuSosoName}"
+                                           style="margin: 0;">시킨 메뉴
+                                            이름</p>
+                                        <p class="" th:text="'메뉴 수량 : '+${menu.menuOrderSize}"
+                                           style="margin: 0;">주문 메뉴 갯수</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <div class="btn-group btn-group-sm" role="group"
+                                     aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-success"
+                                            th:onclick="sosoOrderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
+                                            [[${order.ordersImpUid}]],[[${order.orders_id}]])">
+                                        주문 완료
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark"></button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                            th:onclick="sosoOrderFail([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
+                                            [[${order.ordersImpUid}]],[[${order.orders_id}]])">
+                                        주문 취소
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding: 1rem;">
+                                <small class="text-muted" style="color: #eb6547!important"
+                                       th:text="'예약 금액 : '+${order.ordersTotalPrice}">총 금액</small><br>
+                                <small class="text-muted" th:text="'예약 시간 : '+${order.orderDate}">시간</small><br>
+                                <small class="text-muted" th:text="'인원 수 : '+${order.ordersMemberSize}">총 인원
+                                    수</small><br>
+                                <small class="text-muted" th:if="${order.ordersMerchantUid} != null"
+                                       th:text="'주문 번호 : '+${order.ordersMerchantUid}">주문번호</small><br
+                                    th:if="${order.ordersMerchantUid} != null">
+                                <small class="text-muted"
+                                       th:text="'전화 번호 : '+${order.orderPhoneNumber}">전화번호</small><br>
+                                <small class="text-muted" th:text="'주소 : '+${order.orderAddress}">주소</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2021 &copy; version 0.0.1</p>
+                </div>
+                <div class="float-end">
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> :
+                        <a>kevin0181@naver.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+
+<div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+        // setTimeout(() => memberStartConnect(), 500);
+        // setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
+
+    });
+</script>
+</html>

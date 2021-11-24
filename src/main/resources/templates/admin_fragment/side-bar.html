@@ -102,6 +102,20 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item " th:classappend="${className} == 'sosoList' ? 'top-active'">
+                    <a href="table-datatable.html" class='sidebar-link'
+                       th:href="@{/admin/All/OrderList(className='sosoList')}">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>soso 전체 주문</span>
+                    </a>
+                </li>
+                <li class="sidebar-item " th:classappend="${className} == 'pasList' ? 'top-active'">
+                    <a href="table-datatable.html" class='sidebar-link'
+                       th:href="@{/admin/All/OrderList(className='pasList')}">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>&pas 전체 주문</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
