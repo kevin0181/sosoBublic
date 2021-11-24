@@ -8,6 +8,7 @@
 
     <!--반응형-->
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" th:href="@{/mineFile/css/myInfo.css}"/>
 </head>
 <body>
 <header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
@@ -134,24 +135,38 @@
 <section class="contact-page-area" style="padding-bottom: 120px;padding-top: 30px;">
     <div class="container">
         <div class="title" style="margin-bottom: 30px;"><h3 class="fs-md-3 p-2">앤 빠스떼우 주문 내역</h3></div>
+        <small>이미 완료된 주문은 취소가 불가능 합니다. 관리자에게 문의 부탁드립니다.</small>
         <div class="orderList">
             <div>
-                <div class="card" th:each="pasOrderList : ${memberDTO.pasOrderDTOList}" style="width: 49%;display: inline-block;">
+                <div class="card mineCard" th:each="pasOrderList : ${memberDTO.pasOrderDTOList}"
+                     th:classappend="${pasOrderList.orderEnable} == false ?'border-success'">
                     <div class="card-content">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${pasOrderList.orderDate}">주문 날짜</h5>
-                            <p class="card-text">
-                                Chocolate sesame snaps apple pie danish cupcake sweet roll jujubes
-                                tiramisu.Gummies
-                                bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll.
+                            <h5 class="card-title" th:text="${pasOrderList.orderDate}" style="display: inline-block">주문
+                                날짜</h5> <small style="display: inline-block"
+                                               th:if="${pasOrderList.orderEnable} == false">주문 진행 중</small>
+                            <p class="card-text" th:text="${pasOrderList.orderHelp}">
+                                help
                             </p>
                         </div>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item d-flex justify-content-between"
+                            th:each="pasOrderDetailMenu : ${pasOrderList.ordersMenu}">
+                            <span class="p-2 bd-highlight"
+                                  th:text="'메뉴 이름 : '+${pasOrderDetailMenu.menuOrderName}"></span>
+                            <span class="p-2 bd-highlight" th:text="'수량 : '+${pasOrderDetailMenu.menuOrderSize}"></span>
+                            <span class="p-2 bd-highlight"
+                                  th:text="'가격 : '+${pasOrderDetailMenu.menu_sq.menu_price}+'원'"></span>
+                        </li>
                     </ul>
+                    <div class="card-footer">
+                        <p th:text="'주문자 : '+${pasOrderList.orderName}">주문자 이름</p>
+                        <p th:text="'주소 : '+${pasOrderList.orderAddress}">주문자 주소</p>
+                        <p th:text="'전화번호 : '+${pasOrderList.orderPhoneNumber}">주문자 번호</p>
+                        <p th:text="'총 금액 : '+${pasOrderList.ordersTotalPrice}+'원'">총 금액</p>
+                        <p th:text="'주문 번호 : '+${pasOrderList.ordersMerchantUid}">주문 번호</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,25 +176,44 @@
 <section class="contact-page-area" style="padding-bottom: 120px;padding-top: 30px;">
     <div class="container">
         <div class="title" style="margin-bottom: 30px;"><h3 class="fs-md-3 p-2">소소한 부엌 주문 내역</h3></div>
+        <small>이미 완료된 주문은 취소가 불가능 합니다. 관리자에게 문의 부탁드립니다.</small>
         <div class="orderList">
             <div>
-                <div class="card" th:each="sosoOrderList : ${memberDTO.sosoOrderDTOS}"
-                     style="width: 49%;display: inline-block;">
+                <div class="card mineCard" th:each="sosoOrderList : ${memberDTO.sosoOrderDTOS}"
+                     th:classappend="${sosoOrderList.orderEnable} == false ?'border-success'">
                     <div class="card-content">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${sosoOrderList.orderDate}">예약 날짜</h5>
-                            <p class="card-text">
-                                Chocolate sesame snaps apple pie danish cupcake sweet roll jujubes
-                                tiramisu.Gummies
-                                bonbon apple pie fruitcake icing biscuit apple pie jelly-o sweet roll.
+                            <h5 class="card-title" th:text="${sosoOrderList.orderDate}" style="display: inline-block">예약
+                                날짜</h5>
+                            <small style="display: inline-block"
+                                   th:if="${sosoOrderList.orderEnable} == false">주문 진행 중</small>
+                            <p class="card-text" th:text="${sosoOrderList.orderHelp}">
+                                help
                             </p>
                         </div>
                     </div>
+                    <div>
+                        <p th:text="'방문 인원 수 : '+${sosoOrderList.ordersMemberSize}" style="padding: 1.25rem;">방문 인원
+                            수</p>
+                    </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item d-flex justify-content-between"
+                            th:each="sosoOrderDetailMenu : ${sosoOrderList.sosoOrdersDetailDTOS}">
+                            <span class="p-2 bd-highlight"
+                                  th:text="'메뉴 이름 : '+${sosoOrderDetailMenu.sosoMenuDTO.menuSosoName}"></span>
+                            <span class="p-2 bd-highlight"
+                                  th:text="'수량 : '+${sosoOrderDetailMenu.menuOrderSize}"></span>
+                            <span class="p-2 bd-highlight"
+                                  th:text="'가격 : '+${sosoOrderDetailMenu.sosoMenuDTO.menuSosoPrice}+'원'"></span>
+                        </li>
                     </ul>
+                    <div class="card-footer">
+                        <p th:text="'주문자 : '+${sosoOrderList.orderName}">주문자 이름</p>
+                        <p th:text="'주소 : '+${sosoOrderList.orderAddress}">주문자 주소</p>
+                        <p th:text="'전화번호 : '+${sosoOrderList.orderPhoneNumber}">주문자 번호</p>
+                        <p th:text="'총 금액 : '+${sosoOrderList.ordersTotalPrice}+'원'">총 금액</p>
+                        <p th:text="'주문 번호 : '+${sosoOrderList.ordersMerchantUid}">주문 번호</p>
+                    </div>
                 </div>
             </div>
         </div>
