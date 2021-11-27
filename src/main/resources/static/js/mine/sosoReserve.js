@@ -213,6 +213,7 @@ function sosoOrder(memberSq, memberEMail) {
                     buyer_name: $('#sosoOrderName').val(),
                     buyer_tel: $('#sosoOrderPhoneNumber').val(),
                     buyer_addr: $('#sosoOrderAddress').val(),
+                    m_redirect_url: "http://soso-k.kro.kr/user/Reserve/soso"
                 }, function (rsp) { // callback
                     if (rsp.success) {
                         if (rsp.merchant_uid == uid) {
@@ -298,6 +299,7 @@ function sosoOrder(memberSq, memberEMail) {
                         buyer_name: $('#sosoOrderName').val(),
                         buyer_tel: $('#sosoOrderPhoneNumber').val(),
                         buyer_addr: $('#sosoOrderAddress').val(),
+                        m_redirect_url: "http://soso-k.kro.kr/user/Reserve/soso"
                     }, function (rsp) { // callback
                         if (rsp.success) {
 

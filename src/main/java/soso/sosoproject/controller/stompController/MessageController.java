@@ -3,6 +3,8 @@ package soso.sosoproject.controller.stompController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -23,6 +25,9 @@ import java.util.List;
 @Controller
 
 public class MessageController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     private PasOrderService pasOrderService;
@@ -45,8 +50,19 @@ public class MessageController {
     @ResponseBody
     public Object getOrderMessage(OrderMessageDTO orderMessageDTO) throws Exception { //주문시 알림처리.
 
+//        System.out.println("들어온 주문 이름 : " + orderMessageDTO.getOrderName());
+
+        logger.info("들어온 주문 회원 번호 : " + orderMessageDTO.getMemberSq());
+        logger.info("들어온 주문 회원 이름 : " + orderMessageDTO.getOrderName());
+        logger.info("들어온 주문 주소 : " + orderMessageDTO.getOrderPlace());
+        logger.info("들어온 주문 주문 번호 : " + orderMessageDTO.getOrdersImpUid());
+        logger.info("들어온 주문 권한 : " + orderMessageDTO.getRole_name());
+        logger.info("들어온 주문 하고싶은 말 : " + orderMessageDTO.getMessage());
+
+
+
         if (orderMessageDTO.getOrdersImpUid() == null) { //결제안하고 들어온 잘못된 접근
-            return null;
+            return orderMessageDTO;
         }
 
         PasOrderDTO pasOrderDTO = pasOrderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
@@ -60,7 +76,7 @@ public class MessageController {
                 return pasOrderDTO;
             } else { //관리자가 메뉴를 받고있지 않다면?
                 orderMessageDTO.setMessage("error-404"); //관리자가 매장을 오픈하지 않음.
-                return orderMessageDTO;
+                return pasOrderDTO;
             }
 
         } else {
@@ -71,12 +87,10 @@ public class MessageController {
                 return pasOrderDTO;
             } else { //관리자가 메뉴를 받고있지 않다면?
                 orderMessageDTO.setMessage("error-404"); //관리자가 매장을 오픈하지 않음.
-                return orderMessageDTO;
+                return pasOrderDTO;
             }
 
         }
-
-
     }
 
 

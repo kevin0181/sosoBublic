@@ -13,6 +13,7 @@ function connect() {
 }
 
 function showOrder(chat) {
+    console.log("들어옴 : " + chat.orderName);
     //toast 알림
     Toastify({
         text: chat.orderName + "님의 주문이 들어왔습니다.",

@@ -140,68 +140,75 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
             } else {
                 IMP.init('imp76725859');
                 IMP.request_pay({
-                    pg: $('#selectPasPayVale').val(),
-                    pay_method: 'card',
-                    // merchant_uid: 'merchant_' + new Date().getTime(),
-                    merchant_uid: data.uid,
-                    name: '앤 빠스떼우', //결제창에서 보여질 이름
-                    amount: data.totalPrice, //실제 결제되는 가격
-                    buyer_email: memberEmail,
-                    buyer_name: $('#orderName').val(),
-                    buyer_tel: $('#orderNumber').val(),
-                    buyer_addr: $('#orderAddress').val(),
+                        pg: $('#selectPasPayVale').val(),
+                        pay_method: 'card',
+                        // merchant_uid: 'merchant_' + new Date().getTime(),
+                        merchant_uid: data.uid,
+                        name: '앤 빠스떼우', //결제창에서 보여질 이름
+                        amount: data.totalPrice, //실제 결제되는 가격
+                        buyer_email: memberEmail,
+                        buyer_name: $('#orderName').val(),
+                        buyer_tel: $('#orderNumber').val(),
+                        buyer_addr: $('#orderAddress').val(),
+                        m_redirect_url: "http://soso-k.kro.kr/user/index"
+                    },
 
-                }, function (rsp) {
-                    if (rsp.success) {
-                        formdata.append("ordersImpUid", rsp.imp_uid);
-                        formdata.append("ordersTotalPrice", data.totalPrice);
-                        formdata.append("ordersMerchantUid", rsp.merchant_uid);
-                        $.ajax({
-                            url: "/user/order/menu",
-                            type: "post",
-                            dataType: "json",
-                            contentType: false,
-                            processData: false,
-                            data: formdata,
-                            success: function (data) {
-                                if (data) {
-                                    alert("성공적으로 주문이 되었습니다.");
-                                    sendOrderChat(memberSq, rsp.imp_uid, memberRole);
-                                    location.href = "/user/index";
-                                } else {
-                                    alert("주문에 실패하였습니다.결제가 진행되었을 경우 관리자에게 문의 부탁드립니다.");
-                                    location.href = "/user/index";
+                    function (rsp) {
+                        if (rsp.success) {
+                            formdata.append("ordersImpUid", rsp.imp_uid);
+                            formdata.append("ordersTotalPrice", data.totalPrice);
+                            formdata.append("ordersMerchantUid", rsp.merchant_uid);
+                            $.ajax({
+                                url: "/user/order/menu",
+                                type: "post",
+                                dataType: "json",
+                                contentType: false,
+                                processData: false,
+                                data: formdata,
+                                success: function (data) {
+                                    if (data) {
+                                        alert("성공적으로 주문이 되었습니다.");
+                                        sendOrderChat(memberSq, rsp.imp_uid, memberRole);
+                                        // location.href = "/user/index";
+                                        location.replace("/user/index");
+                                    } else {
+                                        alert("주문에 실패하였습니다.결제가 진행되었을 경우 관리자에게 문의 부탁드립니다.");
+                                        // location.href = "/user/index";
+                                        location.replace("/user/index");
+                                    }
+
                                 }
-                            }
-                        });
+                            });
 
-                    } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-                        alert(msg);
-                        //DB에서도 처리해야함.
+                        } else {
+                            var msg = '결제에 실패하였습니다.';
+                            msg += '에러내용 : ' + rsp.error_msg;
+                            alert(msg);
+                            //DB에서도 처리해야함.
 
-                        // $.ajax({
-                        //     url: "/user/order/menu/cancle",
-                        //     type: "GET",
-                        //     dataType: "json",
-                        //     data: {
-                        //         'uid': rsp.merchant_uid
-                        //     },
-                        //     success: function (data) {
-                        //         console.log(data);
-                        //         if (data) {
-                        //             console.log("메뉴 취소 완료");
-                        //         } else {
-                        //             alert("메뉴 주문 취소에 실패하였습니다. (관리자에게 문의바랍니다)");
-                        //         }
-                        //     }
-                        // });
+                            // $.ajax({
+                            //     url: "/user/order/menu/cancle",
+                            //     type: "GET",
+                            //     dataType: "json",
+                            //     data: {
+                            //         'uid': rsp.merchant_uid
+                            //     },
+                            //     success: function (data) {
+                            //         console.log(data);
+                            //         if (data) {
+                            //             console.log("메뉴 취소 완료");
+                            //         } else {
+                            //             alert("메뉴 주문 취소에 실패하였습니다. (관리자에게 문의바랍니다)");
+                            //         }
+                            //     }
+                            // });
 
-                        location.href = "/user/index";
+                            location.href = "/user/index";
 
+                        }
                     }
-                });
+                )
+                ;
             }
         }
     });
