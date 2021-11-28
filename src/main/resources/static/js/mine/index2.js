@@ -91,6 +91,10 @@ function orderAlert(memberSq, memberEMail, memberRole) {
             break;
         }
     }
+    if (!(/^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/.test($('#orderNumber').val()))) {
+        alert("전화번호 형식에 맞지 않습니다. - 을 제거하고 입력해주세요.");
+        return false;
+    }
     orderKakaoPay(memberSq, memberEMail, memberRole);
 }
 
