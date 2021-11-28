@@ -284,6 +284,10 @@ function sendCount(memberSq, memberEMail, memberRole) {
         'role_name': memberRole,
         'loginActive': true
     }));
+
+    setTimeout(() => connectionOut(memberSq), 1800000);
+    // 600000 -> 10분    1000 = 1초
+    // 1800000 -> 30분
 }
 
 
@@ -301,9 +305,18 @@ function logoutActive(memberEMail, memberSq) { //로그아웃
     document.logoutForm.submit();
 }
 
+
 function timestamp() {
     var today = new Date();
     today.setHours(today.getHours() + 9);
     return today.toISOString().replace('T', ' ').substring(0, 19);
 }
 
+function connectionOut(memberSq) {
+    stompClient.send("/order/count", {}, JSON.stringify({
+        'memberSq': memberSq,
+        'loginActive': false
+    }));
+    stompClient.disconnect();
+    document.logoutForm.submit();
+}
