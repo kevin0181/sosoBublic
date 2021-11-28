@@ -8,6 +8,10 @@ var menuIdArray = [];
 
 var startPasActive;
 
+
+var stompClient = null;
+
+
 function menuClick(menuSq, menuName, menuSoldOut) {
 
     if (menuSoldOut) {
@@ -94,8 +98,7 @@ function orderAlert(memberSq, memberEMail, memberRole) {
 //메뉴주문
 function orderKakaoPay(memberSq, memberEmail, memberRole) {
 
-
-    connect();
+    // connect();
 
     var ammountResult = 0;
     var nowDate = new Date();
@@ -122,9 +125,7 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
         formdata.append("ordersMenu[" + i + "].menuOrderSize", $('#menuNumber' + menuIdArray[i]).val());
         formdata.append("ordersMenu[" + i + "].member_sq", memberSq);
         formdata.append("ordersMenu[" + i + "].menu_sq", $('#menuInput' + menuIdArray[i]).val());
-
     }
-
 
     $.ajax({
         url: "/user/orderMenu/pay/ammount",
@@ -150,9 +151,8 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                         buyer_name: $('#orderName').val(),
                         buyer_tel: $('#orderNumber').val(),
                         buyer_addr: $('#orderAddress').val(),
-                        m_redirect_url: "http://soso-k.kro.kr/user/index"
+                        // m_redirect_url: "http://soso-k.kro.kr/user/index"
                     },
-
                     function (rsp) {
                         if (rsp.success) {
                             formdata.append("ordersImpUid", rsp.imp_uid);
@@ -165,15 +165,17 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                                 contentType: false,
                                 processData: false,
                                 data: formdata,
+                                beforeSend: function () {
+                                    $('#index_loading_var').show();
+                                },
                                 success: function (data) {
                                     if (data) {
                                         alert("성공적으로 주문이 되었습니다.");
                                         sendOrderChat(memberSq, rsp.imp_uid, memberRole);
-                                        // location.href = "/user/index";
-                                        location.replace("/user/index");
+                                        stompClient.disconnect();
+                                        location.replace("/user/index")
                                     } else {
                                         alert("주문에 실패하였습니다.결제가 진행되었을 경우 관리자에게 문의 부탁드립니다.");
-                                        // location.href = "/user/index";
                                         location.replace("/user/index");
                                     }
 
@@ -226,7 +228,6 @@ html5_inicis':이니시스(웹표준결제)
 */
 }
 
-var stompClient = null;
 
 //웹소켓 연결
 function connect() {
@@ -247,11 +248,11 @@ function connect() {
 
 function sendOrderChat(memberSq, imp_uid, memberRole) {
     stompClient.send("/order/chat", {}, JSON.stringify({
-        'memberSq': memberSq,
+        // 'memberSq': memberSq,
         'ordersImpUid': imp_uid,
-        'orderName': $('#orderName').val(),
-        'role_name': memberRole,
-        'orderPlace': 'pas'
+        // 'orderName': $('#orderName').val(),
+        // 'role_name': memberRole,
+        // 'orderPlace': 'pas'
     }));
 }
 

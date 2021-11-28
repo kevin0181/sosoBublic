@@ -98,6 +98,11 @@ public class MessageController {
     @SendTo("/sendAdminMessage/memberCount")
     public SizeAndOrderList countMember(MemberCountDTO memberCountDTO) throws Exception { //주문시 알림처리.
 
+        logger.info("접속 이메일: " + memberCountDTO.getMemberEMail());
+        logger.info("접속 사용자 번호: " + memberCountDTO.getMemberSq());
+        logger.info("접속 사용자 권한: " + memberCountDTO.getRole_name());
+        logger.info("접속 사용자 로그인 상태: " + memberCountDTO.isLoginActive());
+
         if (memberCountDTO.isLoginActive()) {
             //로그인
             if (memberCountDTO.getRole_name() == null) {

@@ -32,3 +32,17 @@
         width: 30%;
     }
 }
+
+.indexLoadingButton {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    display: none;
+}
+
+@media (max-width: 450px) {
+    .indexLoadingButton {
+      left: 36.5%;%;
+    }
+}
