@@ -47,7 +47,7 @@ function menuClick(menuSq, menuName, menuSoldOut) {
     }
 }
 
-function orderAlert(memberSq, memberEMail, memberRole) {
+function orderAlert(memberSq, memberEMail) {
 
     if (memberSq == null) {
         alert("로그인을 해주세요.");
@@ -95,14 +95,13 @@ function orderAlert(memberSq, memberEMail, memberRole) {
         alert("전화번호 형식에 맞지 않습니다. - 을 제거하고 입력해주세요.");
         return false;
     }
-    orderKakaoPay(memberSq, memberEMail, memberRole);
+    orderKakaoPay(memberSq, memberEMail);
 }
 
 
 //메뉴주문
-function orderKakaoPay(memberSq, memberEmail, memberRole) {
+function orderKakaoPay(memberSq, memberEmail) {
 
-    // connect();
 
     var ammountResult = 0;
     var nowDate = new Date();
@@ -170,14 +169,15 @@ function orderKakaoPay(memberSq, memberEmail, memberRole) {
                                 processData: false,
                                 data: formdata,
                                 beforeSend: function () {
-                                    $('#index_loading_var').show();
+                                    // $('#index_loading_var').show();
+                                    alert("주문이 완료될때까지 창을 닫지 말아주세요. (주문 완료 창이 뜨기전 창을 닫거나 페이지 이동 시 주문이 안될수도 있습니다!!!)");
                                 },
                                 success: function (data) {
                                     if (data) {
-                                        alert("성공적으로 주문이 되었습니다.");
-                                        sendOrderChat(memberSq, rsp.imp_uid, memberRole);
-                                        stompClient.disconnect();
-                                        location.replace("/user/index")
+                                        connect();
+                                        setTimeout(() => sendOrderChat(rsp.imp_uid), 3000);
+                                        alert("주문을 완료하였습니다.");
+                                        location.replace("/user/index");
                                     } else {
                                         alert("주문에 실패하였습니다.결제가 진행되었을 경우 관리자에게 문의 부탁드립니다.");
                                         location.replace("/user/index");
@@ -250,7 +250,7 @@ function connect() {
     });
 }
 
-function sendOrderChat(memberSq, imp_uid, memberRole) {
+function sendOrderChat(imp_uid) {
     stompClient.send("/order/chat", {}, JSON.stringify({
         // 'memberSq': memberSq,
         'ordersImpUid': imp_uid,
