@@ -96,8 +96,8 @@ body {
     padding-right: 100px;
 }
 
-.greenColor{
-    color: #95f42c!important;
+.greenColor {
+    color: #95f42c !important;
 }
 
 @media (max-width: 751px) {
@@ -139,6 +139,7 @@ body {
 
     .mapPositionRight {
         padding-right: 10px;
+        padding-left: 10px;
     }
 }
 
@@ -148,3 +149,11 @@ body {
         margin-bottom: 5px !important;
     }
 }
+
+
+@media (max-width: 270px) {
+    .table {
+        font-size: 10px;
+    }
+}
+
