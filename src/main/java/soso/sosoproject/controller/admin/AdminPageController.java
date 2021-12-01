@@ -58,11 +58,13 @@ public class AdminPageController {
         model.addAttribute("className", className);
 
         //pas 총 주문수
-        List<PasOrderDTO> sosoList = pasOrderService.findAllPlaceOrder();
-        model.addAttribute("totalSoso", sosoList.size());
-        //pas 총 주문수
-        List<SosoOrderDTO> pasList = sosoOrderService.findAllPlaceOrder();
+        List<PasOrderDTO> pasList = pasOrderService.findAllPlaceOrder();
         model.addAttribute("totalPas", pasList.size());
+
+        //pas 총 주문수
+        List<SosoOrderDTO> sosoList = sosoOrderService.findAllPlaceOrder();
+        model.addAttribute("totalSoso", sosoList.size());
+        model.addAttribute("sosoList", sosoList);
 
         return "admin/admin-index";
     }

@@ -4,6 +4,8 @@
     <title>soso</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}">
     <div th:replace="/user/user_fragment/link.html :: link"></div>
     <!--
     CSS
@@ -12,10 +14,13 @@
     <link rel="stylesheet" th:href="@{/assets/css/mine/mine.css}">
 </head>
 <body>
-<button class="btn btn-success indexLoadingButton" type="button" id="index_loading_var" disabled style="">
-    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-    Loading...
-</button>
+<div class="spinner-border text-success" role="status" id="index_loading_var" style="position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
 <header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
 </header><!-- #header -->
 

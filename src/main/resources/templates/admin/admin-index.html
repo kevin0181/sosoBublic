@@ -110,30 +110,18 @@
                                     <h4>Profile Visit</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div>
-                                        <a>현재 준비중에 있습니다.</a>
+                                    <div class="real-time container" id="">
+                                        추후 개발 예정
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-xl-4">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Profile Visit</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div>
-                                        <a>현재 준비중에 있습니다.</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>주문 현황</h4>
+                                    <h4>소소한 부엌 주문 현황</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -141,34 +129,24 @@
                                             <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Comment</th>
+                                                <th>time</th>
+                                                <th>size</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
+                                            <tr th:each="orderSoso : ${sosoList}"
+                                                th:if="${orderSoso.orderEnable} == false">
                                                 <td class="col-3">
                                                     <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/5.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">유영빈</p>
+                                                        <p class="font-bold ms-3 mb-0" th:text="${orderSoso.orderName}">
+                                                            이름</p>
                                                     </div>
                                                 </td>
                                                 <td class="col-auto">
-                                                    <p class=" mb-0">소스 많이 주세요</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="assets/images/faces/2.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">홍길동</p>
-                                                    </div>
+                                                    <p class=" mb-0" th:text="${orderSoso.orderDate}">날짜</p>
                                                 </td>
                                                 <td class="col-auto">
-                                                    <p class=" mb-0">너무 피곤하네요</p>
+                                                    <p th:text="${orderSoso.ordersMemberSize}">인원 수</p>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -177,18 +155,65 @@
                                 </div>
                             </div>
                         </div>
+                        <!--                        <div class="col-12">-->
+                        <!--                            <div class="card">-->
+                        <!--                                <div class="card-header">-->
+                        <!--                                    <h4>앤 빠스떼우 주문 현황</h4>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="card-body">-->
+                        <!--                                    <div class="table-responsive">-->
+                        <!--                                        <table class="table table-hover table-lg">-->
+                        <!--                                            <thead>-->
+                        <!--                                            <tr>-->
+                        <!--                                                <th>Name</th>-->
+                        <!--                                                <th>Comment</th>-->
+                        <!--                                            </tr>-->
+                        <!--                                            </thead>-->
+                        <!--                                            <tbody>-->
+                        <!--                                            <tr>-->
+                        <!--                                                <td class="col-3">-->
+                        <!--                                                    <div class="d-flex align-items-center">-->
+                        <!--                                                        <div class="avatar avatar-md">-->
+                        <!--                                                            <img src="assets/images/faces/5.jpg">-->
+                        <!--                                                        </div>-->
+                        <!--                                                        <p class="font-bold ms-3 mb-0">유영빈</p>-->
+                        <!--                                                    </div>-->
+                        <!--                                                </td>-->
+                        <!--                                                <td class="col-auto">-->
+                        <!--                                                    <p class=" mb-0">소스 많이 주세요</p>-->
+                        <!--                                                </td>-->
+                        <!--                                            </tr>-->
+                        <!--                                            <tr>-->
+                        <!--                                                <td class="col-3">-->
+                        <!--                                                    <div class="d-flex align-items-center">-->
+                        <!--                                                        <div class="avatar avatar-md">-->
+                        <!--                                                            <img src="assets/images/faces/2.jpg">-->
+                        <!--                                                        </div>-->
+                        <!--                                                        <p class="font-bold ms-3 mb-0">홍길동</p>-->
+                        <!--                                                    </div>-->
+                        <!--                                                </td>-->
+                        <!--                                                <td class="col-auto">-->
+                        <!--                                                    <p class=" mb-0">너무 피곤하네요</p>-->
+                        <!--                                                </td>-->
+                        <!--                                            </tr>-->
+                        <!--                                            </tbody>-->
+                        <!--                                        </table>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="card">
                         <div class="card-body py-4 px-5">
                             <div class="d-flex align-items-center">
-                                <div class="avatar avatar-xl">
-                                    <img src="assets/images/faces/1.jpg" alt="Face 1">
-                                </div>
+                                <!--                                <div class="avatar avatar-xl">-->
+                                <!--                                    <img src="assets/images/faces/1.jpg" alt="Face 1">-->
+                                <!--                                </div>-->
                                 <div class="ms-3 name">
-                                    <h5 class="font-bold">John Duck</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
+                                    <h5 class="font-bold" th:text="${session.memberName}+'님'">이름</h5>
+                                    <h6 class="text-muted mb-0">환영합니다.</h6>
                                 </div>
                             </div>
                         </div>
@@ -198,42 +223,47 @@
                             <h4>개인 메세지</h4>
                         </div>
                         <div class="card-content pb-4">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="assets/images/faces/4.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Hank Schrader</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="assets/images/faces/5.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Dean Winchester</h5>
-                                    <h6 class="text-muted mb-0">@imdean</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="assets/images/faces/1.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">John Dodol</h5>
-                                    <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                </div>
-                            </div>
+                            <div class="container">개발 예정입니다.</div>
+
+                            <!--                            <div class="recent-message d-flex px-4 py-3">-->
+                            <!--                                <div class="avatar avatar-lg">-->
+                            <!--                                    <img src="assets/images/faces/4.jpg">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="name ms-4">-->
+                            <!--                                    <h5 class="mb-1">Hank Schrader</h5>-->
+                            <!--                                    <h6 class="text-muted mb-0">@johnducky</h6>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="recent-message d-flex px-4 py-3">-->
+                            <!--                                <div class="avatar avatar-lg">-->
+                            <!--                                    <img src="assets/images/faces/5.jpg">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="name ms-4">-->
+                            <!--                                    <h5 class="mb-1">Dean Winchester</h5>-->
+                            <!--                                    <h6 class="text-muted mb-0">@imdean</h6>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="recent-message d-flex px-4 py-3">-->
+                            <!--                                <div class="avatar avatar-lg">-->
+                            <!--                                    <img src="assets/images/faces/1.jpg">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="name ms-4">-->
+                            <!--                                    <h5 class="mb-1">John Dodol</h5>-->
+                            <!--                                    <h6 class="text-muted mb-0">@dodoljohn</h6>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header">
                             <h4>배달 완료 현황</h4>
                         </div>
-                        <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
+                        <div class="container mb-3">
+                            추후 개발 예정
                         </div>
+                        <!--                        <div class="card-body">-->
+                        <!--                            <div id="chart-visitors-profile"></div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </section>

@@ -66,9 +66,11 @@ function showOrder(chat) {
         "</div>" +
         "</div>" +
         "</div>";
+
     // sssskkkk(" + chat.memberSq + "," + chat.ordersMerchantUid
     //     + "," + chat.ordersImpUid + "," + chat.orders_id + ")
     //html append
+
     $('#orderListId').prepend(htmlSource);
 }
 
@@ -137,7 +139,6 @@ function disconnectPas() {
 
 
 //주문 에서 처리 ---------------------------------------------------
-
 
 function getMemberProfile(memberSq, uid, place) { //멤버 주문 수정
     location.href = "/admin/order/changeDetail?memberSq=" + memberSq + "&uid=" + uid + "&place=" + place;

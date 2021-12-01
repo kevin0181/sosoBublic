@@ -50,17 +50,6 @@ public class MessageController {
     @ResponseBody
     public Object getOrderMessage(OrderMessageDTO orderMessageDTO) throws Exception { //주문시 알림처리.
 
-//        System.out.println("들어온 주문 이름 : " + orderMessageDTO.getOrderName());
-
-        logger.info("들어온 주문 회원 번호 : " + orderMessageDTO.getMemberSq());
-        logger.info("들어온 주문 회원 이름 : " + orderMessageDTO.getOrderName());
-        logger.info("들어온 주문 주소 : " + orderMessageDTO.getOrderPlace());
-        logger.info("들어온 주문 주문 번호 : " + orderMessageDTO.getOrdersImpUid());
-        logger.info("들어온 주문 권한 : " + orderMessageDTO.getRole_name());
-        logger.info("들어온 주문 하고싶은 말 : " + orderMessageDTO.getMessage());
-
-
-
         if (orderMessageDTO.getOrdersImpUid() == null) { //결제안하고 들어온 잘못된 접근
             return orderMessageDTO;
         }
@@ -97,11 +86,6 @@ public class MessageController {
     @MessageMapping("/count")
     @SendTo("/sendAdminMessage/memberCount")
     public SizeAndOrderList countMember(MemberCountDTO memberCountDTO) throws Exception { //주문시 알림처리.
-
-        logger.info("접속 이메일: " + memberCountDTO.getMemberEMail());
-        logger.info("접속 사용자 번호: " + memberCountDTO.getMemberSq());
-        logger.info("접속 사용자 권한: " + memberCountDTO.getRole_name());
-        logger.info("접속 사용자 로그인 상태: " + memberCountDTO.isLoginActive());
 
         if (memberCountDTO.isLoginActive()) {
             //로그인

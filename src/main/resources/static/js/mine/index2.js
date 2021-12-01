@@ -169,15 +169,15 @@ function orderKakaoPay(memberSq, memberEmail) {
                                 processData: false,
                                 data: formdata,
                                 beforeSend: function () {
-                                    // $('#index_loading_var').show();
-                                    alert("주문이 완료될때까지 창을 닫지 말아주세요. (주문 완료 창이 뜨기전 창을 닫거나 페이지 이동 시 주문이 안될수도 있습니다!!!)");
+                                    $('#index_loading_var').show();
+                                    // alert("주문이 완료될때까지 창을 닫지 말아주세요. (주문 완료 창이 뜨기전 창을 닫거나 페이지 이동 시 주문이 안될수도 있습니다!!!)");
                                 },
                                 success: function (data) {
                                     if (data) {
                                         connect();
                                         setTimeout(() => sendOrderChat(rsp.imp_uid), 3000);
-                                        alert("주문을 완료하였습니다.");
-                                        location.replace("/user/index");
+                                        setTimeout(() => alert("주문을 완료하였습니다."), 3500);
+                                        setTimeout(() => location.replace("/user/index"), 4000);
                                     } else {
                                         alert("주문에 실패하였습니다.결제가 진행되었을 경우 관리자에게 문의 부탁드립니다.");
                                         location.replace("/user/index");
