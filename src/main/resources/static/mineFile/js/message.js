@@ -13,7 +13,6 @@ function connect() {
 }
 
 function showOrder(chat) {
-    console.log("들어옴 : " + chat.orderName);
     //toast 알림
     Toastify({
         text: chat.orderName + "님의 주문이 들어왔습니다.",
@@ -22,7 +21,7 @@ function showOrder(chat) {
         gravity: "bottom",
         position: "right",
         backgroundColor: "#4fbe87",
-        destination: "/admin/orderList/OrderSingleBoard?className=pas&orderImp=" + chat.ordersImpUid  //지정 url로 이동
+        destination: "/admin/order/changeDetail?memberSq=" + chat.memberSq + "&uid=" + chat.ordersImpUid + "&place=pas"
     }).showToast();
 
     var JsonMenuData = chat.ordersMenu;
