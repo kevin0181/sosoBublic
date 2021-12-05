@@ -13,6 +13,15 @@ function connect() {
 }
 
 function showOrder(chat) {
+
+    //알림음
+    // const audio = document.getElementById('audio_play');
+    // audio.autoplay = false;
+    // audio.play();
+    // audio.load();
+    sound();
+
+
     //toast 알림
     Toastify({
         text: chat.orderName + "님의 주문이 들어왔습니다.",

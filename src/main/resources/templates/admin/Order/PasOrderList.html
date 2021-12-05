@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>소소한 부엌</title>
-    <script rel="javascript" type="text/javascript" src="" th:src="@{/static/assets/js/jquery-3.6.0.js}"></script>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
     <!--    리스트-->
     <link rel="stylesheet" href="../../../static/assets/vendors/simple-datatables/style.css"
-          th:href="@{/static/assets/vendors/simple-datatables/style.css}">
+          th:href="@{/assets/vendors/simple-datatables/style.css}">
+    <!--    <audio id='audio_play' th:src='@{/music/kk.mp3}'></audio>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script>
+        function sound() {
+            var sound = new Howl({
+                src: ['/music/알림음.mp3'],
+                volume: 0.7,
+            });
+            sound.play()
+        }
+    </script>
 </head>
 
 <body>
