@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>소소한 부엌 관리자 로그인 페이지</title>
     <link rel="stylesheet" href="assets/css/pages/auth.css" th:href="@{/assets/css/pages/auth.css}">
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
@@ -15,7 +16,8 @@
     <div class="row h-100">
         <div class="col-lg-5 col-12">
             <div id="auth-left">
-                <div class="auth-logo">
+                <div class="logo">
+                    <a th:href="@{/user/index}"><img th:src="@{/img/favicon.png}" style="width: 100px;" alt="Logo"></a>
                 </div>
                 <h1 class="auth-title">Login</h1>
                 <p class="auth-subtitle mb-5">소소한부엌 <br>관리자 페이지입니다.</p>
