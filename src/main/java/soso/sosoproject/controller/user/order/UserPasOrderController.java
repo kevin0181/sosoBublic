@@ -38,35 +38,6 @@ public class UserPasOrderController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping("/user/order/menu")
-    @ResponseBody
-    public boolean orderMenu(PasOrderDTO pasOrderDTO) throws IOException, IamportResponseException {
-        try {
-            IamportResponse<Payment> k = paymentByImpUid(pasOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
-            String getFrontAmmount = k.getResponse().getAmount().toString();
-            if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) { //검증 통과
-                boolean result = pasOrderService.checkTotalAmount(pasOrderDTO);
-                if (result) {
-                    pasOrderService.saveOrder(pasOrderDTO);
-                    return true;
-                } else {
-                    CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
-                    imIamportClient.cancelPaymentByImpUid(cancelData);
-                    return false;
-                }
-            } else {
-                CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
-                imIamportClient.cancelPaymentByImpUid(cancelData);
-                return false;
-            }
-        } catch (Exception e) {
-            CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
-            imIamportClient.cancelPaymentByImpUid(cancelData);
-            return false;
-        }
-    }
-
-
     @PostMapping("/user/orderMenu/pay/ammount")
     @ResponseBody
     public Map<String, Object> MenuAmmount(@Valid PasOrderDTO pasOrderDTO, Errors errors) {
@@ -96,8 +67,4 @@ public class UserPasOrderController {
 //            return false;
 //        }
 //    }
-
-    public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
-        return imIamportClient.paymentByImpUid(imp_uid);
-    }
 }

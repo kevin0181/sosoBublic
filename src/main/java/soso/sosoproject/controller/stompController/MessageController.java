@@ -2,6 +2,11 @@ package soso.sosoproject.controller.stompController;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -16,6 +21,7 @@ import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,11 +29,13 @@ import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
+import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +58,16 @@ public class MessageController extends ChannelInterceptorAdapter {
 
     boolean startPas = false;
 
-    int memberSize = 0;
+    //---------------------주문------------------------------
+    private IamportClient imIamportClient;
+
+    public MessageController() {
+        // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
+        this.imIamportClient =
+                new IamportClient("1152819197412694",
+                        "acffbee8c37f2492f2654739c30af6863c53e981f2488325703fb8d691f222814862c2ab7d67779a");
+    }
+
 
     //주문 stomp
     @Transactional
@@ -183,6 +200,50 @@ public class MessageController extends ChannelInterceptorAdapter {
         }
 
     }
+
+
+
+    //------------주문---------
+
+    @PostMapping("/user/order/menu")
+    @ResponseBody
+    public boolean orderMenu(PasOrderDTO pasOrderDTO) throws IOException, IamportResponseException {
+
+        if (!startPas) { //pas 주문 닫혀있는 상태
+            CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+            imIamportClient.cancelPaymentByImpUid(cancelData);
+            return false;
+        }
+
+        try {
+            IamportResponse<Payment> k = paymentByImpUid(pasOrderDTO.getOrdersImpUid()); //가격이 같은지 검증
+            String getFrontAmmount = k.getResponse().getAmount().toString();
+            if (pasOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) { //검증 통과
+                boolean result = pasOrderService.checkTotalAmount(pasOrderDTO);
+                if (result) {
+                    pasOrderService.saveOrder(pasOrderDTO);
+                    return true;
+                } else {
+                    CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+                    imIamportClient.cancelPaymentByImpUid(cancelData);
+                    return false;
+                }
+            } else {
+                CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+                imIamportClient.cancelPaymentByImpUid(cancelData);
+                return false;
+            }
+        } catch (Exception e) {
+            CancelData cancelData = new CancelData(pasOrderDTO.getOrdersImpUid(), true);
+            imIamportClient.cancelPaymentByImpUid(cancelData);
+            return false;
+        }
+    }
+
+    public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
+        return imIamportClient.paymentByImpUid(imp_uid);
+    }
+
 }
 
 
