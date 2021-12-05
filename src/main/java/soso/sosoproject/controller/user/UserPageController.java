@@ -221,14 +221,6 @@ public class UserPageController {
         return "/user/soso/sosoPolicy";
     }
 
-
-    //그냥 만들어둠 나중에 쓸꺼같아서
-    @GetMapping("/user/elements")
-    public String elements() {
-        return "/user/elements";
-    }
-
-
     //함수--------------------------------------------------------------------------
 
     //index 페이지 오늘의 메뉴 가지고 오는 함수
