@@ -173,8 +173,7 @@
 <!-- End footer Area -->
 
 <div th:replace="/user/user_fragment/script_src.html :: script"></div>
-
-<script>
+<script th:inline="javascript">
     $(document).ready(function () {
         /*<![CDATA[*/
         var memberSq = [[${session.memberSq}]];
