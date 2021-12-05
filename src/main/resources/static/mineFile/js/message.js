@@ -15,10 +15,6 @@ function connect() {
 function showOrder(chat) {
 
     //알림음
-    // const audio = document.getElementById('audio_play');
-    // audio.autoplay = false;
-    // audio.play();
-    // audio.load();
     sound();
 
 
