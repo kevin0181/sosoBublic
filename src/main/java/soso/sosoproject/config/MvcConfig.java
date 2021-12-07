@@ -2,6 +2,7 @@ package soso.sosoproject.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -38,4 +39,11 @@ public class MvcConfig implements WebMvcConfigurer {
         System.out.println(uploadPath);
     }
 
+    //크로스 도메인 오류
+
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("https://www.instagram.com");
+    }
 }

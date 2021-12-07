@@ -47,6 +47,12 @@ dependencies {
     implementation 'com.github.jitpack:gradle-simple:1.0'
     implementation group: 'org.springframework.session', name: 'spring-session-core'
 
+
+    //json
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    compile 'org.springframework.boot:spring-boot-starter-webflux'
+    compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
 }
 
 test {

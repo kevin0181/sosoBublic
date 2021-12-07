@@ -49,9 +49,16 @@
 
 <!-- Start menuReview Area -->
 <section class="blog-area section-gap" id="blog"
+         th:replace="/user/user_fragment/main_fragment.html :: menu_blog_section">
+</section>
+<!-- End blog Area -->
+<!-- Start menuReview Area -->
+<section class="blog-area section-gap" id="review"
          th:replace="/user/user_fragment/main_fragment.html :: menuReview_section">
 </section>
 <!-- End blog Area -->
+
+
 <!-- start footer Area -->
 <footer class="footer-area" th:replace="/user/user_fragment/main_fragment.html :: footer">
 </footer>

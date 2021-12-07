@@ -214,7 +214,7 @@
 
 <!--th:onclick="orderMenu([[${session.memberSq}]])"-->
 <!-- Start menuReview Area -->
-<section class="blog-area section-gap" id="blog" th:fragment="menuReview_section">
+<section class="blog-area section-gap" id="blog" th:fragment="menu_blog_section">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
@@ -242,6 +242,45 @@
                     <div style="display: inherit;">
                         <span class="lnr lnr-bubble"></span>
                         <p th:text="${#lists.size(blog.getBlogCommentDTOList())}+' Comments'">
+                            댓글수
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End blog Area -->
+
+<section class="blog-area section-gap" id="review_section" th:fragment="menuReview_section">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Reivew</h1>
+                    <small style="display: block;margin: 10px">태그를 클릭해주세요!</small>
+                    <p style="display: inline-block;margin: 0px 13px;color: #7856e1;" th:onclick="searchInstagramTag([[${tag.name}]])"
+                       th:each="tag : ${instagramTagList}"
+                       th:text="'#'+${tag.name}">태그</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
+                <div class="thumb">
+                    <img class="img-fluid" style="height: 250px;" alt="블로그 사진">
+                </div>
+                <a>
+                    <h4 style="margin-top: 15px;">블로그 제목</h4>
+                </a>
+                <p>
+                    <!--                    짧막한 말쓸수있음-->
+                </p>
+                <div class="meta-bottom d-flex justify-content-between">
+                    <p>1<span class="lnr lnr-heart"></span></p>
+                    <div style="display: inherit;">
+                        <span class="lnr lnr-bubble"></span>
+                        <p>
                             댓글수
                         </p>
                     </div>
