@@ -259,8 +259,13 @@ public class UserPageController {
         Page<BlogDTO> blogDTOPageable = userBlogService.getIndexBlogPage(0);
         model.addAttribute("blogDTO", blogDTOPageable);
 
+
         List<InstagramTagDTO> instagramTagDTOS = instagramService.getTagList();
-        model.addAttribute("instagramTagList", instagramTagDTOS);
+        if (instagramTagDTOS.size() != 0) {
+            model.addAttribute("instagramTagList", instagramTagDTOS);
+        }else{
+            model.addAttribute("instagramTagList", 0);
+        }
 
         if (instagramTagDTOS.isEmpty()) {
             model.addAttribute("tagActive", true);

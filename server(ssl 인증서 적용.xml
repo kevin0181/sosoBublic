@@ -85,12 +85,11 @@
         <Connector port="8443" proxyPort="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                    maxThreads="150" SSLEnabled="true">
             <SSLHostConfig>
-                <Certificate certificateFile="soso-k.kro.kr/cert.pem"
-                             certificateKeyFile="soso-k.kro.kr/privkey.pem"
-                             certificateChainFile="soso-k.kro.kr/fullchain.pem"/>
+                <Certificate certificateFile="/etc/letsencrypt/live/soso-kitchen.com/cert.pem"
+                             certificateKeyFile="/etc/letsencrypt/live/soso-kitchen.com/privkey.pem"
+                             certificateChainFile="/etc/letsencrypt/live/soso-kitchen.com/fullchain.pem"/>
             </SSLHostConfig>
         </Connector>
-
 
         <!-- A "Connector" using the shared thread pool-->
         <!--

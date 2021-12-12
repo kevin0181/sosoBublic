@@ -77,6 +77,43 @@
         $('#orderDate').val(new Date().toDateInputValue());
 
         /*<![CDATA[*/
+        var instagramTagList = [[${instagramTagList}]];
+        /*]]>*/
+
+        if (instagramTagList != 0) {
+
+            var count = 0;
+            $.ajax({
+                type: "get",
+                url: "/user/get/tag",
+                data: {
+                    "tagName": instagramTagList[0].name
+                },
+                beforeSend: function () {
+                    $('#review_section').hide();
+                    $('#index_loading_var').show();
+                },
+                success: function (data) {
+                    $('#review_section').show();
+                    $('#index_loading_var').hide();
+
+                    var JsonData = JSON.parse(data);
+
+                    console.log(JsonData.graphql.hashtag.edge_hashtag_to_media);
+
+                    count = JsonData.graphql.hashtag.edge_hashtag_to_media.count; //게시글 수량
+
+                    $('#countAllInstagramTag').text(count + "개의 게시글 보러가기");
+                    $("#countAllInstagramTag").attr("target", "_blank");
+                    $("#countAllInstagramTag").attr("href", "https://www.instagram.com/explore/tags/" + instagramTagList[0].name + "/?max_id=1");
+
+                    apppendRevieSingleDiv(JsonData.graphql.hashtag.edge_hashtag_to_media);
+                }
+            });
+        }
+
+
+        /*<![CDATA[*/
         var memberSq = [[${session.memberSq}]];
         /*]]>*/
 
