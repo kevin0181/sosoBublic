@@ -40,10 +40,8 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     //크로스 도메인 오류
-
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("https://www.instagram.com");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**").allowedOrigins("*");
+//    }
 }

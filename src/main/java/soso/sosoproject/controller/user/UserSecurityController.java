@@ -14,6 +14,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import soso.sosoproject.controller.user.handler.UserLoginFailHandler;
 import soso.sosoproject.controller.user.handler.UserLoginSuccessHandler;
 import soso.sosoproject.service.Account.MemberService;
@@ -31,6 +32,10 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+//        http.headers().frameOptions().disable()
+//                .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://www.instagram.com/"));
+
         http
                 .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check",
                 "/user/order/menu", "/user/orderMenu/pay/ammount", "/user/Reserve/soso/order", "/user/Reserve/soso/order/normal");

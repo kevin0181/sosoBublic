@@ -252,7 +252,7 @@
 </section>
 <!-- End blog Area -->
 
-<section class="blog-area section-gap" id="review_section" th:fragment="menuReview_section">
+<section class="blog-area section-gap" id="review_section" style="display: none;" th:fragment="menuReview_section">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-70 col-lg-8">
@@ -265,27 +265,30 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">
-                <div class="thumb">
-                    <img class="img-fluid" style="height: 250px;" alt="블로그 사진">
-                </div>
-                <a>
-                    <h4 style="margin-top: 15px;">블로그 제목</h4>
-                </a>
-                <p>
-                    <!--                    짧막한 말쓸수있음-->
-                </p>
-                <div class="meta-bottom d-flex justify-content-between">
-                    <p>1<span class="lnr lnr-heart"></span></p>
-                    <div style="display: inherit;">
-                        <span class="lnr lnr-bubble"></span>
-                        <p>
-                            댓글수
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="instagramSingleDiv">
+<!--            <div class="col-lg-3 col-md-6 col-sm-6 single-blog">-->
+<!--                <div class="thumb">-->
+<!--                    <img class="img-fluid" id="insta-img" style="height: 250px;" alt="인스타그램 사진">-->
+<!--                </div>-->
+<!--                <a>-->
+<!--                    <h4 style="margin-top: 15px;"></h4>-->
+<!--                </a>-->
+<!--                <p>-->
+<!--                    &lt;!&ndash;                    짧막한 말쓸수있음&ndash;&gt;-->
+<!--                </p>-->
+<!--                <div class="meta-bottom d-flex justify-content-between">-->
+<!--                    <p>1<span class="lnr lnr-heart"></span></p>-->
+<!--                    <div style="display: inherit;">-->
+<!--                        <span class="lnr lnr-bubble"></span>-->
+<!--                        <p>-->
+<!--                            댓글수-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div style="margin-top: 50px;">
+            <a id="countAllInstagramTag"></a>
         </div>
     </div>
 </section>
