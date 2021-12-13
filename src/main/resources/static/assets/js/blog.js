@@ -11,6 +11,9 @@ function addBlogCategory() {
             data: {
                 "categoryName": category_form,
                 "condition": "add"
+            },
+            beforeSend: function () {
+                $('#loading_var').show();
             }
         });
         alert("카테고리가 추가되었습니다.");
@@ -49,6 +52,9 @@ function deleteBlogCategory(blogCategorySq) {
         data: {
             "categoryId": blogCategorySq,
             "condition": "delete"
+        },
+        beforeSend: function () {
+            $('#loading_var').show();
         }
     });
     alert("카테고리가 삭제되었습니다.");
@@ -87,6 +93,9 @@ function deleteBlog() {
             dataType: "json",
             data: {
                 "blogCheck": blogCheck,
+            },
+            beforeSend: function () {
+                $('#loading_var').show();
             }
         });
         setTimeout(function () {

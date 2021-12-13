@@ -156,10 +156,15 @@ function changeMenu(menuSq) {
         data: formData,
         beforeSend: function () {
             $('#loading_var').show();
+        },
+        success: function () {
+            alert("메뉴가 수정되었습니다.");
+            location.href = "/admin/add-menu";
+        }, error: function () {
+            alert("수정되었습니다. 오류가 발생하였을 경우 관리자에게 문의하세요.");
+            location.href = "/admin/add-menu";
         }
     });
-    alert("메뉴가 수정되었습니다.");
-    location.href = "/admin/add-menu";
 }
 
 //카테고리 검색
