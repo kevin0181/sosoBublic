@@ -217,20 +217,14 @@ public class MenuService {
     //today list 가져옴
     public boolean getTodayList(Long menuSq) {
 
-        Optional<PasMenuDTO> menuDTO = pasMenuRepository.findById(menuSq);
-        List<Long> menuTodayList = pasMenuRepository.findAllByMenuToday();
+        List<Long> menuTodayList = pasMenuRepository.findAllByMenuToday(true);
 
-        if (menuDTO.get().isMenuToday()) {
+        if (menuTodayList.size() == 0){
             return true;
-        } else {
-            for (int i = 0; i < menuTodayList.size(); i++) {
-                if (menuTodayList.get(i) == 1) {
-                    //오늘의 메뉴가 있으면 false 반환
-                    return false;
-                }
-            }
-            return true;
+        }else{
+            return false;
         }
+
     }
 
     //메뉴이름 검색

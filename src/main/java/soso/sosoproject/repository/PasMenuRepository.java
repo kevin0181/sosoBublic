@@ -11,8 +11,8 @@ import java.util.List;
 public interface PasMenuRepository extends JpaRepository<PasMenuDTO, Long> {
     List<PasMenuDTO> findAllByMenuName(String menuname); //해당메뉴 이름에 맞는 리스트 가져옴
 
-    @Query(value = "SELECT menu_today from menu", nativeQuery = true)
-    List<Long> findAllByMenuToday();//오늘의 메뉴 가져옴
+//    @Query(value = "SELECT menu_today from menu", nativeQuery = true)
+    List<Long> findAllByMenuToday(boolean result);//오늘의 메뉴 가져옴
 
     Page<PasMenuDTO> findAllByOrderByMenuSqDesc(Pageable pageable); //메뉴 리스트 반대로 가져옴
 
