@@ -143,10 +143,37 @@ body {
     }
 }
 
+.logo_mine {
+    width: 11%;
+}
 
 @media (max-width: 1190px) {
     .custom-mine {
         margin-bottom: 5px !important;
+    }
+    .logo_mine {
+        width: 13%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .table {
+        font-size: 10px;
+    }
+    .logo_mine {
+        width: 18%;
+    }
+}
+
+@media (max-width: 800px) {
+    .logo_mine {
+        width: 20%;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo_mine {
+        width: 35%;
     }
 }
 
@@ -155,5 +182,10 @@ body {
     .table {
         font-size: 10px;
     }
+    .logo_mine {
+        width: 35%;
+    }
 }
+
+
 
