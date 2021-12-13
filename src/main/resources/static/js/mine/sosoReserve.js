@@ -453,7 +453,7 @@ function addMenuBySosoMenu() {
 
                     $.each(data, function (idx, val) {
                         if (idx == 0) {
-                            selectContent = "<select id='" + NC + "' style='margin-top: 5px;' class='nice-select' name='menuSq' " +
+                            selectContent = "<select id='" + NC + "' style='margin-top: 5px;display: inline-block;' class='nice-select' name='menuSq' " +
                                 "onchange='sosoMenuSelectClick(this)'>";
                         }
                         selectContent += "<option value='" + val.menu_order_sq + "'>" + val.menuSosoName + "</option>";
@@ -462,8 +462,9 @@ function addMenuBySosoMenu() {
                         }
                     });
 
-                    $('#sosoDefultMenuDiv').append(selectContent);
-                    $('#sosoDefultMenuDiv').append("<input type='number' style='width: 50px;margin-top: 5px;' class='nice-number'" +
+                    $('#sosoDefultMenuDiv').append("<div id='Div" + NC + "'></div>");
+                    $('#Div'+NC).append(selectContent);
+                    $('#Div'+NC).append("<input type='number' style='width: 50px;margin-top: 5px;display: inline-block;' class='nice-number'" +
                         "name='menuSize' onkeyup='sosoMenuSizeKey(this)' id='" + NCN + "' value='1'>");
 
 
