@@ -132,81 +132,15 @@
                                             </td>
                                             <td style="padding: 0px">
                                                 <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
-                                                        th:attr="data-bs-target='#changeModal'+${blogCategory.category_sq}"
+                                                        th:onclick="changeBlogCategory([[${blogCategory.category_sq}]])"
                                                         class="btn btn-primary">변경
                                                 </button>
-                                                <!-- Modal -->
-                                                <div class="modal fade"
-                                                     th:id="changeModal+${blogCategory.category_sq}"
-                                                     tabindex="-1"
-                                                     aria-labelledby="newCategory" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered"
-                                                         role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="newCategory">새로운 카테고리
-                                                                    이름</h5>
-                                                                <button type="button" class="close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                    <i data-feather="x"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label th:for="reCategory_name+${blogCategory.category_sq}"
-                                                                           class="col-form-label">카테고리 이름</label>
-                                                                    <input type="text" class="form-control"
-                                                                           th:id="reBlogCategory_name+${blogCategory.category_sq}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary"
-                                                                        th:onclick="changeBlogCategory([[${blogCategory.category_sq}]])">
-                                                                    변경
-                                                                </button>
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">닫기
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </td>
                                             <td class="text-bold-500" style="padding: 0px">
                                                 <button type="button" data-bs-toggle="modal" data-bs-backdrop="false"
-                                                        th:attr="data-bs-target='#deleteModal'+${blogCategory.category_sq}"
+                                                        th:onclick="deleteBlogCategory([[${blogCategory.category_sq}]])"
                                                         class="btn btn-danger">삭제
                                                 </button>
-                                                <!-- Modal -->
-                                                <div class="modal fade"
-                                                     th:id="deleteModal+${blogCategory.category_sq}"
-                                                     tabindex="-1"
-                                                     aria-labelledby="deleteCategory" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered"
-                                                         role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteCategory">카테고리
-                                                                    삭제</h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                삭제하시겠습니까?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-danger"
-                                                                        th:onclick="deleteBlogCategory([[${blogCategory.category_sq}]])">
-                                                                    네
-                                                                </button>
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">아니오
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                         </tbody>

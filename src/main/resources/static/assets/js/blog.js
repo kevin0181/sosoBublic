@@ -14,18 +14,25 @@ function addBlogCategory() {
             },
             beforeSend: function () {
                 $('#loading_var').show();
+            }, success: function () {
+                alert("카테고리가 추가되었습니다.");
+                location.href = "/admin/Blog";
+            }, error: function () {
+                alert("카테고리가 추가되었습니다. 에러가 발생하였을 경우 관리자에게 문의주세요.");
+                location.href = "/admin/Blog";
             }
         });
-        alert("카테고리가 추가되었습니다.");
-        location.href = "/admin/Blog";
+
     }
 }
 
 var blogCategorySq;
 
 function changeBlogCategory(blogCategorySq) {
-    const reBlogCategory_name = $('#reBlogCategory_name' + blogCategorySq).val();
-    if (!reBlogCategory_name) {
+
+    var result = prompt("변경할 카테고리를 입력해주세요.");
+
+    if (!result) {
         alert("빈칸을 입력해주세요.");
         return false;
     } else {
@@ -34,31 +41,52 @@ function changeBlogCategory(blogCategorySq) {
             url: "/admin/blog/blog-category",
             dataType: "json",
             data: {
-                "categoryName": reBlogCategory_name,
+                "categoryName": result,
                 "categoryId": blogCategorySq,
                 "condition": "change"
+            }, beforeSend: function () {
+                $('#loading_var').show();
+            }, success: function () {
+                alert("카테고리가 변경되었습니다.");
+                location.href = "/admin/Blog";
+            }, error: function () {
+                alert("카테고리가 변경되었습니다. 에러가 발생하였을 경우 관리자에게 문의주세요.");
+                location.href = "/admin/Blog";
             }
         });
-        alert("카테고리가 변경되었습니다.");
-        location.href = "/admin/Blog";
     }
 }
 
 function deleteBlogCategory(blogCategorySq) {
-    $.ajax({
-        type: "GET",
-        url: "/admin/blog/blog-category",
-        dataType: "json",
-        data: {
-            "categoryId": blogCategorySq,
-            "condition": "delete"
-        },
-        beforeSend: function () {
-            $('#loading_var').show();
-        }
-    });
-    alert("카테고리가 삭제되었습니다.");
-    location.href = "/admin/Blog";
+
+    var result = confirm("삭제하시겠습니까?");
+
+    if (result) {
+        $.ajax({
+            type: "GET",
+            url: "/admin/blog/blog-category",
+            dataType: "json",
+            data: {
+                "categoryId": blogCategorySq,
+                "condition": "delete"
+            },
+            beforeSend: function () {
+                $('#loading_var').show();
+            }, success: function () {
+                alert("카테고리가 삭제되었습니다.");
+                location.href = "/admin/Blog";
+            }, error: function () {
+                alert("카테고리가 삭제되었습니다. 에러가 발생했을경우 관리자에게 문의해주세요.");
+                location.href = "/admin/Blog";
+            }
+        });
+
+    } else {
+        alert("삭제가 취소되었습니다.");
+        location.href = "/admin/Blog";
+    }
+
+
 }
 
 
