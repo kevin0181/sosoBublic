@@ -10,6 +10,16 @@
     <!--    리스트-->
     <link rel="stylesheet" href="../../../static/assets/vendors/simple-datatables/style.css"
           th:href="@{/static/assets/vendors/simple-datatables/style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script>
+        function sound() {
+            var sound = new Howl({
+                src: ['/music/알림음.mp3'],
+                volume: 0.7,
+            });
+            sound.play()
+        }
+    </script>
 </head>
 
 <body>

@@ -8,6 +8,16 @@
     <title>소소한 부엌 관리자 로그인 페이지</title>
     <link rel="stylesheet" href="assets/css/pages/auth.css" th:href="@{/assets/css/pages/auth.css}">
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script>
+        function sound() {
+            var sound = new Howl({
+                src: ['/music/알림음.mp3'],
+                volume: 0.7,
+            });
+            sound.play()
+        }
+    </script>
 </head>
 
 <body>

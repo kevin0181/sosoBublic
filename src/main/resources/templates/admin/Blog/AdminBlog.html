@@ -17,6 +17,16 @@
     <link rel="stylesheet" th:href="@{/assets/vendors/simple-datatables/style.css}">
 
     <link rel="stylesheet" th:href="@{/assets/vendors/summernote/summernote-lite.min.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script>
+        function sound() {
+            var sound = new Howl({
+                src: ['/music/알림음.mp3'],
+                volume: 0.7,
+            });
+            sound.play()
+        }
+    </script>
 </head>
 
 <body>

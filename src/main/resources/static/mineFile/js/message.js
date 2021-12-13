@@ -13,11 +13,8 @@ function connect() {
 }
 
 function showOrder(chat) {
-
     //알림음
     sound();
-
-
     //toast 알림
     Toastify({
         text: chat.orderName + "님의 주문이 들어왔습니다.",

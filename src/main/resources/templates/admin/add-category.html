@@ -20,6 +20,16 @@
     <!-- Include Choices CSS -->
     <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css"
           th:href="@{/assets/vendors/choices.js/choices.min.css}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script>
+        function sound() {
+            var sound = new Howl({
+                src: ['/music/알림음.mp3'],
+                volume: 0.7,
+            });
+            sound.play()
+        }
+    </script>
 </head>
 
 <body>
