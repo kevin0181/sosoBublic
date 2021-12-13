@@ -75,7 +75,7 @@ public class EmailSendService {
                         memberEmail +
                         "		님 안녕하세요.<br />" +
                         "		soso 비밀번호 초기화 입니다.<br/> 해당페이지에 접속하여 비밀번호를 수정하여 주시길 바랍니다.<br />" +
-                        "	</p>" + "<p>" + "<a href=\"" + "http://soso-k.kro.kr/user/account/change/password?email=" + memberEmail + "&certi=" + certificationKey + "\">"
+                        "	</p>" + "<p>" + "<a href=\"" + "https://soso-kitchen.com/user/account/change/password?email=" + memberEmail + "&certi=" + certificationKey + "\">"
                         + "비밀번호 초기화 하러가기" + "</a>" +
                         " </div>"
         );
