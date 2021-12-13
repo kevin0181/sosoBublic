@@ -13,4 +13,6 @@ public interface SosoOrderRepository extends JpaRepository<SosoOrderDTO, Long> {
     List<SosoOrderDTO> findAllByOrdersSave(boolean result);
 
     SosoOrderDTO findByOrdersImpUid(String uid);
+
+    List<SosoOrderDTO> findAllByMemberSq(Long memberSq);
 }

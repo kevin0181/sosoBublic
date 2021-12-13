@@ -17,4 +17,6 @@ public interface PasOrderRepository extends JpaRepository<PasOrderDTO, Long> {
 
     String deleteByOrdersMerchantUid(String uid);
 
+    List<PasOrderDTO> findAllByMemberSq(Long memberSq);
+
 }

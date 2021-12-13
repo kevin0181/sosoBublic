@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div th:replace="/integrated/Favicon_Link/favicon.html :: link"></div>
     <title>소소한 부엌</title>
-    <script rel="javascript" type="text/javascript" src="" th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/static/assets/js/jquery-3.6.0.js}"></script>
     <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
     <!--    리스트-->
-    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css"
-          th:href="@{/assets/vendors/simple-datatables/style.css}">
+    <link rel="stylesheet" href="../../../static/assets/vendors/simple-datatables/style.css"
+          th:href="@{/static/assets/vendors/simple-datatables/style.css}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
     <script>
         function sound() {
@@ -74,7 +74,7 @@
                                     <input type="checkbox" class="form-check-input form-check-primary form-check-glow"
                                            name="memberSq" id="memberSq" th:value="${memberlist.member_sq}">
                                 </td>
-                                <td th:text="${memberlist.memberName}">이름</td>
+                                <td><a th:text="${memberlist.memberName}" th:href="@{/admin/memberList/detail(memberSq=${memberlist.member_sq})}">이름</a></td>
                                 <td th:text="${memberlist.memberEmail}">이메일</td>
                                 <td th:text="${memberlist.memberPhonenumber}">전화번호</td>
                                 <td th:text="${memberlist.memberAddress}">주소</td>
@@ -105,8 +105,8 @@
 </body>
 <div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
 <!--리스트-->
-<script src="assets/vendors/simple-datatables/simple-datatables.js"
-        th:src="@{/assets/vendors/simple-datatables/simple-datatables.js}"></script>
+<script src="../../../static/assets/vendors/simple-datatables/simple-datatables.js"
+        th:src="@{/static/assets/vendors/simple-datatables/simple-datatables.js}"></script>
 <script>
     // Simple Datatable
     let table1 = document.querySelector('#table1');

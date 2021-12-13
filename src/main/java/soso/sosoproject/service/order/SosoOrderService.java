@@ -148,6 +148,10 @@ public class SosoOrderService {
     public List<SosoOrderDTO> findAllOrderList() {
         return sosoOrderRepository.findAll();
     }
+
+    public List<SosoOrderDTO> findMemberOrderList(Long memberSq) {
+        return sosoOrderRepository.findAllByMemberSq(memberSq);
+    }
 }
 
 

@@ -209,8 +209,39 @@ public class AdminPageController {
         //active
         model.addAttribute("className", className);
 
-        return "admin/MemberList";
+        return "admin/member/MemberList";
     }
+
+
+    @GetMapping("/memberList/detail")
+    public String memberDetail(@RequestParam(value = "memberSq") Long memberSq, Model model) {
+        MemberDTO memberDTOS = adminMemberService.getMemberDetail(memberSq);
+        model.addAttribute("memberDTO", memberDTOS);
+        return "admin/member/memberDetail";
+    }
+
+    @GetMapping("/member/detail/orderList")
+    public String memberDetailOrderList(@RequestParam(value = "memberSq") Long memberSq,
+                                        @RequestParam(value = "place") String place,
+                                        Model model) {
+        if (place.equals("soso")) {
+
+            List<SosoOrderDTO> sosoOrderDTOS = sosoOrderService.findMemberOrderList(memberSq);
+            model.addAttribute("sosoOrderDTOS", sosoOrderDTOS);
+            model.addAttribute("placeName", "소소한 부엌");
+            model.addAttribute("place","soso");
+
+        } else if (place.equals("pas")) {
+
+            List<PasOrderDTO> pasOrderDTOS = pasOrderService.findMemberOrderList(memberSq);
+            model.addAttribute("pasOrderDTOS", pasOrderDTOS);
+            model.addAttribute("placeName", "앤 빠스떼우");
+            model.addAttribute("place","pas");
+
+        }
+        return "admin/member/memberOrderDetailList";
+    }
+
 
     //블로그로 이동
     @GetMapping("Blog")

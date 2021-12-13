@@ -155,4 +155,8 @@ public class PasOrderService {
     public List<PasOrderDTO> findAllOrderList() {
         return pasOrderRepository.findAll();
     }
+
+    public List<PasOrderDTO> findMemberOrderList(Long memberSq) {
+        return pasOrderRepository.findAllByMemberSq(memberSq);
+    }
 }
