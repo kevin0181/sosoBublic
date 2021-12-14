@@ -138,8 +138,9 @@
                             <div class="single-post-list d-flex flex-row align-items-center"
                                  th:each="blogViewsize,index : ${blogViewSize}">
                                 <div class="details">
-                                    <a href="blog-single.html"><h6 th:if="${index.index} < 5"
-                                                                   th:text="${blogViewsize.blogTitle}">Space The Final
+                                    <a th:href="@{/user/blog-single(blogSq=${blogViewsize.blogSq},up=true)}"><h6
+                                            th:if="${index.index} < 5"
+                                            th:text="${blogViewsize.blogTitle}">Space The Final
                                         Frontier</h6></a>
                                     <p th:if="${index.index} < 5"
                                        th:text="${blogViewsize.blogViewSize}+' view'">view size</p>
