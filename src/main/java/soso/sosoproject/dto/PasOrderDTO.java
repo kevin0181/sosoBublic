@@ -44,7 +44,6 @@ public class PasOrderDTO {
     @Column(name = "orders_date")
     private String orderDate;
 
-    @NotNull
     @Column(name = "orders_time")
     private String ordersTime;
 

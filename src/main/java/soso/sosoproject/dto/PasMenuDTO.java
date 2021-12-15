@@ -48,7 +48,7 @@ public class PasMenuDTO {
     @JsonIgnore
     private MenuCategoryDTO menuCategoryDTO;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "menu_sq")
     @JsonIgnore
     private List<ImgDTO> menu_img_sq = new ArrayList<>();

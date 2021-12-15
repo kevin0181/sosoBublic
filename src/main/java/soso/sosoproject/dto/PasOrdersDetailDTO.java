@@ -1,6 +1,7 @@
 package soso.sosoproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,10 +35,12 @@ public class PasOrdersDetailDTO {
 
     @ManyToOne
     @JoinColumn(name = "member_sq", insertable = false, updatable = false)
+    @JsonIgnore
     private MemberDTO member_sq;
 
     @ManyToOne
     @JoinColumn(name = "menu_sq", insertable = false, updatable = false)
+    @JsonIgnore
     private PasMenuDTO menu_sq;
 
     @ManyToOne
