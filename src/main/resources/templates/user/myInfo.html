@@ -140,6 +140,7 @@
         <div class="orderList">
             <div>
                 <div class="card mineCard" th:each="pasOrderList : ${memberDTO.pasOrderDTOList}"
+                     th:if="${#lists.size(pasOrderList)} != 0"
                      th:classappend="${pasOrderList.orderEnable} == false ?'border-success'">
                     <div class="card-content">
                         <div class="card-body">
@@ -157,7 +158,7 @@
                             <span class="p-2 bd-highlight"
                                   th:text="'메뉴 이름 : '+${pasOrderDetailMenu.menuOrderName}"></span>
                             <span class="p-2 bd-highlight" th:text="'수량 : '+${pasOrderDetailMenu.menuOrderSize}"></span>
-                            <span class="p-2 bd-highlight"
+                            <span class="p-2 bd-highlight" th:if="${pasOrderDetailMenu.menu_sq} != null"
                                   th:text="'가격 : '+${pasOrderDetailMenu.menu_sq.menu_price}+'원'"></span>
                         </li>
                     </ul>
