@@ -45,6 +45,10 @@ public class PasOrderDTO {
     private String orderDate;
 
     @NotNull
+    @Column(name = "orders_time")
+    private String ordersTime;
+
+    @NotNull
     @Length(max = 20)
     @Column(name = "orders_name")
     private String orderName;
