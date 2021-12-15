@@ -79,7 +79,32 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div style="text-align: center; margin: 15px 0;">
+                            <div style="text-align: center; margin: 15px 0;" id="timeOrder"
+                                 th:if="${order.ordersSave} == false">
+                                <div style="width: 30%; display: inline-block;">
+                                    <select class="form-select" id="timeOrderSelect">
+                                        <option value="5">5분</option>
+                                        <option value="10">10분</option>
+                                        <option value="15">15분</option>
+                                        <option value="20">20분</option>
+                                        <option value="25">25분</option>
+                                        <option value="30">30분</option>
+                                        <option value="40">40분</option>
+                                        <option value="50">50분</option>
+                                        <option value="60">60분</option>
+                                        <option value="80">80분</option>
+                                    </select>
+                                </div>
+                                <div class="btn-group btn-group-sm" role="group"
+                                     aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-success"
+                                            th:onclick="OrderTime([[${order.ordersImpUid}]])">
+                                        주문 완료 시각
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="text-align: center; margin: 15px 0;" th:classappend="${order.ordersSave} == false ? nonButton"
+                                 id="checkOrderSuccessOrderCancle">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
                                     <button type="button" class="btn btn-outline-success"

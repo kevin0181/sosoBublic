@@ -1,5 +1,30 @@
 var stompClient = null;
 
+//시간 다시 보내줌
+function OrderTime(ordersImpUid) {
+    $.ajax({
+        url: "/admin/order/pas/orderTime",
+        type: "GET",
+        data: {
+            "ordersImpUid": ordersImpUid,
+            "time": $('#timeOrderSelect').val()
+        },
+        success: function () {
+            $("#checkOrderSuccessOrderCancle").show();
+            $("#timeOrder").hide();
+        }, error: function () {
+            alert("오류가 발생하였습니다.");
+            location.href = "/admin/orderList?className=pas";
+        }
+    });
+}
+
+
+function getMemberProfile(memberSq, uid, place) { //멤버 주문 수정
+    location.href = "/admin/order/changeDetail?memberSq=" + memberSq + "&uid=" + uid + "&place=" + place;
+}
+
+
 function connect() {
     var socket = new SockJS('/user/websocket');
     stompClient = Stomp.over(socket);
@@ -49,7 +74,30 @@ function showOrder(chat) {
         ",\"" + 'pas' + "\")'>" + chat.orderName + "님의 주문입니다</h5>" +
         "<p class='card-text'>" + chat.orderHelp + "</p>" +
         "</div>" + menuSource +
-        "<div style='text-align: center; margin: 15px 0;'>" +
+        "<div style=\"text-align: center; margin: 15px 0;\" id='timeOrder'>\n" +
+        "                                <div style=\"width: 30%; display: inline-block;\">\n" +
+        "                                    <select class=\"form-select\" id=\"timeOrderSelect\">\n" +
+        "                                        <option value=\"5\">5분</option>\n" +
+        "                                        <option value=\"10\">10분</option>\n" +
+        "                                        <option value=\"15\">15분</option>\n" +
+        "                                        <option value=\"20\">20분</option>\n" +
+        "                                        <option value=\"25\">25분</option>\n" +
+        "                                        <option value=\"30\">30분</option>\n" +
+        "                                        <option value=\"40\">40분</option>\n" +
+        "                                        <option value=\"50\">50분</option>\n" +
+        "                                        <option value=\"60\">60분</option>\n" +
+        "                                        <option value=\"80\">80분</option>\n" +
+        "                                    </select>\n" +
+        "                                </div>\n" +
+        "                                <div class=\"btn-group btn-group-sm\" role=\"group\"\n" +
+        "                                     aria-label=\"Basic example\">\n" +
+        "                                    <button type=\"button\" class=\"btn btn-outline-success\"\n" +
+        "                                            onclick='OrderTime(\"" + chat.ordersImpUid + "\")'>" +
+        "                                        주문 완료 시각\n" +
+        "                                    </button>\n" +
+        "                                </div>\n" +
+        "                            </div>" +
+        "<div style='text-align: center; margin: 15px 0;' id='checkOrderSuccessOrderCancle' class='nonButton'>" +
         "<div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>" +
         "<button type='button' class='btn btn-outline-success' onclick='pasOrderSuccess(\"" + chat.memberSq + "\",\"" + chat.ordersMerchantUid + "\"" +
         ",\"" + chat.ordersImpUid + "\",\"" + chat.orders_id + "\")'>주문 완료</button>" +
@@ -141,9 +189,6 @@ function disconnectPas() {
 
 //주문 에서 처리 ---------------------------------------------------
 
-function getMemberProfile(memberSq, uid, place) { //멤버 주문 수정
-    location.href = "/admin/order/changeDetail?memberSq=" + memberSq + "&uid=" + uid + "&place=" + place;
-}
 
 function orderSuccess(memberSq, ordersMerchantUid, ordersImpUid) { //주문 완료
 

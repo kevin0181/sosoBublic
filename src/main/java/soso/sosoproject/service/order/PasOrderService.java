@@ -108,7 +108,7 @@ public class PasOrderService {
         PasOrderDTO pasOrderDTO = sosoOrderDTOOptional.get();
         try {
             pasOrderDTO.setOrderEnable(true);
-            pasOrderDTO.setOrdersSave(true);
+//            pasOrderDTO.setOrdersSave(true);
 
             pasOrderRepository.save(pasOrderDTO);
             return true;
@@ -158,5 +158,14 @@ public class PasOrderService {
 
     public List<PasOrderDTO> findMemberOrderList(Long memberSq) {
         return pasOrderRepository.findAllByMemberSq(memberSq);
+    }
+
+    public void saveTime(String ordersImpUid, String time) {
+        PasOrderDTO pasOrderDTO = pasOrderRepository.findByOrdersImpUid(ordersImpUid);
+        pasOrderDTO.setOrdersTime(time);
+        pasOrderDTO.setOrdersSave(true);
+
+        pasOrderRepository.save(pasOrderDTO);
+
     }
 }

@@ -21,7 +21,9 @@ import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -83,7 +85,7 @@ public class MessageController extends ChannelInterceptorAdapter {
         PasOrderDTO pasOrderDTO = pasOrderService.findOrderId(orderMessageDTO.getOrdersImpUid());//db에 저장된 주문한 메뉴를 가져옴
 
         if (adminActive) { //관리자가 로그인 중이라면?
-            pasOrderDTO.setOrdersSave(true);
+//            pasOrderDTO.setOrdersSave(true);
             pasOrderService.saveOrder(pasOrderDTO);
             orderMessageDTO.setOrderPlace("soso");
 
@@ -95,7 +97,7 @@ public class MessageController extends ChannelInterceptorAdapter {
             }
 
         } else {
-            pasOrderDTO.setOrdersSave(false);
+//            pasOrderDTO.setOrdersSave(false);
             pasOrderService.saveOrder(pasOrderDTO);
 
             if (startPas) { //만약 관리자가 메뉴를 받고있다면 //빠스떼우 주문
@@ -192,7 +194,7 @@ public class MessageController extends ChannelInterceptorAdapter {
                 memberSizeList.add(sessionId);
             }
         } else if (commend.equals("DISCONNECT")) {
-            for (int i = 0; i < memberSizeList.size(); i++) {
+            for (int i = 1; i < memberSizeList.size(); i++) {
                 if (memberSizeList.get(i).equals(sessionId)) {
                     memberSizeList.remove(i);
                 }
@@ -200,7 +202,6 @@ public class MessageController extends ChannelInterceptorAdapter {
         }
 
     }
-
 
 
     //------------주문---------
@@ -239,6 +240,14 @@ public class MessageController extends ChannelInterceptorAdapter {
             return false;
         }
     }
+
+    @GetMapping("/admin/order/pas/orderTime")
+    @ResponseBody
+    public boolean getTime(@RequestParam(value = "ordersImpUid") String ordersImpUid, @RequestParam(value = "time") String time) {
+        pasOrderService.saveTime(ordersImpUid, time);
+        return true;
+    }
+
 
     public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
         return imIamportClient.paymentByImpUid(imp_uid);

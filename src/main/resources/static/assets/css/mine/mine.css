@@ -50,3 +50,7 @@
 .nice-select{
     width: 100%!important;
 }
+
+.nonButton{
+    display: none;
+}
