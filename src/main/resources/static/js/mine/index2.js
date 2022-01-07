@@ -11,6 +11,7 @@ var startPasActive;
 
 var stompClient = null;
 
+var tokenG;
 
 function menuClick(menuSq, menuName, menuSoldOut) {
 
@@ -162,38 +163,16 @@ function orderKakaoPay(memberSq, memberEmail) {
                             formdata.append("ordersTotalPrice", data.totalPrice);
                             formdata.append("ordersMerchantUid", rsp.merchant_uid);
 
-                            // google fcm get toekn
-                            const firebaseConfig = {
-                                apiKey: "AIzaSyBSIcxioJ725DeZRsSTHN03iH3xFMNez54",
-                                authDomain: "sosofcm-700ef.firebaseapp.com",
-                                projectId: "sosofcm-700ef",
-                                storageBucket: "sosofcm-700ef.appspot.com",
-                                messagingSenderId: "704008753036",
-                                appId: "1:704008753036:web:3a97d8a2a458990f4450a9",
-                                measurementId: "G-056G62GWG9"
-                            };
+                            fcm();
+                            //정상적인 토큰이 왔나 확인
+                            if (tokenG == "err") {
+                                alert("에러! 에러내용 : 토큰 반환 실패 (관리자에게 문의주세요)");
+                                location.replace("/user/index");
+                            }
 
-                            // Initialize Firebase
-                            firebase.initializeApp(firebaseConfig);
+                            console.log(tokenG);
 
-                            const messaging = firebase.messaging();
-
-                            messaging.getToken({vapidKey: "BDa8mrH4-G0UOp-XTaEhy2fRpdKjKlKmW26y3lWaHecuQpQ9_iGdUex7JrsL8VBxzMphaDeguYfHq1-WDqIkjes"});
-
-                            //token값 알아내기
-                            messaging.requestPermission()
-                                .then(function () {
-                                    console.log("Have permission");
-                                    return messaging.getToken();
-                                })
-                                .then(function (token) {
-                                    console.log(token);
-                                    formdata.append("memberDevice", token);
-                                })
-                                .catch(function (arr) {
-                                    // console.log(arr);
-                                    console.log("Error Occured");
-                                });
+                            formdata.append("deviceNumber", tokenG);
 
                             $.ajax({
                                 url: "/user/order/menu",
@@ -265,7 +244,6 @@ html5_inicis':이니시스(웹표준결제)
 'paypal':페이팔
 */
 }
-
 
 //웹소켓 연결
 function connect() {
@@ -354,3 +332,58 @@ function connectionOut(memberSq) {
     stompClient.disconnect();
     document.logoutForm.submit();
 }
+
+function fcm() {
+    // google fcm get toekn
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBSIcxioJ725DeZRsSTHN03iH3xFMNez54",
+        authDomain: "sosofcm-700ef.firebaseapp.com",
+        projectId: "sosofcm-700ef",
+        storageBucket: "sosofcm-700ef.appspot.com",
+        messagingSenderId: "704008753036",
+        appId: "1:704008753036:web:3a97d8a2a458990f4450a9",
+        measurementId: "G-056G62GWG9"
+    };
+
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig)
+    } else {
+        firebase.app() // 이미 초기화되었다면, 초기화 된 것을 사용함
+    }
+
+
+// Initialize Firebase
+//     firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    messaging.getToken({vapidKey: "BDa8mrH4-G0UOp-XTaEhy2fRpdKjKlKmW26y3lWaHecuQpQ9_iGdUex7JrsL8VBxzMphaDeguYfHq1-WDqIkjes"});
+//token값 알아내기
+    messaging.requestPermission()
+        .then(function () {
+            console.log("Have permission");
+            return messaging.getToken();
+        })
+        .then(function (token) {
+            console.log("get token");
+            tokenG = token;
+            return tokenG;
+        })
+        .catch(function (arr) {
+            // console.log(arr);
+            console.log("Error Occured");
+            return "err";
+        });
+
+    messaging.onMessage(function (payload) {
+        console.log('Message received. ', payload);
+        const notificationTitle = payload.notification.title;
+        var notification = new Notification(notificationTitle, {
+            body: payload.notification.body
+        })
+    });
+}
+
+
