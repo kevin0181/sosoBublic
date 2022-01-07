@@ -2,6 +2,7 @@ package soso.sosoproject.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +17,14 @@ public class MemberDeviceDTO {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberSq;
-
-    @Column(name = "member_email")
-    private String memberEmail;
 
     @Column(name = "device_number")
     private String deviceNumber;
+
+    @OneToOne
+    @JoinColumn(name = "member_sq")
+    @JsonIgnore
+    private MemberDTO memberDTO;
 
 }

@@ -170,9 +170,9 @@ function orderKakaoPay(memberSq, memberEmail) {
                                 location.replace("/user/index");
                             }
 
-                            console.log(tokenG);
+                            formdata.append("member_sq.memberDeviceDTO.memberSq", memberSq);
+                            formdata.append("member_sq.memberDeviceDTO.deviceNumber", tokenG);
 
-                            formdata.append("deviceNumber", tokenG);
 
                             $.ajax({
                                 url: "/user/order/menu",

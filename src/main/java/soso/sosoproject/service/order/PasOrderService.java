@@ -6,10 +6,8 @@ import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import soso.sosoproject.dto.PasMenuDTO;
-import soso.sosoproject.dto.PasOrderDTO;
-import soso.sosoproject.dto.SosoMenuDTO;
-import soso.sosoproject.dto.SosoOrderDTO;
+import soso.sosoproject.dto.*;
+import soso.sosoproject.repository.MemberDeviceRepository;
 import soso.sosoproject.repository.PasMenuRepository;
 import soso.sosoproject.repository.PasOrderDetailRepository;
 import soso.sosoproject.repository.PasOrderRepository;
@@ -32,6 +30,7 @@ public class PasOrderService {
 
     @Autowired
     private PasMenuRepository pasMenuRepository;
+
 
     public void saveOrder(PasOrderDTO pasOrderDTO) {
         pasOrderRepository.save(pasOrderDTO);
@@ -168,4 +167,5 @@ public class PasOrderService {
         pasOrderRepository.save(pasOrderDTO);
 
     }
+
 }
