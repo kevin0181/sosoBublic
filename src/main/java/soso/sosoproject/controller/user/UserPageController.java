@@ -195,6 +195,8 @@ public class UserPageController {
             if (session.getAttribute("memberSq") == memberSq) {
                 Optional<MemberDTO> memberDTOOptional = memberService.findMemberSq(memberSq);
                 MemberDTO memberDTO = memberDTOOptional.get();
+                Collections.reverse(memberDTO.getPasOrderDTOList());
+                Collections.reverse(memberDTO.getSosoOrderDTOS());
                 model.addAttribute("memberDTO", memberDTO);
                 return "/user/myInfo";
             } else {
