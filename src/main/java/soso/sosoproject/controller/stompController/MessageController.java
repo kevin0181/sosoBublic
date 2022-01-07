@@ -243,9 +243,12 @@ public class MessageController extends ChannelInterceptorAdapter {
 
     @GetMapping("/admin/order/pas/orderTime")
     @ResponseBody
-    public boolean getTime(@RequestParam(value = "ordersImpUid") String ordersImpUid, @RequestParam(value = "time") String time) {
+    public String getTime(@RequestParam(value = "ordersImpUid") String ordersImpUid, @RequestParam(value = "time") String time) {
+
         pasOrderService.saveTime(ordersImpUid, time);
-        return true;
+        PasOrderDTO pasOrderDTO = pasOrderService.getOrderImpUid(ordersImpUid); //주문 가져옴
+
+        return pasOrderDTO.getMember_sq().getMemberDeviceDTO().getDeviceNumber(); //주문 당사자 디바이스 토큰값 가져옴
     }
 
 

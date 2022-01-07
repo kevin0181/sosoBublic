@@ -168,4 +168,8 @@ public class PasOrderService {
 
     }
 
+    public PasOrderDTO getOrderImpUid(String ordersImpUid) {
+        PasOrderDTO pasOrderDTO = pasOrderRepository.findByOrdersImpUid(ordersImpUid);
+        return pasOrderDTO;
+    }
 }

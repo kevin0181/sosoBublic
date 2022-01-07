@@ -9,9 +9,28 @@ function OrderTime(ordersImpUid) {
             "ordersImpUid": ordersImpUid,
             "time": $('#timeOrderSelect').val()
         },
-        success: function () {
+        success: function (token) {
             $("#checkOrderSuccessOrderCancle").show();
             $("#timeOrder").hide();
+
+            var fcmData = {
+                "to": token,
+                "notification": {
+                    "body": $('#timeOrderSelect').val() + "분 후 음식이 완료됩니다!",
+                    "title": "소소한 부엌"
+                }
+            };
+
+            $.ajax({
+                url: "https://fcm.googleapis.com/fcm/send",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                headers: {
+                    "Authorization": "key=AAAAo-oxD4w:APA91bEhjqW5Se6u7KyIGvjpm6rHkqbXHpPz_oGXZ4n2i7yAWraJLdGoZM021LVUDKJ4EZJH7nMCllV6XI4O2frslfLM9cIP1Vl12Q1SJnDx97PM-wDx79fZ4AxL1ssO9xr7pHvVqu2C"
+                },
+                data: JSON.stringify(fcmData)
+            });
         }, error: function () {
             alert("오류가 발생하였습니다.");
             location.href = "/admin/orderList?className=pas";
