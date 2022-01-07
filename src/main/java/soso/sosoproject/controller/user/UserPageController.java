@@ -16,7 +16,6 @@ import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.admin.menu.SosoMenuService;
 import soso.sosoproject.service.order.MenuCategoryService;
 import soso.sosoproject.service.order.PasOrderService;
-import soso.sosoproject.service.user.InstagramService;
 import soso.sosoproject.service.user.UserBlogService;
 
 import javax.servlet.http.HttpSession;
@@ -39,8 +38,6 @@ public class UserPageController {
     private SosoMenuService sosoMenuService;
     @Autowired
     private MenuCategoryService menuCategoryService;
-    @Autowired
-    private InstagramService instagramService;
 
     @GetMapping("/")
     public String start(@AuthenticationPrincipal UserDetail userDetail, Model model, Principal principal, HttpSession session) {

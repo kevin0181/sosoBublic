@@ -1,5 +1,6 @@
 package soso.sosoproject.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
@@ -9,14 +10,19 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@Entity(name = "instagram_tag")
+@Entity(name = "member_device")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id") // 추가
-public class InstagramTagDTO {
+public class MemberDeviceDTO {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long memberSq;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "member_email")
+    private String memberEmail;
+
+    @Column(name = "device_number")
+    private String deviceNumber;
+
 }
