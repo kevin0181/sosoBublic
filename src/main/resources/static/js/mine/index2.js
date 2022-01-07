@@ -190,7 +190,7 @@ function orderKakaoPay(memberSq, memberEmail) {
                                         connect();
                                         setTimeout(() => sendOrderChat(rsp.imp_uid), 3000);
                                         setTimeout(() => alert("주문을 완료하였습니다."), 3500);
-                                        setTimeout(() => location.replace("/user/index"), 4000);
+                                        setTimeout(() => location.replace(location.href = "/user/myInfo?memberSq=" + memberSq), 4000);
                                     } else {
                                         alert("주문에 실패하였습니다.결제가 진행되었을 경우 관리자에게 문의 부탁드립니다.");
                                         location.replace("/user/index");

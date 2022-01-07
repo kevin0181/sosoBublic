@@ -147,6 +147,8 @@
                             <h5 class="card-title" th:text="${pasOrderList.orderDate}" style="display: inline-block">주문
                                 날짜</h5> <small style="display: inline-block"
                                                th:if="${pasOrderList.orderEnable} == false">주문 진행 중</small>
+                            <small style="display: inline-block"
+                                   th:if="${pasOrderList.orderEnable} == true">주문 완료</small>
                             <small style="display: inline-block;margin-left: 30px;"
                                    th:if="${pasOrderList.orderEnable} == false and ${pasOrderList.ordersTime} != null"
                                    th:text="${pasOrderList.ordersTime}+'분 후 음식이 완료됩니다.'">음식 완료 걸리는 시각</small>
