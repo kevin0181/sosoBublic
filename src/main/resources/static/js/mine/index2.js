@@ -161,6 +161,40 @@ function orderKakaoPay(memberSq, memberEmail) {
                             formdata.append("ordersImpUid", rsp.imp_uid);
                             formdata.append("ordersTotalPrice", data.totalPrice);
                             formdata.append("ordersMerchantUid", rsp.merchant_uid);
+
+                            // google fcm get toekn
+                            const firebaseConfig = {
+                                apiKey: "AIzaSyBSIcxioJ725DeZRsSTHN03iH3xFMNez54",
+                                authDomain: "sosofcm-700ef.firebaseapp.com",
+                                projectId: "sosofcm-700ef",
+                                storageBucket: "sosofcm-700ef.appspot.com",
+                                messagingSenderId: "704008753036",
+                                appId: "1:704008753036:web:3a97d8a2a458990f4450a9",
+                                measurementId: "G-056G62GWG9"
+                            };
+
+                            // Initialize Firebase
+                            firebase.initializeApp(firebaseConfig);
+
+                            const messaging = firebase.messaging();
+
+                            messaging.getToken({vapidKey: "BDa8mrH4-G0UOp-XTaEhy2fRpdKjKlKmW26y3lWaHecuQpQ9_iGdUex7JrsL8VBxzMphaDeguYfHq1-WDqIkjes"});
+
+                            //token값 알아내기
+                            messaging.requestPermission()
+                                .then(function () {
+                                    console.log("Have permission");
+                                    return messaging.getToken();
+                                })
+                                .then(function (token) {
+                                    console.log(token);
+                                    formdata.append("memberDevice", token);
+                                })
+                                .catch(function (arr) {
+                                    // console.log(arr);
+                                    console.log("Error Occured");
+                                });
+
                             $.ajax({
                                 url: "/user/order/menu",
                                 type: "post",

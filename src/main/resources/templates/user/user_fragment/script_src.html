@@ -3,6 +3,11 @@
 <head th:fragment="script">
     <meta charset="UTF-8">
     <title>soso_script</title>
+    <!--    google fcm-->
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
 
     <script src="../../../js/vendor/jquery-2.2.4.min.js" th:src="@{/js/vendor/jquery-2.2.4.min.js}"></script>
     <script src="../../../js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
@@ -20,6 +25,7 @@
     <script src="../../../js/main.js" th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/mine/index2.js}"></script>
     <script th:src="@{/js/mine/sosoReserve.js}"></script>
+
 
     <!--    websocket-->
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
