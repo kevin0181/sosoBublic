@@ -20,6 +20,8 @@ import soso.sosoproject.service.user.UserBlogService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -197,6 +199,28 @@ public class UserPageController {
                 MemberDTO memberDTO = memberDTOOptional.get();
                 Collections.reverse(memberDTO.getPasOrderDTOList());
                 Collections.reverse(memberDTO.getSosoOrderDTOS());
+
+                for (int i = 0; i < memberDTO.getPasOrderDTOList().size(); i++) {
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(memberDTO.getPasOrderDTOList().get(i).getOrderDate());
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    String viewDate = viewDateyyyy + " " + viewDatedddd;
+
+                    memberDTO.getPasOrderDTOList().get(i).setOrderDate(viewDate);
+                }
+
+                for (int i = 0; i < memberDTO.getSosoOrderDTOS().size(); i++) {
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(memberDTO.getSosoOrderDTOS().get(i).getOrderDate());
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    String viewDate = viewDateyyyy + " " + viewDatedddd;
+
+                    memberDTO.getPasOrderDTOList().get(i).setOrderDate(viewDate);
+                }
+
+
                 model.addAttribute("memberDTO", memberDTO);
                 return "/user/myInfo";
             } else {
