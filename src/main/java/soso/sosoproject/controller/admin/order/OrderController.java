@@ -60,21 +60,31 @@ public class OrderController {
             List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
             if (date == null) { //날짜지정없으면 현재 당일 달로 가져오기.
                 String orderDate;
+                String viewDate;
                 for (int i = 0; i < sosoOrderDTOList.size(); i++) {
                     orderDate = sosoOrderDTOList.get(i).getOrderDate();
+                    viewDate = sosoOrderDTOList.get(i).getOrderDate();
                     LocalDateTime parsedLocalDateTime = LocalDateTime.parse(orderDate);
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(viewDate);
 
                     // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
                     String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-//                    String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    viewDate = viewDateyyyy + " " + viewDatedddd;
+
 
                     Date nowDate = new Date();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
                     String strNowMonth = simpleDateFormat.format(nowDate);
 
+                    sosoOrderDTOList.get(i).setOrderDate(viewDate);
+
                     if (!yyyyMM.equals(strNowMonth)) {
                         sosoOrderDTOList.remove(i);
                     }
+
 
                 }
             } else if (date.equals("all")) {
@@ -98,21 +108,32 @@ public class OrderController {
 
             if (date == null) { //날짜지정없으면 현재 당일 달로 가져오기.
                 String orderDate;
+                String viewDate;
                 for (int i = 0; i < pasOrderDTOList.size(); i++) {
+
                     orderDate = pasOrderDTOList.get(i).getOrderDate();
+                    viewDate = pasOrderDTOList.get(i).getOrderDate();
                     LocalDateTime parsedLocalDateTime = LocalDateTime.parse(orderDate);
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(viewDate);
 
                     // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
                     String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-//                    String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    viewDate = viewDateyyyy + " " + viewDatedddd;
+
 
                     Date nowDate = new Date();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
                     String strNowMonth = simpleDateFormat.format(nowDate);
 
+                    pasOrderDTOList.get(i).setOrderDate(viewDate);
+
                     if (!yyyyMM.equals(strNowMonth)) {
                         pasOrderDTOList.remove(i);
                     }
+
 
                 }
             } else if (date.equals("all")) {
