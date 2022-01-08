@@ -250,3 +250,11 @@ function pasSearchDate() {
     var pasDateCalender = $('#pasDateCalender').val();
     location.href = "/admin/All/OrderList?className=pasList&dateSize=" + pasDateCalender;
 }
+
+function pasChangeMonthOrderList(month) {
+    var today = new Date();
+    today.setHours(today.getHours() + 9);
+    var year = today.toISOString().substring(0, 5);
+
+    location.href = "/admin/All/OrderList?className=pasList&month=" + (year + $(month).val());
+}

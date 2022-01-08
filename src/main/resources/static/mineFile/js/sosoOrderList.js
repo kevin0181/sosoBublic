@@ -248,3 +248,11 @@ function sosoSearchDate() {
     var sosoDateCalender = $('#sosoDateCalender').val();
     location.href = "/admin/All/OrderList?className=sosoList&dateSize=" + sosoDateCalender;
 }
+
+function sosoChangeMonthOrderList(month) {
+    var today = new Date();
+    today.setHours(today.getHours() + 9);
+    var year = today.toISOString().substring(0, 5);
+
+    location.href = "/admin/All/OrderList?className=sosoList&month=" + (year + $(month).val());
+}

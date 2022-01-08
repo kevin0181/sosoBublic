@@ -69,7 +69,8 @@ public class OrderController {
     }
 
     @GetMapping("/All/OrderList") //주문 전체 내역 가져오기
-    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, @RequestParam(value = "dateSize", required = false) String date, Model model) {
+    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, @RequestParam(value = "dateSize", required = false) String date,
+                                        @RequestParam(value = "month", required = false) String month, Model model) {
         String orderDate;
         String viewDate;
         List deleteListNumber = new ArrayList();
@@ -89,16 +90,22 @@ public class OrderController {
                     String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
                     viewDate = viewDateyyyy + " " + viewDatedddd;
-
-
-                    Date nowDate = new Date();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
-                    String strNowMonth = simpleDateFormat.format(nowDate);
-
                     sosoOrderDTOList.get(i).setOrderDate(viewDate);
 
-                    if (!yyyyMM.equals(strNowMonth)) {
-                        deleteListNumber.add(i);
+                    if (month == null) {
+                        Date nowDate = new Date();
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+                        String strNowMonth = simpleDateFormat.format(nowDate);
+
+
+                        if (!yyyyMM.equals(strNowMonth)) {
+                            deleteListNumber.add(i);
+                        }
+
+                    } else {
+                        if (!yyyyMM.equals(month)) {
+                            deleteListNumber.add(i);
+                        }
                     }
                 }
                 if (deleteListNumber.size() != 0) {
@@ -127,8 +134,8 @@ public class OrderController {
                     String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
                     viewDate = viewDateyyyy + " " + viewDatedddd;
-
                     sosoOrderDTOList.get(i).setOrderDate(viewDate);
+
 
                     if (!yyyyMM.equals(date)) {
                         deleteListNumber.add(i);
@@ -169,15 +176,21 @@ public class OrderController {
                     String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
                     viewDate = viewDateyyyy + " " + viewDatedddd;
-
-
-                    Date nowDate = new Date();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
-                    String strNowMonth = simpleDateFormat.format(nowDate);
-
                     pasOrderDTOList.get(i).setOrderDate(viewDate);
-                    if (!yyyyMM.equals(strNowMonth)) {
-                        deleteListNumber.add(i);
+
+
+                    if (month == null) {
+                        Date nowDate = new Date();
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+                        String strNowMonth = simpleDateFormat.format(nowDate);
+
+                        if (!yyyyMM.equals(strNowMonth)) {
+                            deleteListNumber.add(i);
+                        }
+                    } else {
+                        if (!yyyyMM.equals(month)) {
+                            deleteListNumber.add(i);
+                        }
                     }
                 }
                 if (deleteListNumber.size() != 0) {
@@ -364,4 +377,65 @@ public class OrderController {
     }
 
 
+    @GetMapping("/All/orderList/autoDelete")
+    public String deleteAutoDelete(@RequestParam(value = "className") String className, Model model) throws ParseException {
+
+        List<Long> deleteList = new ArrayList();
+
+        if (className.equals("soso")) {
+            deleteList.clear();
+            List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
+
+            Calendar cal1 = Calendar.getInstance();
+            cal1.add(Calendar.MONTH, -3); // 월 연산
+            Date nowDate = new Date(cal1.getTimeInMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+            String strNowMonth = simpleDateFormat.format(nowDate);
+            Date nowDateMonth = simpleDateFormat.parse(strNowMonth);
+            int result = 0;
+            for (int i = 0; i < sosoOrderDTOList.size(); i++) {
+                LocalDateTime parsedLocalDateTime = LocalDateTime.parse(sosoOrderDTOList.get(i).getOrderDate());
+                String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+                Date DBDateMonth = simpleDateFormat.parse(yyyyMM);
+                result = nowDateMonth.compareTo(DBDateMonth);
+                if (result == 1) {
+                    deleteList.add(sosoOrderDTOList.get(i).getOrders_id());
+                }
+            }
+
+            sosoOrderService.deleteSosoOrderList(deleteList);
+
+            model.addAttribute("data", new AccountMessage("자동삭제를 실행합니다.", "/admin/All/OrderList?className=sosoList"));
+            return "/message/account-message";
+        } else if (className.equals("pas")) {
+
+            deleteList.clear();
+
+            List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllOrderList();
+
+            Calendar cal1 = Calendar.getInstance();
+            cal1.add(Calendar.MONTH, -3); // 월 연산
+            Date nowDate = new Date(cal1.getTimeInMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+            String strNowMonth = simpleDateFormat.format(nowDate);
+            Date nowDateMonth = simpleDateFormat.parse(strNowMonth);
+            int result = 0;
+            for (int i = 0; i < pasOrderDTOList.size(); i++) {
+                LocalDateTime parsedLocalDateTime = LocalDateTime.parse(pasOrderDTOList.get(i).getOrderDate());
+                String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+                Date DBDateMonth = simpleDateFormat.parse(yyyyMM);
+                result = nowDateMonth.compareTo(DBDateMonth);
+                if (result == 1) {
+                    deleteList.add(pasOrderDTOList.get(i).getOrders_id());
+                }
+            }
+
+            pasOrderService.deletePasOrderList(deleteList);
+
+            model.addAttribute("data", new AccountMessage("자동삭제를 실행합니다.", "/admin/All/OrderList?className=pasList"));
+            return "/message/account-message";
+        }
+        model.addAttribute("data", new AccountMessage("오류가 발생했습니다.", "/admin/index"));
+        return "/message/account-message";
+    }
 }
