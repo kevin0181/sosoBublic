@@ -33,7 +33,6 @@ public class OrderController {
     public String startOrderList(@RequestParam("className") String className, Model model) {
 
         if (className.equals("pas")) {
-
             //pas list get
             List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllPlaceAndEnableOrder();
 
@@ -55,9 +54,30 @@ public class OrderController {
     }
 
     @GetMapping("/All/OrderList") //주문 전체 내역 가져오기
-    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, Model model) {
+    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, @RequestParam(value = "DateSize", required = false) String date, Model model) {
+
         if (className.equals("sosoList")) {
             List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
+
+            if (date == null) { //날짜지정없으면 현재 당일 달로 가져오기.
+                String orderDate;
+                for (int i = 0; i < sosoOrderDTOList.size(); i++) {
+                    orderDate = sosoOrderDTOList.get(i).getOrderDate().substring(0, 7);
+
+                    Date nowDate = new Date();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+                    String strNowMonth = simpleDateFormat.format(nowDate);
+
+                    if (!orderDate.equals(strNowMonth)) {
+                        sosoOrderDTOList.remove(i);
+                    }
+
+                }
+            } else {
+
+            }
+
+
             model.addAttribute("orderList", sosoOrderDTOList);
 
             //active
