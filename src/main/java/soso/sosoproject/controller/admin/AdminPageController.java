@@ -199,6 +199,17 @@ public class AdminPageController {
         return "admin/add-category";
     }
 
+    @GetMapping("/soso/addMenu") //소소 메뉴 추가
+    public String addSosoMenu(@RequestParam(value = "className", defaultValue = "sosoMenu") String className, Model model) {
+
+        List<SosoMenuDTO> sosoMenuDTOList = sosoMenuService.findAllSosoList();
+
+        model.addAttribute("sosoMenuList", sosoMenuDTOList);
+
+        //active
+        model.addAttribute("className", className);
+        return "admin/soso-add-menu";
+    }
 
     @GetMapping("MemberList")
     public String memberList(@RequestParam(value = "className", defaultValue = "MemberList") String className, Model model) {
