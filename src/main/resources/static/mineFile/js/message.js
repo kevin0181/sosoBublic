@@ -10,8 +10,8 @@ function OrderTime(ordersImpUid) {
             "time": $('#timeOrderSelect').val()
         },
         success: function () {
-            $("#checkOrderSuccessOrderCancle").show();
-            $("#timeOrder").hide();
+            $("#" + ordersImpUid).show();
+            $("#" + ordersImpUid + "timeOrder").hide();
 
             // var fcmData = {
             //     "to": token,
@@ -84,6 +84,7 @@ function showOrder(chat) {
 
     menuSource += "</ul>";
 
+    var name = 'timeOrder';
 
     var htmlSource =
         "<div class='col' id='" + chat.ordersMerchantUid + "'>" +
@@ -93,7 +94,7 @@ function showOrder(chat) {
         ",\"" + 'pas' + "\")'>" + chat.orderName + "님의 주문입니다</h5>" +
         "<p class='card-text'>" + chat.orderHelp + "</p>" +
         "</div>" + menuSource +
-        "<div style=\"text-align: center; margin: 15px 0;\" id='timeOrder'>\n" +
+        "<div style=\"text-align: center; margin: 15px 0;\" id=\"" + chat.ordersImpUid + name + "\">\n" +
         "                                <div style=\"width: 30%; display: inline-block;\">\n" +
         "                                    <select class=\"form-select\" id=\"timeOrderSelect\">\n" +
         "                                        <option value=\"5\">5분</option>\n" +
@@ -116,7 +117,7 @@ function showOrder(chat) {
         "                                    </button>\n" +
         "                                </div>\n" +
         "                            </div>" +
-        "<div style='text-align: center; margin: 15px 0;' id='checkOrderSuccessOrderCancle' class='nonButton'>" +
+        "<div style='text-align: center; margin: 15px 0;' id=\"" + chat.ordersImpUid + "\" class='nonButton'>" +
         "<div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>" +
         "<button type='button' class='btn btn-outline-success' onclick='pasOrderSuccess(\"" + chat.memberSq + "\",\"" + chat.ordersMerchantUid + "\"" +
         ",\"" + chat.ordersImpUid + "\",\"" + chat.orders_id + "\")'>주문 완료</button>" +

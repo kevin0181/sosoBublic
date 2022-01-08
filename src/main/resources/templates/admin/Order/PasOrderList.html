@@ -79,8 +79,8 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div style="text-align: center; margin: 15px 0;" id="timeOrder"
-                                 th:if="${order.ordersSave} == false">
+                            <div style="text-align: center; margin: 15px 0;"
+                                 th:if="${order.ordersSave} == false" th:id="${order.ordersImpUid}+'timeOrder'">
                                 <div style="width: 30%; display: inline-block;">
                                     <select class="form-select" id="timeOrderSelect">
                                         <option value="5">5분</option>
@@ -103,8 +103,9 @@
                                     </button>
                                 </div>
                             </div>
-                            <div style="text-align: center; margin: 15px 0;" th:classappend="${order.ordersSave} == false ? nonButton"
-                                 id="checkOrderSuccessOrderCancle">
+                            <div style="text-align: center; margin: 15px 0;"
+                                 th:classappend="${order.ordersSave} == false ? nonButton"
+                                 th:id="${order.ordersImpUid}">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
                                     <button type="button" class="btn btn-outline-success"
