@@ -237,6 +237,10 @@ function sosoOrder(memberSq, memberEMail) {
                             contentType: false,
                             processData: false,
                             data: formData,
+                            // beforeSend: function () {
+                            //     $('#index_loading_var').show();
+                            //     // alert("주문이 완료될때까지 창을 닫지 말아주세요. (주문 완료 창이 뜨기전 창을 닫거나 페이지 이동 시 주문이 안될수도 있습니다!!!)");
+                            // },
                             success: function (data) {
                                 if (data.error == "error7002") {
                                     alert("주문번호가 일치하지않습니다.(관리자에게 문의해주세요.)  : 7002");
@@ -463,8 +467,8 @@ function addMenuBySosoMenu() {
                     });
 
                     $('#sosoDefultMenuDiv').append("<div id='Div" + NC + "'></div>");
-                    $('#Div'+NC).append(selectContent);
-                    $('#Div'+NC).append("<input type='number' style='width: 50px;margin-top: 5px;display: inline-block;' class='nice-number'" +
+                    $('#Div' + NC).append(selectContent);
+                    $('#Div' + NC).append("<input type='number' style='width: 50px;margin-top: 5px;display: inline-block;' class='nice-number'" +
                         "name='menuSize' onkeyup='sosoMenuSizeKey(this)' id='" + NCN + "' value='1'>");
 
 

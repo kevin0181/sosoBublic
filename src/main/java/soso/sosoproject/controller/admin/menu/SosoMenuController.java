@@ -11,6 +11,8 @@ import soso.sosoproject.dto.SosoMenuDTO;
 import soso.sosoproject.message.AccountMessage;
 import soso.sosoproject.service.admin.menu.SosoMenuService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("menu")
 public class SosoMenuController {
@@ -38,5 +40,18 @@ public class SosoMenuController {
 
         model.addAttribute("data", new AccountMessage("메뉴를 삭제하였습니다.", "/admin/soso/addMenu?className=sosoMenu"));
         return "/message/account-message";
+    }
+
+
+    @GetMapping("/soso/addMenu") //소소 메뉴 추가
+    public String addSosoMenu(@RequestParam(value = "className", defaultValue = "sosoMenu") String className, Model model) {
+
+        List<SosoMenuDTO> sosoMenuDTOList = sosoMenuService.findAllSosoList();
+
+        model.addAttribute("sosoMenuList", sosoMenuDTOList);
+
+        //active
+        model.addAttribute("className", className);
+        return "admin/soso-add-menu";
     }
 }

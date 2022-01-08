@@ -29,7 +29,7 @@ public class OrderController {
     @Autowired
     private SosoOrderService sosoOrderService;
 
-    @GetMapping("/orderList")
+    @GetMapping("/orderList") //현재 주문 내역 가져오기
     public String startOrderList(@RequestParam("className") String className, Model model) {
 
         if (className.equals("pas")) {
@@ -54,6 +54,28 @@ public class OrderController {
         return "/message/account-message";
     }
 
+    @GetMapping("/All/OrderList") //주문 전체 내역 가져오기
+    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, Model model) {
+        if (className.equals("sosoList")) {
+            List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
+            model.addAttribute("orderList", sosoOrderDTOList);
+
+            //active
+            model.addAttribute("className", className);
+            return "admin/Order/all/sosoAllList";
+
+        } else if (className.equals("pasList")) {
+            List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllOrderList();
+            model.addAttribute("orderList", pasOrderDTOList);
+
+            //active
+            model.addAttribute("className", className);
+            return "admin/Order/all/pasAllList";
+
+        } else {
+            return "error/error-404-new";
+        }
+    }
 
     @GetMapping("/order/changeDetail")
     public String changeDetailOrderGoPage(@RequestParam(value = "memberSq") String memberSq,

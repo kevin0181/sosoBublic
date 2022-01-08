@@ -9,13 +9,21 @@
     CSS
     ============================================= -->
     <div th:replace="/user/user_fragment/css_link.html :: css_link"></div>
-    <link rel="stylesheet" th:href="@{/static/assets/css/mine/mine.css}">
+<!--    <link rel="stylesheet" th:href="@{/assets/css/mine/mine.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}">-->
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
+<div class="spinner-border text-success" role="status" id="index_loading_var" style="position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
 <header id="header" th:replace="/user/user_fragment/main_fragment.html :: main_header">
 </header><!-- #header -->
 <!-- start banner Area -->

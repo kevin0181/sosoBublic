@@ -267,40 +267,6 @@ public class AdminPageController {
         return "admin/Blog/AdminBlog";
     }
 
-    @GetMapping("/All/OrderList")
-    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, Model model) {
-        if (className.equals("sosoList")) {
-            List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
-            model.addAttribute("orderList", sosoOrderDTOList);
-
-            //active
-            model.addAttribute("className", className);
-            return "admin/Order/all/sosoAllList";
-
-        } else if (className.equals("pasList")) {
-            List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllOrderList();
-            model.addAttribute("orderList", pasOrderDTOList);
-
-            //active
-            model.addAttribute("className", className);
-            return "admin/Order/all/pasAllList";
-
-        } else {
-            return "error/error-404-new";
-        }
-    }
-
-    @GetMapping("/soso/addMenu")
-    public String addSosoMenu(@RequestParam(value = "className", defaultValue = "sosoMenu") String className, Model model) {
-
-        List<SosoMenuDTO> sosoMenuDTOList = sosoMenuService.findAllSosoList();
-
-        model.addAttribute("sosoMenuList", sosoMenuDTOList);
-
-        //active
-        model.addAttribute("className", className);
-        return "admin/soso-add-menu";
-    }
 
 
     //함수-------------------------------------------------------------------------------
