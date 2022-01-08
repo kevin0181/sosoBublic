@@ -199,6 +199,8 @@ $('#OrderAllCheckPas').click(function () {
     }
 });
 
+
+
 //pas 전체 주문 리스트 삭제
 function deletePasOrderList() {
     var pasCheck = [];
@@ -236,6 +238,7 @@ function deletePasOrderList() {
 }
 
 
+
 //배열 빈값 체크
 function isEmptyArr(arr) {
     if (Array.isArray(arr) && arr.length === 0) {
@@ -243,3 +246,5 @@ function isEmptyArr(arr) {
     }
     return false;
 }
+
+

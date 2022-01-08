@@ -159,4 +159,12 @@ public class OrderController {
         return result;
     }
 
+    @ResponseBody
+    @GetMapping("/order/delete-order/soso") //pas 주문 내역 삭제
+    public boolean deleteSosoOrderList(@RequestParam(value = "sosoCheck[]") List<Long> sosoCheck) {
+        boolean result = sosoOrderService.deleteSosoOrderList(sosoCheck);
+        return result;
+    }
+
+
 }

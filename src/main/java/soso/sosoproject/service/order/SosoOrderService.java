@@ -152,6 +152,11 @@ public class SosoOrderService {
     public List<SosoOrderDTO> findMemberOrderList(Long memberSq) {
         return sosoOrderRepository.findAllByMemberSq(memberSq);
     }
+
+    public boolean deleteSosoOrderList(List<Long> pasCheck) {
+        sosoOrderRepository.deleteAllById(pasCheck);
+        return true;
+    }
 }
 
 
