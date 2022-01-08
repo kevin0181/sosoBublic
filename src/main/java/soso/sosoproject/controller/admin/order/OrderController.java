@@ -120,21 +120,22 @@ public class OrderController {
     @PostMapping("/detail/order/change/soso")
     public String sosoChangeDetailOrder(SosoOrderDTO sosoOrderDTO, Model model) throws ParseException {
 
-        String dateString = sosoOrderDTO.getOrderDate();
-        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(dateString);
+//        String dateString = sosoOrderDTO.getOrderDate();
+//        LocalDateTime parsedLocalDateTime = LocalDateTime.parse(dateString);
+//
+//        // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
+//        String yyyyMMdd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+//
+//        String date = yyyyMMdd + " " + HHmmss;
+//
+//        Optional<SosoOrderDTO> sosoOrderDTOGetId = sosoOrderService.findAllById(sosoOrderDTO);
+//
+//        sosoOrderDTOGetId.get().setOrderDate(date);
+//
+//        sosoOrderService.saveSosoOrder(sosoOrderDTOGetId.get());
 
-        // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
-        String yyyyMMdd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-
-        String date = yyyyMMdd + " " + HHmmss;
-
-        Optional<SosoOrderDTO> sosoOrderDTOGetId = sosoOrderService.findAllById(sosoOrderDTO);
-
-        sosoOrderDTOGetId.get().setOrderDate(date);
-
-        sosoOrderService.saveSosoOrder(sosoOrderDTOGetId.get());
-
+        sosoOrderService.saveSosoOrder(sosoOrderDTO);
         model.addAttribute("data", new AccountMessage("수정되었습니다.", "/admin/orderList?className=soso"));
         return "/message/account-message";
     }

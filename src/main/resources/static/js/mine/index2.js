@@ -321,7 +321,7 @@ function logoutActive(memberEMail, memberSq) { //로그아웃
 function timestamp() {
     var today = new Date();
     today.setHours(today.getHours() + 9);
-    return today.toISOString().replace('T', ' ').substring(0, 19);
+    return today.toISOString().substring(0, 19);
 }
 
 function connectionOut(memberSq) {

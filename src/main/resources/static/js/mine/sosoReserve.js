@@ -160,11 +160,13 @@ function sosoOrder(memberSq, memberEMail) {
         alert("주소를 채워주세요.");
         $('#sosoOrderAddress').focus();
         return false;
-    } else if ($('#sosoOrderDate').val() == "") {
-        alert("시간을 선택해주세요. (에러)");
-        location.href = "/user/Reserve/calendar";
-        return false;
-    } else if ($('#sosoOrderTime').val() == "") {
+    }
+    // else if ($('#sosoOrderDate').val() == "") {
+    //     alert("시간을 선택해주세요. (에러)");
+    //     location.href = "/user/Reserve/calendar";
+    //     return false;
+    // }
+    else if ($('#sosoOrderTime').val() == "") {
         alert("시간을 입력해주세요.");
         $('#sosoOrderTime').focus();
         return false;
@@ -188,7 +190,7 @@ function sosoOrder(memberSq, memberEMail) {
 
             var form = $("#sosoOrderForm")[0];
             var formData = new FormData(form);
-            formData.append("orderDate", $('#sosoOrderDateHidden').val() + " " + $('#sosoOrderTime').val());
+            formData.append("orderDate", $('#sosoOrderTime').val());
             formData.append("orderPlace", "soso");
 
             var uid;

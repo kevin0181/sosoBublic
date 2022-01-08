@@ -19,6 +19,8 @@ import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.service.order.SosoOrderService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +86,17 @@ public class UserSosoOrderController {
             if (sosoOrderDTO.getOrdersTotalPrice().equals(getFrontAmmount)) {
                 boolean result = sosoOrderService.nomalCheckAmount(sosoOrderDTO);
                 if (result) {
+
+//                    String dateString = sosoOrderDTO.getOrderDate();
+//                    LocalDateTime parsedLocalDateTime = LocalDateTime.parse(dateString);
+//
+//                    // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
+//                    String yyyyMMdd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//                    String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+//
+//                    String date = yyyyMMdd + " " + HHmmss;
+//                    sosoOrderDTO.setOrderDate(date);
+
                     sosoOrderService.saveSosoOrder(sosoOrderDTO);
                     return data;
                 } else {
