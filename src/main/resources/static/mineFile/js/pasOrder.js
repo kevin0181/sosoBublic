@@ -127,7 +127,6 @@ function pasOrderFail(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
 }
 
 
-
 function pasOrderFailAll(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
     if (ordersMerchantUid != null && ordersImpUid != null) {
         //일반 주문
@@ -190,3 +189,12 @@ function pasOrderFailAll(memberSq, ordersMerchantUid, ordersImpUid, orders_id) {
         }
     }
 }
+
+
+$('#OrderAllCheckPas').click(function () {
+    if ($("input:checkbox[id='OrderAllCheckPas']").prop("checked")) {
+        $("input[id='orderCheckPas']").prop("checked", true);
+    } else {
+        $("input[id='orderCheckPas']").prop("checked", false);
+    }
+});

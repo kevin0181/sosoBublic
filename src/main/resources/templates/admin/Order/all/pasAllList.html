@@ -39,7 +39,12 @@
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3 style="display: inline-block" th:if="${className} == 'pas'">앤 빠스떼우</h3>
-                        <h3 style="display: inline-block"> 주문 전체 리스트</h3>
+                        <h3 style="display: inline-block"> 주문 전체 리스트</h3><br>
+                        <p style="display: inline-block">주문 전체 선택</p><input type="checkbox"
+                                                                            style="display: inline-block;margin-top: 7px;"
+                                                                            class="form-check-input form-check-primary form-check-glow"
+                                                                            id="OrderAllCheckPas">
+                        <button class="btn btn-outline-danger" style="margin-left: 40px;">선택 주문 삭제</button>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -56,9 +61,14 @@
                     <div class="col" th:each="order : ${orderList}" th:id="${order.ordersMerchantUid}">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title" th:text="${order.orderName}+'님의 주문입니다.'"
-                                    th:onclick="getMemberProfile([[${order.memberSq}]],[[${order.ordersImpUid}]],'pas')"
-                                    style="margin-bottom: 20px;">이름</h5>
+                                <div>
+                                    <h5 class="card-title" th:text="${order.orderName}+'님의 주문입니다.'"
+                                        th:onclick="getMemberProfile([[${order.memberSq}]],[[${order.ordersImpUid}]],'pas')"
+                                        style="margin-bottom: 20px; display: inline-block;">이름</h5>
+                                    <input type="checkbox" style="margin: 0px 10px;" id="orderCheckPas"
+                                           class="form-check-input form-check-primary form-check-glow"
+                                           th:value="${order.orders_id}">
+                                </div>
                                 <p class="card-text" th:text="${order.orderHelp}">보내는 말</p>
                             </div>
                             <ul class="list-group list-group-flush" th:if="${order.getOrdersMenu()}">
@@ -77,11 +87,11 @@
                             <div style="text-align: center; margin: 15px 0;">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
-<!--                                    <button type="button" class="btn btn-outline-success"-->
-<!--                                            onclick="alert('주문 완료된 주문을 다시 완료할 수 없습니다.')">-->
-<!--                                        주문 완료-->
-<!--                                    </button>-->
-<!--                                    <button type="button" class="btn btn-outline-dark"></button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-success"-->
+                                    <!--                                            onclick="alert('주문 완료된 주문을 다시 완료할 수 없습니다.')">-->
+                                    <!--                                        주문 완료-->
+                                    <!--                                    </button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-dark"></button>-->
                                     <button type="button" class="btn btn-outline-danger"
                                             th:onclick="pasOrderFailAll([[${order.memberSq}]],[[${order.ordersMerchantUid}]],[[${order.ordersImpUid}]],[[${order.orders_id}]])">
                                         주문 취소
