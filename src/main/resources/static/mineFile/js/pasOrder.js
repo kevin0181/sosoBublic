@@ -198,3 +198,48 @@ $('#OrderAllCheckPas').click(function () {
         $("input[id='orderCheckPas']").prop("checked", false);
     }
 });
+
+//pas 전체 주문 리스트 삭제
+function deletePasOrderList() {
+    var pasCheck = [];
+    $("input:checkbox[id='orderCheckPas']:checked").each(function () {
+        pasCheck.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+    });
+    console.log(pasCheck);
+    if (isEmptyArr(pasCheck)) {
+        alert("삭제할 메뉴를 체크해주세요.");
+        return false;
+    } else {
+        $.ajax({
+            type: "GET",
+            url: "/admin/order/delete-order/pas",
+            dataType: "json",
+            data: {
+                "pasCheck": pasCheck,
+            }, beforeSend: function () {
+                $('#loading_var').show();
+            },
+            success: function (data) {
+                alert("주문이 삭제되었습니다.");
+                location.href = "/admin/All/OrderList?className=pasList";
+            },
+            error: function (data) {
+                if (data) {
+                    alert("주문이 삭제되었습니다.");
+                    location.href = "/admin/All/OrderList?className=pasList";
+                }
+                alert("주문이 삭제를 실패하였습니다.");
+                location.href = "/admin/All/OrderList?className=pasList";
+            }
+        });
+    }
+}
+
+
+//배열 빈값 체크
+function isEmptyArr(arr) {
+    if (Array.isArray(arr) && arr.length === 0) {
+        return true;
+    }
+    return false;
+}

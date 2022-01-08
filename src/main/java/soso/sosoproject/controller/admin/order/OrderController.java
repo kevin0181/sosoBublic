@@ -152,4 +152,11 @@ public class OrderController {
         return result;
     }
 
+    @ResponseBody
+    @GetMapping("/order/delete-order/pas") //pas 주문 내역 삭제
+    public boolean deletePasOrderList(@RequestParam(value = "pasCheck[]") List<Long> pasCheck) {
+        boolean result = pasOrderService.deletePasOrderList(pasCheck);
+        return result;
+    }
+
 }

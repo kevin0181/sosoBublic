@@ -172,4 +172,9 @@ public class PasOrderService {
         PasOrderDTO pasOrderDTO = pasOrderRepository.findByOrdersImpUid(ordersImpUid);
         return pasOrderDTO;
     }
+
+    public boolean deletePasOrderList(List<Long> pasCheck) {
+        pasOrderRepository.deleteAllById(pasCheck);
+        return true;
+    }
 }
