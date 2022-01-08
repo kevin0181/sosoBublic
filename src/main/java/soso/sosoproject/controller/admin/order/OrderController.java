@@ -14,10 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("admin")
@@ -73,12 +70,13 @@ public class OrderController {
 
     @GetMapping("/All/OrderList") //주문 전체 내역 가져오기
     public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, @RequestParam(value = "dateSize", required = false) String date, Model model) {
-
+        String orderDate;
+        String viewDate;
+        List deleteListNumber = new ArrayList();
         if (className.equals("sosoList")) {
             List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
-            if (date == null) { //날짜지정없으면 현재 당일 달로 가져오기.
-                String orderDate;
-                String viewDate;
+            deleteListNumber.clear();
+            if (date == null || date.equals("")) { //날짜지정없으면 현재 당일 달로 가져오기.
                 for (int i = 0; i < sosoOrderDTOList.size(); i++) {
                     orderDate = sosoOrderDTOList.get(i).getOrderDate();
                     viewDate = sosoOrderDTOList.get(i).getOrderDate();
@@ -100,10 +98,16 @@ public class OrderController {
                     sosoOrderDTOList.get(i).setOrderDate(viewDate);
 
                     if (!yyyyMM.equals(strNowMonth)) {
-                        sosoOrderDTOList.remove(i);
+                        deleteListNumber.add(i);
                     }
-
-
+                }
+                if (deleteListNumber.size() != 0) {
+                    int result = 0;
+                    Collections.reverse(deleteListNumber); // 뒤집기
+                    for (int j = 0; j < deleteListNumber.size(); j++) {
+                        result = (int) (deleteListNumber.get(j));
+                        sosoOrderDTOList.remove(result);
+                    }
                 }
             } else if (date.equals("all")) {
                 model.addAttribute("orderList", sosoOrderDTOList);
@@ -111,7 +115,33 @@ public class OrderController {
                 model.addAttribute("className", className);
                 return "admin/Order/all/sosoAllList";
             } else {
+                for (int i = 0; i < sosoOrderDTOList.size(); i++) {
+                    orderDate = sosoOrderDTOList.get(i).getOrderDate();
+                    viewDate = sosoOrderDTOList.get(i).getOrderDate();
+                    LocalDateTime parsedLocalDateTime = LocalDateTime.parse(orderDate);
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(viewDate);
 
+                    // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
+                    String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    viewDate = viewDateyyyy + " " + viewDatedddd;
+
+                    sosoOrderDTOList.get(i).setOrderDate(viewDate);
+
+                    if (!yyyyMM.equals(date)) {
+                        deleteListNumber.add(i);
+                    }
+                }
+                if (deleteListNumber.size() != 0) {
+                    int result = 0;
+                    Collections.reverse(deleteListNumber); // 뒤집기
+                    for (int i = 0; i < deleteListNumber.size(); i++) {
+                        result = (int) (deleteListNumber.get(i));
+                        sosoOrderDTOList.remove(result);
+                    }
+                }
             }
 
 
@@ -124,9 +154,8 @@ public class OrderController {
         } else if (className.equals("pasList")) {
             List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllOrderList();
 
-            if (date == null) { //날짜지정없으면 현재 당일 달로 가져오기.
-                String orderDate;
-                String viewDate;
+            deleteListNumber.clear();
+            if (date == null || date.equals("")) { //날짜지정없으면 현재 당일 달로 가져오기.
                 for (int i = 0; i < pasOrderDTOList.size(); i++) {
 
                     orderDate = pasOrderDTOList.get(i).getOrderDate();
@@ -147,12 +176,17 @@ public class OrderController {
                     String strNowMonth = simpleDateFormat.format(nowDate);
 
                     pasOrderDTOList.get(i).setOrderDate(viewDate);
-
                     if (!yyyyMM.equals(strNowMonth)) {
-                        pasOrderDTOList.remove(i);
+                        deleteListNumber.add(i);
                     }
-
-
+                }
+                if (deleteListNumber.size() != 0) {
+                    int result = 0;
+                    Collections.reverse(deleteListNumber); // 뒤집기
+                    for (int j = 0; j < deleteListNumber.size(); j++) {
+                        result = (int) (deleteListNumber.get(j));
+                        pasOrderDTOList.remove(result);
+                    }
                 }
             } else if (date.equals("all")) {
                 model.addAttribute("orderList", pasOrderDTOList);
@@ -160,7 +194,33 @@ public class OrderController {
                 model.addAttribute("className", className);
                 return "admin/Order/all/pasAllList";
             } else {
+                for (int i = 0; i < pasOrderDTOList.size(); i++) {
+                    orderDate = pasOrderDTOList.get(i).getOrderDate();
+                    viewDate = pasOrderDTOList.get(i).getOrderDate();
+                    LocalDateTime parsedLocalDateTime = LocalDateTime.parse(orderDate);
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(viewDate);
 
+                    // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
+                    String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    viewDate = viewDateyyyy + " " + viewDatedddd;
+
+                    pasOrderDTOList.get(i).setOrderDate(viewDate);
+
+                    if (!yyyyMM.equals(date)) {
+                        deleteListNumber.add(i);
+                    }
+                }
+                if (deleteListNumber.size() != 0) {
+                    int result = 0;
+                    Collections.reverse(deleteListNumber); // 뒤집기
+                    for (int i = 0; i < deleteListNumber.size(); i++) {
+                        result = (int) (deleteListNumber.get(i));
+                        pasOrderDTOList.remove(result);
+                    }
+                }
             }
 
 

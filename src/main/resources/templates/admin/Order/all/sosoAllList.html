@@ -51,7 +51,7 @@
                                                                             class="form-check-input form-check-primary form-check-glow"
                                                                             id="OrderAllCheckSoso">
                         <button class="btn btn-outline-danger" style="margin-left: 40px;"
-                                onclick="deleteSosoOrderList()">선택 주문 삭제
+                                onclick="deleteSosoOrderList()">삭제
                         </button>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
@@ -61,6 +61,10 @@
                                 <li class="breadcrumb-item active" aria-current="page">All Order List</li>
                             </ol>
                         </nav>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="date" class="form-control" style="width: 50%;display: inline-block;" id="sosoDateCalender">
+                        <button class="btn btn-outline-primary" onclick="sosoSearchDate()">검색</button>
                     </div>
                 </div>
             </div>
@@ -91,12 +95,12 @@
                             <div style="text-align: center; margin: 15px 0;">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
-<!--                                    <button type="button" class="btn btn-outline-success"-->
-<!--                                            th:onclick="sosoOrderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],-->
-<!--                                            [[${order.ordersImpUid}]],[[${order.orders_id}]])">-->
-<!--                                        주문 완료-->
-<!--                                    </button>-->
-<!--                                    <button type="button" class="btn btn-outline-dark"></button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-success"-->
+                                    <!--                                            th:onclick="sosoOrderSuccess([[${order.memberSq}]],[[${order.ordersMerchantUid}]],-->
+                                    <!--                                            [[${order.ordersImpUid}]],[[${order.orders_id}]])">-->
+                                    <!--                                        주문 완료-->
+                                    <!--                                    </button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-dark"></button>-->
                                     <button type="button" class="btn btn-outline-danger"
                                             th:onclick="sosoOrderFailAll([[${order.memberSq}]],[[${order.ordersMerchantUid}]],
                                             [[${order.ordersImpUid}]],[[${order.orders_id}]])">

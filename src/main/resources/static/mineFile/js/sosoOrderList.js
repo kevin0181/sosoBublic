@@ -244,3 +244,7 @@ function isEmptyArr(arr) {
 }
 
 
+function sosoSearchDate() {
+    var sosoDateCalender = $('#sosoDateCalender').val();
+    location.href = "/admin/All/OrderList?className=sosoList&dateSize=" + sosoDateCalender;
+}
