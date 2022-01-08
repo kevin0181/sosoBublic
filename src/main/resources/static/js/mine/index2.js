@@ -163,15 +163,15 @@ function orderKakaoPay(memberSq, memberEmail) {
                             formdata.append("ordersTotalPrice", data.totalPrice);
                             formdata.append("ordersMerchantUid", rsp.merchant_uid);
 
-                            fcm();
-                            //정상적인 토큰이 왔나 확인
-                            if (tokenG == "err") {
-                                alert("에러! 에러내용 : 토큰 반환 실패 (관리자에게 문의주세요)");
-                                location.replace("/user/index");
-                            }
-
-                            formdata.append("member_sq.memberDeviceDTO.memberSq", memberSq);
-                            formdata.append("member_sq.memberDeviceDTO.deviceNumber", tokenG);
+                            // // fcm();
+                            // //정상적인 토큰이 왔나 확인
+                            // if (tokenG == "err") {
+                            //     alert("에러! 에러내용 : 토큰 반환 실패 (관리자에게 문의주세요)");
+                            //     location.replace("/user/index");
+                            // }
+                            //
+                            // formdata.append("member_sq.memberDeviceDTO.memberSq", memberSq);
+                            // formdata.append("member_sq.memberDeviceDTO.deviceNumber", tokenG);
 
 
                             $.ajax({
@@ -347,12 +347,13 @@ function fcm() {
     };
 
 
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig)
-    } else {
-        firebase.app() // 이미 초기화되었다면, 초기화 된 것을 사용함
+    if (firebase.messaging.isSupported()) {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig)
+        } else {
+            firebase.app() // 이미 초기화되었다면, 초기화 된 것을 사용함
+        }
     }
-
 
 // Initialize Firebase
 //     firebase.initializeApp(firebaseConfig);

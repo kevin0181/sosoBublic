@@ -139,7 +139,7 @@
         <small>이미 완료된 주문은 취소가 불가능 합니다. 관리자에게 문의 부탁드립니다.</small>
         <div class="orderList">
             <div>
-                <div class="card mineCard" th:each="pasOrderList : ${memberDTO.pasOrderDTOList}"
+                <div class="card mineCard" th:each="pasOrderList : ${memberDTO.pasOrderDTOList}" style="margin-bottom: 5px;"
                      th:if="${#lists.size(pasOrderList)} != 0"
                      th:classappend="${pasOrderList.orderEnable} == false ?'border-success'">
                     <div class="card-content">
@@ -186,7 +186,7 @@
         <small>이미 완료된 주문은 취소가 불가능 합니다. 관리자에게 문의 부탁드립니다.</small>
         <div class="orderList">
             <div>
-                <div class="card mineCard" th:each="sosoOrderList : ${memberDTO.sosoOrderDTOS}"
+                <div class="card mineCard" th:each="sosoOrderList : ${memberDTO.sosoOrderDTOS}" style="margin-bottom: 5px;"
                      th:classappend="${sosoOrderList.orderEnable} == false ?'border-success'">
                     <div class="card-content">
                         <div class="card-body">
