@@ -36,6 +36,15 @@ public class OrderController {
             //pas list get
             List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllPlaceAndEnableOrder();
 
+            for (int i = 0; i < pasOrderDTOList.size(); i++) {
+                LocalDateTime parsedLocalDateTime = LocalDateTime.parse(pasOrderDTOList.get(i).getOrderDate());
+                String viewDateyyyy = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String viewDatedddd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                String viewDate = viewDateyyyy + " " + viewDatedddd;
+                pasOrderDTOList.get(i).setOrderDate(viewDate);
+            }
+
             model.addAttribute("orderList", pasOrderDTOList);
             model.addAttribute("className", className);
             return "admin/Order/PasOrderList";
@@ -43,6 +52,15 @@ public class OrderController {
             //soso list get
             List<SosoOrderDTO> sosoOrderServices = sosoOrderService.findAllPlaceAndEnableOrder();
             Collections.reverse(sosoOrderServices);
+
+            for (int i = 0; i < sosoOrderServices.size(); i++) {
+                LocalDateTime parsedLocalDateTime = LocalDateTime.parse(sosoOrderServices.get(i).getOrderDate());
+                String viewDateyyyy = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String viewDatedddd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                String viewDate = viewDateyyyy + " " + viewDatedddd;
+                sosoOrderServices.get(i).setOrderDate(viewDate);
+            }
 
             model.addAttribute("orderList", sosoOrderServices);
             model.addAttribute("className", className);
@@ -163,11 +181,28 @@ public class OrderController {
 
         if (place.equals("pas")) {
             PasOrderDTO pasOrderDTO = pasOrderService.findOrderId(uid);
+
+            LocalDateTime parsedLocalDateTime = LocalDateTime.parse(pasOrderDTO.getOrderDate());
+            String viewDateyyyy = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String viewDatedddd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+            String viewDate = viewDateyyyy + " " + viewDatedddd;
+            pasOrderDTO.setOrderDate(viewDate);
+
             model.addAttribute("pasOrderDTO", pasOrderDTO);
             model.addAttribute("place", "pas");
             return "/admin/Order/OrderDetailChange";
         } else if (place.equals("soso")) {
             SosoOrderDTO sosoOrderDTO = sosoOrderService.findOrderUid(uid);
+
+            LocalDateTime parsedLocalDateTime = LocalDateTime.parse(sosoOrderDTO.getOrderDate());
+            String viewDateyyyy = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String viewDatedddd = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+            String viewDate = viewDateyyyy + " " + viewDatedddd;
+            sosoOrderDTO.setOrderDate(viewDate);
+
+
             model.addAttribute("sosoOrderDTO", sosoOrderDTO);
             model.addAttribute("place", "soso");
             return "/admin/Order/OrderDetailChange";
