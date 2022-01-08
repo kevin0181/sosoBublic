@@ -54,25 +54,35 @@ public class OrderController {
     }
 
     @GetMapping("/All/OrderList") //주문 전체 내역 가져오기
-    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, @RequestParam(value = "DateSize", required = false) String date, Model model) {
+    public String sosoOrPasOrderAllList(@RequestParam(value = "className") String className, @RequestParam(value = "dateSize", required = false) String date, Model model) {
 
         if (className.equals("sosoList")) {
             List<SosoOrderDTO> sosoOrderDTOList = sosoOrderService.findAllOrderList();
-
             if (date == null) { //날짜지정없으면 현재 당일 달로 가져오기.
                 String orderDate;
                 for (int i = 0; i < sosoOrderDTOList.size(); i++) {
-                    orderDate = sosoOrderDTOList.get(i).getOrderDate().substring(0, 7);
+                    orderDate = sosoOrderDTOList.get(i).getOrderDate();
+                    LocalDateTime parsedLocalDateTime = LocalDateTime.parse(orderDate);
+
+                    // LocalDateTime에서 필요한 내용 필요한 형식으로 뽑기
+                    String yyyyMM = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+//                    String HHmmss = parsedLocalDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
 
                     Date nowDate = new Date();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
                     String strNowMonth = simpleDateFormat.format(nowDate);
 
-                    if (!orderDate.equals(strNowMonth)) {
+                    if (!yyyyMM.equals(strNowMonth)) {
                         sosoOrderDTOList.remove(i);
                     }
 
                 }
+            } else if (date.equals("all")) {
+                model.addAttribute("orderList", sosoOrderDTOList);
+                //active
+                model.addAttribute("className", className);
+                return "admin/Order/all/sosoAllList";
             } else {
 
             }
