@@ -117,6 +117,19 @@ public class OrderController {
                     }
                 }
             } else if (date.equals("all")) {
+
+                for (int i = 0; i < sosoOrderDTOList.size(); i++) {
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(sosoOrderDTOList.get(i).getOrderDate());
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    viewDate = viewDateyyyy + " " + viewDatedddd;
+                    sosoOrderDTOList.get(i).setOrderDate(viewDate);
+                }
+
+
+                Collections.reverse(sosoOrderDTOList);
+
                 model.addAttribute("orderList", sosoOrderDTOList);
                 //active
                 model.addAttribute("className", className);
@@ -151,6 +164,7 @@ public class OrderController {
                 }
             }
 
+            Collections.reverse(sosoOrderDTOList);
 
             model.addAttribute("orderList", sosoOrderDTOList);
 
@@ -202,7 +216,18 @@ public class OrderController {
                     }
                 }
             } else if (date.equals("all")) {
+
+                for (int i = 0; i < pasOrderDTOList.size(); i++) {
+                    LocalDateTime parsedLocalDateTimeView = LocalDateTime.parse(pasOrderDTOList.get(i).getOrderDate());
+                    String viewDateyyyy = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String viewDatedddd = parsedLocalDateTimeView.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+                    viewDate = viewDateyyyy + " " + viewDatedddd;
+                    pasOrderDTOList.get(i).setOrderDate(viewDate);
+                }
+
                 model.addAttribute("orderList", pasOrderDTOList);
+                Collections.reverse(pasOrderDTOList);
                 //active
                 model.addAttribute("className", className);
                 return "admin/Order/all/pasAllList";
@@ -236,6 +261,7 @@ public class OrderController {
                 }
             }
 
+            Collections.reverse(pasOrderDTOList);
 
             model.addAttribute("orderList", pasOrderDTOList);
             //active
