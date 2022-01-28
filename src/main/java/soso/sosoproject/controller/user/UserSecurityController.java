@@ -15,9 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import soso.sosoproject.controller.user.handler.UserLoginFailHandler;
 import soso.sosoproject.controller.user.handler.UserLoginSuccessHandler;
 import soso.sosoproject.service.Account.MemberService;
+
+import java.util.Collections;
 
 @Order(1)
 @Configuration
@@ -35,6 +40,8 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
 
 //        http.headers().frameOptions().disable()
 //                .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://www.instagram.com/"));
+        http
+                .cors().configurationSource(corsConfigurationSource());
 
         http
                 .csrf().ignoringAntMatchers("/user/account/sameEmail/check", "/user/account/certificationEmail/check",
@@ -65,6 +72,20 @@ public class UserSecurityController extends WebSecurityConfigurerAdapter {
                 .maxSessionsPreventsLogin(true)
                 .sessionRegistry(sessionRegistry());
 
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 

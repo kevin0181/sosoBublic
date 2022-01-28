@@ -56,6 +56,19 @@ function connect() {
     });
 }
 
+function kioskSubscribe() { //키오스크
+    var socket = new SockJS('/user/websocket');
+    stompClient = Stomp.over(socket);
+    // SockJS와 stomp client를 통해 연결을 시도.
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe('/sendAdminMessage/kiosk/order', function (chat) {
+            var JsonData = JSON.parse(chat.body);
+            console.log(JsonData);
+        });
+    });
+}
+
 function showOrder(chat) {
     //알림음
     sound();

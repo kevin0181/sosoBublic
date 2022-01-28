@@ -31,6 +31,7 @@ import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
+import soso.sosoproject.dto.kiosk.PracMessage;
 import soso.sosoproject.service.admin.menu.MenuService;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
@@ -69,6 +70,8 @@ public class MessageController extends ChannelInterceptorAdapter {
                 new IamportClient("1152819197412694",
                         "acffbee8c37f2492f2654739c30af6863c53e981f2488325703fb8d691f222814862c2ab7d67779a");
     }
+
+
 
 
     //주문 stomp
