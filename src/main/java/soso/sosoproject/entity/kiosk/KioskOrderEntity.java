@@ -30,7 +30,7 @@ public class KioskOrderEntity {
     @Column(name = "order_enable")
     private boolean orderEnable;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_sq")
     private List<KioskOrderDetailEntity> kioskOrderDetailEntityList;
 

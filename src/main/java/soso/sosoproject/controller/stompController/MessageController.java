@@ -1,6 +1,7 @@
 package soso.sosoproject.controller.stompController;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
@@ -25,6 +26,7 @@ import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
+import soso.sosoproject.dto.kiosk.KioskMenuDTO;
 import soso.sosoproject.dto.kiosk.KioskOrderDTO;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
@@ -258,6 +260,9 @@ public class MessageController extends ChannelInterceptorAdapter {
     @ResponseBody
     public KioskOrderDTO GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
 
+        ObjectMapper mapper = new ObjectMapper();
+        List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
+        });
 
         return null;
     }

@@ -30,7 +30,7 @@ public class KioskOrderDetailSideEntity {
     private String orderSidePrice;
 
     @ManyToOne
-    @JoinColumn(name = "order_detail_sq")
+    @JoinColumn(name = "order_detail_sq", insertable = false, updatable = false)
     private KioskOrderDetailEntity kioskOrderDetailEntity;
 
 }

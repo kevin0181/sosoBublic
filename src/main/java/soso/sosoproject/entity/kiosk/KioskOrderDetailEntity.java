@@ -31,10 +31,10 @@ public class KioskOrderDetailEntity {
     private String orderDetailMenuPrice;
 
     @ManyToOne
-    @JoinColumn(name = "order_sq")
+    @JoinColumn(name = "order_sq", insertable = false, updatable = false)
     private KioskOrderEntity kioskOrderEntity;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_detail_sq")
     private List<KioskOrderDetailSideEntity> kioskOrderDetailSideEntityList;
 }
