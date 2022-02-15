@@ -18,26 +18,20 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import soso.sosoproject.dto.MemberCountDTO;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
-import soso.sosoproject.dto.kiosk.PracMessage;
-import soso.sosoproject.service.admin.menu.MenuService;
+import soso.sosoproject.dto.kiosk.KioskOrderDTO;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -263,10 +257,10 @@ public class MessageController extends ChannelInterceptorAdapter {
     @MessageMapping("/kiosk")
     @SendTo("/sendAdminMessage/kiosk/order")
     @ResponseBody
-    public PracMessage GetKioskOrder(PracMessage pracMessage) throws Exception { //주문시 알림처리.
+    public KioskOrderDTO GetKioskOrder() throws Exception { //주문시 알림처리.
 
 
-        return pracMessage;
+        return null;
     }
 
 
