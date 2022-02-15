@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity(name = "kiosk_order_detail")
+@Entity(name = "kiosk_order_detail_side")
 public class KioskOrderDetailSideEntity {
 
     @Id
