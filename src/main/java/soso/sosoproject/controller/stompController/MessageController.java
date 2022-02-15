@@ -72,8 +72,6 @@ public class MessageController extends ChannelInterceptorAdapter {
     }
 
 
-
-
     //주문 stomp
     @Transactional
     @MessageMapping("/chat")
@@ -259,6 +257,16 @@ public class MessageController extends ChannelInterceptorAdapter {
     public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
         return imIamportClient.paymentByImpUid(imp_uid);
     }
+
+
+    //--------------------------키오스크 ------------------------------------------------
+    @MessageMapping("/kiosk")
+    @SendTo("/sendAdminMessage/kiosk/order")
+    @ResponseBody
+    public PracMessage GetKioskOrder(PracMessage pracMessage) throws Exception { //주문시 알림처리.
+        return pracMessage;
+    }
+
 
 }
 
