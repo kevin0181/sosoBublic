@@ -29,4 +29,8 @@ public class KioskOrderDetailSideEntity {
     @Column(name = "order_side_price")
     private String orderSidePrice;
 
+    @ManyToOne
+    @JoinColumn(name = "order_detail_sq")
+    private KioskOrderDetailEntity kioskOrderDetailEntity;
+
 }

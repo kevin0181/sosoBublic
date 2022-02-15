@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +30,11 @@ public class KioskOrderDetailEntity {
     @Column(name = "order_detail_menu_price")
     private String orderDetailMenuPrice;
 
+    @ManyToOne
+    @JoinColumn(name = "order_sq")
+    private KioskOrderEntity kioskOrderEntity;
+
+    @OneToMany
+    @JoinColumn(name = "order_detail_sq")
+    private List<KioskOrderDetailSideEntity> kioskOrderDetailSideEntityList;
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,5 +29,9 @@ public class KioskOrderEntity {
 
     @Column(name = "order_enable")
     private boolean orderEnable;
+
+    @OneToMany
+    @JoinColumn(name = "order_sq")
+    private List<KioskOrderDetailEntity> kioskOrderDetailEntityList;
 
 }

@@ -2,8 +2,10 @@ package soso.sosoproject.dto.kiosk;
 
 import lombok.Getter;
 import lombok.Setter;
+import soso.sosoproject.entity.kiosk.KioskOrderEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,5 +22,9 @@ public class KioskOrderDetailDTO {
     private int orderDetailMenuSize;
 
     private String orderDetailMenuPrice;
+
+    private KioskOrderDTO kioskOrderEntity;
+
+    private List<KioskOrderDetailSideDTO> kioskOrderDetailSideEntityList;
 
 }
