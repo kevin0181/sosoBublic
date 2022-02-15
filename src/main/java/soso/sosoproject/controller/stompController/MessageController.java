@@ -264,6 +264,8 @@ public class MessageController extends ChannelInterceptorAdapter {
     @SendTo("/sendAdminMessage/kiosk/order")
     @ResponseBody
     public PracMessage GetKioskOrder(PracMessage pracMessage) throws Exception { //주문시 알림처리.
+
+
         return pracMessage;
     }
 
