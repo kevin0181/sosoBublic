@@ -219,9 +219,9 @@ public class MenuService {
 
         List<Long> menuTodayList = pasMenuRepository.findAllByMenuToday(true);
 
-        if (menuTodayList.size() == 0){
+        if (menuTodayList.size() == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
 

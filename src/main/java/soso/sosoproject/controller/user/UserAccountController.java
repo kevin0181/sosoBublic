@@ -54,7 +54,6 @@ public class UserAccountController {
             return "/user/account/signupPage";
         }
 
-
         //회원가입
         boolean result = memberService.save(memberDTO, certificationKey);
 
