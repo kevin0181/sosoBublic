@@ -9,7 +9,7 @@ import lombok.Setter;
 public class KioskOrderSide {
 
     private Long sideSq;
-    private int sidePrice;
+    private String sidePrice;
     private int sideSize;
     private String sideName;
 
