@@ -17,6 +17,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.stereotype.Controller;
@@ -28,12 +29,14 @@ import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.dto.kiosk.KioskMenuDTO;
 import soso.sosoproject.dto.kiosk.KioskOrderDTO;
+import soso.sosoproject.dto.kiosk.PracMessage;
+import soso.sosoproject.entity.kiosk.KioskOrderEntity;
+import soso.sosoproject.service.kiosk.KioskService;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +51,9 @@ public class MessageController extends ChannelInterceptorAdapter {
     private PasOrderService pasOrderService;
     @Autowired
     private SosoOrderService sosoOrderService;
+    @Autowired
+    private KioskService kioskService;
+
 
     private List<MemberCountDTO> memberCountDTOList = new ArrayList<>();
     private List<String> memberSizeList = new ArrayList<>();
@@ -59,11 +65,13 @@ public class MessageController extends ChannelInterceptorAdapter {
     //---------------------주문------------------------------
     private IamportClient imIamportClient;
 
+
     public MessageController() {
         // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
         this.imIamportClient =
                 new IamportClient("1152819197412694",
                         "acffbee8c37f2492f2654739c30af6863c53e981f2488325703fb8d691f222814862c2ab7d67779a");
+
     }
 
 
@@ -255,18 +263,29 @@ public class MessageController extends ChannelInterceptorAdapter {
 
 
     //--------------------------키오스크 ------------------------------------------------
+
+
     @MessageMapping("/kiosk")
     @SendTo("/sendAdminMessage/kiosk/order")
     @ResponseBody
-    public KioskOrderDTO GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
+    public KioskOrderEntity GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
 
         ObjectMapper mapper = new ObjectMapper();
         List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
         });
 
-        return null;
-    }
+        KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
+        });
 
+
+        String totalPrice = (String) data.get("totalPrice");
+        String placeStatus = (String) data.get("placeStatus");
+
+
+        KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, totalPrice, placeStatus, kioskOrderDTO);
+
+        return kioskOrderEntity;
+    }
 
 }
 
