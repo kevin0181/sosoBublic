@@ -1,17 +1,22 @@
 package soso.sosoproject.service.kiosk;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import soso.sosoproject.dto.kiosk.KioskMenuDTO;
 import soso.sosoproject.dto.kiosk.KioskOrderDTO;
 import soso.sosoproject.entity.kiosk.KioskOrderDetailEntity;
 import soso.sosoproject.entity.kiosk.KioskOrderDetailSideEntity;
 import soso.sosoproject.entity.kiosk.KioskOrderEntity;
+import soso.sosoproject.repository.kiosk.KioskOrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class KioskService {
+
+    @Autowired
+    private KioskOrderRepository kioskOrderRepository;
 
     public KioskOrderEntity orderSave(List<KioskMenuDTO> kioskMenuDTOList, String totalPrice, String placeStatus, KioskOrderDTO kioskOrderDTO) {
 
@@ -23,7 +28,7 @@ public class KioskService {
         kioskOrderEntity.setOrderPlace(kioskOrderDTO.getOrderPlace()); //주문 장소
         kioskOrderEntity.setOrderDate(kioskOrderDTO.getOrderDate()); //주문 시각
         kioskOrderEntity.setOrderEnable(false); //주문 상태
-        kioskOrderEntity.setOrderId(kioskOrderDTO.getOrderId()); //주문 아이디
+        kioskOrderEntity.setOrderId(kioskOrderDTO.getOrder_id()); //주문 아이디
         kioskOrderEntity.setOrderTotalPrice(kioskOrderDTO.getOrderTotalPrice()); //주문 총 금액
         //------------------------------------------------------------------------------
 
@@ -63,6 +68,8 @@ public class KioskService {
         }
 
         kioskOrderEntity.setKioskOrderDetailEntityList(kioskOrderDetailEntityList);
+
+        kioskOrderRepository.save(kioskOrderEntity);
 
         return kioskOrderEntity;
     }
