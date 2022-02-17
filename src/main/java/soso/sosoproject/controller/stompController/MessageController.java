@@ -280,9 +280,10 @@ public class MessageController extends ChannelInterceptorAdapter {
 
         String totalPrice = (String) data.get("totalPrice");
         String placeStatus = (String) data.get("placeStatus");
+        String payStatus = (String) data.get("payStatus");
 
 
-        KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, totalPrice, placeStatus, kioskOrderDTO);
+        KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, totalPrice, placeStatus, kioskOrderDTO, payStatus);
 
         return kioskOrderEntity;
     }
