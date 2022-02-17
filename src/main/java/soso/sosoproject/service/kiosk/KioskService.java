@@ -18,7 +18,7 @@ public class KioskService {
     @Autowired
     private KioskOrderRepository kioskOrderRepository;
 
-    public KioskOrderEntity orderSave(List<KioskMenuDTO> kioskMenuDTOList, String totalPrice, String placeStatus, KioskOrderDTO kioskOrderDTO, String payStatus) {
+    public KioskOrderEntity orderSave(List<KioskMenuDTO> kioskMenuDTOList, KioskOrderDTO kioskOrderDTO) {
 
         KioskOrderEntity kioskOrderEntity = new KioskOrderEntity();
         List<KioskOrderDetailEntity> kioskOrderDetailEntityList = new ArrayList<>();
@@ -30,8 +30,12 @@ public class KioskService {
         kioskOrderEntity.setOrderEnable(false); //주문 상태
         kioskOrderEntity.setOrderTelegramNo(kioskOrderDTO.getOrderTelegramNo()); //주문 아이디
         kioskOrderEntity.setOrderTotalPrice(kioskOrderDTO.getOrderTotalPrice()); //주문 총 금액
-        kioskOrderEntity.setOrderPayStatus(payStatus);
-        
+        kioskOrderEntity.setOrderPayStatus(kioskOrderDTO.getOrderPayStatus()); //주문 현금 or 카드
+        kioskOrderEntity.setOrderTelegramNo(kioskOrderDTO.getOrderTelegramNo()); //주문 전문
+        kioskOrderEntity.setOrderApprovalNo(kioskOrderDTO.getOrderApprovalNo());
+        kioskOrderEntity.setOrderTradeUniqueNo(kioskOrderDTO.getOrderTradeUniqueNo());
+        kioskOrderEntity.setOrderTradeTime(kioskOrderDTO.getOrderTradeTime());
+
         //------------------------------------------------------------------------------
 
         for (int i = 0; i < kioskMenuDTOList.size(); i++) {

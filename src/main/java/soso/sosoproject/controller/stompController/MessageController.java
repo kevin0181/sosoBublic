@@ -270,22 +270,27 @@ public class MessageController extends ChannelInterceptorAdapter {
     @ResponseBody
     public KioskOrderEntity GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
 
-        ObjectMapper mapper = new ObjectMapper();
-        List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
-        });
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
+            });
 
-        KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
-        });
-
-
-        String totalPrice = (String) data.get("totalPrice");
-        String placeStatus = (String) data.get("placeStatus");
-        String payStatus = (String) data.get("payStatus");
+            KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
+            });
 
 
-        KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, totalPrice, placeStatus, kioskOrderDTO, payStatus);
+            KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, kioskOrderDTO);
 
-        return kioskOrderEntity;
+            return kioskOrderEntity;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+
     }
 
 }
