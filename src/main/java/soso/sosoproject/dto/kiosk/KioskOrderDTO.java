@@ -21,6 +21,8 @@ public class KioskOrderDTO {
 
     private boolean orderEnable = false;
 
+    private String orderPayStatus;
+
     private String orderTelegramNo;
 
     private String orderTradeTime;

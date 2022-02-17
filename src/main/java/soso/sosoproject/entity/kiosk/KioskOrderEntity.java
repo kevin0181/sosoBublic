@@ -27,6 +27,9 @@ public class KioskOrderEntity {
     @Column(name = "order_enable")
     private boolean orderEnable;
 
+    @Column(name = "order_pay_status") //50
+    private String orderPayStatus;
+
     @Column(name = "order_telegramno") //12 // 전문일련번호
     private String orderTelegramNo;
 
