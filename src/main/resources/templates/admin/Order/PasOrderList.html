@@ -58,6 +58,48 @@
                     </div>
                 </div>
             </div>
+            <section class="section" style="margin-bottom: 40px;padding-bottom: 30px;border-bottom: 1px solid black;">
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="kioskOrderListId">
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title" style="margin-bottom: 20px;">kiosk</h5>
+                                <p class="card-text"></p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="d-flex bd-highlight">
+                                        <p class="me-auto"
+                                           style="margin: 0;">시킨 메뉴
+                                            이름</p>
+                                        <p class=""
+                                           style="margin: 0;">메뉴
+                                            수량</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <div class="btn-group btn-group-sm" role="group"
+                                     aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-success">
+                                        주문 완료
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark"></button>
+                                    <button type="button" class="btn btn-outline-danger">
+                                        주문 취소
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding: 1rem;">
+                                <small class="text-muted" style="color: #eb6547!important">총 금액</small><br>
+                                <small class="text-muted">시간</small><br>
+                                <small class="text-muted"
+                                >주문번호</small><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section class="section">
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="orderListId">
                     <div class="col" th:each="order : ${orderList}" th:id="${order.ordersMerchantUid}">
