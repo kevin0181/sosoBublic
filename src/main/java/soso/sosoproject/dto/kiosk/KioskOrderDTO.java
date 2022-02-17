@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -14,8 +13,6 @@ public class KioskOrderDTO {
 
     private Long order_sq;
 
-    private String order_id;
-
     private String orderTotalPrice;
 
     private String orderDate;
@@ -23,6 +20,14 @@ public class KioskOrderDTO {
     private String orderPlace;
 
     private boolean orderEnable = false;
+
+    private String orderTelegramNo;
+
+    private String orderTradeTime;
+
+    private String orderApprovalNo;
+
+    private String orderTradeUniqueNo;
 
     private List<KioskOrderDetailDTO> kioskOrderDetailEntityList;
 }

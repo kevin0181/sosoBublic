@@ -28,7 +28,7 @@ public class KioskService {
         kioskOrderEntity.setOrderPlace(kioskOrderDTO.getOrderPlace()); //주문 장소
         kioskOrderEntity.setOrderDate(kioskOrderDTO.getOrderDate()); //주문 시각
         kioskOrderEntity.setOrderEnable(false); //주문 상태
-        kioskOrderEntity.setOrderId(kioskOrderDTO.getOrder_id()); //주문 아이디
+        kioskOrderEntity.setOrderTelegramNo(kioskOrderDTO.getOrderTelegramNo()); //주문 아이디
         kioskOrderEntity.setOrderTotalPrice(kioskOrderDTO.getOrderTotalPrice()); //주문 총 금액
         //------------------------------------------------------------------------------
 
