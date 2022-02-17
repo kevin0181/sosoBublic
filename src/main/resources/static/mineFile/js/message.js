@@ -220,6 +220,21 @@ function disconnectPas() {
 }
 
 
+function startKiosk() {
+    stompClient.send("/order/start/kiosk", {}, JSON.stringify({
+        'act': 'true'
+    }));
+    alert("키오스크가 시작되었습니다.");
+}
+
+function disconnectKiosk() {
+    stompClient.send("/order/start/kiosk", {}, JSON.stringify({
+        'act': 'false'
+    }));
+    alert("키오스크가 종료되었습니다.");
+}
+
+
 //주문 에서 처리 ---------------------------------------------------
 
 

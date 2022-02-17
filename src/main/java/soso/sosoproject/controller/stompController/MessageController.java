@@ -17,7 +17,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ import soso.sosoproject.dto.OrderMessageDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
 import soso.sosoproject.dto.kiosk.KioskMenuDTO;
 import soso.sosoproject.dto.kiosk.KioskOrderDTO;
-import soso.sosoproject.dto.kiosk.PracMessage;
 import soso.sosoproject.entity.kiosk.KioskOrderEntity;
 import soso.sosoproject.service.kiosk.KioskService;
 import soso.sosoproject.service.order.PasOrderService;
@@ -61,6 +59,8 @@ public class MessageController extends ChannelInterceptorAdapter {
     boolean adminActive = false;
 
     boolean startPas = false;
+
+    boolean startKiosk = false;
 
     //---------------------주문------------------------------
     private IamportClient imIamportClient;
@@ -185,6 +185,23 @@ public class MessageController extends ChannelInterceptorAdapter {
         }
     }
 
+
+    @MessageMapping("/start/kiosk")
+    public boolean startKiosk(String getKioskActive) throws Exception { //주문시 알림처리.
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        PasActive pasActive = objectMapper.readValue(getKioskActive, PasActive.class);
+
+        if (pasActive.isAct()) {
+            startKiosk = true;
+            return true;
+        } else {
+            startKiosk = false;
+            return false;
+        }
+    }
+
+
     //    memberSizeList
     @Override
     public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
@@ -268,26 +285,30 @@ public class MessageController extends ChannelInterceptorAdapter {
     @MessageMapping("/kiosk")
     @SendTo("/sendAdminMessage/kiosk/order")
     @ResponseBody
-    public KioskOrderEntity GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
+    public Object GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
 
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
-            });
+        if (startKiosk == false) {
+            return new soso.sosoproject.dto.kiosk.Message("noStart");
+        } else {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
+                });
 
-            KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
-            });
+                KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
+                });
 
 
-            KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, kioskOrderDTO);
+                KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, kioskOrderDTO);
 
-            return kioskOrderEntity;
-        } catch (Exception e) {
+                return kioskOrderEntity;
+            } catch (Exception e) {
 
-            e.printStackTrace();
+                e.printStackTrace();
 
-            return null;
+                return new soso.sosoproject.dto.kiosk.Message("error");
 
+            }
         }
 
 

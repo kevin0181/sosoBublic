@@ -42,8 +42,10 @@
                         <h3 style="display: inline-block" th:if="${className} == 'pas'">앤 빠스떼우</h3>
                         <h3 style="display: inline-block"> 주문 리스트</h3>
                         <div style="margin-bottom: 20px;" th:if="${className} == 'pas'">
-                            <button onclick="startPas()" class="btn btn-outline-info">시작</button>
-                            <button onclick="disconnectPas()" class="btn btn-outline-warning">종료</button>
+                            <button onclick="startPas()" class="btn btn-outline-info">pas 시작</button>
+                            <button onclick="disconnectPas()" class="btn btn-outline-warning">pas 종료</button>
+                            <button onclick="startKiosk()" class="btn btn-outline-info">kiosk 시작</button>
+                            <button onclick="disconnectKiosk()" class="btn btn-outline-warning">kiosk 종료</button>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
