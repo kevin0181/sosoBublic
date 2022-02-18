@@ -31,7 +31,7 @@ public class KioskOrderDTO {
 
     private String orderTradeUniqueNo;
 
-    private int orderNumber;
+    private String orderNumber;
 
     private List<KioskOrderDetailDTO> kioskOrderDetailEntityList;
 }

@@ -23,7 +23,7 @@ public class KioskOrderDetailDTO {
 
     private String orderDetailMenuPrice;
 
-    private KioskOrderDTO kioskOrderEntity;
+//    private KioskOrderDTO kioskOrderEntity;
 
     private List<KioskOrderDetailSideDTO> kioskOrderDetailSideEntityList;
 

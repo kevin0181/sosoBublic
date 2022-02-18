@@ -21,6 +21,6 @@ public class KioskOrderDetailSideDTO {
 
     private String orderSidePrice;
 
-    private KioskOrderDetailDTO kioskOrderDetailEntity;
+//    private KioskOrderDetailDTO kioskOrderDetailEntity;
 
 }

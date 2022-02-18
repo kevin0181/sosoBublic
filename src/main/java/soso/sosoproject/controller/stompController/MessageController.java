@@ -298,7 +298,7 @@ public class MessageController extends ChannelInterceptorAdapter {
                 KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
                 });
 
-                int orderNumber = (int) data.get("orderNumber");
+                String orderNumber = (String) data.get("orderNumber");
 
                 kioskOrderDTO.setOrderNumber(orderNumber); //주문 번호
 

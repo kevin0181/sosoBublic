@@ -43,7 +43,7 @@ public class KioskOrderEntity {
     private String orderTradeUniqueNo;
 
     @Column(name = "order_number")
-    private int orderNumber;
+    private String orderNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_sq")

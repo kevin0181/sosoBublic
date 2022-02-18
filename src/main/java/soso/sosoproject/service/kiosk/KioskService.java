@@ -1,6 +1,8 @@
 package soso.sosoproject.service.kiosk;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import soso.sosoproject.dto.kiosk.KioskMenuDTO;
 import soso.sosoproject.dto.kiosk.KioskOrderDTO;
@@ -11,12 +13,21 @@ import soso.sosoproject.repository.kiosk.KioskOrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KioskService {
 
     @Autowired
     private KioskOrderRepository kioskOrderRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
     public KioskOrderEntity orderSave(List<KioskMenuDTO> kioskMenuDTOList, KioskOrderDTO kioskOrderDTO) {
 
@@ -35,6 +46,7 @@ public class KioskService {
         kioskOrderEntity.setOrderApprovalNo(kioskOrderDTO.getOrderApprovalNo());
         kioskOrderEntity.setOrderTradeUniqueNo(kioskOrderDTO.getOrderTradeUniqueNo());
         kioskOrderEntity.setOrderTradeTime(kioskOrderDTO.getOrderTradeTime());
+        kioskOrderEntity.setOrderNumber(kioskOrderDTO.getOrderNumber());
 
         //------------------------------------------------------------------------------
 
@@ -80,4 +92,26 @@ public class KioskService {
         return kioskOrderEntity;
     }
 
+    public List<KioskOrderDTO> getAllOrder() {
+
+
+        List<KioskOrderEntity> kioskOrderEntityList = kioskOrderRepository.findAllByOrderEnable(false); // 완료 안된 주문 가져옴
+        List<KioskOrderDTO> kioskOrderDTOList = kioskOrderEntityList.stream().map(kioskOrderEntity -> modelMapper.map(kioskOrderEntity, KioskOrderDTO.class)).collect(Collectors.toList());
+
+
+//        for (int i = 0; i < kioskOrderDTOList.size(); i++) {
+//
+//
+//            for (int j = 0; j < kioskOrderDTOList.get(i).getKioskOrderDetailEntityList().size(); j++) {
+//
+//                kioskOrderDTOList.get(i).getKioskOrderDetailEntityList().get(j).setKioskOrderEntity(null);
+//
+//            }
+//
+//
+//        }
+
+
+        return kioskOrderDTOList;
+    }
 }

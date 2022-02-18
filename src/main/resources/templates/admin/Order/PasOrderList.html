@@ -60,19 +60,21 @@
             </div>
             <section class="section" style="margin-bottom: 40px;padding-bottom: 30px;border-bottom: 1px solid black;">
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="kioskOrderListId">
-                    <div class="col">
+                    <div class="col" th:each="kioskMenuList : ${kioskOrderDTOList}">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title" style="margin-bottom: 20px;">kiosk</h5>
+                                <h5 class="card-title" style="margin-bottom: 20px;"
+                                    th:text="'kiosk('+${kioskMenuList.orderNumber}+')'">kiosk</h5>
                                 <p class="card-text"></p>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
+                            <ul class="list-group list-group-flush" th:if="${kioskMenuList.kioskOrderDetailEntityList}">
+                                <li class="list-group-item"
+                                    th:each="kioskMenu : ${kioskMenuList.kioskOrderDetailEntityList}">
                                     <div class="d-flex bd-highlight">
-                                        <p class="me-auto"
+                                        <p class="me-auto" th:text="${kioskMenu.orderMenuName}"
                                            style="margin: 0;">시킨 메뉴
                                             이름</p>
-                                        <p class=""
+                                        <p class="" th:text="${kioskMenu.orderDetailMenuSize}"
                                            style="margin: 0;">메뉴
                                             수량</p>
                                     </div>
@@ -91,9 +93,11 @@
                                 </div>
                             </div>
                             <div class="card-footer" style="padding: 1rem;">
-                                <small class="text-muted" style="color: #eb6547!important">총 금액</small><br>
-                                <small class="text-muted">시간</small><br>
+                                <small class="text-muted" style="color: #eb6547!important"
+                                       th:text="'총 금액 : '+${kioskMenuList.orderTotalPrice}">총 금액</small><br>
                                 <small class="text-muted"
+                                       th:text="'주문 시각 : '+${kioskMenuList.orderTradeTime}">시간</small><br>
+                                <small class="text-muted" th:text="'주문 번호 : '+${kioskMenuList.orderTelegramNo}"
                                 >주문번호</small><br>
                             </div>
                         </div>

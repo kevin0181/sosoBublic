@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import soso.sosoproject.dto.PasOrderDTO;
 import soso.sosoproject.dto.SosoOrderDTO;
+import soso.sosoproject.dto.kiosk.KioskOrderDTO;
 import soso.sosoproject.message.AccountMessage;
+import soso.sosoproject.service.kiosk.KioskService;
 import soso.sosoproject.service.order.PasOrderService;
 import soso.sosoproject.service.order.SosoOrderService;
 
@@ -26,6 +28,9 @@ public class OrderController {
     @Autowired
     private SosoOrderService sosoOrderService;
 
+    @Autowired
+    private KioskService kioskService;
+
     @GetMapping("/orderList") //현재 주문 내역 가져오기
     public String startOrderList(@RequestParam("className") String className, Model model) {
 
@@ -41,6 +46,15 @@ public class OrderController {
                 String viewDate = viewDateyyyy + " " + viewDatedddd;
                 pasOrderDTOList.get(i).setOrderDate(viewDate);
             }
+
+            //------------------------kiosk order list get -----------------------
+
+
+            List<KioskOrderDTO> kioskOrderDTOList = kioskService.getAllOrder();
+
+            model.addAttribute("kioskOrderDTOList", kioskOrderDTOList);
+
+            //----------------------------------------------------------------------
 
             model.addAttribute("orderList", pasOrderDTOList);
             model.addAttribute("className", className);
