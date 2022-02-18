@@ -74,9 +74,27 @@
                                         <p class="me-auto" th:text="${kioskMenu.orderMenuName}"
                                            style="margin: 0;">시킨 메뉴
                                             이름</p>
-                                        <p class="" th:text="${kioskMenu.orderDetailMenuSize}"
+                                        <p class="" th:text="${kioskMenu.orderDetailMenuSize}+'개'"
                                            style="margin: 0;">메뉴
                                             수량</p>
+                                    </div>
+                                    <div style="display: flex; margin-top: 10px;"
+                                         th:if="${kioskMenu.kioskOrderDetailSideEntityList.size()} != 0">
+                                        <div style="width: 30%; height: auto; text-align: right;">
+                                            사이드
+                                        </div>
+                                        <div style="width: 70%; height: auto;">
+                                            <div class="d-flex bd-highlight"
+                                                 th:each="sideMenu : ${kioskMenu.kioskOrderDetailSideEntityList}"
+                                                 style="justify-content: right;"><!--  사이드메뉴-->
+                                                <p class="" th:text="${sideMenu.orderSideName}"
+                                                   style="margin: 0;flex: 1;text-align: center">시킨 메뉴
+                                                    이름</p>
+                                                <p class="" th:text="${sideMenu.orderSideSize}+'개'"
+                                                   style="margin: 0;text-align: right">메뉴
+                                                    수량</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -99,8 +117,14 @@
                                        th:text="'주문 시각 : '+${kioskMenuList.orderDate}">시간</small>
                                 <small class="text-muted" th:unless="${kioskMenuList.orderTradeTime} == null"
                                        th:text="'주문 시각 : '+${kioskMenuList.orderTradeTime}">시간</small><br>
-                                <small class="text-muted" th:text="'주문 번호 : '+${kioskMenuList.orderTelegramNo}"
-                                >주문번호</small><br>
+                                <small class="text-muted"
+                                       th:text="'주문 번호 : '+${kioskMenuList.orderTelegramNo}">주문번호</small><br>
+                                <small class="text-muted"
+                                       th:text="'결제 방식 : '+${kioskMenuList.orderPayStatus}">결제방법</small><br>
+                                <small class="text-muted" style="color: #217aff!important;"
+                                       th:if="${kioskMenuList.orderPlace} == 'inner'">매장</small>
+                                <small class="text-muted" style="color: #217aff!important;"
+                                       th:unless="${kioskMenuList.orderPlace} == 'inner'">포장</small><br>
                             </div>
                         </div>
                     </div>
