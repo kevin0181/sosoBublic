@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 public class KioskOrderDetailSideDTO {
 
-    private Long order_detail_side_sq;
+    private Long orderDetailSideSq;
 
     private Long orderDetailSq;
 

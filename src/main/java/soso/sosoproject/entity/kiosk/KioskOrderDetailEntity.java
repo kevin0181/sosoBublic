@@ -13,7 +13,8 @@ public class KioskOrderDetailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long order_detail_sq;
+    @Column(name = "order_detail_sq")
+    private Long orderDetailSq;
 
     @Column(name = "order_sq")
     private Long orderSq;
@@ -36,5 +37,5 @@ public class KioskOrderDetailEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_detail_sq")
-    private List<KioskOrderDetailSideEntity> kioskOrderDetailSideEntityList;
+    private List<KioskOrderDetailSideEntity> orderDetailSideEntityList;
 }

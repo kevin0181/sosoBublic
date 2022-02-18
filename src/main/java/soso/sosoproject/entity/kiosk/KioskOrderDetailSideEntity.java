@@ -12,7 +12,8 @@ public class KioskOrderDetailSideEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long order_detail_side_sq;
+    @Column(name = "order_detail_side_sq")
+    private Long orderDetailSideSq;
 
     @Column(name = "order_detail_sq")
     private Long orderDetailSq;
@@ -31,6 +32,6 @@ public class KioskOrderDetailSideEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_detail_sq", insertable = false, updatable = false)
-    private KioskOrderDetailEntity kioskOrderDetailEntity;
+    private KioskOrderDetailEntity orderDetailEntity;
 
 }

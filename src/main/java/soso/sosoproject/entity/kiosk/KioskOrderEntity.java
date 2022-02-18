@@ -47,6 +47,6 @@ public class KioskOrderEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_sq")
-    private List<KioskOrderDetailEntity> kioskOrderDetailEntityList;
+    private List<KioskOrderDetailEntity> orderDetailEntityList;
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class KioskOrderDetailDTO {
 
-    private Long order_detail_sq;
+    private Long orderDetailSq;
 
     private Long orderSq;
 
@@ -25,6 +25,6 @@ public class KioskOrderDetailDTO {
 
 //    private KioskOrderDTO kioskOrderEntity;
 
-    private List<KioskOrderDetailSideDTO> kioskOrderDetailSideEntityList;
+    private List<KioskOrderDetailSideDTO> orderDetailSideEntityList;
 
 }

@@ -33,5 +33,5 @@ public class KioskOrderDTO {
 
     private String orderNumber;
 
-    private List<KioskOrderDetailDTO> kioskOrderDetailEntityList;
+    private List<KioskOrderDetailDTO> orderDetailEntityList;
 }

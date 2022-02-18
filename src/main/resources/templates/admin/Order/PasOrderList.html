@@ -67,9 +67,9 @@
                                     th:text="'kiosk('+${kioskMenuList.orderNumber}+')'">kiosk</h5>
                                 <p class="card-text"></p>
                             </div>
-                            <ul class="list-group list-group-flush" th:if="${kioskMenuList.kioskOrderDetailEntityList}">
+                            <ul class="list-group list-group-flush" th:if="${kioskMenuList.orderDetailEntityList}">
                                 <li class="list-group-item"
-                                    th:each="kioskMenu : ${kioskMenuList.kioskOrderDetailEntityList}">
+                                    th:each="kioskMenu : ${kioskMenuList.orderDetailEntityList}">
                                     <div class="d-flex bd-highlight">
                                         <p class="me-auto" th:text="${kioskMenu.orderMenuName}"
                                            style="margin: 0;">시킨 메뉴
@@ -79,13 +79,13 @@
                                             수량</p>
                                     </div>
                                     <div style="display: flex; margin-top: 10px;"
-                                         th:if="${kioskMenu.kioskOrderDetailSideEntityList.size()} != 0">
+                                         th:if="${kioskMenu.orderDetailSideEntityList.size()} != 0">
                                         <div style="width: 30%; height: auto; text-align: right;">
                                             사이드
                                         </div>
                                         <div style="width: 70%; height: auto;">
                                             <div class="d-flex bd-highlight"
-                                                 th:each="sideMenu : ${kioskMenu.kioskOrderDetailSideEntityList}"
+                                                 th:each="sideMenu : ${kioskMenu.orderDetailSideEntityList}"
                                                  style="justify-content: right;"><!--  사이드메뉴-->
                                                 <p class="" th:text="${sideMenu.orderSideName}"
                                                    style="margin: 0;flex: 1;text-align: center">시킨 메뉴

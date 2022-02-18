@@ -295,16 +295,16 @@ public class MessageController extends ChannelInterceptorAdapter {
                 List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
                 });
 
-                KioskOrderDTO kioskOrderDTO = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderDTO>() {
+                KioskOrderEntity kioskOrderEntity = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderEntity>() {
                 });
 
                 String orderNumber = (String) data.get("orderNumber");
 
-                kioskOrderDTO.setOrderNumber(orderNumber); //주문 번호
+                kioskOrderEntity.setOrderNumber(orderNumber); //주문 번호
 
-                KioskOrderEntity kioskOrderEntity = kioskService.orderSave(kioskMenuDTOList, kioskOrderDTO);
+                KioskOrderEntity getkioskOrderEntity = kioskService.orderSaveData(kioskOrderEntity);
 
-                return kioskOrderEntity;
+                return getkioskOrderEntity;
             } catch (Exception e) {
 
                 e.printStackTrace();
