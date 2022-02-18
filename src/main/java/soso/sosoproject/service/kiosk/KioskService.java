@@ -59,7 +59,7 @@ public class KioskService {
             kioskOrderDetailEntity.setOrderDetailMenuPrice(kioskMenuDTOList.get(i).getMenuPrice()); //메뉴 가격
             kioskOrderDetailEntity.setOrderDetailMenuSize(kioskMenuDTOList.get(i).getSize()); //메뉴 사이즈
 
-            kioskOrderDetailEntityList.add(kioskOrderDetailEntity);
+
 
             if (kioskMenuDTOList.get(i).getAddSide().size() != 0) {
 
@@ -82,6 +82,7 @@ public class KioskService {
 
             }
 
+            kioskOrderDetailEntityList.add(kioskOrderDetailEntity);
 
         }
 
