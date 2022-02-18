@@ -42,6 +42,9 @@ public class KioskOrderEntity {
     @Column(name = "order_tradeuniqueno") //20 //거래고유번호
     private String orderTradeUniqueNo;
 
+    @Column(name = "order_number")
+    private int orderNumber;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_sq")
     private List<KioskOrderDetailEntity> kioskOrderDetailEntityList;
