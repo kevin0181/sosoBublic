@@ -15,6 +15,9 @@ public class KioskOrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long order_sq;
 
+    @Column(name = "order_id")
+    private String orderId;
+
     @Column(name = "order_total_price")
     private String orderTotalPrice;
 

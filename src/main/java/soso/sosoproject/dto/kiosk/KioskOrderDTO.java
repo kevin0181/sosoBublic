@@ -13,6 +13,8 @@ public class KioskOrderDTO {
 
     private Long order_sq;
 
+    private String orderId;
+
     private String orderTotalPrice;
 
     private String orderDate;
