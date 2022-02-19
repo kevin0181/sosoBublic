@@ -35,6 +35,7 @@ import soso.sosoproject.service.order.SosoOrderService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -287,36 +288,46 @@ public class MessageController extends ChannelInterceptorAdapter {
     @ResponseBody
     public Object GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
 
-        if (startKiosk == false) {
-            return new soso.sosoproject.dto.kiosk.Message("noStart");
-        } else {
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
-                });
-
-                KioskOrderEntity kioskOrderEntity = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderEntity>() {
-                });
-
-                String orderNumber = (String) data.get("orderNumber");
-
-                kioskOrderEntity.setOrderNumber(orderNumber); //주문 번호
-
-                KioskOrderEntity getkioskOrderEntity = kioskService.orderSaveData(kioskOrderEntity);
-
-                return getkioskOrderEntity;
-            } catch (Exception e) {
-
-                e.printStackTrace();
-
+        if (data.get("check") != null) {
+            if (data.get("check").equals("kiosk")) {
+                if (startKiosk) {
+                    return new soso.sosoproject.dto.kiosk.Message("start"); //start kiosk
+                } else {
+                    return new soso.sosoproject.dto.kiosk.Message("noStart");
+                }
+            } else {
                 return new soso.sosoproject.dto.kiosk.Message("error");
+            }
+        } else {
+            if (startKiosk == false) {
+                return new soso.sosoproject.dto.kiosk.Message("orderAfterNoStart");
+            } else {
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
+                    });
 
+                    KioskOrderEntity kioskOrderEntity = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderEntity>() {
+                    });
+
+                    String orderNumber = (String) data.get("orderNumber");
+
+                    kioskOrderEntity.setOrderNumber(orderNumber); //주문 번호
+
+                    KioskOrderEntity getkioskOrderEntity = kioskService.orderSaveData(kioskOrderEntity);
+
+                    return getkioskOrderEntity;  //주문 성공
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+
+                    return new soso.sosoproject.dto.kiosk.Message("error");
+
+                }
             }
         }
 
-
     }
-
 }
 
 
