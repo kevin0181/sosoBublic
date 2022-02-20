@@ -52,6 +52,8 @@ public class OrderController {
 
             List<KioskOrderDTO> kioskOrderDTOList = kioskService.getAllOrder();
 
+            Collections.reverse(kioskOrderDTOList);
+
             model.addAttribute("kioskOrderDTOList", kioskOrderDTOList);
 
             //----------------------------------------------------------------------
