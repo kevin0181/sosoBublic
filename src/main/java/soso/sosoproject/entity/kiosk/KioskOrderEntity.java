@@ -24,6 +24,9 @@ public class KioskOrderEntity {
     @Column(name = "order_date")
     private String orderDate;
 
+    @Column(name = "order_date_time")
+    private String orderDateTime;
+
     @Column(name = "order_place")
     private String orderPlace;
 

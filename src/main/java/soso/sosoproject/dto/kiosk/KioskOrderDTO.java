@@ -19,6 +19,8 @@ public class KioskOrderDTO {
 
     private String orderDate;
 
+    private String orderDateTime;
+
     private String orderPlace;
 
     private boolean orderEnable = false;
