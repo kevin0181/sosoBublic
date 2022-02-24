@@ -50,7 +50,7 @@ public class OrderController {
             //------------------------kiosk order list get -----------------------
 
 
-            List<KioskOrderDTO> kioskOrderDTOList = kioskService.getAllOrder();
+            List<KioskOrderDTO> kioskOrderDTOList = kioskService.getFalseOrder();
 
             Collections.reverse(kioskOrderDTOList);
 
@@ -284,6 +284,17 @@ public class OrderController {
             model.addAttribute("className", className);
             return "admin/Order/all/pasAllList";
 
+        } else if (className.equals("kiosk")) { //키오스크
+
+            List<KioskOrderDTO> kioskOrderDTOList = kioskService.getAllOrder();
+
+            Collections.reverse(kioskOrderDTOList);
+
+            model.addAttribute("kioskOrderDTOList", kioskOrderDTOList);
+            model.addAttribute("className", className);
+
+            return "admin/Order/all/kioskAllList";
+
         } else {
             return "error/error-404-new";
         }
@@ -488,9 +499,9 @@ public class OrderController {
 
 //        try {
 
-            kioskService.successOrderService(orderSq);
+        kioskService.successOrderService(orderSq);
 
-            return true;
+        return true;
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            return false;

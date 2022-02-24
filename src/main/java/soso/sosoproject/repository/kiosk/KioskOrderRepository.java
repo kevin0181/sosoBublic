@@ -9,8 +9,10 @@ import java.util.List;
 
 @Repository
 public interface KioskOrderRepository extends JpaRepository<KioskOrderEntity, Long> {
-    
+
 
     List<KioskOrderEntity> findAllByOrderEnable(boolean id);
+
+    List<KioskOrderEntity> findAllByOrderDate(String date);
 
 }

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="/integrated/Favicon_Link/favicon.html :: link"></div>
+    <title>소소한 부엌</title>
+    <script rel="javascript" type="text/javascript" src="" th:src="@{/static/assets/js/jquery-3.6.0.js}"></script>
+    <div th:replace="/admin_fragment/cssAndScript.html :: css"></div>
+    <!--    리스트-->
+    <link rel="stylesheet" href="../../../static/assets/vendors/simple-datatables/style.css"
+          th:href="@{/static/assets/vendors/simple-datatables/style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script>
+        function sound() {
+            var sound = new Howl({
+                src: ['/music/알림음.mp3'],
+                volume: 0.7,
+            });
+            sound.play()
+        }
+    </script>
+</head>
+
+<body>
+<div class="spinner-border text-primary" id="loading_var" role="status" style="position: fixed;
+    top: 50%;
+    left: 50%; z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
+<div id="app">
+
+    <div id="sidebar" class="active">
+        <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3 style="display: inline-block">키오스크 주문 리스트</h3>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/admin/index}">Main</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">kiosk</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="orderListId">
+                    <div class="col" th:each="kioskMenuList : ${kioskOrderDTOList}">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title" style="margin-bottom: 20px;"
+                                    th:text="'kiosk('+${kioskMenuList.orderNumber}+')'">kiosk</h5>
+                                <p class="card-text"></p>
+                            </div>
+                            <ul class="list-group list-group-flush" th:if="${kioskMenuList.orderDetailEntityList}">
+                                <li class="list-group-item"
+                                    th:each="kioskMenu : ${kioskMenuList.orderDetailEntityList}">
+                                    <div class="d-flex bd-highlight">
+                                        <p class="me-auto" th:text="${kioskMenu.orderMenuName}"
+                                           style="margin: 0;">시킨 메뉴
+                                            이름</p>
+                                        <p class="" th:text="${kioskMenu.orderDetailMenuSize}+'개'"
+                                           style="margin: 0;">메뉴
+                                            수량</p>
+                                    </div>
+                                    <div style="display: flex; margin-top: 10px;"
+                                         th:if="${kioskMenu.orderDetailSideEntityList.size()} != 0">
+                                        <div style="width: 30%; height: auto; text-align: right;">
+                                            SIDE
+                                        </div>
+                                        <div style="width: 70%; height: auto;">
+                                            <div class="d-flex bd-highlight"
+                                                 th:each="sideMenu : ${kioskMenu.orderDetailSideEntityList}"
+                                                 style="justify-content: right;"><!--  사이드메뉴-->
+                                                <p class="" th:text="${sideMenu.orderSideName}"
+                                                   style="margin: 0;flex: 1;text-align: center">시킨 메뉴
+                                                    이름</p>
+                                                <p class="" th:text="${sideMenu.orderSideSize}+'개'"
+                                                   style="margin: 0;text-align: right">메뉴
+                                                    수량</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <div class="btn-group btn-group-sm" role="group"
+                                     aria-label="Basic example">
+<!--                                    <button type="button" th:onclick="successKioskOrder([[${kioskMenuList.order_sq}]])"-->
+<!--                                            class="btn btn-outline-success">-->
+<!--                                        주문 완료-->
+<!--                                    </button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-dark"></button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-danger">-->
+                                    <!--                                        주문 취소-->
+                                    <!--                                    </button>-->
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding: 1rem;">
+                                <small class="text-muted" style="color: #eb6547!important"
+                                       th:text="'총 금액 : '+${kioskMenuList.orderTotalPrice}">총 금액</small><br>
+                                <small class="text-muted" th:if="${kioskMenuList.orderTradeTime} == null"
+                                       th:text="'주문 시각 : '+${kioskMenuList.orderDate}+' '+${kioskMenuList.orderDateTime}">시간</small><br>
+                                <small class="text-muted"
+                                       th:text="'주문 번호 : '+${kioskMenuList.orderTelegramNo}">주문번호</small><br>
+                                <small class="text-muted"
+                                       th:text="'결제 방식 : '+${kioskMenuList.orderPayStatus}">결제방법</small><br>
+                                <small class="text-muted" style="color: #217aff!important;"
+                                       th:if="${kioskMenuList.orderPlace} == 'inner'">매장</small>
+                                <small class="text-muted" style="color: #217aff!important;"
+                                       th:unless="${kioskMenuList.orderPlace} == 'inner'">포장</small><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2021 &copy; version 0.0.1</p>
+                </div>
+                <div class="float-end">
+                    <p>페이지 오류 문의 <span class="text-danger"><i class="bi bi-heart"></i></span> :
+                        <a>kevin0181@naver.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<div th:replace="/admin_fragment/cssAndScript.html :: script"></div>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        connect();
+        // setTimeout(() => memberStartConnect(), 500);
+        // setTimeout(() => adminChatSend([[${session.memberSq}]], [[${session.memberRole}]]), 1000);
+
+
+    });
+</script>
+</html>

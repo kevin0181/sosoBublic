@@ -12,7 +12,9 @@ import soso.sosoproject.entity.kiosk.KioskOrderEntity;
 import soso.sosoproject.repository.kiosk.KioskOrderRepository;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +32,21 @@ public class KioskService {
         return new ModelMapper();
     }
 
-    public List<KioskOrderDTO> getAllOrder() {
-
+    public List<KioskOrderDTO> getFalseOrder() {
 
         List<KioskOrderEntity> kioskOrderEntityList = kioskOrderRepository.findAllByOrderEnable(false); // 완료 안된 주문 가져옴
+        List<KioskOrderDTO> kioskOrderDTOList = kioskOrderEntityList.stream().map(kioskOrderEntity -> modelMapper.map(kioskOrderEntity, KioskOrderDTO.class)).collect(Collectors.toList());
+
+        return kioskOrderDTOList;
+    }
+
+    public List<KioskOrderDTO> getAllOrder() {
+
+        Date nowDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String nowDateFormat = simpleDateFormat.format(nowDate);
+
+        List<KioskOrderEntity> kioskOrderEntityList = kioskOrderRepository.findAllByOrderDate(nowDateFormat); // 완료 안된 주문 가져옴
         List<KioskOrderDTO> kioskOrderDTOList = kioskOrderEntityList.stream().map(kioskOrderEntity -> modelMapper.map(kioskOrderEntity, KioskOrderDTO.class)).collect(Collectors.toList());
 
         return kioskOrderDTOList;
@@ -56,4 +69,6 @@ public class KioskService {
         kioskOrderRepository.save(kioskOrderEntity);
 
     }
+
+
 }
