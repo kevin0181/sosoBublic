@@ -304,8 +304,8 @@ public class MessageController extends ChannelInterceptorAdapter {
             } else {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
-                    List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
-                    });
+//                    List<KioskMenuDTO> kioskMenuDTOList = mapper.convertValue(data.get("orderMenu"), new TypeReference<List<KioskMenuDTO>>() {
+//                    });
 
                     KioskOrderEntity kioskOrderEntity = mapper.convertValue(data.get("orderData"), new TypeReference<KioskOrderEntity>() {
                     });
