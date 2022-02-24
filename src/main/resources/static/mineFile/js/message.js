@@ -160,7 +160,7 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
         '         </div>\n' +
         '         <div class="card-footer" style="padding: 1rem;">\n' +
         '               <small class="text-muted" style="color: #eb6547!important">총 금액 : ' + JsonData.orderTotalPrice + '</small><br>\n' +
-        '               <small class="text-muted">주문 시각 : ' + JsonData.orderDate + '</small>\n' +
+        '               <small class="text-muted">주문 시각 : ' + JsonData.orderDate + '</small><br>\n' +
         '               <small class="text-muted">주문 번호 : ' + JsonData.orderTelegramNo + '</small><br>\n' +
         '               <small class="text-muted">결제 방식 : ' + JsonData.orderPayStatus + '</small><br>\n' +
         '               <small class="text-muted" style="color: #217aff!important;">' + placeStatus + '</small>\n' +
