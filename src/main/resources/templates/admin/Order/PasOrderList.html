@@ -101,13 +101,14 @@
                             <div style="text-align: center; margin: 15px 0;">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
-                                    <button type="button" class="btn btn-outline-success">
+                                    <button type="button" th:onclick="successKioskOrder([[${kioskMenuList.order_sq}]])"
+                                            class="btn btn-outline-success">
                                         주문 완료
                                     </button>
-                                    <button type="button" class="btn btn-outline-dark"></button>
-                                    <button type="button" class="btn btn-outline-danger">
-                                        주문 취소
-                                    </button>
+                                    <!--                                    <button type="button" class="btn btn-outline-dark"></button>-->
+                                    <!--                                    <button type="button" class="btn btn-outline-danger">-->
+                                    <!--                                        주문 취소-->
+                                    <!--                                    </button>-->
                                 </div>
                             </div>
                             <div class="card-footer" style="padding: 1rem;">

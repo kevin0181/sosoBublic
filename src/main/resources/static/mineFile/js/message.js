@@ -157,6 +157,18 @@ function showOrder(chat) {
 }
 
 
+function successKioskOrder(orderSq) {
+
+    if (confirm("주문을 완료하시겠습니까??")) {
+        console.log(orderSq);
+    } else {
+        return false;
+    }
+
+
+}
+
+
 function memberStartConnect() {
     var socket = new SockJS('/user/websocket');
     stompClient = Stomp.over(socket);
