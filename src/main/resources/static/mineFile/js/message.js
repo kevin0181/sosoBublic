@@ -161,6 +161,19 @@ function successKioskOrder(orderSq) {
 
     if (confirm("주문을 완료하시겠습니까??")) {
         console.log(orderSq);
+
+        $.ajax({
+            url: "/admin/kiosk/success/order",
+            data: {"orderSq": orderSq},
+            dataType: "JSON",
+            type: "GET",
+            success: function (data) {
+
+                location.reload();
+
+            }
+        });
+
     } else {
         return false;
     }

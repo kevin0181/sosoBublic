@@ -45,4 +45,15 @@ public class KioskService {
 
         return kioskOrderEntity;
     }
+
+
+    @Transactional
+    public void successOrderService(Long orderSq) {
+
+        KioskOrderEntity kioskOrderEntity = kioskOrderRepository.getById(orderSq);
+        kioskOrderEntity.setOrderEnable(true);
+
+        kioskOrderRepository.save(kioskOrderEntity);
+
+    }
 }

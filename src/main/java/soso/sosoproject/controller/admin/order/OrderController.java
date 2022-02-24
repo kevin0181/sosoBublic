@@ -480,4 +480,22 @@ public class OrderController {
         model.addAttribute("data", new AccountMessage("오류가 발생했습니다.", "/admin/index"));
         return "/message/account-message";
     }
+
+    //---------------kiosk order success ----------------------
+    @GetMapping("/kiosk/success/order")
+    @ResponseBody
+    public boolean successOrder(@RequestParam(value = "orderSq") Long orderSq) {
+
+//        try {
+
+            kioskService.successOrderService(orderSq);
+
+            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+
+
+    }
 }
