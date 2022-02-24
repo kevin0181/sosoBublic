@@ -65,8 +65,112 @@ function kioskSubscribe() { //키오스크
         stompClient.subscribe('/sendAdminMessage/kiosk/order', function (chat) {
             var JsonData = JSON.parse(chat.body);
             console.log(JsonData);
+            showOrderByKiosk(JsonData);
         });
     });
+}
+
+function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
+    sound();
+    Toastify({
+        text: "키오스크에서 주문이 들어왔습니다.",
+        duration: 3600000, //3000 -> 3초 //즉 3600000 -> 1시간
+        close: true,
+        gravity: "bottom",
+        position: "right",
+        backgroundColor: "#e78b72",
+        // destination: "/admin/order/changeDetail?memberSq=" + chat.memberSq + "&uid=" + chat.ordersImpUid + "&place=pas"
+    }).showToast();
+
+
+    var viewMessage = '<div class="col">\n' +
+        '                        <div class="card h-100">\n' +
+        '                            <div class="card-body">\n' +
+        '                                <h5 class="card-title" style="margin-bottom: 20px;"\n' +
+        '                                  >kiosk(' + JsonData.orderNumber + ')</h5>\n' +
+        '                                <p class="card-text"></p>\n' +
+        '                            </div>\n' +
+        '                            <ul class="list-group list-group-flush">';
+
+    var menuMessage = '';
+
+    if (JsonData.orderDetailEntityList.length != 0) {
+
+
+
+        $(JsonData.orderDetailEntityList).each(function () { //mainMenu
+
+            menuMessage += '<li class="list-group-item">\n' +
+                '                   <div class="d-flex bd-highlight">\n' +
+                '                        <p class="me-auto" style="margin: 0;">' + this.orderMenuName + '</p>\n' +
+                '                        <p class="" style="margin: 0;">' + this.orderDetailMenuSize + '개</p>\n' +
+                '                   </div>\n';
+
+
+            if (this.orderDetailSideEntityList.length != 0) { //side
+
+                menuMessage += '<div style="display: flex; margin-top: 10px;">' +
+                    '                                        <div style="width: 30%; height: auto; text-align: right;">\n' +
+                    '                                            SIDE\n' +
+                    '                                        </div>\n' +
+                    '                                        <div style="width: 70%; height: auto;">';
+
+                $(this.orderDetailSideEntityList).each(function () {
+
+
+                    menuMessage += ' <div class="d-flex bd-highlight" style="justify-content: right;"><!--  사이드메뉴-->\n' +
+                        '                      <p class="" style="margin: 0;flex: 1;text-align: center">' + this.orderSideName + '</p>\n' +
+                        '                       <p class="" style="margin: 0;text-align: right">' + this.orderSideSize + '개</p>\n' +
+                        '            </div>';
+
+
+                });
+
+                menuMessage += '</div></div>';
+
+            }
+
+            menuMessage += '</li>';
+
+        });
+
+    }
+
+    viewMessage += menuMessage;
+    viewMessage += '</ul>';
+
+    var placeStatus = "";
+    if (JsonData.orderPlace == "inner") {
+        placeStatus = "매장";
+    } else {
+        placeStatus = "포장";
+    }
+
+    viewMessage += '<div style="text-align: center; margin: 15px 0;">\n' +
+        '              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">\n' +
+        '                                    <button type="button" onclick="successKioskOrder(' + JsonData.order_sq + ')"\n' +
+        '                                            class="btn btn-outline-success">\n' +
+        '                                        주문 완료\n' +
+        '                                    </button>\n' +
+        '                                    <!--                                    <button type="button" class="btn btn-outline-dark"></button>-->\n' +
+        '                                    <!--                                    <button type="button" class="btn btn-outline-danger">-->\n' +
+        '                                    <!--                                        주문 취소-->\n' +
+        '                                    <!--                                    </button>-->\n' +
+        '             </div>\n' +
+        '         </div>\n' +
+        '         <div class="card-footer" style="padding: 1rem;">\n' +
+        '               <small class="text-muted" style="color: #eb6547!important">총 금액 : ' + JsonData.orderTotalPrice + '</small><br>\n' +
+        '               <small class="text-muted">주문 시각 : ' + JsonData.orderDate + '</small>\n' +
+        '               <small class="text-muted">주문 번호 : ' + JsonData.orderTelegramNo + '</small><br>\n' +
+        '               <small class="text-muted">결제 방식 : ' + JsonData.orderPayStatus + '</small><br>\n' +
+        '               <small class="text-muted" style="color: #217aff!important;">' + placeStatus + '</small>\n' +
+        '         </div>';
+
+    viewMessage += '</div></div>';
+
+    $('#kioskOrderListId').prepend(viewMessage);
+
+
 }
 
 function showOrder(chat) {

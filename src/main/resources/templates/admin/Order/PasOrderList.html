@@ -59,6 +59,7 @@
                 </div>
             </div>
             <section class="section" style="margin-bottom: 40px;padding-bottom: 30px;border-bottom: 1px solid black;">
+                <!-- 키오스크 -->
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="kioskOrderListId">
                     <div class="col" th:each="kioskMenuList : ${kioskOrderDTOList}">
                         <div class="card h-100">
@@ -131,7 +132,7 @@
                     </div>
                 </div>
             </section>
-            <section class="section">
+            <section class="section">   <!-- 소소-->
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="orderListId">
                     <div class="col" th:each="order : ${orderList}" th:id="${order.ordersMerchantUid}">
                         <div class="card h-100">
