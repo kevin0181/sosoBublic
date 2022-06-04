@@ -33,7 +33,7 @@ public class KioskOrderDetailEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_sq", insertable = false, updatable = false)
-    private KioskOrderEntity kioskOrderEntity;
+    private KioskOrderEntity menuEntity;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_detail_sq")
