@@ -62,7 +62,7 @@
                 <!-- 키오스크 -->
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="kioskOrderListId">
                     <div class="col" th:each="kioskMenuList : ${kioskOrderDTOList}">
-                        <div class="card h-100">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title" style="margin-bottom: 20px;"
                                     th:text="'kiosk('+${kioskMenuList.orderNumber}+')'">kiosk</h5>

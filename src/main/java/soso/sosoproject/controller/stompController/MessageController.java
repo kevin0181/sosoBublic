@@ -69,9 +69,7 @@ public class MessageController extends ChannelInterceptorAdapter {
 
     public MessageController() {
         // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
-        this.imIamportClient =
-                new IamportClient("1152819197412694",
-                        "acffbee8c37f2492f2654739c30af6863c53e981f2488325703fb8d691f222814862c2ab7d67779a");
+        this.imIamportClient = new IamportClient("1152819197412694", "acffbee8c37f2492f2654739c30af6863c53e981f2488325703fb8d691f222814862c2ab7d67779a");
 
     }
 
@@ -156,8 +154,7 @@ public class MessageController extends ChannelInterceptorAdapter {
             //로그아웃
             for (int i = 0; i < memberCountDTOList.size(); i++) {
                 if (memberCountDTOList.get(i).getMemberSq() == memberCountDTO.getMemberSq()) {
-                    if (memberCountDTOList.get(i).getRole_name().equals("[ROLE_ADMIN]")
-                            && memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
+                    if (memberCountDTOList.get(i).getRole_name().equals("[ROLE_ADMIN]") && memberCountDTO.getRole_name().equals("[ROLE_ADMIN]")) {
                         memberCountDTOList.remove(i);
                         adminActive = false;
                         break;
@@ -286,6 +283,7 @@ public class MessageController extends ChannelInterceptorAdapter {
     @MessageMapping("/kiosk")
     @SendTo("/sendAdminMessage/kiosk/order")
     @ResponseBody
+    @Transactional
     public Object GetKioskOrder(@RequestBody Map<String, Object> data) throws Exception { //주문시 알림처리.
 
         if (data.get("check") != null) {
@@ -314,9 +312,9 @@ public class MessageController extends ChannelInterceptorAdapter {
 
                     kioskOrderEntity.setOrderNumber(orderNumber); //주문 번호
 
-                    KioskOrderEntity getkioskOrderEntity = kioskService.orderSaveData(kioskOrderEntity);
+                    kioskService.orderSaveData(kioskOrderEntity);
 
-                    return getkioskOrderEntity;  //주문 성공
+                    return kioskOrderEntity;  //주문 성공
                 } catch (Exception e) {
 
                     e.printStackTrace();

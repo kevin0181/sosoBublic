@@ -52,11 +52,8 @@ public class KioskService {
         return kioskOrderDTOList;
     }
 
-    @Transactional
-    public KioskOrderEntity orderSaveData(KioskOrderEntity kioskOrderEntity) {
+    public void orderSaveData(KioskOrderEntity kioskOrderEntity) {
         kioskOrderRepository.save(kioskOrderEntity);
-
-        return kioskOrderEntity;
     }
 
 

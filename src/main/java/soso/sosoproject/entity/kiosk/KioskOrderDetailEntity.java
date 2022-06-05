@@ -31,9 +31,9 @@ public class KioskOrderDetailEntity {
     @Column(name = "order_detail_menu_price")
     private String orderDetailMenuPrice;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_sq", insertable = false, updatable = false)
-    private KioskOrderEntity menuEntity;
+    private KioskOrderEntity kioskOrderEntity;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_detail_sq")
