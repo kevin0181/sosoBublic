@@ -297,6 +297,17 @@ public class MessageController extends ChannelInterceptorAdapter {
                 return new soso.sosoproject.dto.kiosk.Message("error");
             }
         } else {
+
+            if (data.get("beforeCheck") != null) { //사전에 체크
+                if (data.get("beforeCheck").equals("kiosk")) {
+                    if (startKiosk == false) {
+                        return new soso.sosoproject.dto.kiosk.Message("noStart");
+                    } else {
+                        return new soso.sosoproject.dto.kiosk.Message("");
+                    }
+                }
+            }
+            
             if (startKiosk == false) {
                 return new soso.sosoproject.dto.kiosk.Message("orderAfterNoStart");
             } else {
