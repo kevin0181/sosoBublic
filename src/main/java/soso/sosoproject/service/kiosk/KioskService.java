@@ -58,9 +58,9 @@ public class KioskService {
 
 
     @Transactional
-    public void successOrderService(Long orderSq) {
+    public void successOrderService(String orderTelegramNo) {
 
-        KioskOrderEntity kioskOrderEntity = kioskOrderRepository.getById(orderSq);
+        KioskOrderEntity kioskOrderEntity = kioskOrderRepository.findByOrderTelegramNo(orderTelegramNo);
         kioskOrderEntity.setOrderEnable(true);
 
         kioskOrderRepository.save(kioskOrderEntity);

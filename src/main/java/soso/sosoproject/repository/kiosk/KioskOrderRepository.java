@@ -13,6 +13,8 @@ public interface KioskOrderRepository extends JpaRepository<KioskOrderEntity, Lo
 
     List<KioskOrderEntity> findAllByOrderEnable(boolean id);
 
+    KioskOrderEntity findByOrderTelegramNo(String orderTelegramNo);
+
     List<KioskOrderEntity> findAllByOrderDate(String date);
 
 }

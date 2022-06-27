@@ -151,7 +151,7 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
 
         viewMessage += '<div style="text-align: center; margin: 15px 0;">\n' +
             '              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">\n' +
-            '                                    <button type="button" onclick="successKioskOrder(' + JsonData.order_sq + ')"\n' +
+            '                                    <button type="button" onclick=\'successKioskOrder("' + JsonData.orderTelegramNo + '")\' ' +
             '                                            class="btn btn-outline-success">\n' +
             '                                        주문 완료\n' +
             '                                    </button>\n' +
@@ -268,14 +268,15 @@ function showOrder(chat) {
 }
 
 
-function successKioskOrder(orderSq) {
+function successKioskOrder(orderTelegramNo) {
+
+    console.log("삭제 orderTelegramNo : " + orderTelegramNo);
 
     if (confirm("주문을 완료하시겠습니까??")) {
-        console.log(orderSq);
 
         $.ajax({
             url: "/admin/kiosk/success/order",
-            data: {"orderSq": orderSq},
+            data: {"orderTelegramNo": orderTelegramNo},
             dataType: "JSON",
             type: "GET",
             success: function (data) {

@@ -495,11 +495,11 @@ public class OrderController {
     //---------------kiosk order success ----------------------
     @GetMapping("/kiosk/success/order")
     @ResponseBody
-    public boolean successOrder(@RequestParam(value = "orderSq") Long orderSq) {
+    public boolean successOrder(@RequestParam(value = "orderTelegramNo") String orderTelegramNo) {
 
 //        try {
 
-        kioskService.successOrderService(orderSq);
+        kioskService.successOrderService(orderTelegramNo);
 
         return true;
 //        } catch (Exception e) {
