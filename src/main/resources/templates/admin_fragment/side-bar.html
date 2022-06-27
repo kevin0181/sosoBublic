@@ -78,51 +78,58 @@
                     </a>
                 </li>
                 <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link' th:classappend="${(className == 'soso' ? 'top-active':'')+
-                                                                        (className == 'pas' ? 'top-active':'')}">
+                    <a href="#" class='sidebar-link'
+                       th:classappend="${(className == 'kiosk' ? 'top-active':'')+(className == 'addKioskMenu'?'top-active':'')}">
                         <i class="bi bi-stack"></i>
-                        <span>Order</span>
+                        <span>Kiosk</span>
                     </a>
                     <ul class="submenu ">
-                        <li class="" th:classappend="${className} == 'soso' ? 'btn-active'">
-                            <a href="form-layout.html" th:href="@{/admin/orderList(className='soso')}"
-                               style="margin-top: 5px"
-                               class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>소소한 부엌</span>
+                        <li class="sidebar-item " th:classappend="${className} == 'addKioskMenu' ? 'btn-active'">
+                            <a class='sidebar-link'
+                               th:href="@{/admin/kiosk/addMenu(className='addKioskMenu')}">
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>키오스크 메뉴 추가</span>
                             </a>
                         </li>
-                        <li class="" th:classappend="${className} == 'pas' ? 'btn-active'">
-                            <a href="form-layout.html" th:href="@{/admin/orderList(className='pas')}"
-                               style="margin-top: 5px"
-                               class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>앤 빠스떼우</span>
+                        <li class="sidebar-item " th:classappend="${className} == 'kiosk' ? 'btn-active'">
+                            <a class='sidebar-link'
+                               th:href="@{/admin/All/OrderList(className='kiosk')}">
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>키오스크 주문 현황</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item " th:classappend="${className} == 'sosoList' ? 'top-active'">
-                    <a href="table-datatable.html" class='sidebar-link'
-                       th:href="@{/admin/All/OrderList(className='sosoList')}">
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>soso 전체 주문</span>
+                <li class="" th:classappend="${className} == 'pas' ? 'top-active'">
+                    <a href="form-layout.html" th:href="@{/admin/orderList(className='pas')}"
+                       style="margin-top: 5px"
+                       class='sidebar-link'>
+                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                        <span>Kiosk & Pas Start</span>
                     </a>
                 </li>
                 <li class="sidebar-item " th:classappend="${className} == 'pasList' ? 'top-active'">
                     <a href="table-datatable.html" class='sidebar-link'
                        th:href="@{/admin/All/OrderList(className='pasList')}">
                         <i class="bi bi-grid-1x2-fill"></i>
-                        <span>&pas 전체 주문</span>
+                        <span>&pas 주문 현황</span>
                     </a>
                 </li>
-                <li class="sidebar-item " th:classappend="${className} == 'kiosk' ? 'top-active'">
-                    <a class='sidebar-link'
-                       th:href="@{/admin/All/OrderList(className='kiosk')}">
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>키오스크 전체 주문</span>
-                    </a>
-                </li>
+                <!--                        <li class="" th:classappend="${className} == 'soso' ? 'btn-active'">-->
+                <!--                            <a href="form-layout.html" th:href="@{/admin/orderList(className='soso')}"-->
+                <!--                               style="margin-top: 5px"-->
+                <!--                               class='sidebar-link'>-->
+                <!--                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>-->
+                <!--                                <span>소소한 부엌</span>-->
+                <!--                            </a>-->
+                <!--                        </li>-->
+                <!--                <li class="sidebar-item " th:classappend="${className} == 'sosoList' ? 'top-active'">-->
+                <!--                    <a href="table-datatable.html" class='sidebar-link'-->
+                <!--                       th:href="@{/admin/All/OrderList(className='sosoList')}">-->
+                <!--                        <i class="bi bi-grid-1x2-fill"></i>-->
+                <!--                        <span>soso 전체 주문</span>-->
+                <!--                    </a>-->
+                <!--                </li>-->
             </ul>
         </div>
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
