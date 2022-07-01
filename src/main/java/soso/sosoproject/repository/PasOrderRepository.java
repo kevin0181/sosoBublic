@@ -12,6 +12,7 @@ public interface PasOrderRepository extends JpaRepository<PasOrderDTO, Long> {
 
 
     List<PasOrderDTO> findAllByOrderEnableOrderByOrderDateDesc(boolean enable);
+    List<PasOrderDTO> findAllByOrderEnableOrderByOrderDateAsc(boolean enable);
 
     PasOrderDTO findAllByOrdersMerchantUid(String id);
 

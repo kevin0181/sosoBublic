@@ -171,7 +171,8 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
 
         viewMessage += '</div></div>';
 
-        $('#kioskOrderListId').prepend(viewMessage);
+        // $('#kioskOrderListId').prepend(viewMessage);
+        $('#kioskOrderListId').append(viewMessage);
 
 
     } catch (e) {

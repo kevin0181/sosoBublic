@@ -37,6 +37,7 @@ public class OrderController {
         if (className.equals("pas")) {
             //pas list get
             List<PasOrderDTO> pasOrderDTOList = pasOrderService.findAllPlaceAndEnableOrder();
+            Collections.reverse(pasOrderDTOList);
 
             for (int i = 0; i < pasOrderDTOList.size(); i++) {
                 LocalDateTime parsedLocalDateTime = LocalDateTime.parse(pasOrderDTOList.get(i).getOrderDate());
@@ -52,7 +53,7 @@ public class OrderController {
 
             List<KioskOrderDTO> kioskOrderDTOList = kioskService.getFalseOrder();
 
-            Collections.reverse(kioskOrderDTOList);
+//            Collections.reverse(kioskOrderDTOList);
 
             model.addAttribute("kioskOrderDTOList", kioskOrderDTOList);
 
