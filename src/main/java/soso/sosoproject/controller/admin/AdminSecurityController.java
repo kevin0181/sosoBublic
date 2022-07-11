@@ -53,10 +53,10 @@ public class AdminSecurityController extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/admin/index")
                 .invalidateHttpSession(true);
 
-        http
-                .sessionManagement()
-                .maximumSessions(3) //3명 로그인 제한
-                .sessionRegistry(sessionRegistry());
+//        http
+//                .sessionManagement()
+//                .maximumSessions(3) //3명 로그인 제한
+//                .sessionRegistry(sessionRegistry());
 
     }
 
