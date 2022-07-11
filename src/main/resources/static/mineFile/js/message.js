@@ -280,6 +280,9 @@ function successKioskOrder(orderTelegramNo) {
             data: {"orderTelegramNo": orderTelegramNo},
             dataType: "JSON",
             type: "GET",
+            beforeSend: function () {
+                $('#index_loading_var').show();
+            },
             success: function (data) {
 
                 location.reload();

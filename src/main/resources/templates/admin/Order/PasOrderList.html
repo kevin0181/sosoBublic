@@ -24,6 +24,13 @@
 </head>
 
 <body>
+<div class="spinner-border text-success" role="status" id="index_loading_var" style="position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
 <div id="app">
     <div id="sidebar" class="active">
         <div th:replace="/admin_fragment/side-bar.html :: side-var"></div>
