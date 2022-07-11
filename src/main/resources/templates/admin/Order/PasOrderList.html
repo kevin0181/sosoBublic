@@ -61,7 +61,7 @@
             <section class="section" style="margin-bottom: 40px;padding-bottom: 30px;border-bottom: 1px solid black;">
                 <!-- 키오스크 -->
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="kioskOrderListId">
-                    <div class="col" th:each="kioskMenuList : ${kioskOrderDTOList}">
+                    <div class="col" style="width: 25%;" th:each="kioskMenuList : ${kioskOrderDTOList}">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title" style="margin-bottom: 20px;"
@@ -102,7 +102,8 @@
                             <div style="text-align: center; margin: 15px 0;">
                                 <div class="btn-group btn-group-sm" role="group"
                                      aria-label="Basic example">
-                                    <button type="button" th:onclick="successKioskOrder([[${kioskMenuList.orderTelegramNo}]])"
+                                    <button type="button"
+                                            th:onclick="successKioskOrder([[${kioskMenuList.orderTelegramNo}]])"
                                             class="btn btn-outline-success">
                                         주문 완료
                                     </button>
@@ -113,17 +114,19 @@
                                 </div>
                             </div>
                             <div class="card-footer" style="padding: 1rem;">
-                                <small class="text-muted" style="color: #eb6547!important"
+                                <small class="text-muted" style="color: #eb6547!important;font-weight: bold;"
                                        th:text="'총 금액 : '+${kioskMenuList.orderTotalPrice}">총 금액</small><br>
-                                <small class="text-muted"
+                                <small class="text-muted" style="font-size: 12px;font-weight: bold;"
                                        th:text="'주문 시각 : '+${kioskMenuList.orderDate}+' '+${kioskMenuList.orderDateTime}">시간</small><br>
-                                <small class="text-muted"
+                                <small class="text-muted" style="font-size: 10px"
                                        th:text="'주문 번호 : '+${kioskMenuList.orderTelegramNo}">주문번호</small><br>
-                                <small class="text-muted"
+                                <small class="text-muted" style="font-size: 10px"
                                        th:text="'결제 방식 : '+${kioskMenuList.orderPayStatus}">결제방법</small><br>
-                                <small class="text-muted" style="color: #217aff!important;"
+                                <small class="text-muted"
+                                       style="background-color: yellow; font-size: 14px; font-weight: bold;"
                                        th:if="${kioskMenuList.orderPlace} == 'inner'">매장</small>
-                                <small class="text-muted" style="color: #217aff!important;"
+                                <small class="text-muted"
+                                       style="background-color: #c9efa8; font-size: 14px; font-weight: bold;"
                                        th:unless="${kioskMenuList.orderPlace} == 'inner'">포장</small><br>
                             </div>
                         </div>

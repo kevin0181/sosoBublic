@@ -89,7 +89,7 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
             }).showToast();
 
 
-            var viewMessage = '<div class="col">\n' +
+            var viewMessage = '<div class="col" style="width: 25%;">\n' +
                 '                        <div class="card h-100">\n' +
                 '                            <div class="card-body">\n' +
                 '                                <h5 class="card-title" style="margin-bottom: 20px;"\n' +
@@ -144,9 +144,9 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
 
         var placeStatus = "";
         if (JsonData.orderPlace == "inner") {
-            placeStatus = "매장";
+            placeStatus = '<small className="text-muted" style="background-color: yellow">매장</small>';
         } else {
-            placeStatus = "포장";
+            placeStatus = '<small className="text-muted" style="background-color: #c9efa8">포장</small>';
         }
 
         viewMessage += '<div style="text-align: center; margin: 15px 0;">\n' +
@@ -163,10 +163,10 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
             '         </div>\n' +
             '         <div class="card-footer" style="padding: 1rem;">\n' +
             '               <small class="text-muted" style="color: #eb6547!important">총 금액 : ' + JsonData.orderTotalPrice + '</small><br>\n' +
-            '               <small class="text-muted">주문 시각 : ' + JsonData.orderDate + '</small><br>\n' +
+            '               <small class="text-muted" style="font-size: 12px">주문 시각 : ' + JsonData.orderDate + '</small><br>\n' +
             '               <small class="text-muted">주문 번호 : ' + JsonData.orderTelegramNo + '</small><br>\n' +
             '               <small class="text-muted">결제 방식 : ' + JsonData.orderPayStatus + '</small><br>\n' +
-            '               <small class="text-muted" style="color: #217aff!important;">' + placeStatus + '</small>\n' +
+            placeStatus +
             '         </div>';
 
         viewMessage += '</div></div>';
