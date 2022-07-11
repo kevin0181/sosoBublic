@@ -144,9 +144,9 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
 
         var placeStatus = "";
         if (JsonData.orderPlace == "inner") {
-            placeStatus = '<small className="text-muted" style="background-color: yellow">매장</small>';
+            placeStatus = '<small className="text-muted" style="background-color: yellow; font-size: 14px; font-weight: bold;">매장</small>';
         } else {
-            placeStatus = '<small className="text-muted" style="background-color: #c9efa8">포장</small>';
+            placeStatus = '<small className="text-muted" style="background-color: #c9efa8; font-size: 14px; font-weight: bold;">포장</small>';
         }
 
         viewMessage += '<div style="text-align: center; margin: 15px 0;">\n' +
@@ -162,10 +162,10 @@ function showOrderByKiosk(JsonData) { //키오스크 실시간 주문
             '             </div>\n' +
             '         </div>\n' +
             '         <div class="card-footer" style="padding: 1rem;">\n' +
-            '               <small class="text-muted" style="color: #eb6547!important">총 금액 : ' + JsonData.orderTotalPrice + '</small><br>\n' +
-            '               <small class="text-muted" style="font-size: 12px">주문 시각 : ' + JsonData.orderDate + '</small><br>\n' +
-            '               <small class="text-muted">주문 번호 : ' + JsonData.orderTelegramNo + '</small><br>\n' +
-            '               <small class="text-muted">결제 방식 : ' + JsonData.orderPayStatus + '</small><br>\n' +
+            '               <small class="text-muted" style="color: #eb6547!important; font-weight: bold;">총 금액 : ' + JsonData.orderTotalPrice + '</small><br>\n' +
+            '               <small class="text-muted" style="font-size: 12px; font-weight: bold;">주문 시각 : ' + JsonData.orderDate + '</small><br>\n' +
+            '               <small class="text-muted" style="font-size: 10px">주문 번호 : ' + JsonData.orderTelegramNo + '</small><br>\n' +
+            '               <small class="text-muted" style="font-size: 10px">결제 방식 : ' + JsonData.orderPayStatus + '</small><br>\n' +
             placeStatus +
             '         </div>';
 
