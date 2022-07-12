@@ -70,7 +70,7 @@
                 <div class="row row-cols-1 row-cols-md-3 g-4" id="kioskOrderListId">
                     <div class="col" style="width: 25%;" th:each="kioskMenuList : ${kioskOrderDTOList}">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style="padding: 10px 20px;">
                                 <h5 class="card-title" style="margin-bottom: 20px;"
                                     th:text="'kiosk('+${kioskMenuList.orderNumber}+')'">kiosk</h5>
                                 <p class="card-text"></p>

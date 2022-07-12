@@ -43,22 +43,27 @@
 
 @media (max-width: 450px) {
     .indexLoadingButton {
-      left: 36.5%;%;
+        left: 36.5%;
+    %;
     }
 }
 
-.nice-select{
-    width: 100%!important;
+.nice-select {
+    width: 100% !important;
 }
 
-.nonButton{
+.nonButton {
     display: none;
 }
 
-.yellow{
+.yellow {
     background-color: yellow;
 }
 
-.green{
+.green {
     background-color: #c9efa8;
+}
+
+.green-color {
+    color: #c9efa8;
 }
