@@ -120,7 +120,7 @@
                                     <!--                                    </button>-->
                                 </div>
                             </div>
-                            <div class="card-footer" style="padding: 1rem;">
+                            <div class="card-footer" th:classappend="${kioskMenuList.orderPlace != 'inner'} ? 'green'" style="padding: 1rem;">
                                 <small class="text-muted" style="color: #eb6547!important;font-weight: bold;"
                                        th:text="'총 금액 : '+${kioskMenuList.orderTotalPrice}">총 금액</small><br>
                                 <small class="text-muted" style="font-size: 12px; font-weight: bold;"
@@ -130,10 +130,10 @@
                                 <small class="text-muted" style="font-size: 10px"
                                        th:text="'결제 방식 : '+${kioskMenuList.orderPayStatus}">결제방법</small><br>
                                 <small class="text-muted"
-                                       style="background-color: yellow; font-size: 14px; font-weight: bold;"
+                                       style="font-size: 14px; font-weight: bold;"
                                        th:if="${kioskMenuList.orderPlace} == 'inner'">매장</small>
                                 <small class="text-muted"
-                                       style="background-color: #c9efa8; font-size: 14px; font-weight: bold;"
+                                       style="font-size: 14px; font-weight: bold;"
                                        th:unless="${kioskMenuList.orderPlace} == 'inner'">포장</small><br>
                             </div>
                         </div>
